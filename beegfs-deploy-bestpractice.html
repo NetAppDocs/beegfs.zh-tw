@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>檢視最佳實務做法</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="檢視最佳實務做法" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/beegfs/beegfs-deploy-bestpractice.html" />
+	<meta property="og:description" content="在NetApp解決方案上部署BeeGFS時、請遵循最佳實務準則。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/beegfs/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="在NetApp解決方案上部署BeeGFS時、請遵循最佳實務準則。">
+  <meta name="keywords" content=" BeeGFS on NetApp, NetApp Verified Architecture, EF600"><!-- Icons -->
+  <link rel="icon" href="/zh-tw/beegfs/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/beegfs/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/beegfs/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/beegfs/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-tw/beegfs/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-tw/beegfs/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-tw/beegfs/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/custom-dropdown.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    if (document.location.hostname === "docs.netapp.com") {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      head.appendChild(onetrustScript);
+    }
+
+    function OptanonWrapper() { }
+
+    if (document.location.hostname === "docs.netapp.com") {
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+      head.appendChild(adobe);
+
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-81697994-3');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/beegfs/js/na-search.js'></script><script src='/zh-tw/beegfs/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-tw/beegfs/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-tw/beegfs/js/na-utility.js'></script>
+  <script src='/zh-tw/beegfs/js/clouddocs.js'></script>
+  <script src='/zh-tw/beegfs/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-tw/beegfs/js/toc.js'></script>
+  <script src='/zh-tw/beegfs/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/zh-tw/beegfs/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/beegfs/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/beegfs/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/beegfs/js/jszip.min.js'></script>
+  <script src='/zh-tw/beegfs/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/beegfs/issues/new?body=Page%3A%20[檢視最佳實務做法](https://docs.netapp.com/zh-tw/beegfs/beegfs-deploy-bestpractice.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/beegfs/images/discuss-sm.svg" alt="" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/beegfs/blob/main/second-gen/beegfs-deploy-bestpractice.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/beegfs/images/edit-sm.svg" alt="" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/beegfs/images/article-sm.svg" alt="" class="github-icon" />瞭解如何作出貢獻</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此頁面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">產品與解決方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支援與訓練</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社群</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">部落格</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客戶成功案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-tw/beegfs/search.html"
+          data-type="widget" 
+          data-placeholder="搜尋文件"
+          data-no-results-found="找不到符合 {query} 的相關結果。"
+          data-did-you-mean="搜尋 {suggestion}。"
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？"
+          data-results-found="找到 {hitCount} 筆結果"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">繁體中文</span>
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/zh-tw/beegfs/beegfs-deploy-bestpractice.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/us-en/beegfs/beegfs-deploy-bestpractice.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/beegfs/beegfs-deploy-bestpractice.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/beegfs/beegfs-deploy-bestpractice.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/beegfs/beegfs-deploy-bestpractice.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li></ul>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>可用的 PDF<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/zh-tw/beegfs/pdfs/fullsite-sidebar/採用E系列儲存設備的NetApp_BeeGFS.pdf" >
+          <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>此文件網站（PDF 格式）</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/開始使用.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>
+            開始使用
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/檢視解決方案設計.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>
+            檢視解決方案設計
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/部署解決方案.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>
+            部署解決方案
+          </a>
+          
+
+
+
+
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/部署軟體.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>
+            部署軟體
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/zh-tw/beegfs/images/pdf-zip.png" alt="" width="16" height="16"/>
+      <pre>個別 PDF 文件的集合<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container" id="mysidebardiv">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/index.html">
+        NetApp文件上的BeeGFS
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 開始使用</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/whats-included.html">
+        本網站內容
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-terms.html">
+        詞彙與概念
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-gens.html">
+        設計世代
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-solution-overview.html">
+        解決方案總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-architecture-overview.html">
+        架構總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-technology-requirements.html">
+        技術需求
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 檢視解決方案設計</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-overview.html">
+        設計總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-hardware-architecture.html">
+        硬體組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-software-architecture.html">
+        軟體組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-solution-verification.html">
+        設計驗證
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-solution-sizing-guidelines.html">
+        規模調整準則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-performance-tuning.html">
+        效能調校
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 部署解決方案</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-overview.html">
+        部署總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-learn-ansible.html">
+        瞭解Ansible庫存
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-bestpractice.html">
+        檢視最佳實務做法
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-hardware.html">
+        部署硬體
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 部署軟體</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-setup-nodes.html">
+        設定檔案和區塊節點
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-file-node-tuning.html">
+        調整系統設定以獲得效能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-setting-up-an-ansible-control-node.html">
+        設定Ansible控制節點
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-create-inventory.html">
+        建立可Ansible庫存
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-define-inventory.html">
+        定義BeeGFS建置區塊
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-playbook.html">
+        部署BeeGFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-configure-clients.html">
+        設定BeeGFS用戶端
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-scale-building-blocks.html">
+        擴充BeeGFS叢集
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-recommended-volume-percentages.html">
+        建議的Volume百分比
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/legal-notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com/zh-tw/e-series-family/">E-Series</a>
+        </li>
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-tw/beegfs/">BeeGFS&nbsp;on&nbsp;NetApp&nbsp;with&nbsp;E-Series&nbsp;Storage</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">檢視最佳實務做法</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-07-29 16:51:52 +0000">07/29/2022</time>
+    
+  
+
+<span>貢獻者
+</span>
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>在NetApp解決方案上部署BeeGFS時、請遵循最佳實務準則。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="標準慣例">標準慣例</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>實際組裝及建立Ansible庫存檔案時、請遵循下列標準慣例（如需詳細資訊、請參閱） <a href="beegfs-deploy-beegfs-general-config.html">"建立可Ansible庫存"</a>）。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>檔案節點主機名稱會依序編號（H01-HN）、機架頂端的數字較低、底部的數字較高。</p>
+<div class="paragraph">
+<p>例如、命名慣例「[location（位置）[ROW][RAG] HN（機架）」看起來像「ictad22h01」。</p>
+</div>
+</li>
+<li>
+<p>每個區塊節點都由兩個儲存控制器組成、每個控制器都有自己的主機名稱。</p>
+<div class="paragraph">
+<p>儲存陣列名稱是指可Ansible庫存中的整個區塊儲存系統。儲存陣列名稱應依序編號（A01-A）、個別控制器的主機名稱則衍生自該命名慣例。</p>
+</div>
+<div class="paragraph">
+<p>例如、名為「ictad22a01」的區塊節點通常可以為每個控制器設定主機名稱、例如「ictad22a01-a」和「ictad22a01-b」、但在「Ansible」目錄中稱為「ictad22a01」。</p>
+</div>
+</li>
+<li>
+<p>同一個建置區塊內的檔案和區塊節點共用相同的編號配置、並在機架中彼此相鄰、兩個檔案節點位於頂端、兩個區塊節點位於其正下方。</p>
+<div class="paragraph">
+<p>例如、在第一個建置區塊中、檔案節點H01和h02都直接連接至區塊節點A01和A02。從上到下、主機名稱為H01、h02、A01和A02。</p>
+</div>
+</li>
+<li>
+<p>建置區塊會根據主機名稱以連續順序安裝、因此編號較低的主機名稱位於機架頂端、編號較高的主機名稱位於底部。</p>
+<div class="paragraph">
+<p>其目的是將連接至機架交換器頂端的纜線長度降至最低、並定義標準部署實務做法、以簡化疑難排解。如果資料中心因為擔心機架穩定性而不允許使用此功能、則肯定會允許使用相反的功能、從底部向上填入機架。</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="infiniband儲存網路組態">InfiniBand儲存網路組態</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>每個檔案節點上的一半InfiniBand連接埠、用於直接連線至區塊節點。另一半連接至InfiniBand交換器、用於BeeGFS用戶端與伺服器的連線。在判斷用於BeeGFS用戶端和伺服器的IPoIB子網路大小時、您必須考量運算/GPU叢集和BeeGFS檔案系統的預期成長。如果您必須偏離建議的IP範圍、請記住、單一建置區塊中的每個直接連線都有獨特的子網路、而且不會與用於用戶端與伺服器連線的子網路重疊。</p>
+</div>
+<div class="sect2">
+<h3 id="直接連線">直接連線</h3>
+<div class="paragraph">
+<p>每個建置區塊內的檔案和區塊節點、一律使用下表中的IP進行直接連線。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="附註">
+</td>
+<td class="content">
+此定址方案遵循下列規則：第三個八位元組永遠是不規則的、甚至是不規則的、這取決於檔案節點是不規則的或是偶數的。
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">檔案節點</th>
+<th class="tableblock halign-left valign-top">IB連接埠</th>
+<th class="tableblock halign-left valign-top">IP 位址</th>
+<th class="tableblock halign-left valign-top">區塊節點</th>
+<th class="tableblock halign-left valign-top">IB連接埠</th>
+<th class="tableblock halign-left valign-top">實體IP</th>
+<th class="tableblock halign-left valign-top">虛擬IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ODD（上一）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1a.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.1.10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ODD（C1）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2A.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.1.100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.1.101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ODD（上一）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2A</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.1.10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ODD（C1）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2A.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.3.100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.3.101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ODD（上一）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.5.10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">偶數（C2）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2A.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.5.100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.5.101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ODD（上一）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4a.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.1.10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">偶數（C2）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2A.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.1.100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.1.101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">偶數（下半年）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1a.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.168.1.10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ODD（C1）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2B</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192．168．2．100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192．168．2．101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">偶數（下半年）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2A</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192．168．4．10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ODD（C1）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2B</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24.100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24.101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">偶數（下半年）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">地址：192．168．6．10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">偶數（C2）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2B</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6.100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6.101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">偶數（下半年）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4a.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192．168．8．10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">偶數（C2）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2B</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192．168．8．100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192．168．8．101</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="beegfs用戶端伺服器ipoib定址方案兩個子網路">BeeGFS用戶端伺服器IPoIB定址方案（兩個子網路）</h3>
+<div class="paragraph">
+<p>為了讓BeeGFS用戶端使用兩個InfiniBand連接埠、每個子網路需要兩個IPoIB子網路、而BeeGFS伺服器服務的一半則在每個子網路上設定偏好的IP、以確保用戶端使用兩個InfiniBand連接埠來最大化備援和檔案系統的可能處理量。</p>
+</div>
+<div class="paragraph">
+<p>每個檔案節點都會執行多個BeeGFS伺服器服務（管理、中繼資料或儲存設備）。為了讓每項服務獨立容錯移轉至其他檔案節點、每項服務都會設定獨特的IP位址、以便在兩個節點之間浮動（有時稱為邏輯介面或LIF）。</p>
+</div>
+<div class="paragraph">
+<p>此部署雖然並非必要、但會假設這些連線使用下列IPoIB子網路範圍、並定義套用下列規則的標準定址方案：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>第二個八位元組永遠是不符合或甚至不符合、取決於檔案節點InfiniBand連接埠是ODD或偶數。</p>
+</li>
+<li>
+<p>BeeGFS叢集IP永遠是「xxx」。127.100.yyy&#8217;或&#8217;xxx.xxx.128.100.y'。</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="附註">
+</td>
+<td class="content">
+除了用於頻內作業系統管理的介面、電暈同步還能使用其他介面來進行叢集心律跳轉和同步。如此可確保單一介面遺失不會導致整個叢集中斷運作。
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>BeeGFS管理服務永遠是「xxx.xxx.Y.101.0」或「xxx.xxx.Y.102.0」。</p>
+</li>
+<li>
+<p>BeeGFS中繼資料服務一律位於「xxx.yyy.101.zzz」或「xxx.xxx.y.102.zzz」。</p>
+</li>
+<li>
+<p>BeeGFS儲存服務永遠是「xxx.xxx.y.103.zzz」或「xxx.xxx.y.103.zzz」。</p>
+</li>
+<li>
+<p>範圍從「100.xxx.1.1」到「100.xxx.99.255」的位址會保留給用戶端。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>下表提供子網路A的範圍：100127.0.0/16。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">目的</th>
+<th class="tableblock halign-left valign-top">InfiniBand連接埠</th>
+<th class="tableblock halign-left valign-top">IP位址或範圍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS叢集IP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100127.100.1 - 100127.1005.255</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS管理</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100127.101.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS中繼資料</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b或i3b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100127.101.1 - 100127.101.255</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS儲存設備</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b或i3b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100127.103.1 - 100127.103.255</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS用戶端</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（因用戶端而異）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100127.1.1 - 100127.99.255</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>下表提供子網路B的範圍：100128.0.0/16。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">目的</th>
+<th class="tableblock halign-left valign-top">InfiniBand連接埠</th>
+<th class="tableblock halign-left valign-top">IP位址或範圍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS叢集IP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100128.100.1 - 100128.1005.255</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS管理</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100128.102.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS中繼資料</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b或i4b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100128.102.1 - 100128.102.255</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS儲存設備</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b或i4b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100128.104.1 - 100128.104.255</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeeGFS用戶端</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（因用戶端而異）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100128.1.1 - 100128.99.255</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="附註">
+</td>
+<td class="content">
+並非上述範圍內的所有IP都用於此NetApp認證架構。它們示範如何預先配置IP位址、以便使用一致的IP定址方案輕鬆擴充檔案系統。在此方案中、BeeGFS檔案節點和服務ID對應於已知IP範圍的第四個八位元組。如果需要、檔案系統當然可以擴充至超過255個節點或服務。
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">條款與條件</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Privacy Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Cookie 設定</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <span class="n-footer__fine-print">對我們的網站有任何意見或要求？</span>
+              <a target="_self" href="javascript:netapp_mailto()">請與我們聯絡</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://docs.netapp.com/zh-tw/announcements/">公告</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/beegfs/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/beegfs/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/beegfs/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/beegfs/js/www-ntap.js'></script>
+    <script src='/zh-tw/beegfs/js/tabbed-blocks.js'></script>
+    <script src='/zh-tw/beegfs/js/sidebar.js'></script>
+  </body></html>

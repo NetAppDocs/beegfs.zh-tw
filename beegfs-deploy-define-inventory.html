@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>定義BeeGFS建置區塊的Ansible庫存</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="定義BeeGFS建置區塊的Ansible庫存" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/beegfs/beegfs-deploy-define-inventory.html" />
+	<meta property="og:description" content="定義一般的Ansible庫存結構之後、請定義BeeGFS檔案系統中每個建置區塊的組態。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/beegfs/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="定義一般的Ansible庫存結構之後、請定義BeeGFS檔案系統中每個建置區塊的組態。">
+  <meta name="keywords" content=" BeeGFS on NetApp, NetApp Verified Architecture, EF600"><!-- Icons -->
+  <link rel="icon" href="/zh-tw/beegfs/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/beegfs/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/beegfs/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/beegfs/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-tw/beegfs/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-tw/beegfs/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-tw/beegfs/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/custom-dropdown.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    if (document.location.hostname === "docs.netapp.com") {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      head.appendChild(onetrustScript);
+    }
+
+    function OptanonWrapper() { }
+
+    if (document.location.hostname === "docs.netapp.com") {
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+      head.appendChild(adobe);
+
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-81697994-3');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/beegfs/js/na-search.js'></script><script src='/zh-tw/beegfs/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-tw/beegfs/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/beegfs/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-tw/beegfs/js/na-utility.js'></script>
+  <script src='/zh-tw/beegfs/js/clouddocs.js'></script>
+  <script src='/zh-tw/beegfs/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-tw/beegfs/js/toc.js'></script>
+  <script src='/zh-tw/beegfs/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/zh-tw/beegfs/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/beegfs/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/beegfs/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/beegfs/js/jszip.min.js'></script>
+  <script src='/zh-tw/beegfs/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/beegfs/issues/new?body=Page%3A%20[定義BeeGFS建置區塊的Ansible庫存](https://docs.netapp.com/zh-tw/beegfs/beegfs-deploy-define-inventory.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/beegfs/images/discuss-sm.svg" alt="" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/beegfs/blob/main/second-gen/beegfs-deploy-define-inventory.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/beegfs/images/edit-sm.svg" alt="" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/beegfs/images/article-sm.svg" alt="" class="github-icon" />瞭解如何作出貢獻</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此頁面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">產品與解決方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支援與訓練</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社群</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">部落格</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客戶成功案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-tw/beegfs/search.html"
+          data-type="widget" 
+          data-placeholder="搜尋文件"
+          data-no-results-found="找不到符合 {query} 的相關結果。"
+          data-did-you-mean="搜尋 {suggestion}。"
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？"
+          data-results-found="找到 {hitCount} 筆結果"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">繁體中文</span>
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/zh-tw/beegfs/beegfs-deploy-define-inventory.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/us-en/beegfs/beegfs-deploy-define-inventory.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/beegfs/beegfs-deploy-define-inventory.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/beegfs/beegfs-deploy-define-inventory.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/beegfs/beegfs-deploy-define-inventory.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li></ul>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>可用的 PDF<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/zh-tw/beegfs/pdfs/fullsite-sidebar/採用E系列儲存設備的NetApp_BeeGFS.pdf" >
+          <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>此文件網站（PDF 格式）</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/開始使用.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>
+            開始使用
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/檢視解決方案設計.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>
+            檢視解決方案設計
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/部署解決方案.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>
+            部署解決方案
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/部署軟體.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf.png" alt="" width="16" height="16"/>
+            部署軟體
+          </a>
+          
+
+
+
+
+
+
+
+
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/zh-tw/beegfs/images/pdf-zip.png" alt="" width="16" height="16"/>
+      <pre>個別 PDF 文件的集合<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container" id="mysidebardiv">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/index.html">
+        NetApp文件上的BeeGFS
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 開始使用</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/whats-included.html">
+        本網站內容
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-terms.html">
+        詞彙與概念
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-gens.html">
+        設計世代
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-solution-overview.html">
+        解決方案總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-architecture-overview.html">
+        架構總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-technology-requirements.html">
+        技術需求
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 檢視解決方案設計</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-overview.html">
+        設計總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-hardware-architecture.html">
+        硬體組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-software-architecture.html">
+        軟體組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-solution-verification.html">
+        設計驗證
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-solution-sizing-guidelines.html">
+        規模調整準則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-design-performance-tuning.html">
+        效能調校
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 部署解決方案</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-overview.html">
+        部署總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-learn-ansible.html">
+        瞭解Ansible庫存
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-bestpractice.html">
+        檢視最佳實務做法
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-hardware.html">
+        部署硬體
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 部署軟體</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-setup-nodes.html">
+        設定檔案和區塊節點
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-file-node-tuning.html">
+        調整系統設定以獲得效能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-setting-up-an-ansible-control-node.html">
+        設定Ansible控制節點
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-create-inventory.html">
+        建立可Ansible庫存
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-define-inventory.html">
+        定義BeeGFS建置區塊
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-playbook.html">
+        部署BeeGFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-configure-clients.html">
+        設定BeeGFS用戶端
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-scale-building-blocks.html">
+        擴充BeeGFS叢集
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/beegfs-deploy-recommended-volume-percentages.html">
+        建議的Volume百分比
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/beegfs/legal-notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com/zh-tw/e-series-family/">E-Series</a>
+        </li>
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-tw/beegfs/">BeeGFS&nbsp;on&nbsp;NetApp&nbsp;with&nbsp;E-Series&nbsp;Storage</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">定義BeeGFS建置區塊的Ansible庫存</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-07-29 16:51:52 +0000">07/29/2022</time>
+    
+  
+
+<span>貢獻者
+</span>
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>定義一般的Ansible庫存結構之後、請定義BeeGFS檔案系統中每個建置區塊的組態。</p>
+</div>
+<div class="paragraph">
+<p>這些部署說明示範如何部署由基礎建置區塊（包括管理、中繼資料和儲存服務）所組成的檔案系統、第二個含有中繼資料和儲存服務的建置區塊、以及第三個純儲存建置區塊。</p>
+</div>
+<div class="paragraph">
+<p>這些步驟旨在顯示完整的典型組態設定檔、您可以使用這些設定檔來設定NetApp BeeGFS建置區塊、以符合整個BeeGFS檔案系統的需求。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="附註">
+</td>
+<td class="content">
+在本節及後續章節中、視需要進行調整、以建立代表您要部署之BeeGFS檔案系統的詳細目錄。尤其是使用代表每個區塊或檔案節點的Ansible主機名稱、以及儲存網路所需的IP定址方案、以確保其可擴充至BeeGFS檔案節點和用戶端的數量。
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="步驟1建立ansible庫存檔案">步驟1：建立Ansible庫存檔案</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<div class="title">步驟</div>
+<ol class="arabic">
+<li>
+<p>建立新的「inventory.yml」檔案、然後插入下列參數、視需要將主機替換為「Eseria_storage系統」、以代表部署中的區塊節點。名稱應與「host_vars/&lt;fileName（主機名稱）&gt;.yml」所使用的名稱相對應。</p>
+<div class="literalblock">
+<div class="content">
+<pre># BeeGFS HA (High Availability) cluster inventory.
+all:
+  children:
+    # Ansible group representing all block nodes:
+    eseries_storage_systems:
+      hosts:
+        ictad22a01:
+        ictad22a02:
+        ictad22a03:
+        ictad22a04:
+        ictad22a05:
+        ictad22a06:
+    # Ansible group representing all file nodes:
+    ha_cluster:
+      children:</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>在後續章節中、您將在「ha_cluster」下建立其他可執行群組、以代表您要在叢集中執行的BeeGFS服務。</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="步驟2設定管理中繼資料和儲存建置區塊的庫存">步驟2：設定管理、中繼資料和儲存建置區塊的庫存</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>叢集或基礎建置區塊中的第一個建置區塊必須包含BeeGFS管理服務、以及中繼資料和儲存服務：</p>
+</div>
+<div class="olist arabic">
+<div class="title">步驟</div>
+<ol class="arabic">
+<li>
+<p>在「inventory.yml」中、在「ha_cluster：子項目」下填入下列參數：</p>
+<div class="literalblock">
+<div class="content">
+<pre>      # ictad22h01/ictad22h02 HA Pair (mgmt/meta/storage building block):
+        mgmt:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_01:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_01:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_02:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_02:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_03:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_03:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_04:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_04:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_05:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_05:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        meta_06:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_06:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        meta_07:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_07:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        meta_08:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_08:
+          hosts:
+            ictad22h02:
+            ictad22h01:</pre>
+</div>
+</div>
+</li>
+<li>
+<p>建立「group vars/mgmt.ml」檔案、並包含下列項目：</p>
+<div class="literalblock">
+<div class="content">
+<pre># mgmt - BeeGFS HA Management Resource Group
+# OPTIONAL: Override default BeeGFS management configuration:
+# beegfs_ha_beegfs_mgmtd_conf_resource_group_options:
+#  &lt;beegfs-mgmt.conf:key&gt;:&lt;beegfs-mgmt.conf:value&gt;
+floating_ips:
+  - i1b: 100.127.101.0/16
+  - i2b: 100.128.102.0/16
+beegfs_service: management
+beegfs_targets:
+  ictad22a01:
+    eseries_storage_pool_configuration:
+      - name: beegfs_m1_m2_m5_m6
+        raid_level: raid1
+        criteria_drive_count: 4
+        common_volume_configuration:
+          segment_size_kb:  128
+        volumes:
+          - size: 1
+            owning_controller: A</pre>
+</div>
+</div>
+</li>
+<li>
+<p>在「Group_vars/」下、使用下列範本建立資源群組「meta_01」到「meta_08」的檔案、然後填寫下表中每個服務的預留位置值：</p>
+<div class="literalblock">
+<div class="content">
+<pre># meta_0X - BeeGFS HA Metadata Resource Group
+beegfs_ha_beegfs_meta_conf_resource_group_options:
+  connMetaPortTCP: &lt;PORT&gt;
+  connMetaPortUDP: &lt;PORT&gt;
+  tuneBindToNumaZone: &lt;NUMA ZONE&gt;
+floating_ips:
+  - &lt;PREFERRED PORT:IP/SUBNET&gt; # Example: i1b:192.168.120.1/16
+  - &lt;SECONDARY PORT:IP/SUBNET&gt;
+beegfs_service: metadata
+beegfs_targets:
+  &lt;BLOCK NODE&gt;:
+    eseries_storage_pool_configuration:
+      - name: &lt;STORAGE POOL&gt;
+        raid_level: raid1
+        criteria_drive_count: 4
+        common_volume_configuration:
+          segment_size_kb:  128
+        volumes:
+          - size: 21.25 # SEE NOTE BELOW!
+            owning_controller: &lt;OWNING CONTROLLER&gt;</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="附註">
+</td>
+<td class="content">
+磁碟區大小是以整體儲存資源池（也稱為Volume群組）的百分比來指定。NetApp強烈建議您在每個資源池中保留一些可用容量、以便有空間進行SSD過度資源配置（如需詳細資訊、請參閱 <a href="https://www.netapp.com/pdf.html?item=/media/17009-tr4800pdf.pdf" target="_blank" rel="noopener">"NetApp EF600陣列簡介"</a>）。儲存資源池「beegfs_m1_m2_m5_m6'」也會將1%的資源池容量配置給管理服務。因此、對於儲存資源池中的中繼資料磁碟區、當使用1.92TB或3.844TB磁碟機時、請將此值設為「21.25」；如果使用7.65TB磁碟機、請將此值設為「22.25」；如果使用15.3TB磁碟機、請將此值設為「23.75」。
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">檔案名稱</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">浮動IP</th>
+<th class="tableblock halign-left valign-top">NUMA區域</th>
+<th class="tableblock halign-left valign-top">區塊節點</th>
+<th class="tableblock halign-left valign-top">儲存資源池</th>
+<th class="tableblock halign-left valign-top">擁有控制器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_01.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8015</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100、127.101.1/16 i2b：100、128.102.1/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_m1_m2_m5_m6.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_02.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8025</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.102.2/16 i1b:100127.101.2/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_m1_m2_m5_m6.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_03.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8035</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100127.101.3/16 i4b：100128.102.3/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_m3_m4_m7_M8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_04.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8045</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.102.4 / 16 i3b：100、127.101.4 / 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_m3_m4_m7_M8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_05.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8055</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100127.101.5/16 i2b：100128.102.5/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_m1_m2_m5_m6.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_06.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8065</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.102.6/16 i1b:100127.101.6/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_m1_m2_m5_m6.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_07.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8075</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100、127.101.7 / 16 i4b：100、128.102.7 / 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_m3_m4_m7_M8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_08.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8085</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.102.8 / 16 i3b：100、127.101.8 / 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_m3_m4_m7_M8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>在「Group_vars/」下、使用下列範本建立資源群組「shor_01」到「shor_08」的檔案、然後填入每個服務的預留位置值、以參照範例：</p>
+<div class="literalblock">
+<div class="content">
+<pre># stor_0X - BeeGFS HA Storage Resource Groupbeegfs_ha_beegfs_storage_conf_resource_group_options:
+  connStoragePortTCP: &lt;PORT&gt;
+  connStoragePortUDP: &lt;PORT&gt;
+  tuneBindToNumaZone: &lt;NUMA ZONE&gt;
+floating_ips:
+  - &lt;PREFERRED PORT:IP/SUBNET&gt;
+  - &lt;SECONDARY PORT:IP/SUBNET&gt;
+beegfs_service: storage
+beegfs_targets:
+  &lt;BLOCK NODE&gt;:
+    eseries_storage_pool_configuration:
+      - name: &lt;STORAGE POOL&gt;
+        raid_level: raid6
+        criteria_drive_count: 10
+        common_volume_configuration:
+          segment_size_kb: 512        volumes:
+          - size: 21.50 # See note below!             owning_controller: &lt;OWNING CONTROLLER&gt;
+          - size: 21.50            owning_controller: &lt;OWNING CONTROLLER&gt;</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="附註">
+</td>
+<td class="content">
+如需正確使用尺寸、請參閱 <a href="beegfs-deploy-recommended-volume-percentages.html">"建議的儲存資源池過度資源配置百分比"</a>。
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">檔案名稱</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">浮動IP</th>
+<th class="tableblock halign-left valign-top">NUMA區域</th>
+<th class="tableblock halign-left valign-top">區塊節點</th>
+<th class="tableblock halign-left valign-top">儲存資源池</th>
+<th class="tableblock halign-left valign-top">擁有控制器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_01.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8013</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100、127.103.1/16 i2b：100、128.104.1/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_s1_s2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_02.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8023</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.104.2/16 i1b:100127.103.2/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_s1_s2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_03.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8033</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100、127.103.3 / 16 i4b：100、128.104.3/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_s2_s4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_04.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8043</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.104.4/16 i3b：100、127.103.4/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_s2_s4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_05.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8053</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100、127.103.5/16 i2b：100、128.104.5/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S1_S6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_06.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8063</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.104.6/16 i1b:100127.103.6/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S1_S6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_07.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8073</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100、127.103.7 / 16 i4b：100、128.104.7/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S7_S8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_08.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8083</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.104.8/16 i3b：100、127.103.8 / 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S7_S8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="步驟3設定中繼資料儲存建置區塊的詳細目錄">步驟3：設定中繼資料+儲存建置區塊的詳細目錄</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>這些步驟說明如何設定BeeGFS中繼資料+儲存建置區塊的可執行庫存。</p>
+</div>
+<div class="olist arabic">
+<div class="title">步驟</div>
+<ol class="arabic">
+<li>
+<p>在「inventory.yml」中、在現有組態下填入下列參數：</p>
+<div class="literalblock">
+<div class="content">
+<pre>        meta_09:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_09:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_10:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_10:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_11:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_11:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_12:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_12:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_13:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_13:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        meta_14:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_14:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        meta_15:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_15:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        meta_16:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_16:
+          hosts:
+            ictad22h04:
+            ictad22h03:</pre>
+</div>
+</div>
+</li>
+<li>
+<p>在「Group_vars/」下、使用下列範本建立資源群組「meta_09」到「meta_16」的檔案、然後填入每個服務的預留位置值、以參照範例：</p>
+<div class="literalblock">
+<div class="content">
+<pre># meta_0X - BeeGFS HA Metadata Resource Group
+beegfs_ha_beegfs_meta_conf_resource_group_options:
+  connMetaPortTCP: &lt;PORT&gt;
+  connMetaPortUDP: &lt;PORT&gt;
+  tuneBindToNumaZone: &lt;NUMA ZONE&gt;
+floating_ips:
+  - &lt;PREFERRED PORT:IP/SUBNET&gt;
+  - &lt;SECONDARY PORT:IP/SUBNET&gt;
+beegfs_service: metadata
+beegfs_targets:
+  &lt;BLOCK NODE&gt;:
+    eseries_storage_pool_configuration:
+      - name: &lt;STORAGE POOL&gt;
+        raid_level: raid1
+        criteria_drive_count: 4
+        common_volume_configuration:
+          segment_size_kb: 128
+        volumes:
+          - size: 21.5 # SEE NOTE BELOW!
+            owning_controller: &lt;OWNING CONTROLLER&gt;</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="附註">
+</td>
+<td class="content">
+如需正確使用尺寸、請參閱 <a href="beegfs-deploy-recommended-volume-percentages.html">"建議的儲存資源池過度資源配置百分比"</a>。
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">檔案名稱</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">浮動IP</th>
+<th class="tableblock halign-left valign-top">NUMA區域</th>
+<th class="tableblock halign-left valign-top">區塊節點</th>
+<th class="tableblock halign-left valign-top">儲存資源池</th>
+<th class="tableblock halign-left valign-top">擁有控制器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_09.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8015</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100、127.101.9 / 16 i2b：100、128.102.9 / 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_m9_m10_M13_M14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_10.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8025</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.102.10/16 i1b:100127.101.10/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_m9_m10_M13_M14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_11.ml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8035</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100、127.101.11 / 16 i4b：100、128.102.11/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_M11_M12_M15_M16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_12.ml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8045</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.102.12/16 i3b：100、127.101.12 / 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_M11_M12_M15_M16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_13.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8055</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100、127.101.13 / 16 i2b：100、128.102.1/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_m9_m10_M13_M14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_14.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8065</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.102.14/16 i1b:100127.101.14/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_m9_m10_M13_M14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_15.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8075</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100、127.101.15、16 i4b：100、128.102.15/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_M11_M12_M15_M16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meta_16.myl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8085</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.102.16/16 i3b：100、127.101.16/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_M11_M12_M15_M16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>在「Group_vars/」下、使用下列範本建立資源群組「shor_09」到「shor_16」的檔案、然後填入每個服務的預留位置值、以參照範例：</p>
+<div class="literalblock">
+<div class="content">
+<pre># stor_0X - BeeGFS HA Storage Resource Group
+beegfs_ha_beegfs_storage_conf_resource_group_options:
+  connStoragePortTCP: &lt;PORT&gt;
+  connStoragePortUDP: &lt;PORT&gt;
+  tuneBindToNumaZone: &lt;NUMA ZONE&gt;
+floating_ips:
+  - &lt;PREFERRED PORT:IP/SUBNET&gt;
+  - &lt;SECONDARY PORT:IP/SUBNET&gt;
+beegfs_service: storage
+beegfs_targets:
+  &lt;BLOCK NODE&gt;:
+    eseries_storage_pool_configuration:
+      - name: &lt;STORAGE POOL&gt;
+        raid_level: raid6
+        criteria_drive_count: 10
+        common_volume_configuration:
+          segment_size_kb: 512        volumes:
+          - size: 21.50 # See note below!
+            owning_controller: &lt;OWNING CONTROLLER&gt;
+          - size: 21.50            owning_controller: &lt;OWNING CONTROLLER&gt;</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="附註">
+</td>
+<td class="content">
+如需正確使用尺寸、請參閱 <a href="beegfs-deploy-recommended-volume-percentages.html">"建議的儲存資源池過度資源配置百分比"</a>&#8230;&#8203;
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">檔案名稱</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">浮動IP</th>
+<th class="tableblock halign-left valign-top">NUMA區域</th>
+<th class="tableblock halign-left valign-top">區塊節點</th>
+<th class="tableblock halign-left valign-top">儲存資源池</th>
+<th class="tableblock halign-left valign-top">擁有控制器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_09.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8013</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100、127.103.9/16 i2b：100、128.104.9 / 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_s9_s10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_10.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8023</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.104.10/16 i1b:100127.103.10/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_s9_s10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_11.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8033</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100、127.103.11/16 i4b：100、128.104.11/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S11_s12.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stor_12.ml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8043</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.104.12/16 i3b：100、127.103.12/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S11_s12.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_13.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8053</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100、127.103.13/16 i2b：100、128.104.13/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_s13_s14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_14.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8063</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.104.14/16 i1b:100127.103.14/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_s13_s14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_15.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8073</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100、127.103.15/16 i4b：100、128.104.15/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S15_S16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_16.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8083</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.104.16/16 i3b：100、127.103.16/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S15_S16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="步驟4設定僅儲存建置區塊的庫存">步驟4：設定僅儲存建置區塊的庫存</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>這些步驟說明如何設定BeeGFS純儲存區塊的可執行庫存。設定中繼資料+儲存設備的組態與純儲存設備建置區塊之間的主要差異、在於所有中繼資料資源群組都不存在、而且每個儲存資源池的「Criteria _DRIVE _count」也會從10變更為12。</p>
+</div>
+<div class="olist arabic">
+<div class="title">步驟</div>
+<ol class="arabic">
+<li>
+<p>在「inventory.yml」中、在現有組態下填入下列參數：</p>
+<div class="literalblock">
+<div class="content">
+<pre>      # ictad22h05/ictad22h06 HA Pair (storage only building block):
+        stor_17:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_18:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_19:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_20:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_21:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+        stor_22:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+        stor_23:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+        stor_24:
+          hosts:
+            ictad22h06:
+            ictad22h05:</pre>
+</div>
+</div>
+</li>
+<li>
+<p>在「Group_vars/」下、使用下列範本建立資源群組「shor_17」到「shor_24」的檔案、然後填寫每個服務的預留位置值、以參照範例：</p>
+<div class="literalblock">
+<div class="content">
+<pre># stor_0X - BeeGFS HA Storage Resource Group
+beegfs_ha_beegfs_storage_conf_resource_group_options:
+  connStoragePortTCP: &lt;PORT&gt;
+  connStoragePortUDP: &lt;PORT&gt;
+  tuneBindToNumaZone: &lt;NUMA ZONE&gt;
+floating_ips:
+  - &lt;PREFERRED PORT:IP/SUBNET&gt;
+  - &lt;SECONDARY PORT:IP/SUBNET&gt;
+beegfs_service: storage
+beegfs_targets:
+  &lt;BLOCK NODE&gt;:
+    eseries_storage_pool_configuration:
+      - name: &lt;STORAGE POOL&gt;
+        raid_level: raid6
+        criteria_drive_count: 12
+        common_volume_configuration:
+          segment_size_kb: 512
+        volumes:
+          - size: 21.50 # See note below!
+            owning_controller: &lt;OWNING CONTROLLER&gt;
+          - size: 21.50
+            owning_controller: &lt;OWNING CONTROLLER&gt;</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="附註">
+</td>
+<td class="content">
+如需正確使用尺寸、請參閱 <a href="beegfs-deploy-recommended-volume-percentages.html">"建議的儲存資源池過度資源配置百分比"</a>。
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">檔案名稱</th>
+<th class="tableblock halign-left valign-top">連接埠</th>
+<th class="tableblock halign-left valign-top">浮動IP</th>
+<th class="tableblock halign-left valign-top">NUMA區域</th>
+<th class="tableblock halign-left valign-top">區塊節點</th>
+<th class="tableblock halign-left valign-top">儲存資源池</th>
+<th class="tableblock halign-left valign-top">擁有控制器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_17.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8013</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100、127.103.17/16 i2b：100、128.104.17/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a05</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S17_s18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_18.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8023</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.104.18/16 i1b:100127.103.18/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a05</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S17_s18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_19.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8033</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100127.103.19/16 i4b：100128.104.19/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a06.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_s19_S20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stor_20.ml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8043</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.104.20/16 i3b：100、127.103.20/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a06.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_s19_S20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_21.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8053</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i1b：100、127.103.21/16 i2b：100、128.104.21/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a05</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S21_S22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_22.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8063</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i2b:100128.104.22/16 i1b:100127.103.22/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a05</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beegfs_S21_S22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_23.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8073</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i3b：100、127.103.23 / 16 i4b：100、128.104.23 / 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a06.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_S23_s24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">答</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STOR_24.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8083</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i4b：100、128.104.24/16 i3b：100、127.103.24/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ictad22a06.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beegfs_S23_s24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">條款與條件</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Privacy Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Cookie 設定</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <span class="n-footer__fine-print">對我們的網站有任何意見或要求？</span>
+              <a target="_self" href="javascript:netapp_mailto()">請與我們聯絡</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://docs.netapp.com/zh-tw/announcements/">公告</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/beegfs/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/beegfs/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/beegfs/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/beegfs/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/beegfs/js/www-ntap.js'></script>
+    <script src='/zh-tw/beegfs/js/tabbed-blocks.js'></script>
+    <script src='/zh-tw/beegfs/js/sidebar.js'></script>
+  </body></html>
