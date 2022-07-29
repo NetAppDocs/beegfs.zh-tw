@@ -1075,4 +1075,5 @@
   <block id="90d276687cc6ad8d3b72b9d9e953c581" category="sidebar">瞭解Ansible</block>
   <block id="50802d3e5a25b93d471686a10da03dd8" category="sidebar">最佳實務做法</block>
   <block id="5d6f0f2ec8814a4c4e63b18ea908577b" category="sidebar">設定BeeGFS用戶端</block>
+  <block id="ba13e086fe19056a379b6240e05651a8" category="sidebar">TR-4915 -使用E系列和BeeGFS進行AI資料移動</block>
 </blocks>
