@@ -1,0 +1,76 @@
+---
+settings:
+  name: BeeGFS on NetApp with E-Series Storage
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: zh-tw,us-en,ja-jp,zh-cn,ko-kr
+sidebar:
+  entries:
+  - title: NetApp文件上的BeeGFS
+    url: "/index.html"
+  - title: 開始使用
+    entries:
+    - title: 本網站內容
+      url: "/whats-included.html"
+    - title: 詞彙與概念
+      url: "/beegfs-terms.html"
+    - title: 設計世代
+      url: "/beegfs-gens.html"
+    - title: 解決方案總覽
+      url: "/beegfs-solution-overview.html"
+    - title: 架構總覽
+      url: "/beegfs-architecture-overview.html"
+    - title: 技術需求
+      url: "/beegfs-technology-requirements.html"
+  - title: 檢視解決方案設計
+    entries:
+    - title: 設計總覽
+      url: "/beegfs-design-overview.html"
+    - title: 硬體組態
+      url: "/beegfs-design-hardware-architecture.html"
+    - title: 軟體組態
+      url: "/beegfs-design-software-architecture.html"
+    - title: 設計驗證
+      url: "/beegfs-design-solution-verification.html"
+    - title: 規模調整準則
+      url: "/beegfs-design-solution-sizing-guidelines.html"
+    - title: 效能調校
+      url: "/beegfs-design-performance-tuning.html"
+  - title: 部署解決方案
+    entries:
+    - title: 部署總覽
+      url: "/beegfs-deploy-overview.html"
+    - title: 瞭解Ansible庫存
+      url: "/beegfs-deploy-learn-ansible.html"
+    - title: 檢視最佳實務做法
+      url: "/beegfs-deploy-bestpractice.html"
+    - title: 部署硬體
+      url: "/beegfs-deploy-hardware.html"
+    - title: 部署軟體
+      entries:
+      - title: 設定檔案和區塊節點
+        url: "/beegfs-deploy-setup-nodes.html"
+      - title: 調整系統設定以獲得效能
+        url: beegfs-deploy-file-node-tuning.html
+      - title: 設定Ansible控制節點
+        url: "/beegfs-deploy-setting-up-an-ansible-control-node.html"
+      - title: 建立可Ansible庫存
+        url: "/beegfs-deploy-create-inventory.html"
+      - title: 定義BeeGFS建置區塊
+        url: "/beegfs-deploy-define-inventory.html"
+      - title: 部署BeeGFS
+        url: "/beegfs-deploy-playbook.html"
+      - title: 設定BeeGFS用戶端
+        url: "/beegfs-deploy-configure-clients.html"
+    - title: 擴充BeeGFS叢集
+      url: "/beegfs-deploy-scale-building-blocks.html"
+    - title: 建議的Volume百分比
+      url: "/beegfs-deploy-recommended-volume-percentages.html"
+  - title: 法律聲明
+    url: "/legal-notices.html"
+product-family:
+  name: E-Series
+  repo: e-series-family

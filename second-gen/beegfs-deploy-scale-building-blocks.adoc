@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-scale-building-blocks.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 設定起搏器和電暈器同步、使其可擴充至超過五個建置區塊。 
+---
+= 擴充至五個建置區塊以外
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以設定起搏器和電暈器同步、使其擴充至超過五個建置區塊（10個檔案節點）。不過、較大型的叢集也有缺點、因此心律調整器和電暈器同步最終會強制使用最多32個節點。
+
+NetApp僅針對最多10個節點測試BeeGFS HA叢集、不建議或不支援擴充超過此限制的個別叢集。然而、BeeGFS檔案系統仍需擴充至超過10個節點、而NetApp已在NetApp的BeeGFS解決方案中納入此考量。
+
+透過部署多個HA叢集、其中包含每個檔案系統中的一部分建置區塊、您可以獨立擴充整個BeeGFS檔案系統、使基礎HA叢集機制不受任何建議或硬限制。在此案例中、請執行下列動作：
+
+* 建立代表其他HA叢集的新Ansible庫存、然後省略設定其他管理服務。相反地、將每個額外叢集「ha_cluster.yml」中的「beegfs_ha_mgmtd_浮 點_ip」變數指向第一個BeeGFS管理服務的IP。
+* 將其他HA叢集新增至同一個檔案系統時、請確定下列事項：
++
+** BeeGFS節點ID是唯一的。
+** 與「group vars」下的每個服務對應的檔案名稱、在所有叢集中都是唯一的。
+** BeeGFS用戶端和伺服器IP位址在所有叢集之間都是唯一的。
+** 第一個包含BeeGFS管理服務的HA叢集正在執行、然後才嘗試部署或更新其他叢集。
+
+
+* 在各自的目錄樹狀結構中分別維護每個HA叢集的庫存。
++
+嘗試在一個目錄樹狀結構中混合多個叢集的詳細目錄檔案、可能會導致BeeGFS HA角色如何將套用至特定叢集的組態集合在一起時發生問題。
+
+
+
+
+NOTE: 在建立新的HA叢集之前、不需要將每個HA叢集擴充至五個建置區塊。在許多情況下、每個叢集使用較少的建置區塊、更容易管理。一種方法是將每個機架中的建置區塊設定為HA叢集。

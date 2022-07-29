@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-recommended-volume-percentages.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 針對第二代建置區塊、依照每個儲存資源池組態的標準四個磁碟區進行操作時、請參閱這些建議的百分比。 
+---
+= 建議的儲存資源池過度資源配置百分比
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+當遵循第二代建置區塊每個儲存池組態的標準四個磁碟區時、請參閱下表。
+
+下表提供每個BeeGFS中繼資料或儲存目標的「Eseria_storage儲存資源池組態」中、作為磁碟區大小的建議百分比：
+
+|===
+| 磁碟機大小 | 尺寸 
+
+
+| 1.92TB | 18 
+
+
+| 3.84 TB | 21.5 
+
+
+| 7.68TB | 22.5% 
+
+
+| 15.3TB | 24 
+|===
+
+NOTE: 上述指南不適用於包含管理服務的儲存資源池、此服務應將上述大小減少0.25%、以便將1%的儲存資源池分配給管理資料。
+
+若要瞭解如何判斷這些值、請參閱 https://www.netapp.com/media/17009-tr4800.pdf["TR-4800:附錄A：瞭解SSD的耐用度和過度資源配置"^]。

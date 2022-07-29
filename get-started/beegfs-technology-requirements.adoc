@@ -1,0 +1,276 @@
+---
+sidebar: sidebar 
+permalink: beegfs-technology-requirements.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 若要在NetApp上實作BeeGFS解決方案、請確定您的環境符合技術需求。 
+---
+= 技術需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+若要在NetApp上實作BeeGFS解決方案、請確定您的環境符合技術需求。
+
+
+
+== 硬體需求
+
+下表列出在NetApp解決方案上實作單一第二代建置區塊設計所需的硬體元件。
+
+
+NOTE: 解決方案的任何特定實作所使用的硬體元件、可能會因客戶需求而異。
+
+[cols="10%,20%,70%"]
+|===
+| 數 | 硬體元件 | 需求 
+
+
+ a| 
+2.
+ a| 
+BeeGFS檔案節點。
+ a| 
+每個檔案節點都應符合或超過下列組態、以達到預期的效能。
+
+*處理器：*
+
+* 2個AMD EPYC 7343 16C 3.2 GHz。
+* 設定為兩個NUMA區域。
+
+
+*記憶體：*
+
+* 256GB。
+* 16x 16GB Truc4 3200MHz（2RX8 1.2V）RDIMM A（較少的DIMM容量更小）。
+* 以最大化記憶體頻寬。
+
+
+* PCIe擴充：四個PCE Gen4 x16插槽：*
+
+* 每個NUMA區域有兩個插槽。
+* 每個插槽都應為Mellanox MCX653106A-HDAT介面卡提供足夠的電力/冷卻能力。
+
+
+*雜項：*
+
+* 在RAID 1中為作業系統設定兩個1TB 7.2K SATA磁碟機（或類似磁碟機）。
+* 10GbE OCP 3.0介面卡（或類似的）、適用於頻內作業系統管理。
+* 1GbE BMC搭配Redfish API、可進行頻外伺服器管理。
+* 雙熱交換電源供應器與效能風扇。
+* 如果需要連接儲存InfiniBand交換器、則必須支援Mellanox光纖InfiniBand纜線。
+
+
+*聯想SR665-*
+
+* 自訂的NetApp機型包括所需的XClarity控制器韌體版本、以支援雙埠Mellanox ConnectX-6介面卡。如需訂購詳細資料、請聯絡NetApp。
+
+
+
+
+| 8. | Mellanox ConnectX-6 HCA（適用於檔案節點）。  a| 
+* MCX653106A-HDAT主機通道配接卡（HDRB 200GB、雙埠QSFP56、PCIe4.0 x16）。
+
+
+
+
+| 8. | 1M HDRInfiniBand纜線（適用於檔案/區塊節點直接連接）。  a| 
+* MCP1650-H001E30（1公尺Mellanox被動銅線、IB HDR、最高200Gbps、QSFP56、30AWE）。
+
+
+如果需要、可調整長度以考慮檔案與區塊節點之間的距離。
+
+
+
+| 8. | HDRInfiniBand纜線（適用於檔案節點/儲存交換器連線）  a| 
+需要長度適當的InfiniBand HDRdr纜線（QSFP56收發器）、才能將檔案節點連接至儲存葉交換器。可能的選項包括：
+
+* MCP1650-H002E26（2公尺Mellanox被動銅線、IB HDRs、最高200GB/s、QSFP56、30AWE）。
+* MSFS1S00-H003E（3公尺Mellanox主動式光纖纜線、IB HDRs、最高200GB/s、QSFP56）。
+
+
+
+
+| 2. | E系列區塊節點  a| 
+兩個EF600控制器設定如下：
+
+* 記憶體：256GB（每個控制器128GB）。
+* 介面卡：2埠200GB/HDR（NVMe / IB）。
+* 磁碟機：設定以符合所需容量。
+
+
+|===
+
+
+== 軟體需求
+
+為了達到可預測的效能與可靠性、NetApp解決方案上的BeeGFS版本會測試採用實作解決方案所需的特定軟體元件版本。
+
+
+
+=== 軟體部署需求
+
+下表列出在以Ansible為基礎的BeeGFS部署中、自動部署的軟體需求。
+
+[cols="20%,80%"]
+|===
+| 軟體 | 版本 
+
+
+| BeeGFS | 7.2.6 
+
+
+| 電暈器同步 | 3.1.5-1. 
+
+
+| 起搏器 | 2.1.0-8 
+
+
+| OpenSM  a| 
+OpenSM-5.9.0（從mlnx_ofed 5.4.0-1.3.0）
+
+
+NOTE: 只有直接連線才需要啟用虛擬化。
+
+|===
+
+
+=== Ansible控制節點需求
+
+NetApp上的BeeGFS解決方案是從可存取的控制節點進行部署和管理。如需詳細資訊、請參閱 https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html["Ansible文件"^]。
+
+下表所列的軟體需求、是下列NetApp BeeGFS Ansible系列產品的特定版本。
+
+[cols="20%,80%"]
+|===
+| 軟體 | 版本 
+
+
+| Ansible | 2.11透過pip安裝時：Ansible -4.7.0與Ansible -core < 2.12、>=2.11.6 
+
+
+| Python | 3.9 
+
+
+| 其他Python套件 | 密碼編譯-35.5.0、netaddr-0.8.0 
+
+
+| BeeGFS Ansible收藏 | 3.0.00.0 
+|===
+
+
+=== 檔案節點需求
+
+[cols="20%,80%"]
+|===
+| 軟體 | 版本 
+
+
+ a| 
+RedHat Enterprise Linux
+ a| 
+RedHat 8.4伺服器實體配備高可用度（2插槽）。
+
+
+IMPORTANT: 檔案節點需要有效的RedHat Enterprise Linux Server訂閱和Red Hat Enterprise Linux高可用度附加元件。
+
+
+
+| Linux核心 | 4.18.0-305.25.1.el8_4.x86_64 
+
+
+| InfiniBand / RDMA驅動程式 | 收件匣 
+
+
+| ConnectX-6 HCA韌體 | 韌體：20.31.1014 
+
+
+| PXE-3.6.0403. | UEFI：14.24.0013 
+|===
+
+
+=== EF600區塊節點需求
+
+[cols="20%,80%"]
+|===
+| 軟體 | 版本 
+
+
+| 作業系統SANtricity | 11.70.2 
+
+
+| NVSRAM | N6000-872834 - D06.dlp 
+
+
+| 磁碟機韌體 | 最新版本適用於使用中的磁碟機機型。 
+|===
+
+
+== 其他需求
+
+下表所列設備用於驗證、但可視需要使用適當的替代方案。一般而言、NetApp建議執行最新的軟體版本、以避免非預期的問題。
+
+|===
+| 硬體元件 | 安裝軟體 
+
+
+ a| 
+* 2個Mellanox MQM8700 200GB InfiniBand交換器
+
+ a| 
+* 韌體3.9.2110
+
+
+
+
+ a| 
+* 1個可控制節點（虛擬化）：*
+
+* 處理器：Intel（R）Xeon（R）Gold 6146 CPU @ 3.20GHz
+* 記憶體：8GB
+* 本機儲存設備：24GB
+
+ a| 
+* CentOS Linux 8.4.2105
+* 核心4.18.0-305.3.1.el8.x86_64
+
+
+安裝的Ansible和Python版本與上表中的版本相符。
+
+
+
+ a| 
+* 10倍BeeGFS用戶端（CPU節點）：*
+
+* 處理器：1個AMD EPYC 7302 16核心CPU（3.0GHz）
+* 記憶體：128GB
+* 網路：2個Mellanox MCX653106A-HDAT（每個介面卡連接一個連接埠）。
+
+ a| 
+* Ubuntu 20.04
+* 核心：5.4.0-100-generic
+* InfiniBand驅動程式：Mellanox OFED 5.4.1到1.0.3.0
+
+
+
+
+ a| 
+* 1個BeeGFS用戶端（GPU節點）：*
+
+* 處理器：2個採用2.25GHz的AMD EPYC 7742 64核心CPU
+* 記憶體：1TB
+* 網路：2個Mellanox MCX653106A-HDAT（每個介面卡連接一個連接埠）。
+
+
+此系統以NVIDIA HGX A100平台為基礎、內含四個A100 GPU。
+ a| 
+* Ubuntu 20.04
+* 核心：5.4.0-100-generic
+* InfiniBand驅動程式：Mellanox OFED 5.4.1到1.0.3.0
+
+
+|===

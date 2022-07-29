@@ -1,0 +1,417 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-create-inventory.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 若要定義檔案和區塊節點的組態、您可以建立可執行的詳細目錄、以代表您要部署的BeeGFS檔案系統。 
+---
+= 建立可Ansible庫存
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+若要定義檔案和區塊節點的組態、您可以建立可執行的詳細目錄、以代表您要部署的BeeGFS檔案系統。清單包括主機、群組和變數、說明所需的BeeGFS檔案系統。
+
+
+
+== 步驟1：定義所有建置區塊的組態
+
+定義套用至所有建置區塊的組態、無論您個別套用至哪些組態設定檔。
+
+.開始之前
+* 使用BitBucket或Git等來源控制系統來儲存內含Ansible庫存和教戰手冊檔案的目錄內容。
+* 建立一個.gidignore檔案、指定Git應該忽略的檔案。這有助於避免在Git中儲存大型檔案。
+
+
+.步驟
+. 在Ansible控制節點上、找出您要用來儲存Ansible庫存和教戰手冊檔案的目錄。
++
+除非另有說明、否則會針對此目錄建立此步驟中建立的所有檔案和目錄、以及執行下列步驟。
+
+. 建立下列子目錄：
++
+《host_vars》
+
++
+《團體》
+
++
+"套裝軟體"
+
+
+
+
+
+== 步驟2：定義個別檔案和區塊節點的組態
+
+定義適用於個別檔案節點和個別建置區塊節點的組態。
+
+. 在「host_vars/」下、為每個BeeGFS檔案節點建立一個名為「.yml」的檔案、其中包含下列內容、並特別注意BeeGFS叢集IP和主機名稱的填入內容、這些內容以odd或偶數結尾。
++
+一開始、檔案節點介面名稱會與此處列出的名稱相符（例如ib0或ibs1f0）。這些自訂名稱是在中設定 <<Step 4: Define configuration that should apply to all file nodes>>。
+
++
+....
+ansible_host: “<MANAGEMENT_IP>”
+eseries_ipoib_interfaces:  # Used to configure BeeGFS cluster IP addresses.
+  - name: i1b
+    address: 100.127.100. <NUMBER_FROM_HOSTNAME>/16
+  - name: i4b
+    address: 100.128.100. <NUMBER_FROM_HOSTNAME>/16
+beegfs_ha_cluster_node_ips:
+  - <MANAGEMENT_IP>
+  - <i1b_BEEGFS_CLUSTER_IP>
+  - <i4b_BEEGFS_CLUSTER_IP>
+# NVMe over InfiniBand storage communication protocol information
+# For odd numbered file nodes (i.e., h01, h03, ..):
+eseries_nvme_ib_interfaces:
+  - name: i1a
+    address: 192.168.1.10/24
+    configure: true
+  - name: i2a
+    address: 192.168.3.10/24
+    configure: true
+  - name: i3a
+    address: 192.168.5.10/24
+    configure: true
+  - name: i4a
+    address: 192.168.7.10/24
+    configure: true
+# For even numbered file nodes (i.e., h02, h04, ..):
+# NVMe over InfiniBand storage communication protocol information
+eseries_nvme_ib_interfaces:
+  - name: i1a
+    address: 192.168.2.10/24
+    configure: true
+  - name: i2a
+    address: 192.168.4.10/24
+    configure: true
+  - name: i3a
+    address: 192.168.6.10/24
+    configure: true
+  - name: i4a
+    address: 192.168.8.10/24
+    configure: true
+....
++
+
+NOTE: 如果您已經部署BeeGFS叢集、則必須先停止叢集、再新增或變更靜態設定的IP位址、包括用於NVMe/IB的叢集IP和IP。這是必要的、因此這些變更會正常生效、而且不會中斷叢集作業。
+
+. 在「host_vars/」下、為每個BeeGFS區塊節點建立一個名為「<主機名稱>.yml」的檔案、然後填入下列內容。
++
+請特別注意要填入以odd結尾的儲存陣列名稱與偶數結尾之內容的相關注意事項。
+
++
+針對每個區塊節點、建立一個檔案、然後為兩個控制器之一（通常為A）指定「<management _ip>」（管理IP）。
+
++
+....
+eseries_system_name: <STORAGE_ARRAY_NAME>
+eseries_system_api_url: https://<MANAGEMENT_IP>:8443/devmgr/v2/
+eseries_initiator_protocol: nvme_ib
+# For odd numbered block nodes (i.e., a01, a03, ..):
+eseries_controller_nvme_ib_port:
+  controller_a:
+    - 192.168.1.101
+    - 192.168.2.101
+    - 192.168.1.100
+    - 192.168.2.100
+  controller_b:
+    - 192.168.3.101
+    - 192.168.4.101
+    - 192.168.3.100
+    - 192.168.4.100
+# For even numbered block nodes (i.e., a02, a04, ..):
+eseries_controller_nvme_ib_port:
+  controller_a:
+    - 192.168.5.101
+    - 192.168.6.101
+    - 192.168.5.100
+    - 192.168.6.100
+  controller_b:
+    - 192.168.7.101
+    - 192.168.8.101
+    - 192.168.7.100
+    - 192.168.8.100
+....
+
+
+
+
+== 步驟3：定義應套用至所有檔案和區塊節點的組態
+
+您可以在與群組對應的檔案名稱中、定義「group _vars」下一組主機的通用組態。如此可避免在多個位置重複執行共用組態。
+
+主機可以位於多個群組中、執行時、Ansible會根據其可變優先順序規則、選擇要套用到特定主機的變數。（如需這些規則的詳細資訊、請參閱的「Ansible」文件 https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html["使用變數"^]）
+
+主機對群組指派是在實際的Ansible庫存檔案中定義、此檔案是在本程序結束時建立的。
+
+在Ansible中、您想要套用至所有主機的任何組態都可以定義為「All（全部）」群組。使用下列內容建立檔案「group_vars/all.yml」：
+
+....
+ansible_python_interpreter: /usr/bin/python3
+beegfs_ha_ntp_server_pools:  # Modify the NTP server addressess if desired.
+  - "pool 0.pool.ntp.org iburst maxsources 3"
+  - "pool 1.pool.ntp.org iburst maxsources 3"
+....
+
+
+== 步驟4：定義應套用至所有檔案節點的組態
+
+檔案節點的共用組態是在稱為「ha_cluster」的群組中定義。本節中的步驟會建置應包含在「group vars/ha_cluster．yml」檔案中的組態。
+
+.步驟
+. 在檔案頂端、定義預設值、包括在檔案節點上用做「show」使用者的密碼。
++
+....
+### ha_cluster Ansible group inventory file.
+# Place all default/common variables for BeeGFS HA cluster resources below.
+### Cluster node defaults
+ansible_ssh_user: root
+ansible_become_password: <PASSWORD>
+eseries_ipoib_default_hook_templates:
+  - 99-multihoming.j2 # This is required when configuring additional static IPs (for example cluster IPs) when multiple IB ports are in the same IPoIB subnet.
+# If the following options are specified, then Ansible will automatically reboot nodes when necessary for changes to take effect:
+eseries_common_allow_host_reboot: true
+eseries_common_reboot_test_command: "systemctl --state=active,exited | grep eseries_nvme_ib.service"
+....
++
+
+NOTE: 尤其是在正式作業環境中、請勿以純文字儲存密碼。請改用Ansible Vault（請參閱） https://docs.ansible.com/ansible/latest/user_guide/vault.html["使用Ansible Vault加密內容"^]）或是執行教戰手冊時的「Ask–變為pass」選項。如果「Ansip_ssh使用者」已經是「root」、您可以選擇省略「Ansible變成密碼」。
+
+. 您也可以設定高可用度（HA）叢集的名稱、並指定叢集內通訊的使用者。
++
+如果您要修改私有IP定址方案、也必須更新預設的「beegfs_ha_mgmtd_浮 點IP」。這必須符合您稍後為BeeGFS管理資源群組所設定的項目。
+
++
+使用「beegfs_ha_alert_email_lists」指定一封或多封應接收叢集事件警示的電子郵件。
+
++
+....
+### Cluster information
+beegfs_ha_firewall_configure: True
+eseries_beegfs_ha_disable_selinux: True
+eseries_selinux_state: disabled
+# The following variables should be adjusted depending on the desired configuration:
+beegfs_ha_cluster_name: hacluster                  # BeeGFS HA cluster name.
+beegfs_ha_cluster_username: hacluster              # BeeGFS HA cluster username.
+beegfs_ha_cluster_password: hapassword             # BeeGFS HA cluster username's password.
+beegfs_ha_cluster_password_sha512_salt: randomSalt # BeeGFS HA cluster username's password salt.
+beegfs_ha_mgmtd_floating_ip: 100.127.101.0         # BeeGFS management service IP address.
+# Email Alerts Configuration
+beegfs_ha_enable_alerts: True
+beegfs_ha_alert_email_list: ["email@example.com"]  # E-mail recipient list for notifications when BeeGFS HA resources change or fail.  Often a distribution list for the team responsible for managing the cluster.
+beegfs_ha_alert_conf_ha_group_options:
+      mydomain: “example.com”
+# The mydomain parameter specifies the local internet domain name. This is optional when the cluster nodes have fully qualified hostnames (i.e. host.example.com).
+# Adjusting the following parameters is optional:
+beegfs_ha_alert_timestamp_format: "%Y-%m-%d %H:%M:%S.%N" #%H:%M:%S.%N
+beegfs_ha_alert_verbosity: 3
+#  1) high-level node activity
+#  3) high-level node activity + fencing action information + resources (filter on X-monitor)
+#  5) high-level node activity + fencing action information + resources
+....
++
+
+NOTE: 儘管看似冗餘、但當您將BeeGFS檔案系統擴充至單一HA叢集以外的位置時、「beegfs_ha_mgmtd_浮 點_ip'是很重要的。部署後續HA叢集時、不需要額外的BeeGFS管理服務、並指向第一個叢集所提供的管理服務。
+
+. 設定隔離代理程式。（如需詳細資訊、請參閱 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["在Red Hat High Availability叢集中設定隔離功能"^]） 下列輸出顯示設定一般隔離代理程式的範例。請選擇下列其中一個選項。
++
+在此步驟中、請注意：
+
++
+** 預設會啟用隔離功能、但您需要設定隔離_agent_。
+** 在「PCM1_host_map」或「PCM1_host_list」中指定的「<主機名稱>」必須對應至「Ansible」清單中的主機名稱。
+** 不支援在沒有隔離的情況下執行BeeGFS叢集、尤其是在正式作業中。這主要是為了確保BeeGFS服務（包括區塊裝置等任何資源相依性）因發生問題而容錯移轉、不會有多個節點同時存取的風險、進而導致檔案系統毀損或其他不良或非預期的行為。如果必須停用隔離功能、請參閱BeeGFS HA角色使用入門指南中的一般附註、並在「ha_cluster_crm_config_options[stonith啟用的]中、將「beegfs_ha_cluster_crm_config_options[stonith啟用的]」設為「假」。
+** 有多個節點層級的隔離裝置可供使用、BeeGFS HA角色可設定Red Hat HA套件儲存庫中可用的任何隔離代理程式。如果可能、請使用透過不斷電系統（UPS）或機架電力分配單元（rPDU）運作的隔離代理程式、 由於某些隔離代理程式（例如基板管理控制器（BMC）或伺服器內建的其他熄燈裝置）、在某些故障情況下可能無法回應Fence要求。
++
+....
+### Fencing configuration:
+# OPTION 1: To enable fencing using APC Power Distribution Units (PDUs):
+beegfs_ha_fencing_agents:
+ fence_apc:
+   - ipaddr: <PDU_IP_ADDRESS>
+     login: <PDU_USERNAME>
+     passwd: <PDU_PASSWORD>
+     pcmk_host_map: "<HOSTNAME>:<PDU_PORT>,<PDU_PORT>;<HOSTNAME>:<PDU_PORT>,<PDU_PORT>"
+# OPTION 2: To enable fencing using the Redfish APIs provided by the Lenovo XCC (and other BMCs):
+redfish: &redfish
+  username: <BMC_USERNAME>
+  password: <BMC_PASSWORD>
+  ssl_insecure: 1 # If a valid SSL certificate is not available specify “1”.
+beegfs_ha_fencing_agents:
+  fence_redfish:
+    - pcmk_host_list: <HOSTNAME>
+      ip: <BMC_IP>
+      <<: *redfish
+    - pcmk_host_list: <HOSTNAME>
+      ip: <BMC_IP>
+      <<: *redfish
+# For details on configuring other fencing agents see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters.
+....
+
+
+. 在Linux作業系統中啟用建議的效能調校。
++
+雖然許多使用者認為效能參數的預設設定通常運作良好、但您可以選擇變更特定工作負載的預設設定。因此、這些建議會包含在BeeGFS角色中、但預設不會啟用、以確保使用者知道套用至其檔案系統的調校。
+
++
+若要啟用效能調校、請指定：
+
++
+....
+### Performance Configuration:
+beegfs_ha_enable_performance_tuning: True
+....
+. （選用）您可以視需要調整Linux作業系統中的效能調校參數。
++
+如需可調整的可用調校參數完整清單、請參閱BeeGFS HA角色的效能調校預設值一節 https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_2/defaults/main.yml["E系列BeeGFS GitHub網站"^]。此檔案中的叢集所有節點或個別節點的「host_vars」檔案、都可以覆寫預設值。
+
+. 若要在區塊和檔案節點之間提供完整的200GB/HDR/連線能力、請使用Mellanox Open Fabrics Enterprise Distribution（MLNX_OFED）中的Open Subnet Manager（OpenSM）套件。（收件匣「opensm」套件不支援必要的虛擬化功能。） 雖然支援使用Ansible進行部署、但您必須先將所需的套件下載至執行BeeGFS角色所用的Ansible控制節點。
++
+.. 使用「Curl」或您想要的工具、從Mellanox的網站下載列在技術需求區段中的OpenSM版本套件至「套件/」目錄。例如：
++
+....
+curl -o packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+
+curl -o packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+....
+.. 在「group vars/ha_cluster．yml」（視需要調整套件）中填入下列參數：
++
+....
+### OpenSM package and configuration information
+eseries_ib_opensm_allow_upgrades: true
+eseries_ib_opensm_skip_package_validation: true
+eseries_ib_opensm_rhel_packages: []
+eseries_ib_opensm_custom_packages:
+  install:
+    - files:
+        add:
+          "packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+          "packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+    - packages:
+        add:
+          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+  uninstall:
+    - packages:
+        remove:
+          - opensm
+          - opensm-libs
+      files:
+        remove:
+          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+eseries_ib_opensm_options:
+  virt_enabled: "2"
+....
+
+
+. 設定「udev"規則、確保邏輯InfiniBand連接埠識別碼與基礎PCIe裝置之間的對應一致。
++
+「udev"規則必須是每個作為BeeGFS檔案節點之伺服器平台的PCIe拓撲所特有的規則。
+
++
+驗證的檔案節點請使用下列值：
+
++
+....
+### Ensure Consistent Logical IB Port Numbering
+# OPTION 1: Lenovo SR665 PCIe address-to-logical IB port mapping:
+eseries_ipoib_udev_rules:
+  "0000:41:00.0": i1a
+  "0000:41:00.1": i1b
+  "0000:01:00.0": i2a
+  "0000:01:00.1": i2b
+  "0000:a1:00.0": i3a
+  "0000:a1:00.1": i3b
+  "0000:81:00.0": i4a
+  "0000:81:00.1": i4b
+
+# Note: At this time no other x86 servers have been qualified. Configuration for future qualified file nodes will be added here.
+....
+. （選用）更新中繼資料目標選取演算法。
++
+....
+beegfs_ha_beegfs_meta_conf_ha_group_options:
+  tuneTargetChooser: randomrobin
+....
++
+
+NOTE: 在驗證測試中、「隨機配置資源」通常用於確保測試檔案在效能基準測試期間平均分散到所有BeeGFS儲存目標（如需基準測試的詳細資訊、請參閱BeeGFS網站 https://doc.beegfs.io/latest/advanced_topics/benchmark.html["基準測試BeeGFS系統"^]）。實際使用時、可能會導致編號較低的目標填滿速度比編號較高的目標更快。省略「Randomrounds」、只要使用預設的「Randomized」（隨機）值、就能提供良好的效能、同時仍能使用所有可用的目標。
+
+
+
+
+
+== 步驟5：定義通用區塊節點的組態
+
+區塊節點的共用組態是在稱為「Eseria_storage系統」的群組中定義。本節中的步驟會建置應包含在「group _vars/ Eseries _storage系統.yml」檔案中的組態。
+
+.步驟
+. 設定「Ansible connection to local（可連線至本機）」、提供系統密碼、並指定是否應驗證SSL憑證。（通常情況下、Ansible會使用SSH連線至託管主機、但在使用NetApp E系列儲存系統做為區塊節點的情況下、模組會使用REST API進行通訊。） 在檔案頂端新增下列項目：
++
+....
+### eseries_storage_systems Ansible group inventory file.
+# Place all default/common variables for NetApp E-Series Storage Systems here:
+ansible_connection: local
+eseries_system_password: <PASSWORD>
+eseries_validate_certs: false
+....
++
+
+NOTE: 不建議以純文字列出任何密碼。使用Ansible保存庫或使用「-Extra vars」執行Ansible時提供「Eserie_system_password」。
+
+. 若要確保最佳效能、請在中安裝區塊節點所列的版本 link:beegfs-technology-requirements.html["技術需求"]。
++
+請從下載對應的檔案 https://mysupport.netapp.com/site/products/all/details/eseries-santricityos/downloads-tab["NetApp支援網站"^]。您可以手動升級、或是將它們納入Ansible控制節點的「套件/」目錄、然後在「Eserie_storage儲存系統.yml」中填入下列參數、以使用Ansible進行升級：
+
++
+....
+# Firmware, NVSRAM, and Drive Firmware (modify the filenames as needed):
+eseries_firmware_firmware: "packages/RCB_11.70.2_6000_61b1131d.dlp"
+eseries_firmware_nvsram: "packages/N6000-872834-D06.dlp"
+....
+. 從下載並安裝適用於區塊節點中安裝之磁碟機的最新磁碟機韌體 https://mysupport.netapp.com/NOW/download/tools/diskfw_eseries/["NetApp支援網站"^]。您可以手動升級、或是將它們納入Ansible控制節點的「套件/」目錄、然後在「Eserie_storage儲存系統.yml」中填入下列參數、以使用Ansible進行升級：
++
+....
+eseries_drive_firmware_firmware_list:
+  - "packages/<FILENAME>.dlp"
+eseries_drive_firmware_upgrade_drives_online: true
+....
++
+
+NOTE: 將「Eseria_drive_韌 體_grade_drives_online」設定為「假」會加速升級、但必須等到部署BeeGFS之後才能執行。這是因為該設定需要在升級前停止所有磁碟機的I/O、以避免應用程式錯誤。雖然在設定磁碟區之前執行線上磁碟機韌體升級仍很快、但我們建議您將此值設為「true」、以避免日後發生問題。
+
+. 若要最佳化效能、請對全域組態進行下列變更：
++
+....
+# Global Configuration Defaults
+eseries_system_cache_block_size: 32768
+eseries_system_cache_flush_threshold: 80
+eseries_system_default_host_type: linux dm-mp
+eseries_system_autoload_balance: disabled
+eseries_system_host_connectivity_reporting: disabled
+eseries_system_controller_shelf_id: 99 # Required.
+....
+. 若要確保最佳的Volume資源配置和行為、請指定下列參數：
++
+....
+# Storage Provisioning Defaults
+eseries_volume_size_unit: pct
+eseries_volume_read_cache_enable: true
+eseries_volume_read_ahead_enable: false
+eseries_volume_write_cache_enable: true
+eseries_volume_write_cache_mirror_enable: true
+eseries_volume_cache_without_batteries: false
+eseries_storage_pool_usable_drives: "99:0,99:23,99:1,99:22,99:2,99:21,99:3,99:20,99:4,99:19,99:5,99:18,99:6,99:17,99:7,99:16,99:8,99:15,99:9,99:14,99:10,99:13,99:11,99:12"
+....
++
+
+NOTE: 針對「Eseria_storage資源池可用磁碟機」指定的值、是NetApp EF600區塊節點的專屬值、可控制磁碟機指派給新Volume群組的順序。此順序可確保每個群組的I/O平均分散於後端磁碟機通道。
+
+

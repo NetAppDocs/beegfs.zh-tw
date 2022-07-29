@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: beegfs-design-overview.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 需要特定設備、纜線和組態來支援BeeGFS on NetApp解決方案、此解決方案將BeeGFS平行檔案系統與NetApp EF600儲存系統結合在一起。 
+---
+= 設計總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+需要特定設備、纜線和組態來支援BeeGFS on NetApp解決方案、此解決方案將BeeGFS平行檔案系統與NetApp EF600儲存系統結合在一起。
+
+深入瞭解：
+
+* link:beegfs-design-hardware-architecture.html["硬體組態"]
+* link:beegfs-design-software-architecture.html["軟體組態"]
+* link:beegfs-design-solution-verification.html["設計驗證"]
+* link:beegfs-design-solution-sizing-guidelines.html["規模調整準則"]
+* link:beegfs-design-performance-tuning.html["效能調校"]
+

@@ -1,0 +1,79 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-setting-up-an-ansible-control-node.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 若要設定可Ansible控制節點、請識別可透過網路存取所有檔案和區塊節點管理連接埠的虛擬或實體機器、以便用來設定解決方案。 
+---
+= 設定可Ansible控制節點
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+若要設定Ansible控制節點、您必須識別可透過網路存取所有檔案和區塊節點管理連接埠的虛擬或實體機器、以便用來設定解決方案。
+
+下列步驟已在CentOS 8.4上進行測試。如需您偏好的Linux套裝作業系統專屬的步驟、請參閱 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansible文件"^]。
+
+. 安裝Python 3.9並確保安裝正確版本的「pip」。
++
+....
+sudo dnf install python3.9 -y
+sudo dnf install python39-pip
+sudo dnf install sshpass
+....
+. 建立符號連結、確保每當叫用「python3」或「python」時、都會使用Python 3.9二進位檔。
++
+....
+sudo ln -sf /usr/bin/python3.9 /usr/bin/python3
+sudo ln -sf /usr/bin/python3 /usr/bin/python
+....
+. 安裝NetApp BeeGFS集合所需的Python套件。
++
+....
+python3 -m pip install ansible cryptography netaddr
+....
++
+
+NOTE: 若要確保您安裝的是受支援版本的Ansible和所有必要的Python套件、請參閱BeeGFS集合的讀我檔案。支援的版本也會在中註明 link:beegfs-technology-requirements.html["技術需求"]。
+
+. 確認已安裝Ansible和Python的正確版本。
++
+....
+ansible --version
+ansible [core 2.11.6]
+  config file = None
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.9/site-packages/ansible
+  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/local/bin/ansible
+  python version = 3.9.2 (default, Mar 10 2021, 17:29:56) [GCC 8.4.1 20200928 (Red Hat 8.4.1-1)]
+  jinja version = 3.0.2
+  libyaml = True
+....
+. 將用來描述BeeGFS部署的Ansible庫存儲存在Git或BitBucket等來源控制系統中、然後安裝Git與這些系統互動。
++
+....
+sudo dnf install git -y
+....
+. 設定無密碼SSH。這是讓Ansible從「Ansible」控制節點存取遠端BeeGFS檔案節點最簡單的方法。
++
+.. 如果需要、在Ansible控制節點上、使用「sh-keygen'」產生一對公開金鑰
+.. 使用「sh-copy -id <ip_or_hostname>'」設定每個檔案節點的無密碼SSH
++
+請*不要*設定區塊節點的無密碼SSH。這既不受支援、也不需要。
+
+
+
+. 使用Ansible銀河來安裝中所列BeeGFS集合的版本 link:beegfs-technology-requirements.html["技術需求"]。
++
+此安裝包括其他可相依的相依性、例如NetApp SANtricity 整套軟體和主機收藏。
+
++
+....
+ansible-galaxy collection install netapp_eseries.beegfs:==3.0.1
+....
+

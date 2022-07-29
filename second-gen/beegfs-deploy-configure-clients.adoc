@@ -1,0 +1,139 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-configure-clients.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600. 
+summary: 在需要存取BeeGFS檔案系統的任何主機（例如運算或GPU節點）上安裝及設定BeeGFS用戶端。在這項工作中、您可以使用Ansible和BeeGFS集合。 
+---
+= 設定BeeGFS用戶端
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您必須在需要存取BeeGFS檔案系統的任何主機（例如運算或GPU節點）上安裝及設定BeeGFS用戶端。在這項工作中、您可以使用Ansible和BeeGFS集合。
+
+.步驟
+. 如有需要、請從Ansible控制節點設定無密碼SSH、並將其設定為BeeGFS用戶端的每個主機：
++
+「sh-copy -id <user>@<hostname_or_ip>'」
+
+. 在「host_vars/」下、為每個BeeGFS用戶端建立一個名為「.yml」的檔案、其中包含下列內容、並在預留位置文字中填入適合您環境的正確資訊：
++
+....
+# BeeGFS Client
+ansible_host: <MANAGEMENT_IP>
+# OPTIONAL: If you want to use the NetApp E-Series Host Collection’s IPoIB role to configure InfiniBand interfaces for clients to connect to BeeGFS file systems:
+eseries_ipoib_interfaces:
+  - name: <INTERFACE>
+    address: <IP>/<SUBNET_MASK> # Example: 100.127.1. 1/16
+  - name: <INTERFACE>0
+    address: <IP>/<SUBNET_MASK>
+....
++
+
+NOTE: 目前、每個用戶端都必須設定兩個InfiniBand介面、兩個儲存IPoIB子網路各一個。如果針對此處列出的每個BeeGFS服務使用範例子網路和建議範圍、用戶端應該設定一個介面、範圍為「100127.1」。從0到100、127.99.255、另一個在100、128.1。0到100、128。99.255。
+
+. 建立新檔案「client_inventory.yml」、然後在頂端填入下列參數：
++
+....
+# BeeGFS client inventory.
+all:
+  vars:
+    ansible_ssh_user: <USER> # This is the user Ansible should use to connect to each client.
+    ansible_become_password: <PASSWORD> # This is the password Ansible will use for privilege escalation, and requires the ansible_ssh_user be root, or have sudo privileges.
+The defaults set by the BeeGFS HA role are based on the testing performed as part of this NetApp Verified Architecture and differ from the typical BeeGFS client defaults.
+....
++
+
+NOTE: 請勿以純文字儲存密碼。請改用Ansible Vault（請參閱的「Ansible」文件） https://docs.ansible.com/ansible/latest/user_guide/vault.html["使用Ansible Vault加密內容"^]）或是在執行該教戰手冊時使用「Ask（隨叫隨到）」選項。
+
+. 在「client_inventory.yml」檔案中、在「beegfs_clients」群組中列出所有應設定為BeeGFS用戶端的主機、然後指定建置BeeGFS用戶端核心模組所需的任何其他組態。
++
+....
+  children:
+    # Ansible group representing all BeeGFS clients:
+    beegfs_clients:
+      hosts:
+        ictad21h01:
+        ictad21h02:
+        ictad21h03:
+        ictad21h04:
+        ictad21h05:
+        ictad21h06:
+        ictad21h07:
+        ictad21h08:
+        ictad21h09:
+        ictad21h10:
+      vars:
+        # OPTION 1: If you’re using the Mellanox OFED drivers and they are already installed:
+        eseries_ib_skip: True # Skip installing inbox drivers when using the IPoIB role.
+        beegfs_client_ofed_enable: True
+        beegfs_client_ofed_include_path: "/usr/src/ofa_kernel/default/include"
+        # OPTION 2: If you’re using inbox IB/RDMA drivers and they are already installed:
+        eseries_ib_skip: True # Skip installing inbox drivers when using the IPoIB role.
+        # OPTION 3: If you want to use inbox IB/RDMA drivers and need them installed/configured.
+        eseries_ib_skip: False # Default value.
+        beegfs_client_ofed_enable: False # Default value.
+....
++
+
+NOTE: 使用Mellanox OFED驅動程式時、請確定「beegfs_client_ofed_include_path」指向適用於Linux安裝的正確「標頭包含路徑」。如需詳細資訊、請參閱的BeeGFS文件 https://doc.beegfs.io/latest/advanced_topics/rdma_support.html["RDMA支援"^]。
+
+. 在「client_inventory.yml」檔案中、列出您要掛載在任何先前定義「vars」底部的BeeGFS檔案系統。
++
+....
+        beegfs_client_mounts:
+          - sysMgmtdHost: 100.127.101.0 # Primary IP of the BeeGFS management service.
+            mount_point: /mnt/beegfs    # Path to mount BeeGFS on the client.
+            connInterfaces:
+              - <INTERFACE> # Example: ibs4f1
+              - <INTERFACE>
+            beegfs_client_config:
+              # Maximum number of simultaneous connections to the same node.
+              connMaxInternodeNum: 128 # BeeGFS Client Default: 12
+              # Allocates the number of buffers for transferring IO.
+              connRDMABufNum: 36 # BeeGFS Client Default: 70
+              # Size of each allocated RDMA buffer
+              connRDMABufSize: 65536 # BeeGFS Client Default: 8192
+              # Required when using the BeeGFS client with the shared-disk HA solution.
+              # This does require BeeGFS targets be mounted in the default “sync” mode.
+              # See the documentation included with the BeeGFS client role for full details.
+              sysSessionChecksEnabled: false
+....
++
+
+NOTE: 「beegfs_client_config」代表已測試的設定。如需所有選項的完整概觀、請參閱netapp_eseries.beegfs`集合「beegfs_client」角色隨附的文件。這包括有關安裝多個BeeGFS檔案系統或多次安裝同一個BeeGFS檔案系統的詳細資料。
+
+. 建立新的「client_playbook .yml」檔案、然後填入下列參數：
++
+....
+# BeeGFS client playbook.
+- hosts: beegfs_clients
+  any_errors_fatal: true
+  gather_facts: true
+  collections:
+    - netapp_eseries.beegfs
+    - netapp_eseries.host
+  tasks:
+    - name: Ensure IPoIB is configured
+      import_role:
+        name: ipoib
+    - name: Verify the BeeGFS clients are configured.
+      import_role:
+        name: beegfs_client
+....
++
+
+NOTE: 如果您已在適當的IPoIB介面上安裝必要的IB/RDMA驅動程式和設定的IP、請省略匯入「NetApp_Eseries.host」集合和「IPoIB」角色。
+
+. 若要安裝及建置用戶端和Mount BeeGFS、請執行下列命令：
++
+....
+ansible-playbook -i client_inventory.yml client_playbook.yml
+....
+. 在您將BeeGFS檔案系統置於正式作業環境之前、我們*強烈*建議您登入任何用戶端、然後執行「beegfs-fs-fs-checksfs」、以確保所有節點都可連線、而且不會報告任何問題。
+

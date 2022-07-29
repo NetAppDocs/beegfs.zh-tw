@@ -1,0 +1,561 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-define-inventory.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 定義一般的Ansible庫存結構之後、請定義BeeGFS檔案系統中每個建置區塊的組態。 
+---
+= 定義BeeGFS建置區塊的Ansible庫存
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+定義一般的Ansible庫存結構之後、請定義BeeGFS檔案系統中每個建置區塊的組態。
+
+這些部署說明示範如何部署由基礎建置區塊（包括管理、中繼資料和儲存服務）所組成的檔案系統、第二個含有中繼資料和儲存服務的建置區塊、以及第三個純儲存建置區塊。
+
+這些步驟旨在顯示完整的典型組態設定檔、您可以使用這些設定檔來設定NetApp BeeGFS建置區塊、以符合整個BeeGFS檔案系統的需求。
+
+
+NOTE: 在本節及後續章節中、視需要進行調整、以建立代表您要部署之BeeGFS檔案系統的詳細目錄。尤其是使用代表每個區塊或檔案節點的Ansible主機名稱、以及儲存網路所需的IP定址方案、以確保其可擴充至BeeGFS檔案節點和用戶端的數量。
+
+
+
+== 步驟1：建立Ansible庫存檔案
+
+.步驟
+. 建立新的「inventory.yml」檔案、然後插入下列參數、視需要將主機替換為「Eseria_storage系統」、以代表部署中的區塊節點。名稱應與「host_vars/<fileName（主機名稱）>.yml」所使用的名稱相對應。
++
+....
+# BeeGFS HA (High Availability) cluster inventory.
+all:
+  children:
+    # Ansible group representing all block nodes:
+    eseries_storage_systems:
+      hosts:
+        ictad22a01:
+        ictad22a02:
+        ictad22a03:
+        ictad22a04:
+        ictad22a05:
+        ictad22a06:
+    # Ansible group representing all file nodes:
+    ha_cluster:
+      children:
+....
++
+在後續章節中、您將在「ha_cluster」下建立其他可執行群組、以代表您要在叢集中執行的BeeGFS服務。
+
+
+
+
+
+== 步驟2：設定管理、中繼資料和儲存建置區塊的庫存
+
+叢集或基礎建置區塊中的第一個建置區塊必須包含BeeGFS管理服務、以及中繼資料和儲存服務：
+
+.步驟
+. 在「inventory.yml」中、在「ha_cluster：子項目」下填入下列參數：
++
+....
+      # ictad22h01/ictad22h02 HA Pair (mgmt/meta/storage building block):
+        mgmt:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_01:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_01:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_02:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_02:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_03:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_03:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_04:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        stor_04:
+          hosts:
+            ictad22h01:
+            ictad22h02:
+        meta_05:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_05:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        meta_06:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_06:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        meta_07:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_07:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        meta_08:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+        stor_08:
+          hosts:
+            ictad22h02:
+            ictad22h01:
+....
+. 建立「group vars/mgmt.ml」檔案、並包含下列項目：
++
+....
+# mgmt - BeeGFS HA Management Resource Group
+# OPTIONAL: Override default BeeGFS management configuration:
+# beegfs_ha_beegfs_mgmtd_conf_resource_group_options:
+#  <beegfs-mgmt.conf:key>:<beegfs-mgmt.conf:value>
+floating_ips:
+  - i1b: 100.127.101.0/16
+  - i2b: 100.128.102.0/16
+beegfs_service: management
+beegfs_targets:
+  ictad22a01:
+    eseries_storage_pool_configuration:
+      - name: beegfs_m1_m2_m5_m6
+        raid_level: raid1
+        criteria_drive_count: 4
+        common_volume_configuration:
+          segment_size_kb:  128
+        volumes:
+          - size: 1
+            owning_controller: A
+....
+. 在「Group_vars/」下、使用下列範本建立資源群組「meta_01」到「meta_08」的檔案、然後填寫下表中每個服務的預留位置值：
++
+....
+# meta_0X - BeeGFS HA Metadata Resource Group
+beegfs_ha_beegfs_meta_conf_resource_group_options:
+  connMetaPortTCP: <PORT>
+  connMetaPortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET> # Example: i1b:192.168.120.1/16
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: metadata
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid1
+        criteria_drive_count: 4
+        common_volume_configuration:
+          segment_size_kb:  128
+        volumes:
+          - size: 21.25 # SEE NOTE BELOW!
+            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 磁碟區大小是以整體儲存資源池（也稱為Volume群組）的百分比來指定。NetApp強烈建議您在每個資源池中保留一些可用容量、以便有空間進行SSD過度資源配置（如需詳細資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/17009-tr4800pdf.pdf["NetApp EF600陣列簡介"^]）。儲存資源池「beegfs_m1_m2_m5_m6'」也會將1%的資源池容量配置給管理服務。因此、對於儲存資源池中的中繼資料磁碟區、當使用1.92TB或3.844TB磁碟機時、請將此值設為「21.25」；如果使用7.65TB磁碟機、請將此值設為「22.25」；如果使用15.3TB磁碟機、請將此值設為「23.75」。
+
++
+|===
+| 檔案名稱 | 連接埠 | 浮動IP | NUMA區域 | 區塊節點 | 儲存資源池 | 擁有控制器 
+
+
+| meta_01.yml | 8015 | i1b：100、127.101.1/16 i2b：100、128.102.1/16 | 0 | ictad22a01 | beegfs_m1_m2_m5_m6. | 答 
+
+
+| meta_02.yml | 8025 | i2b:100128.102.2/16 i1b:100127.101.2/16 | 0 | ictad22a01 | beegfs_m1_m2_m5_m6. | b 
+
+
+| meta_03.yml | 8035 | i3b：100127.101.3/16 i4b：100128.102.3/16 | 1. | ictad22a02 | Beegfs_m3_m4_m7_M8 | 答 
+
+
+| meta_04.yml | 8045 | i4b：100、128.102.4 / 16 i3b：100、127.101.4 / 16 | 1. | ictad22a02 | Beegfs_m3_m4_m7_M8 | b 
+
+
+| meta_05.yml | 8055 | i1b：100127.101.5/16 i2b：100128.102.5/16 | 0 | ictad22a01 | beegfs_m1_m2_m5_m6. | 答 
+
+
+| meta_06.yml | 8065 | i2b:100128.102.6/16 i1b:100127.101.6/16 | 0 | ictad22a01 | beegfs_m1_m2_m5_m6. | b 
+
+
+| meta_07.yml | 8075 | i3b：100、127.101.7 / 16 i4b：100、128.102.7 / 16 | 1. | ictad22a02 | Beegfs_m3_m4_m7_M8 | 答 
+
+
+| meta_08.yml | 8085 | i4b：100、128.102.8 / 16 i3b：100、127.101.8 / 16 | 1. | ictad22a02 | Beegfs_m3_m4_m7_M8 | b 
+|===
+. 在「Group_vars/」下、使用下列範本建立資源群組「shor_01」到「shor_08」的檔案、然後填入每個服務的預留位置值、以參照範例：
++
+....
+# stor_0X - BeeGFS HA Storage Resource Groupbeegfs_ha_beegfs_storage_conf_resource_group_options:
+  connStoragePortTCP: <PORT>
+  connStoragePortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET>
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: storage
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid6
+        criteria_drive_count: 10
+        common_volume_configuration:
+          segment_size_kb: 512        volumes:
+          - size: 21.50 # See note below!             owning_controller: <OWNING CONTROLLER>
+          - size: 21.50            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 如需正確使用尺寸、請參閱 link:beegfs-deploy-recommended-volume-percentages.html["建議的儲存資源池過度資源配置百分比"]。
+
++
+|===
+| 檔案名稱 | 連接埠 | 浮動IP | NUMA區域 | 區塊節點 | 儲存資源池 | 擁有控制器 
+
+
+| STOR_01.yml | 8013 | i1b：100、127.103.1/16 i2b：100、128.104.1/16 | 0 | ictad22a01 | beegfs_s1_s2 | 答 
+
+
+| STOR_02.yml | 8023 | i2b:100128.104.2/16 i1b:100127.103.2/16 | 0 | ictad22a01 | beegfs_s1_s2 | b 
+
+
+| STOR_03.yml | 8033 | i3b：100、127.103.3 / 16 i4b：100、128.104.3/16 | 1. | ictad22a02 | beegfs_s2_s4 | 答 
+
+
+| STOR_04.yml | 8043 | i4b：100、128.104.4/16 i3b：100、127.103.4/16 | 1. | ictad22a02 | beegfs_s2_s4 | b 
+
+
+| STOR_05.yml | 8053 | i1b：100、127.103.5/16 i2b：100、128.104.5/16 | 0 | ictad22a01 | Beegfs_S1_S6 | 答 
+
+
+| STOR_06.yml | 8063 | i2b:100128.104.6/16 i1b:100127.103.6/16 | 0 | ictad22a01 | Beegfs_S1_S6 | b 
+
+
+| STOR_07.yml | 8073 | i3b：100、127.103.7 / 16 i4b：100、128.104.7/16 | 1. | ictad22a02 | Beegfs_S7_S8 | 答 
+
+
+| STOR_08.yml | 8083 | i4b：100、128.104.8/16 i3b：100、127.103.8 / 16 | 1. | ictad22a02 | Beegfs_S7_S8 | b 
+|===
+
+
+
+
+== 步驟3：設定中繼資料+儲存建置區塊的詳細目錄
+
+這些步驟說明如何設定BeeGFS中繼資料+儲存建置區塊的可執行庫存。
+
+.步驟
+. 在「inventory.yml」中、在現有組態下填入下列參數：
++
+....
+        meta_09:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_09:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_10:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_10:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_11:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_11:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_12:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        stor_12:
+          hosts:
+            ictad22h03:
+            ictad22h04:
+        meta_13:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_13:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        meta_14:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_14:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        meta_15:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_15:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        meta_16:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+        stor_16:
+          hosts:
+            ictad22h04:
+            ictad22h03:
+....
+. 在「Group_vars/」下、使用下列範本建立資源群組「meta_09」到「meta_16」的檔案、然後填入每個服務的預留位置值、以參照範例：
++
+....
+# meta_0X - BeeGFS HA Metadata Resource Group
+beegfs_ha_beegfs_meta_conf_resource_group_options:
+  connMetaPortTCP: <PORT>
+  connMetaPortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET>
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: metadata
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid1
+        criteria_drive_count: 4
+        common_volume_configuration:
+          segment_size_kb: 128
+        volumes:
+          - size: 21.5 # SEE NOTE BELOW!
+            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 如需正確使用尺寸、請參閱 link:beegfs-deploy-recommended-volume-percentages.html["建議的儲存資源池過度資源配置百分比"]。
+
++
+|===
+| 檔案名稱 | 連接埠 | 浮動IP | NUMA區域 | 區塊節點 | 儲存資源池 | 擁有控制器 
+
+
+| meta_09.yml | 8015 | i1b：100、127.101.9 / 16 i2b：100、128.102.9 / 16 | 0 | ictad22a03 | Beegfs_m9_m10_M13_M14 | 答 
+
+
+| meta_10.yml | 8025 | i2b:100128.102.10/16 i1b:100127.101.10/16 | 0 | ictad22a03 | Beegfs_m9_m10_M13_M14 | b 
+
+
+| meta_11.ml | 8035 | i3b：100、127.101.11 / 16 i4b：100、128.102.11/16 | 1. | ictad22a04 | Beegfs_M11_M12_M15_M16 | 答 
+
+
+| meta_12.ml | 8045 | i4b：100、128.102.12/16 i3b：100、127.101.12 / 16 | 1. | ictad22a04 | Beegfs_M11_M12_M15_M16 | b 
+
+
+| meta_13.yml | 8055 | i1b：100、127.101.13 / 16 i2b：100、128.102.1/16 | 0 | ictad22a03 | Beegfs_m9_m10_M13_M14 | 答 
+
+
+| meta_14.yml | 8065 | i2b:100128.102.14/16 i1b:100127.101.14/16 | 0 | ictad22a03 | Beegfs_m9_m10_M13_M14 | b 
+
+
+| meta_15.yml | 8075 | i3b：100、127.101.15、16 i4b：100、128.102.15/16 | 1. | ictad22a04 | Beegfs_M11_M12_M15_M16 | 答 
+
+
+| meta_16.myl | 8085 | i4b：100、128.102.16/16 i3b：100、127.101.16/16 | 1. | ictad22a04 | Beegfs_M11_M12_M15_M16 | b 
+|===
+. 在「Group_vars/」下、使用下列範本建立資源群組「shor_09」到「shor_16」的檔案、然後填入每個服務的預留位置值、以參照範例：
++
+....
+# stor_0X - BeeGFS HA Storage Resource Group
+beegfs_ha_beegfs_storage_conf_resource_group_options:
+  connStoragePortTCP: <PORT>
+  connStoragePortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET>
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: storage
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid6
+        criteria_drive_count: 10
+        common_volume_configuration:
+          segment_size_kb: 512        volumes:
+          - size: 21.50 # See note below!
+            owning_controller: <OWNING CONTROLLER>
+          - size: 21.50            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 如需正確使用尺寸、請參閱 link:beegfs-deploy-recommended-volume-percentages.html["建議的儲存資源池過度資源配置百分比"]...
+
++
+|===
+| 檔案名稱 | 連接埠 | 浮動IP | NUMA區域 | 區塊節點 | 儲存資源池 | 擁有控制器 
+
+
+| STOR_09.yml | 8013 | i1b：100、127.103.9/16 i2b：100、128.104.9 / 16 | 0 | ictad22a03 | beegfs_s9_s10 | 答 
+
+
+| STOR_10.yml | 8023 | i2b:100128.104.10/16 i1b:100127.103.10/16 | 0 | ictad22a03 | beegfs_s9_s10 | b 
+
+
+| STOR_11.yml | 8033 | i3b：100、127.103.11/16 i4b：100、128.104.11/16 | 1. | ictad22a04 | Beegfs_S11_s12. | 答 
+
+
+| Stor_12.ml | 8043 | i4b：100、128.104.12/16 i3b：100、127.103.12/16 | 1. | ictad22a04 | Beegfs_S11_s12. | b 
+
+
+| STOR_13.yml | 8053 | i1b：100、127.103.13/16 i2b：100、128.104.13/16 | 0 | ictad22a03 | beegfs_s13_s14 | 答 
+
+
+| STOR_14.yml | 8063 | i2b:100128.104.14/16 i1b:100127.103.14/16 | 0 | ictad22a03 | beegfs_s13_s14 | b 
+
+
+| STOR_15.yml | 8073 | i3b：100、127.103.15/16 i4b：100、128.104.15/16 | 1. | ictad22a04 | Beegfs_S15_S16 | 答 
+
+
+| STOR_16.yml | 8083 | i4b：100、128.104.16/16 i3b：100、127.103.16/16 | 1. | ictad22a04 | Beegfs_S15_S16 | b 
+|===
+
+
+
+
+== 步驟4：設定僅儲存建置區塊的庫存
+
+這些步驟說明如何設定BeeGFS純儲存區塊的可執行庫存。設定中繼資料+儲存設備的組態與純儲存設備建置區塊之間的主要差異、在於所有中繼資料資源群組都不存在、而且每個儲存資源池的「Criteria _DRIVE _count」也會從10變更為12。
+
+.步驟
+. 在「inventory.yml」中、在現有組態下填入下列參數：
++
+....
+      # ictad22h05/ictad22h06 HA Pair (storage only building block):
+        stor_17:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_18:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_19:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_20:
+          hosts:
+            ictad22h05:
+            ictad22h06:
+        stor_21:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+        stor_22:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+        stor_23:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+        stor_24:
+          hosts:
+            ictad22h06:
+            ictad22h05:
+....
+. 在「Group_vars/」下、使用下列範本建立資源群組「shor_17」到「shor_24」的檔案、然後填寫每個服務的預留位置值、以參照範例：
++
+....
+# stor_0X - BeeGFS HA Storage Resource Group
+beegfs_ha_beegfs_storage_conf_resource_group_options:
+  connStoragePortTCP: <PORT>
+  connStoragePortUDP: <PORT>
+  tuneBindToNumaZone: <NUMA ZONE>
+floating_ips:
+  - <PREFERRED PORT:IP/SUBNET>
+  - <SECONDARY PORT:IP/SUBNET>
+beegfs_service: storage
+beegfs_targets:
+  <BLOCK NODE>:
+    eseries_storage_pool_configuration:
+      - name: <STORAGE POOL>
+        raid_level: raid6
+        criteria_drive_count: 12
+        common_volume_configuration:
+          segment_size_kb: 512
+        volumes:
+          - size: 21.50 # See note below!
+            owning_controller: <OWNING CONTROLLER>
+          - size: 21.50
+            owning_controller: <OWNING CONTROLLER>
+....
++
+
+NOTE: 如需正確使用尺寸、請參閱 link:beegfs-deploy-recommended-volume-percentages.html["建議的儲存資源池過度資源配置百分比"]。
+
++
+|===
+| 檔案名稱 | 連接埠 | 浮動IP | NUMA區域 | 區塊節點 | 儲存資源池 | 擁有控制器 
+
+
+| STOR_17.yml | 8013 | i1b：100、127.103.17/16 i2b：100、128.104.17/16 | 0 | ictad22a05 | Beegfs_S17_s18 | 答 
+
+
+| STOR_18.yml | 8023 | i2b:100128.104.18/16 i1b:100127.103.18/16 | 0 | ictad22a05 | Beegfs_S17_s18 | b 
+
+
+| STOR_19.yml | 8033 | i3b：100127.103.19/16 i4b：100128.104.19/16 | 1. | ictad22a06. | Beegfs_s19_S20 | 答 
+
+
+| Stor_20.ml | 8043 | i4b：100、128.104.20/16 i3b：100、127.103.20/16 | 1. | ictad22a06. | Beegfs_s19_S20 | b 
+
+
+| STOR_21.yml | 8053 | i1b：100、127.103.21/16 i2b：100、128.104.21/16 | 0 | ictad22a05 | Beegfs_S21_S22 | 答 
+
+
+| STOR_22.yml | 8063 | i2b:100128.104.22/16 i1b:100127.103.22/16 | 0 | ictad22a05 | Beegfs_S21_S22 | b 
+
+
+| STOR_23.yml | 8073 | i3b：100、127.103.23 / 16 i4b：100、128.104.23 / 16 | 1. | ictad22a06. | beegfs_S23_s24 | 答 
+
+
+| STOR_24.yml | 8083 | i4b：100、128.104.24/16 i3b：100、127.103.24/16 | 1. | ictad22a06. | beegfs_S23_s24 | b 
+|===
+

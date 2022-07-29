@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-overview.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 您可以使用第二代NetApp BeeGFS建置區塊設計、在NetApp上部署BeeGFS至已驗證的檔案和區塊節點。 
+---
+= 部署總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以使用第二代NetApp BeeGFS建置區塊設計、在NetApp上部署BeeGFS至已驗證的檔案和區塊節點。
+
+
+
+== Ansible集合與角色
+
+您可以使用Ansible（常用的IT自動化引擎）在NetApp上部署BeeGFS解決方案、以自動化應用程式部署。Ansible會使用一系列的檔案、統稱為庫存、用來建立您要部署的BeeGFS檔案系統模型。
+
+Ansible允許NetApp等公司使用Ansible銀河系統上的集合來擴充內建功能（請參閱 https://galaxy.ansible.com/netapp_eseries["NetApp E系列BeeGFS系列"^]）。集合包括執行特定功能或工作的模組（例如建立E系列Volume）、以及可呼叫多個模組和其他角色的角色。此自動化方法可縮短部署BeeGFS檔案系統和基礎HA叢集所需的時間。此外、它還能簡化新增建置區塊的作業、以擴充現有的檔案系統。
+
+如需其他詳細資料、請參閱 link:beegfs-deploy-learn-ansible.html["瞭解Ansible庫存"]。
+
+
+NOTE: 由於在NetApp解決方案上部署BeeGFS涉及許多步驟、因此NetApp不支援手動部署解決方案。
+
+
+
+== BeeGFS建置區塊的組態設定檔
+
+部署程序涵蓋下列組態設定檔：
+
+* 一個基礎建置區塊、包含管理、中繼資料和儲存服務。
+* 第二個建置區塊、包含中繼資料和儲存服務。
+* 僅包含儲存服務的第三個建置區塊。
+
+
+這些設定檔說明NetApp BeeGFS建置區塊的完整建議組態設定檔。對於每個部署、中繼資料和儲存建置區塊或僅儲存服務建置區塊的數量、可能會因程序而異、視容量和效能需求而定。
+
+
+
+== 部署步驟總覽
+
+部署作業包括下列高層級工作：
+
+.硬體部署
+. 實際組裝每個建置區塊。
+. 機架與纜線硬體。如需詳細程序、請參閱 link:beegfs-deploy-hardware.html["部署硬體"]。
+
+
+.軟體部署
+. link:beegfs-deploy-setup-nodes.html["設定檔案和區塊節點"]。
++
+** 在檔案節點上設定BMC IP
+** 安裝支援的作業系統、並在檔案節點上設定管理網路
+** 在區塊節點上設定管理IP
+
+
+. link:beegfs-deploy-setting-up-an-ansible-control-node.html["設定可Ansible控制節點"]。
+. link:beegfs-deploy-file-node-tuning.html["調整系統設定以獲得效能"]。
+. link:beegfs-deploy-create-inventory.html["建立可Ansible庫存"]。
+. link:beegfs-deploy-define-inventory.html["定義BeeGFS建置區塊的Ansible庫存"]。
+. link:beegfs-deploy-playbook.html["使用Ansible部署BeeGFS"]。
+. link:beegfs-deploy-configure-clients.html["設定BeeGFS用戶端"]。
+
+
+
+NOTE: 部署程序包括幾個需要將文字複製到檔案的範例。請密切注意任何應針對特定部署進行修改或可修改之字元以「#」或「//」表示的即時註解。例如：「beegfs_ha_ntp_server_Pools：#這是註解的範例！-「Pool 0.pool.ntp.org ipburst連串最大資源3」-「Pool 1.pool.ntp.org ipburst最大資源3」

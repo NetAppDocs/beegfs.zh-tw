@@ -1,0 +1,213 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-file-node-tuning.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 為了發揮最大效能、我們建議您在您做為檔案節點的伺服器機型上設定系統設定。 
+---
+= 調整檔案節點系統設定以獲得效能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+若要發揮最大效能、建議您在您做為檔案節點的伺服器機型上設定系統設定。
+
+系統設定會因您用來做為檔案節點的伺服器機型而有所不同。本主題說明如何設定已驗證之Lenovo ThinkSystem SR665伺服器檔案節點的系統設定。
+
+
+
+== 使用UEFI介面調整系統設定
+
+Lenovo SR665伺服器的系統韌體包含許多可透過UEFI介面設定的調校參數。這些調校參數可能會影響伺服器運作方式的所有層面、以及伺服器的效能表現。
+
+在* UEFI Setup > System Settings*下、調整下列系統設定：
+
+
+
+=== 操作模式功能表
+
+[cols=","]
+|===
+| *系統設定* | *變更為* 
+
+
+ a| 
+操作模式
+ a| 
+自訂
+
+
+
+ a| 
+CTDP
+ a| 
+手冊
+
+
+
+ a| 
+CTDP手冊
+ a| 
+350
+
+
+
+ a| 
+套件電力限制
+ a| 
+手冊
+
+
+
+ a| 
+效率模式
+ a| 
+停用
+
+
+
+ a| 
+globe-C態 控制
+ a| 
+停用
+
+
+
+ a| 
+SOC P狀態
+ a| 
+P0
+
+
+
+ a| 
+DF C狀態
+ a| 
+停用
+
+
+
+ a| 
+P-State 1.
+ a| 
+停用
+
+
+
+ a| 
+啟用記憶體關機
+ a| 
+停用
+
+
+
+ a| 
+每個插槽的NUMA節點
+ a| 
+NPS1
+
+|===
+
+
+=== 裝置和I/O連接埠功能表
+
+[cols=","]
+|===
+| *系統設定* | *變更為* 
+
+
+ a| 
+IOMMU
+ a| 
+停用
+
+|===
+
+
+=== 電源選單
+
+[cols=","]
+|===
+| *系統設定* | *變更為* 
+
+
+ a| 
+PCIe Power Brake
+ a| 
+停用
+
+|===
+
+
+=== 處理器功能表
+
+[cols=","]
+|===
+| *系統設定* | *變更為* 
+
+
+ a| 
+全域C狀態控制
+ a| 
+停用
+
+
+
+ a| 
+DF C狀態
+ a| 
+停用
+
+
+
+ a| 
+SMT模式
+ a| 
+停用
+
+
+
+ a| 
+CPPC
+ a| 
+停用
+
+|===
+
+
+== 使用Redfish API調整系統設定
+
+除了使用UEFI設定、您也可以使用Redfish API來變更系統設定。
+
+....
+curl --request PATCH \
+  --url https://<BMC_IP_ADDRESS>/redfish/v1/Systems/1/Bios/Pending \
+  --user <BMC_USER>:<BMC- PASSWORD> \
+  --header 'Content-Type: application/json' \
+  --data '{
+"Attributes": {
+"OperatingModes_ChooseOperatingMode": "CustomMode",
+"Processors_cTDP": "Manual",
+"Processors_PackagePowerLimit": "Manual",
+"Power_EfficiencyMode": "Disable",
+"Processors_GlobalC_stateControl": "Disable",
+"Processors_SOCP_states": "P0",
+"Processors_DFC_States": "Disable",
+"Processors_P_state1": "Disable",
+"Memory_MemoryPowerDownEnable": "Disable",
+"DevicesandIOPorts_IOMMU": "Disable",
+"Power_PCIePowerBrake": "Disable",
+"Processors_GlobalC_stateControl": "Disable",
+"Processors_DFC_States": "Disable",
+"Processors_SMTMode": "Disable",
+"Processors_CPPC": "Disable",
+"Memory_NUMANodesperSocket":"NPS1"
+}
+}
+'
+....
+如需Redfish架構的詳細資訊、請參閱 https://redfish.dmtf.org/redfish/schema_index["DMTF網站"^]。

@@ -1,0 +1,25 @@
+---
+sidebar: sidebar 
+permalink: whats-included.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 本網站包含NetApp驗證架構（NVA）的NetApp BeeGFS解決方案專屬資訊。 
+---
+= 本網站所含內容
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+本網站提供NetApp為BeeGFS打造的NetApp認證架構（NVA）第二代的相關資訊。
+
+本網站的資訊包括：
+
+* 架構設計考量、用於判斷支援架構所需的特定設備、纜線和組態。如需詳細資訊、請參閱 link:beegfs-design-overview.html["設計總覽"]。
+* 使用已驗證的BeeGFS檔案伺服器（檔案節點）連接至區塊儲存系統（區塊節點）的部署準則。如需詳細資訊、請參閱 link:beegfs-deploy-overview.html["部署總覽"]。
+
+
+本網站不包含第一代解決方案的設計與部署資訊。如需上一代產品的完整內容、請參閱 link:https://www.netapp.com/pdf.html?item=/media/25445-nva-1156-design.pdf["NetApp EF系列AI搭配NVIDIA DGX A100系統和BeeGFS"^]。

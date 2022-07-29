@@ -1,0 +1,115 @@
+---
+sidebar: sidebar 
+permalink: beegfs-design-performance-tuning.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: BeeGFS解決方案包含根據驗證測試進行效能調校的建議。 
+---
+= 效能調校
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+BeeGFS解決方案包含根據驗證測試進行效能調校的建議。
+
+儘管BeeGFS提供合理的開箱即用效能、但NetApp已開發出一套建議的調校參數、以最大化效能。這些參數會考量基礎E系列區塊節點的功能、以及在共享磁碟HA架構中執行BeeGFS所需的任何特殊需求。
+
+
+
+== 檔案節點的效能調校
+
+您可以設定的可用調校參數包括：
+
+. *檔案節點的UEFI/BIOS中的系統設定。*若要發揮最大效能、建議您在做為檔案節點的伺服器機型上設定系統設定。您可以使用系統設定程式（UEFI/BIOS）或底板管理控制器（BMC）提供的Redfish API來設定檔案節點時的系統設定。
++
+系統設定會因您用來做為檔案節點的伺服器機型而有所不同。這些設定必須根據使用中的伺服器機型手動設定。若要瞭解如何設定已驗證之Lenovo SR665檔案節點的系統設定、請參閱 link:beegfs-deploy-file-node-tuning.html["調整檔案節點系統設定以獲得效能"]。
+
+. *必要組態參數的預設設定。*必要的組態參數會影響BeeGFS服務的設定方式、以及E系列磁碟區（區塊裝置）如何由心臟起搏器設定格式及掛載。這些必要的組態參數包括：
++
+** BeeGFS服務組態參數
++
+您可以視需要覆寫組態參數的預設設定。如需可針對特定工作負載或使用案例進行調整的參數、請參閱 https://github.com/netappeseries/beegfs/blob/135d9a04ae96f4d202300bae870c6404b77b6865/roles/beegfs_ha_7_2/defaults/main.yml#L155["BeeGFS服務組態參數"^]。
+
+** Volume格式化和掛載參數會設定為建議的預設值、而且只能針對進階使用案例進行調整。預設值會執行下列動作：
++
+*** 根據目標類型（例如管理、中繼資料或儲存設備）、以及基礎磁碟區的RAID組態和區段大小、最佳化初始磁碟區格式。
+*** 調整心臟起搏器如何掛載每個Volume、以確保變更立即排清至E系列區塊節點。如此可在檔案節點發生故障且正在進行作用中寫入時、避免資料遺失。
++
+如需可針對特定工作負載或使用案例進行調整的參數、請參閱 https://github.com/netappeseries/beegfs/blob/135d9a04ae96f4d202300bae870c6404b77b6865/roles/beegfs_ha_7_2/defaults/main.yml#L258["Volume格式化與掛載組態參數"^]。
+
+
+
+
+
+. *安裝在檔案節點上的Linux作業系統中的系統設定。*當您在的步驟4中建立「Ansible」清單時、可以覆寫預設的Linux OS系統設定 link:beegfs-deploy-beegfs-general-config.html["建立可Ansible庫存"]。
++
+預設設定是用來驗證NetApp解決方案上的BeeGFS、但您可以變更這些設定、以因應您的特定工作負載或使用案例進行調整。您可以變更的一些Linux作業系統設定範例包括：
+
++
+** E系列區塊裝置上的I/O佇列。
++
+您可以在作為BeeGFS目標的E系列區塊裝置上設定I/O佇列、以便：
+
++
+*** 根據裝置類型（NVMe、HDD等）調整排程演算法。
+*** 增加未處理要求的數量。
+*** 調整要求大小。
+*** 最佳化預先讀取行為。
+
+
+** 虛擬記憶體設定：
++
+您可以調整虛擬記憶體設定、以獲得最佳的持續串流效能。
+
+** CPU設定：
++
+您可以調整CPU頻率調節器和其他CPU組態、以獲得最大效能。
+
+** 讀取要求大小。
++
+您可以增加Mellanox HCA的最大讀取要求大小。
+
+
+
+
+
+
+
+== 區塊節點的效能調校
+
+根據套用至特定BeeGFS建置區塊的組態設定檔、區塊節點上設定的Volume群組會稍微變更。例如、使用24個磁碟機EF600區塊節點：
+
+* 對於單一基礎建置區塊、包括BeeGFS管理、中繼資料和儲存服務：
++
+** 1個2+2個RAID 10 Volume群組、用於BeeGFS管理和中繼資料服務
+** 2個8+2個RAID 6 Volume群組用於BeeGFS儲存服務
+
+
+* 若為BeeGFS中繼資料+儲存建置區塊：
++
+** 1個2+2個RAID 10 Volume群組、用於BeeGFS中繼資料服務
+** 2個8+2個RAID 6 Volume群組用於BeeGFS儲存服務
+
+
+* 僅適用於BeeGFS儲存設備建置區塊：
++
+** 2個10+2個RAID 6 Volume群組用於BeeGFS儲存服務
+
+
+
+
+
+NOTE: 由於BeeGFS需要的管理與中繼資料儲存空間比儲存空間大幅減少、因此有一個選項是針對RAID 10 Volume群組使用較小的磁碟機。較小的磁碟機應安裝在最外側的磁碟機插槽中。如需詳細資訊、請參閱 link:beegfs-deploy-overview.html["部署指示"]。
+
+這些都是由Ansible型部署所設定、以及其他一些一般建議的設定、以最佳化效能/行為、包括：
+
+* 將全域快取區塊大小調整為32KiB、並將需求型快取排清調整為80%。
+* 停用自動負載平衡（確保控制器磁碟區指派維持原定狀態）。
+* 啟用讀取快取和停用預先讀取快取。
+* 啟用含鏡射的寫入快取、並需要電池備份、以便在區塊節點控制器故障時、快取仍會持續存在。
+* 指定磁碟機指派給磁碟區群組的順序、在可用磁碟機通道之間平衡I/O。
+

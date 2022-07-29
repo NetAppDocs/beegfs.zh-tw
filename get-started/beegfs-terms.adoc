@@ -1,0 +1,127 @@
+---
+sidebar: sidebar 
+permalink: beegfs-terms.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 適用於NetApp解決方案BeeGFS的詞彙與概念。 
+---
+= 詞彙與概念
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+下列術語與概念適用於NetApp上的BeeGFS解決方案。
+
+[cols="25h,~"]
+|===
+| 期限 | 說明 
+
+
+ a| 
+AI
+ a| 
+人工智慧：
+
+
+
+ a| 
+可Ansible Inventory
+ a| 
+目錄結構包含Yaml檔案、可用來描述所需的BeeGFS HA叢集。
+
+
+
+ a| 
+BMC
+ a| 
+基礎板管理控制器。有時稱為服務處理器。
+
+
+
+ a| 
+區塊節點
+ a| 
+儲存系統：
+
+
+
+ a| 
+用戶端
+ a| 
+伺服器節點。
+
+
+
+ a| 
+DL
+ a| 
+深度學習：
+
+
+
+ a| 
+檔案節點
+ a| 
+BeeGFS檔案伺服器。
+
+
+
+ a| 
+HA
+ a| 
+高可用度：
+
+
+
+ a| 
+HIC
+ a| 
+主機介面卡。
+
+
+
+ a| 
+高效能運算
+ a| 
+高效能運算：
+
+
+
+ a| 
+HPC型工作負載
+ a| 
+HPC型工作負載的特點通常是多個運算節點或GPU都需要同時存取相同的資料集、以利分散式運算或訓練工作。這些資料集通常是由大型檔案所組成、應跨越多個實體儲存節點進行等量分佈、以消除傳統硬體瓶頸、避免同時存取單一檔案。
+
+
+
+ a| 
+ML
+ a| 
+機器學習：
+
+
+
+ a| 
+NLP
+ a| 
+自然語言處理：
+
+
+
+ a| 
+NLU
+ a| 
+自然語言理解：
+
+
+
+ a| 
+NVA
+ a| 
+NetApp驗證架構（NVA）方案針對特定工作負載和使用案例、提供參考組態和規模調整指引。這些解決方案經過徹底測試、旨在將部署風險降至最低、並加速上市時間。
+
+|===

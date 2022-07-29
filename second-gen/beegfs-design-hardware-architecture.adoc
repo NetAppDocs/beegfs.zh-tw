@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: beegfs-design-hardware-architecture.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: NetApp上BeeGFS的硬體組態包括檔案節點和網路纜線。 
+---
+= 硬體組態
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp上BeeGFS的硬體組態包括檔案節點和網路纜線。
+
+
+
+== 檔案節點組態
+
+檔案節點有兩個CPU插槽、設定為獨立的NUMA區域、包括本機存取相同數量的PCIe插槽和記憶體。
+
+InfiniBand介面卡必須安裝在適當的PCI擴充卡或插槽中、因此工作負載必須在可用的PCIe線道和記憶體通道之間取得平衡。您可以將個別BeeGFS服務的工作完全隔離到特定NUMA節點、藉此平衡工作負載。目標是從每個檔案節點取得類似的效能、就像是兩個獨立的單一插槽伺服器一樣。
+
+下圖顯示檔案節點NUMA組態。
+
+image:../media/beegfs-design-image5-small.png[""]
+
+BeeGFS程序會固定在特定的NUMA區域、以確保所使用的介面位於相同的區域。此組態可避免透過插槽間連線進行遠端存取。插槽之間的連線有時稱為QPI或GMI2連結、即使是在現代化的處理器架構中、也可能是使用高速度網路（例如HDRInfiniBand）時的瓶頸。
+
+
+
+== 網路纜線組態
+
+在建置區塊中、每個檔案節點都會使用總共四個備援InfiniBand連線、連接至兩個區塊節點。此外、每個檔案節點都有四個與InfiniBand儲存網路的備援連線。
+
+在下圖中、請注意：
+
+* 所有以綠色顯示的檔案節點連接埠均用於連接至儲存架構；所有其他的檔案節點連接埠則是直接連接至區塊節點。
+* 特定NUMA區域中的兩個InfiniBand連接埠會連接到同一個區塊節點的A和B控制器。
+* NUMA節點0中的連接埠一律連線至第一個區塊節點。
+* NUMA節點1中的連接埠會連線至第二個區塊節點。
+
+
+image:../media/beegfs-design-image6.png[""]
+
+
+NOTE: 對於具有備援交換器的儲存網路、以淺綠色列出的連接埠應連接至一台交換器、以深綠色標示的連接埠則連接至另一台交換器。
+
+圖中所示的佈線組態可讓每個BeeGFS服務：
+
+* 無論執行BeeGFS服務的檔案節點為何、都可在相同的NUMA區域中執行。
+* 無論故障發生在何處、都要有次要的最佳路徑可通往前端儲存網路和後端區塊節點。
+* 如果區塊節點中的檔案節點或控制器需要維護、請將效能影響降至最低。
+
+
+若要充分運用PCIe雙向頻寬、請確定每個InfiniBand介面卡上的一個連接埠連接至儲存架構、另一個連接埠則連接至區塊節點。理論上、HDRInfiniBand連接埠的最大速度為25Gbps（不會計訊號和其他負荷）。PCIe 4.0 x16插槽的最大單一方向頻寬為32Gbps、因此在實作包含雙埠InfiniBand介面卡的檔案節點時、可能會造成瓶頸、理論上可處理50GBps的頻寬。
+
+下圖顯示用於充分運用PCIe雙向頻寬的纜線設計。
+
+image:../media/beegfs-design-image7.png[""]
+
+對於每個BeeGFS服務、請使用相同的介面卡、將用戶端流量所使用的慣用連接埠、與服務磁碟區的主要擁有者區塊節點控制器路徑連線。如需詳細資訊、請參閱 link:beegfs-design-software-architecture.html["軟體組態"]。
