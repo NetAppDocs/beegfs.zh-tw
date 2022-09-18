@@ -52,7 +52,7 @@ summary: 若要定義檔案和區塊節點的組態、您可以建立可執行�
 
 . 在「host_vars/」下、為每個BeeGFS檔案節點建立一個名為「.yml」的檔案、其中包含下列內容、並特別注意BeeGFS叢集IP和主機名稱的填入內容、這些內容以odd或偶數結尾。
 +
-一開始、檔案節點介面名稱會與此處列出的名稱相符（例如ib0或ibs1f0）。這些自訂名稱是在中設定 <<Step 4: Define configuration that should apply to all file nodes>>。
+一開始、檔案節點介面名稱會與此處列出的名稱相符（例如ib0或ibs1f0）。這些自訂名稱是在中設定  4: Define configuration that should apply to all file nodes。
 
 +
 ....
