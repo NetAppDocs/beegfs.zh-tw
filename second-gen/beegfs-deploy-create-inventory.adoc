@@ -52,7 +52,7 @@ summary: 若要定義檔案和區塊節點的組態、您可以建立可執行�
 
 . 在「host_vars/」下、為每個BeeGFS檔案節點建立一個名為「.yml」的檔案、其中包含下列內容、並特別注意BeeGFS叢集IP和主機名稱的填入內容、這些內容以odd或偶數結尾。
 +
-一開始、檔案節點介面名稱會與此處列出的名稱相符（例如ib0或ibs1f0）。這些自訂名稱是在中設定  4: Define configuration that should apply to all file nodes。
+一開始、檔案節點介面名稱會與此處列出的名稱相符（例如ib0或ibs1f0）。這些自訂名稱是在中設定 <<步驟4：定義應套用至所有檔案節點的組態>>。
 
 +
 ....
@@ -146,10 +146,12 @@ eseries_controller_nvme_ib_port:
 
 您可以在與群組對應的檔案名稱中、定義「group _vars」下一組主機的通用組態。如此可避免在多個位置重複執行共用組態。
 
+.關於這項工作
 主機可以位於多個群組中、執行時、Ansible會根據其可變優先順序規則、選擇要套用到特定主機的變數。（如需這些規則的詳細資訊、請參閱的「Ansible」文件 https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html["使用變數"^]）
 
 主機對群組指派是在實際的Ansible庫存檔案中定義、此檔案是在本程序結束時建立的。
 
+.步驟
 在Ansible中、您想要套用至所有主機的任何組態都可以定義為「All（全部）」群組。使用下列內容建立檔案「group_vars/all.yml」：
 
 ....

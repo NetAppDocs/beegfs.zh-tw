@@ -1078,4 +1078,15 @@
   <block id="33d753992c8525a016e60650889ef7a9" category="paragraph">如需詳細資訊、請參閱<block ref="917e0b817a1bc5579c3d00c8de7a0790" category="inline-link-rx"></block> 和<block ref="d4d49ddfca3de3daecdc231399362db8" category="inline-link-rx"></block>。</block>
   <block id="e79ef600cb60c3e821f1cef23dcb17c1" category="list-text">NVIDIA DGX A100 SupermPOD與NVIDIA BasePOD架構的外部資格</block>
   <block id="1e5b7e91f7684d1e82eca499bd3e9f00" category="paragraph">NetApp的第二代BeeGFS已經過最佳化、可滿足嚴苛工作負載的效能需求、包括高效能運算（HPC）和HPC型機器學習（ML）、深度學習（DL）和類似的人工智慧（AI）技術。透過採用共享磁碟高可用度（HA）架構、NetApp上的BeeGFS解決方案也能滿足企業和其他組織的資料耐用度和可用度需求、這些企業和組織在尋找能夠隨工作負載和使用案例而擴充的儲存設備時、無法承受停機或資料遺失的風險。此解決方案不僅已通過NetApp驗證、也已通過外部認證、成為NVIDIA DGX超級POD和DGX基礎POD的儲存選項。</block>
+  <block id="53c31a8ba69af9d096629948d271d34d" category="paragraph-title">利用頻寬的纜線</block>
+  <block id="bbe48fb854ea022537208eeeff822f91" category="paragraph-title">關於這項工作</block>
+  <block id="48c7c41b72e1d678923ce3571aa65b2d" category="paragraph-title">步驟</block>
+  <block id="015dd422187100bd2a53cae756db5bcd" category="paragraph-title">一個BeeGFS基礎（管理、中繼資料和儲存）建置區塊</block>
+  <block id="2eb32f267ab2864aa50a3171522c1574" category="paragraph-title">BeeGFS中繼資料+儲存建置區塊</block>
+  <block id="2cf619569e1d3422599fa7ba3fff04f2" category="paragraph-title">BeeGFS純儲存建置區塊</block>
+  <block id="9443a11095bad63a50d95ece24842fb2" category="paragraph-title">三個BeeGFS建置區塊</block>
+  <block id="3c793d71f0d81892f28ab10f661381c8" category="paragraph-title">一個BeeGFS中繼資料+儲存建置區塊</block>
+  <block id="94c5de0e8c5b79f8b061a00a2d638234" category="paragraph-title">兩個BeeGFS中繼資料+儲存建置區塊</block>
+  <block id="aa00436c66c8456a1c9ef0a12178a4ab" category="paragraph-title">子網路A：100127.0/16</block>
+  <block id="079e5887eeb92f6f17c9fa25fd464e2a" category="paragraph-title">子網路B：100128.0/16</block>
 </blocks>

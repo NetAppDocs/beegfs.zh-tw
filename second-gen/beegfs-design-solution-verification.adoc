@@ -54,18 +54,22 @@ IOR頻寬測試使用OpenMPI來執行綜合I/O產生器工具IOR的平行工作�
 ....
 mpirun --allow-run-as-root --mca btl tcp -np 48 -map-by node -hostfile 10xnodes ior -b 1024k --posix.odirect -e -t 1024k -s 54613 -z -C -F -E -k
 ....
+.一個BeeGFS基礎（管理、中繼資料和儲存）建置區塊
 下圖顯示單一BeeGFS基礎（管理、中繼資料和儲存）建置區塊的IOR測試結果。
 
 image:beegfs-design-image13.png[""]
 
+.BeeGFS中繼資料+儲存建置區塊
 下圖顯示單一BeeGFS中繼資料+儲存建置區塊的IOR測試結果。
 
 image:beegfs-design-image14.png[""]
 
+.BeeGFS純儲存建置區塊
 下圖顯示單一BeeGFS純儲存建置區塊的IOR測試結果。
 
 image:beegfs-design-image15.png[""]
 
+.三個BeeGFS建置區塊
 下圖顯示使用三個BeeGFS建置區塊的IOR測試結果。
 
 image:beegfs-design-image16.png[""]
@@ -104,10 +108,12 @@ mpirun -h 10xnodes –map-by node np $processes mdtest -e 4k -w 4k -i 3 -I 16 -z
 ....
 中繼資料效能是先以一到兩個中繼資料+儲存建置區塊來測量、藉由新增額外的建置區塊來顯示效能如何擴充。
 
+.一個BeeGFS中繼資料+儲存建置區塊
 下圖顯示含有一個BeeGFS中繼資料+儲存建置區塊的MDTest結果。
 
 image:beegfs-design-image18.png[""]
 
+.兩個BeeGFS中繼資料+儲存建置區塊
 下圖顯示含有兩個BeeGFS中繼資料+儲存建置區塊的MDTest結果。
 
 image:beegfs-design-image19.png[""]
