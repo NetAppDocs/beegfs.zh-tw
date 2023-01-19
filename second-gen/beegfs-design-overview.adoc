@@ -24,3 +24,8 @@ summary: 需要特定設備、纜線和組態來支援BeeGFS on NetApp解決方�
 * link:beegfs-design-solution-sizing-guidelines.html["規模調整準則"]
 * link:beegfs-design-performance-tuning.html["效能調校"]
 
+
+衍生架構的設計與效能差異：
+
+* link:beegfs-design-high-capacity-building-block.html["高容量建置區塊"]
+

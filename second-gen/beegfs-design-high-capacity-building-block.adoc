@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: beegfs-design-high-capacity-building-block.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600, EF300, HDD, Expansion 
+summary: 高容量建置區塊的設計差異。 
+---
+= 大容量建置區塊
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+標準BeeGFS解決方案設計以高效能工作負載為設計考量。尋求高容量使用案例的客戶應觀察此處概述的設計與效能特性差異。
+
+
+
+== 硬體與軟體組態
+
+高容量建置區塊的硬體和軟體組態為標準配置、但EF600控制器應更換為EF300控制器、並可選擇連接1到7個IOM擴充支架、每個儲存陣列各有60個磁碟機、每個建置區塊總計2至14個擴充托盤。
+
+部署高容量建置區塊設計的客戶、可能只會使用由BeeGFS管理、中繼資料及每個節點儲存服務所組成的基礎建置區塊樣式組態。為了節省成本、大容量儲存節點應在EF300控制器機箱的NVMe磁碟上配置中繼資料磁碟區、並應將儲存磁碟區配置至擴充托盤中的NL-SAS磁碟機。
+
+image:high-capacity-rack-diagram.png[""]
+
+
+
+== 規模調整準則
+
+這些規模調整準則假設大容量建置區塊在基礎EF300機箱中設定一個2+2 NVMe SSD Volume群組作為中繼資料、並在每個IOM擴充匣中設定6x 8+2 NL-SAS Volume群組作為儲存設備。
+
+|===
+| 磁碟機大小（容量HDD） | 每個寬板的容量（1個紙匣） | 每個寬帶容量（2個磁碟匣） | 每個寬帶容量（3個磁碟匣） | 每個寬帶容量（4個磁碟匣） 
+
+
+| 4TB | 439TB | 878 TB | 1317 TB | 1756 TB 
+
+
+| 8 TB | 878 TB | 1756 TB | 2634 TB | 3512 TB 
+
+
+| 10 TB | 1097 TB | 2195 TB | 3292 TB | 4390 TB 
+
+
+| 12 TB | 1317 TB | 2634 TB | 3951 TB | 5268TB 
+
+
+| 16 TB | 1756 TB | 3512 TB | 5268TB | 7024 TB 
+
+
+| 18 TB | 1975 TB | 3951 TB | 5927 TB | 7902 TB 
+|===

@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-high-capacity-building-block.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600, EF300, HDD, Expansion 
+summary: 高容量建置區塊的部署變化。 
+---
+= 大容量建置區塊
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+標準BeeGFS解決方案部署指南概述高效能工作負載需求的程序與建議。想要滿足高容量需求的客戶、應觀察此處列出的部署與建議差異。
+
+image:high-capacity-rack-diagram.png[""]
+
+
+
+== 控制器
+
+對於大容量建置區塊、EF600控制器應更換為EF300控制器、每個控制器均安裝Cascade HIC以進行SAS擴充。每個區塊節點在陣列機箱中會有最少數量的NVMe SSD、用於BeeGFS中繼資料儲存設備、並會附加到擴充機櫃、其中會有NL-SAS HDD用於BeeGFS儲存磁碟區。
+
+「檔案節點對區塊」節點組態保持不變。
+
+
+
+== 磁碟機放置
+
+BeeGFS中繼資料儲存設備的每個區塊節點至少需要4個NVMe SSD。這些磁碟機應放置在機箱最外側的插槽中。
+
+image:high-capacity-drive-slots-diagram.png[""]
+
+
+
+== 擴充托盤
+
+大容量建置區塊的大小可為每個儲存陣列配備1至7個60個磁碟機擴充支架。
+
+如需連接每個擴充托盤的說明、 link:https://docs.netapp.com/us-en/e-series/install-hw-cabling/driveshelf-cable-task.html#cabling-ef300^["請參閱EF300磁碟機櫃纜線"]。

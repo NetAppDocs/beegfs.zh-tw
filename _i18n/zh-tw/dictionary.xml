@@ -358,17 +358,9 @@
   <block id="070e4137f478af27755d228dba080d41" category="cell">磁碟機大小（8+2 RAID 6）儲存Volume群組</block>
   <block id="785d80cc95b60fc3365e05e3ae013331" category="cell">儲存容量（檔案內容）</block>
   <block id="be3ca1ec15ca4657e5ca3ec84a561090" category="cell">1.92TB</block>
-  <block id="b3d001728e8adb3f05f589ac92f74f0a" category="cell">179712萬</block>
-  <block id="fefd735cb2121d34d8f975c4cca195db" category="cell">47.91TB</block>
   <block id="71839d6e6fb59e239ad941d08b5e2519" category="cell">3.84 TB</block>
-  <block id="e9e99d07bbdcffb429da9dbfd9096692" category="cell">3、594、240000</block>
-  <block id="82ace9685542f458c6ee0c7ed4223ebc" category="cell">95.84 TB</block>
   <block id="a98c228c0d8903ba6926546f64321cc4" category="cell">7.68TB</block>
-  <block id="92c5dedeb0266d552efd70d90ed2a193" category="cell">7、557、12、000</block>
-  <block id="0a9502953839027f49cab071512da640" category="cell">201.51TB</block>
   <block id="1f04a7c587f50d269f44d43229c966ac" category="cell">15.3TB</block>
-  <block id="e7f4882484562f3729ee8d601f2dded3" category="cell">16156,800000</block>
-  <block id="4a4a2289f7f73e11c0d1524c657e4909" category="cell">430.84 TB</block>
   <block id="a966f153f6f429bbd39c3ac2390ef970" category="admonition">調整中繼資料加上儲存建置區塊規模時、您可以使用較小的磁碟機來進行中繼資料磁碟區群組、而非儲存磁碟區群組、藉此降低成本。</block>
   <block id="f9fb1e607e840d5610c34a9f15da540e" category="section-title">專為儲存設備建置區塊調整容量</block>
   <block id="cd9db38cfde636fa7c304f8e67d8708d" category="paragraph">下表針對純儲存建置區塊提供經驗法則容量規模調整。</block>
@@ -1060,16 +1052,6 @@
   <block id="da7f5c02044100badae24523f01941a2" category="sidebar">定義BeeGFS建置區塊</block>
   <block id="8025f3ce3e3e1dd003430788c4be8b5e" category="sidebar">擴充BeeGFS叢集</block>
   <block id="e304a70d2f42f62cefb9b474f73a1e91" category="sidebar">建議的Volume百分比</block>
-  <block id="6c3aa57299c744740f84a63119dc81e6" category="sidebar">使用第二代NVA</block>
-  <block id="1afa74da05ca145d3418aad9af510109" category="sidebar">設計</block>
-  <block id="3b878279a04dc47d60932cb294d96259" category="sidebar">總覽</block>
-  <block id="a010ec8776a6b938a2d13ff22c787a20" category="sidebar">硬體設計</block>
-  <block id="8335ea7b2998e81f942bcacfecd63a78" category="sidebar">軟體設計</block>
-  <block id="9fd18f658328ee903c083b8a79b8c6be" category="sidebar">驗證</block>
-  <block id="507a3a88cebc46603ce2be8eaa924eee" category="sidebar">部署</block>
-  <block id="90d276687cc6ad8d3b72b9d9e953c581" category="sidebar">瞭解Ansible</block>
-  <block id="50802d3e5a25b93d471686a10da03dd8" category="sidebar">最佳實務做法</block>
-  <block id="5d6f0f2ec8814a4c4e63b18ea908577b" category="sidebar">設定BeeGFS用戶端</block>
   <block id="ba13e086fe19056a379b6240e05651a8" category="sidebar">TR-4915 -使用E系列和BeeGFS進行AI資料移動</block>
   <block id="bc893b2686532fc683cb056beffd08aa" category="cell">磁碟機大小（10+2 RAID 6）儲存Volume群組</block>
   <block id="132789d9474eae064aef2cd5266138d8" category="section-title">NVIDIA DGX A100 SupermPOD與BasePOD驗證</block>
@@ -1089,4 +1071,64 @@
   <block id="94c5de0e8c5b79f8b061a00a2d638234" category="paragraph-title">兩個BeeGFS中繼資料+儲存建置區塊</block>
   <block id="aa00436c66c8456a1c9ef0a12178a4ab" category="paragraph-title">子網路A：100127.0/16</block>
   <block id="079e5887eeb92f6f17c9fa25fd464e2a" category="paragraph-title">子網路B：100128.0/16</block>
+  <block id="02cf3373667b246c17c8d054c073a372" category="paragraph">衍生架構、部署建議有多種差異：</block>
+  <block id="2e93d3c37349d17095fd0dca7d6fe097" category="inline-link-macro">高容量建置區塊</block>
+  <block id="8a43f7c3e77834cf43b5398c116033e3" category="list-text"><block ref="8a43f7c3e77834cf43b5398c116033e3" category="inline-link-macro-rx"></block></block>
+  <block id="119c6b2e3908d75335ad13f9fead045a" category="cell">1,938,577,200</block>
+  <block id="753b107ce954fb125f0557af947a86c5" category="cell">51.77TB</block>
+  <block id="bb586a502f621b433b3966d68c887364" category="cell">3,880,388,400</block>
+  <block id="8b2e1597e74fb68a87ef415a1ce004fc" category="cell">103.55TB</block>
+  <block id="9c0aa8a6ddcfe00cef8951f0edd99c58" category="cell">8、125、278、000</block>
+  <block id="b0baa6e5c027744d7e7f2a93d8686bf5" category="cell">216.74 TB</block>
+  <block id="edd8590257b34c7c6f57e06f28bb9460" category="cell">17、269、854000</block>
+  <block id="0d9c02ec5b1f4c4a835073aa142d0b7f" category="cell">460.60TB</block>
+  <block id="f8ed0cba5469cc89e05fa4d3025eca1b" category="summary">高容量建置區塊的設計差異。</block>
+  <block id="8b074fc693c7d8fd35c61de8fe2dee9a" category="doc">大容量建置區塊</block>
+  <block id="fb5708557d5e7c6d44ac55ef4c09a054" category="paragraph">標準BeeGFS解決方案設計以高效能工作負載為設計考量。尋求高容量使用案例的客戶應觀察此處概述的設計與效能特性差異。</block>
+  <block id="800f7da804cf784ad962d085fbc70486" category="section-title">硬體與軟體組態</block>
+  <block id="90f177623f1131fc7f45e82db6189a1b" category="paragraph">高容量建置區塊的硬體和軟體組態為標準配置、但EF600控制器應更換為EF300控制器、並可選擇連接1到7個IOM擴充支架、每個儲存陣列各有60個磁碟機、每個建置區塊總計2至14個擴充托盤。</block>
+  <block id="467fccc62f2ea7630303f15d47a54aa7" category="paragraph">部署高容量建置區塊設計的客戶、可能只會使用由BeeGFS管理、中繼資料及每個節點儲存服務所組成的基礎建置區塊樣式組態。為了節省成本、大容量儲存節點應在EF300控制器機箱的NVMe磁碟上配置中繼資料磁碟區、並應將儲存磁碟區配置至擴充托盤中的NL-SAS磁碟機。</block>
+  <block id="774f4231e5651061791e65cf90314897" category="paragraph"><block ref="774f4231e5651061791e65cf90314897" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="267aa4fef181a2097a06345c854cc106" category="paragraph">這些規模調整準則假設大容量建置區塊在基礎EF300機箱中設定一個2+2 NVMe SSD Volume群組作為中繼資料、並在每個IOM擴充匣中設定6x 8+2 NL-SAS Volume群組作為儲存設備。</block>
+  <block id="963320465e8fcfa25188a669a43858c4" category="cell">磁碟機大小（容量HDD）</block>
+  <block id="55fd8e839de07671a6869fad80279ab9" category="cell">每個寬板的容量（1個紙匣）</block>
+  <block id="001115a96afe0add22e654316239365a" category="cell">每個寬帶容量（2個磁碟匣）</block>
+  <block id="b9781606af717d9b153714ca7a3a2d33" category="cell">每個寬帶容量（3個磁碟匣）</block>
+  <block id="345ffe7c9ac213823037fbcdca8f4ef2" category="cell">每個寬帶容量（4個磁碟匣）</block>
+  <block id="6b7e0bcfc566b639bc0d10bad9f871dd" category="cell">4TB</block>
+  <block id="676efbc64df1b4909842616f91027d96" category="cell">439TB</block>
+  <block id="25c359cf674976f1bd282922ff6ed0e3" category="cell">878 TB</block>
+  <block id="1416acbb13ce37c62934fde6e37b3c6b" category="cell">1317 TB</block>
+  <block id="3aa071e61efaac2113f5fc251c03b688" category="cell">1756 TB</block>
+  <block id="0706c165b0123479cffaac9b374484f0" category="cell">8 TB</block>
+  <block id="76a91245e71b558dbe0040ea8b7b3c21" category="cell">2634 TB</block>
+  <block id="dd9fa1084ca34ce21c6b127bd37446b9" category="cell">3512 TB</block>
+  <block id="1191f788083da9194f8eef9400d10898" category="cell">10 TB</block>
+  <block id="6587b6d3747beeadda1eccb500e9771b" category="cell">1097 TB</block>
+  <block id="3a89d830e84dc7715fe902bb9adac448" category="cell">2195 TB</block>
+  <block id="1024776bf84a4c2469e49539ac248790" category="cell">3292 TB</block>
+  <block id="0af601e969fa263e021792cfd1dfd4af" category="cell">4390 TB</block>
+  <block id="aad11c7dd0feb18c08cb728eea0a8c46" category="cell">12 TB</block>
+  <block id="0fc4914bd341e29e4eef438ff8c44bdb" category="cell">3951 TB</block>
+  <block id="4d63a00ef9361479d55d2914d7f75e28" category="cell">5268TB</block>
+  <block id="324f218b8144e744b54eb58e0bf14eea" category="cell">16 TB</block>
+  <block id="af4d6969d11876b269a31ebb39d7c34e" category="cell">7024 TB</block>
+  <block id="7ba1b40b5eed0a67df50aa00c907f9ac" category="cell">18 TB</block>
+  <block id="23f86ea0b6ba63be94542d36e1d0ac20" category="cell">1975 TB</block>
+  <block id="01dbb09e4b3f7243c1cae305daf2972a" category="cell">5927 TB</block>
+  <block id="547259566f92db3383cbd2575b9d68c1" category="cell">7902 TB</block>
+  <block id="585389cefc924819e7ab6d5b7eba5f03" category="paragraph">衍生架構的設計與效能差異：</block>
+  <block id="f45c646cffcf39011c125e7523fa9149" category="summary">高容量建置區塊的部署變化。</block>
+  <block id="fc6e06f3e4cfc328095f04c8f44c28f1" category="paragraph">標準BeeGFS解決方案部署指南概述高效能工作負載需求的程序與建議。想要滿足高容量需求的客戶、應觀察此處列出的部署與建議差異。</block>
+  <block id="cbfb14f470701bf93424d757c624369a" category="section-title">控制器</block>
+  <block id="174e6193fff9ed7c9b1839367e007f13" category="paragraph">對於大容量建置區塊、EF600控制器應更換為EF300控制器、每個控制器均安裝Cascade HIC以進行SAS擴充。每個區塊節點在陣列機箱中會有最少數量的NVMe SSD、用於BeeGFS中繼資料儲存設備、並會附加到擴充機櫃、其中會有NL-SAS HDD用於BeeGFS儲存磁碟區。</block>
+  <block id="1ec9226d3745f2995d2686d2450831c7" category="paragraph">「檔案節點對區塊」節點組態保持不變。</block>
+  <block id="af932b84cc0c8562c0e572647564048f" category="section-title">磁碟機放置</block>
+  <block id="f96a95c482225ca6a9b4c17bfa47d918" category="paragraph">BeeGFS中繼資料儲存設備的每個區塊節點至少需要4個NVMe SSD。這些磁碟機應放置在機箱最外側的插槽中。</block>
+  <block id="778e10a0753cc201500f1209098b9b5f" category="paragraph"><block ref="778e10a0753cc201500f1209098b9b5f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fdd528ca6f274d102819b008b189961c" category="section-title">擴充托盤</block>
+  <block id="6627fde89324d2cbb6afd245e3d32d35" category="paragraph">大容量建置區塊的大小可為每個儲存陣列配備1至7個60個磁碟機擴充支架。</block>
+  <block id="80b4ce0c4b11e4d8c7c4a14614b871f7" category="inline-link-macro">請參閱EF300磁碟機櫃纜線</block>
+  <block id="25ada85328148d5356ce4edd989b1f40" category="paragraph">如需連接每個擴充托盤的說明、 <block ref="8c170f7da852d665db7cd9113b2ed6bb" category="inline-link-macro-rx"></block>。</block>
+  <block id="0607ff4a53c90b270dd9fd9fce5c3d92" category="sidebar">大容量選項</block>
 </blocks>

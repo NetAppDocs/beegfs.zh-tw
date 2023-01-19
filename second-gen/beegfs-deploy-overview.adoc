@@ -71,3 +71,8 @@ NOTE: 由於在NetApp解決方案上部署BeeGFS涉及許多步驟、因此NetAp
 
 
 NOTE: 部署程序包括幾個需要將文字複製到檔案的範例。請密切注意任何應針對特定部署進行修改或可修改之字元以「#」或「//」表示的即時註解。例如：「beegfs_ha_ntp_server_Pools：#這是註解的範例！-「Pool 0.pool.ntp.org ipburst連串最大資源3」-「Pool 1.pool.ntp.org ipburst最大資源3」
+
+衍生架構、部署建議有多種差異：
+
+* link:beegfs-design-high-capacity-building-block.html["高容量建置區塊"]
+
