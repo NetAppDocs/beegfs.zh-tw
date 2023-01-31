@@ -1,0 +1,53 @@
+---
+sidebar: sidebar 
+permalink: administer-clusters-maintenance-mode.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, maintenance 
+summary: 避免HA叢集意外回應環境中的預期變更。 
+---
+= 將叢集置於維護模式
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+避免HA叢集意外回應環境中的預期變更。
+
+
+
+== 總覽
+
+將叢集置於維護模式會停用所有資源監控、並防止心臟起搏器移動或以其他方式管理叢集中的資源。所有資源都會繼續在其原始節點上執行、無論是否有暫時性的故障情況、都無法存取這些資源。建議/實用的案例包括：
+
+* 可能會暫時中斷檔案節點與BeeGFS服務之間的連線的網路維護。
+* 區塊節點升級。
+* 檔案節點作業系統、核心或其他套件更新。
+
+
+一般而言、將叢集手動置於維護模式的唯一理由、是避免它對環境中的外部變更做出回應。如果叢集中的個別節點需要實體修復、請勿使用維護模式、只要依照上述程序將該節點置於待命狀態即可。請注意、重新執行Anunible會自動將叢集置於維護模式、以利進行大部分的軟體維護、包括升級和組態變更。
+
+
+
+== 步驟
+
+若要檢查叢集是否處於維護模式、請執行：
+
+[source, console]
+----
+pcs property show maintenance-mode
+----
+當叢集正常運作時、這會傳回「假」。若要啟用維護模式執行：
+
+[source, console]
+----
+pcs property set maintenance-mode=true
+----
+您可以執行PCS狀態並確保所有資源都顯示為「（Unmanaged）」、以進行驗證。若要使叢集離開維護模式執行：
+
+[source, console]
+----
+pcs property set maintenance-mode=false
+----

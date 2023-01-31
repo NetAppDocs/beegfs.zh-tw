@@ -1,0 +1,156 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-inventory-configure-block-nodes.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: 使用主機變數（host_vars）指定個別區塊節點的組態。 
+---
+= 設定個別區塊節點
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+使用主機變數（host_vars）指定個別區塊節點的組態。
+
+
+
+== 總覽
+
+本節將逐步介紹填入的內容 `host_vars/<BLOCK_NODE_HOSTNAME>.yml` 叢集中每個區塊節點的檔案。這些檔案應僅包含特定區塊節點專屬的組態。這通常包括：
+
+* 系統名稱（如System Manager所示）。
+* 其中一個控制器的HTTPS URL（用於使用REST API管理系統）。
+* 用於連線至此區塊節點的儲存傳輸協定檔案節點。
+* 設定主機介面卡（HIC）連接埠、例如IP位址（如有需要）。
+
+
+
+
+== 步驟
+
+參考中定義的IP定址方案 link:custom-architectures-plan-file-system.html["規劃檔案系統"^] 區段：針對叢集中的每個區塊節點、建立一個檔案 `host_vars/<BLOCK_NODE_HOSTNAME>/yml` 並填入如下內容：
+
+. 在頂端指定其中一個控制器的系統名稱和HTTPS URL：
++
+[source, yaml]
+----
+eseries_system_name: <SYSTEM_NAME>
+eseries_system_api_url: https://<MANAGEMENT_HOSTNAME_OR_IP>:8443/devmgr/v2/
+----
+. 選取 link:https://github.com/netappeseries/santricity/tree/release-1.3.1/roles/nar_santricity_host#role-variables["傳輸協定"^] 檔案節點將用於連線至此區塊節點：
++
+.. 支援的傳輸協定： `auto`、 `iscsi`、 `fc`、 `sas`、 `ib_srp`、 `ib_iser`、 `nvme_ib`、 `nvme_fc`、 `nvme_roce`。
++
+[source, yaml]
+----
+eseries_initiator_protocol: <PROTOCOL>
+----
+
+
+. 視使用中的傳輸協定而定、HIC連接埠可能需要額外的組態。必要時、應定義HIC連接埠組態、使每個控制器組態的頂端項目對應於每個控制器上的實體最左側連接埠、而底部連接埠則對應最右側的連接埠。所有連接埠都需要有效的組態、即使目前未使用。
++
+
+IMPORTANT: 如果您使用的是具有EF600區塊節點的HDR（200GB）InfiniBand或200GB RoCE、請參閱以下章節。
+
++
+.. 對於iSCSI：
++
+[source, yaml]
+----
+eseries_controller_iscsi_port:
+  controller_a:         # Ordered list of controller A channel definition.
+    - state:            # Whether the port should be enabled. Choices: enabled, disabled
+      config_method:    # Port configuration method Choices: static, dhcp
+      address:          # Port IPv4 address
+      gateway:          # Port IPv4 gateway
+      subnet_mask:      # Port IPv4 subnet_mask
+      mtu:              # Port IPv4 mtu
+    - (...)             # Additional ports as needed.
+  controller_b:         # Ordered list of controller B channel definition.
+    - (...)             # Same as controller A but for controller B
+
+# Alternatively the following common port configuration can be defined for all ports and omitted above:
+eseries_controller_iscsi_port_state: enabled         # Generally specifies whether a controller port definition should be applied Choices: enabled, disabled
+eseries_controller_iscsi_port_config_method: dhcp    # General port configuration method definition for both controllers. Choices: static, dhcp
+eseries_controller_iscsi_port_gateway:               # General port IPv4 gateway for both controllers.
+eseries_controller_iscsi_port_subnet_mask:           # General port IPv4 subnet mask for both controllers.
+eseries_controller_iscsi_port_mtu: 9000              # General port maximum transfer units (MTU) for both controllers. Any value greater than 1500 (bytes).
+
+----
+.. 對於iSER：
++
+[source, yaml]
+----
+eseries_controller_ib_iser_port:
+  controller_a:    # Ordered list of controller A channel address definition.
+    -              # Port IPv4 address for channel 1
+    - (...)        # So on and so forth
+  controller_b:    # Ordered list of controller B channel address definition.
+----
+.. 適用於NVMe/IB：
++
+[source, yaml]
+----
+eseries_controller_nvme_ib_port:
+  controller_a:    # Ordered list of controller A channel address definition.
+    -              # Port IPv4 address for channel 1
+    - (...)        # So on and so forth
+  controller_b:    # Ordered list of controller B channel address definition.
+----
+.. 適用於NVMe / RoCE：
++
+[source, yaml]
+----
+eseries_controller_nvme_roce_port:
+  controller_a:         # Ordered list of controller A channel definition.
+    - state:            # Whether the port should be enabled.
+      config_method:    # Port configuration method Choices: static, dhcp
+      address:          # Port IPv4 address
+      subnet_mask:      # Port IPv4 subnet_mask
+      gateway:          # Port IPv4 gateway
+      mtu:              # Port IPv4 mtu
+      speed:            # Port IPv4 speed
+  controller_b:         # Ordered list of controller B channel definition.
+    - (...)             # Same as controller A but for controller B
+
+# Alternatively the following common port configuration can be defined for all ports and omitted above:
+eseries_controller_nvme_roce_port_state: enabled         # Generally specifies whether a controller port definition should be applied Choices: enabled, disabled
+eseries_controller_nvme_roce_port_config_method: dhcp    # General port configuration method definition for both controllers. Choices: static, dhcp
+eseries_controller_nvme_roce_port_gateway:               # General port IPv4 gateway for both controllers.
+eseries_controller_nvme_roce_port_subnet_mask:           # General port IPv4 subnet mask for both controllers.
+eseries_controller_nvme_roce_port_mtu: 4200              # General port maximum transfer units (MTU). Any value greater than 1500 (bytes).
+eseries_controller_nvme_roce_port_speed: auto            # General interface speed. Value must be a supported speed or auto for automatically negotiating the speed with the port.
+----
+.. FC和SAS傳輸協定不需要額外的組態。不正確建議使用SRP。
+
+
+
+
+如需設定HIC連接埠和主機傳輸協定的其他選項、包括設定iSCSI CHAP的能力、請參閱 link:https://github.com/netappeseries/santricity/tree/release-1.3.1/roles/nar_santricity_host#role-variables["文件"^] 隨附SANtricity 於此系列產品。注意：部署BeeGFS時、儲存資源池、磁碟區組態及其他資源配置方面將會設定在其他位置、不應在此檔案中定義。
+
+按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/host_vars/ictad22a01.yml["請按這裡"^] 例如、代表單一區塊節點的完整庫存檔案。
+
+
+
+=== 在NetApp EF600區塊節點上使用HDR(200Gb) InfiniBand或200GB RoCE：
+
+若要將HDR（200GB）InfiniBand搭配EF600使用、必須為每個實體連接埠設定第二個「虛擬」IP。以下是設定配備雙埠InfiniBand HDRIC之EF600的正確方法範例：
+
+[source, yaml]
+----
+eseries_controller_nvme_ib_port:
+  controller_a:
+    - 192.168.1.101 # Port 2a (physical)
+    - 192.168.2.101 # Port 2a (virtual)
+    - 192.168.1.100 # Port 2b (physical)
+    - 192.168.2.100 # Port 2b (virtual)
+  controller_b:
+    - 192.168.3.101 # Port 2a (physical)
+    - 192.168.4.101 # Port 2a (virtual)
+    - 192.168.3.100 # Port 2b (physical)
+    - 192.168.4.100 # Port 2b (virtual)
+----

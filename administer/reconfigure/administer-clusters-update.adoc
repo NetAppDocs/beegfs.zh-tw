@@ -1,0 +1,146 @@
+---
+sidebar: sidebar 
+permalink: administer-clusters-update.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, update, upgrade 
+summary: 使用Ansible更新BeeGFS和HA叢集。 
+---
+= 更新HA叢集和BeeGFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+使用Ansible更新BeeGFS和HA叢集。
+
+
+
+== 總覽
+
+BeeGFS的版本如下 `major.minor.patch` 每個支援的BeeGFS都提供版本設定方案和BeeGFS HA可允許角色 `major.minor` 版本（例如 `beegfs_ha_7_2` 和 `beegfs_ha_7_3`）。每個HA角色都會在發行Ansible集合時、固定至最新的BeeGFS修補程式版本。
+
+Ansible應用於所有BeeGFS升級、包括在BeeGFS的主要、次要和修補版本之間移動。若要更新BeeGFS、您必須先更新BeeGFS Ansible集合、這也會為部署/管理自動化和基礎HA叢集提供最新的修正與增強功能。即使更新至最新版本的收藏、BeeGFS也不會升級至 `ansible-playbook` 與一起執行 `-e "beegfs_ha_force_upgrade=true"` 設定。
+
+
+NOTE: 如需BeeGFS版本的詳細資訊、請參閱 link:https://doc.beegfs.io/latest/advanced_topics/upgrade.html["BeeGFS升級文件"^]。
+
+
+
+== 已測試的升級路徑
+
+每個版本的BeeGFS集合都會與特定版本的BeeGFS進行測試、以確保所有元件之間的互通性。也會執行測試、確保可從最新版集合所支援的BeeGFS版本升級至最新版所支援的版本。
+
+[cols="1,1,1,5"]
+|===
+| 原始版本 | 升級版本 | 多重軌道 | 詳細資料 
+
+
+| 7.2.6 | 7.3.2 | 是的 | 將beegfs集合從v3.0.1升級至v3.1.0、新增多重軌道 
+
+
+| 7.2.6 | 7.2.8 | 否 | 將beegfs集合從v3.0.1升級至v3.1.0 
+
+
+| 7.2.8 | 7.3.1 | 是的 | 使用beegfs集合v3.1.0升級、新增多重軌道 
+
+
+| 7.3.1 | 7.3.2 | 是的 | 使用beegfs集合v3.1.0升級 
+|===
+
+
+== BeeGFS升級步驟
+
+下列各節提供更新BeeGFS Ansible集合和BeeGFS本身的步驟。請特別注意任何額外步驟、以更新BeeGFS主要或次要版本。
+
+
+
+=== 步驟1：升級BeeGFS收藏
+
+可存取的集合升級 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^]，執行下列命令：
+
+[source, console]
+----
+ansible-galaxy collection install netapp_eseries.beegfs --upgrade
+----
+如需離線收藏升級、請從下載收藏 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^] 按一下所需的 `Install Version`` 然後 `Download tarball`。將tar傳輸到Ansible控制節點、然後執行下列命令。
+
+[source, console]
+----
+ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgrade
+----
+請參閱 link:https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html["安裝集合"^] 以取得更多資訊。
+
+
+
+=== 步驟2：更新可Ansible Inventory
+
+對叢集的Ansible庫存檔案進行必要或想要的更新。請參閱 link:administer-clusters-update.html#version-upgrade-notes["版本升級附註"] 請參閱以下章節、瞭解您特定升級需求的詳細資訊。請參閱 link:custom-architectures-overview.html["使用自訂架構"^] 一節、提供設定BeeGFS HA庫存的一般資訊。
+
+
+
+=== 步驟3：更新可執行教戰手冊（僅更新主要或次要版本時）
+
+如果您要在主要或次要版本之間移動、請在中 `playbook.yml` 用於部署及維護叢集的檔案、請更新的名稱 `beegfs_ha_<VERSION>` 角色以反映所需版本。例如、如果您想要部署BeeGFS 7.3、這就是 `beegfs_ha_7_3`：
+
+[source, yaml]
+----
+- hosts: all
+  gather_facts: false
+  any_errors_fatal: true
+  collections:
+    - netapp_eseries.beegfs
+  tasks:
+    - name: Ensure BeeGFS HA cluster is setup.
+      ansible.builtin.import_role:  # import_role is required for tag availability.
+        name: beegfs_ha_7_3
+----
+如需本方針檔案內容的詳細資訊、請參閱 link:custom-architectures-deploy-ha-cluster.html["部署BeeGFS HA叢集"^] 區段。
+
+
+
+=== 步驟4：執行BeeGFS升級
+
+若要套用BeeGFS更新：
+
+[source, console]
+----
+ansible-playbook -i inventory.yml beegfs_ha_playbook.yml -e "beegfs_ha_force_upgrade=true" --tags beegfs_ha
+----
+BeeGFS HA角色將在幕後處理：
+
+* 確保叢集處於最佳狀態、且每個BeeGFS服務都位於其偏好的節點上。
+* 將叢集置於維護模式。
+* 更新HA叢集元件（如有需要）。
+* 每次升級一個檔案節點、如下所示：
++
+** 將其置於待命狀態、並將其服務容錯移轉至次要節點。
+** 升級BeeGFS套件。
+** 回復服務：
+
+
+* 將叢集移出維護模式。
+
+
+
+
+== 版本升級附註
+
+
+
+=== 從BeeGFS 7.2.6或7.3.0版升級
+
+
+
+==== 連線型驗證的變更
+
+在7.3.1之後發佈的BeeGFS版本將不再允許服務在未指定任何一項的情況下啟動 `connAuthFile` 或設定 `connDisableAuthentication=true` 在服務的組態檔中。強烈建議啟用連線型驗證安全性。請參閱 link:https://doc.beegfs.io/7.3.2/advanced_topics/authentication.html#connectionbasedauth["BeeGFS連線型驗證"^] 以取得更多資訊。
+
+根據預設 `beegfs_ha*` 角色將產生及發佈此檔案、並將其新增至位於的Ansible控制節點 `<playbook_directory>/files/beegfs/<beegfs_mgmt_ip_address>_connAuthFile`。。 `beegfs_client` 角色也會檢查此檔案是否存在、並將其提供給用戶端（若有）。
+
+
+WARNING: 如果是 `beegfs_client` 角色未用於設定用戶端、此檔案必須手動散佈至每個用戶端和 `connAuthFile` 中的組態 `beegfs-client.conf` 檔案集以供使用。從未啟用連線型驗證的舊版BeeGFS升級時、除非設定停用連線型驗證、否則用戶端將會失去存取權 `beegfs_ha_conn_auth_enabled: false` 在中 `group_vars/ha_cluster.yml` （不建議）。
+
+如需其他詳細資料和替代組態選項、請參閱中的設定連線驗證步驟 link:custom-architectures-inventory-common-file-node-configuration.html["指定通用檔案節點組態"^] 區段。

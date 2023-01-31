@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-inventory-overview.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: Ansible清單是一組組組態檔、可定義所需的BeeGFS HA叢集。 
+---
+= Ansible Inventory Overview
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Ansible清單是一組組組態檔、可定義所需的BeeGFS HA叢集。
+
+
+
+== 總覽
+
+建議您遵循標準的可管理實務做法來組織您的 link:https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html["庫存"]、包括的使用 link:https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#organizing-host-and-group-variables["子目錄/檔案"] 而非將整個庫存儲存在單一檔案中。
+
+單一BeeGFS HA叢集的「可安全庫存」如下所示：
+
+image:../media/ansible-inventory-overview.png["Ansible Inventory Overview"]
+
+
+NOTE: 由於單一BeeGFS檔案系統可橫跨多個HA叢集、因此大型安裝可能會有多個Ansible庫存。一般而言、不建議嘗試將多個HA叢集定義為單一的可Ansible庫存、以避免發生問題。
+
+
+
+== 步驟
+
+. 在「Ansible」控制節點上、建立一個空白目錄、其中包含您要部署之BeeGFS叢集的「Ansible」清單。
++
+.. 如果您的檔案系統最終會包含多個HA叢集、建議您先為檔案系統建立目錄、然後為代表每個HA叢集的詳細目錄建立子目錄。例如：
++
+[listing]
+----
+beegfs_file_system_1/
+    beegfs_cluster_1/
+    beegfs_cluster_2/
+    beegfs_cluster_N/
+----
+
+
+. 在包含您要部署之HA叢集庫存的目錄中、建立兩個目錄 `group_vars` 和 `host_vars` 和兩個檔案 `inventory.yml` 和 `playbook.yml`。
+
+
+以下各節將逐步說明這些檔案的內容定義。

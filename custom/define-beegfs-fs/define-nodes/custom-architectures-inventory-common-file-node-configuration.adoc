@@ -1,0 +1,309 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-inventory-common-file-node-configuration.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: 使用群組變數（群組_vars）指定通用檔案節點組態。 
+---
+= 指定通用檔案節點組態
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+使用群組變數（群組_vars）指定通用檔案節點組態。
+
+
+
+== 總覽
+
+所有檔案節點的組態均應定義於 `group_vars/ha_cluster.yml`。通常包括：
+
+* 如何連線及登入每個檔案節點的詳細資料。
+* 通用網路組態。
+* 是否允許自動重新開機。
+* 如何設定防火牆和SELinux狀態。
+* 叢集組態、包括警示和隔離。
+* 效能調校：
+* 通用BeeGFS服務組態。
+
+
+
+NOTE: 此檔案中設定的選項也可在個別檔案節點上定義、例如使用混合式硬體模型、或是每個節點的密碼不同。個別檔案節點的組態優先於此檔案中的組態。
+
+
+
+== 步驟
+
+建立檔案 `group_vars/ha_cluster.yml` 並填入如下內容：
+
+. 指出Ansible Control節點應如何與遠端主機進行驗證：
++
+[source, yaml]
+----
+ansible_ssh_user: root
+ansible_become_password: <PASSWORD>
+----
++
+
+WARNING: 尤其是在正式作業環境中、請勿以純文字儲存密碼。請改用Ansible Vault（請參閱） link:https://docs.ansible.com/ansible/latest/vault_guide/index.html["使用Ansible Vault加密內容"^]）或 `--ask-become-pass` 執行教戰手冊時的選項。如果是 `ansible_ssh_user` 已經是root、您可以選擇省略 `ansible_become_password`。
+
+. 如果您在乙太網路或InfiniBand介面上設定靜態IP（例如叢集IP）、且多個介面位於同一個IP子網路（例如、如果ib0使用192.168.1.10/24、而ib1使用192.168.1.11/24）、必須設定其他IP路由表和規則、多重主目錄支援才能正常運作。只需啟用提供的網路介面組態掛勾、如下所示：
++
+[source, yaml]
+----
+eseries_ip_default_hook_templates:
+  - 99-multihoming.j2
+----
+. 部署叢集時、視儲存傳輸協定而定、可能需要重新啟動節點、以協助探索遠端區塊裝置（E系列磁碟區）或套用組態的其他層面。依預設、節點會在重新開機前提示、但您可以指定下列項目、讓節點自動重新啟動：
++
+[source, yaml]
+----
+eseries_common_allow_host_reboot: true
+----
++
+.. 根據預設、重新開機後、若要確保區塊裝置和其他服務已就緒、Ansible將會等到系統完成 `default.target` 在繼續部署之前就已到達。在使用NVMe / IB的某些情況下、這可能不夠長、無法初始化、探索及連線至遠端裝置。這可能會導致自動部署提早繼續、而且失敗。若要避免這種情況、使用NVMe / IB時也必須定義下列項目：
++
+[source, yaml]
+----
+eseries_common_reboot_test_command: "! systemctl status eseries_nvme_ib.service || systemctl --state=exited | grep eseries_nvme_ib.service"
+----
+
+
+. BeeGFS和HA叢集服務需要多個防火牆連接埠才能進行通訊。除非您想要手動設定防火牆（不建議）、否則請指定下列項目、以建立必要的防火牆區域並自動開啟連接埠：
++
+[source, yaml]
+----
+beegfs_ha_firewall_configure: True
+----
+. 目前不支援SELinux、建議將狀態設為停用、以避免衝突（尤其是使用RDMA時）。請設定下列項目、以確保SELinux已停用：
++
+[source, yaml]
+----
+eseries_beegfs_ha_disable_selinux: True
+eseries_selinux_state: disabled
+----
+. 設定驗證、讓檔案節點能夠通訊、根據組織原則調整預設值：
++
+[source, yaml]
+----
+beegfs_ha_cluster_name: hacluster                  # BeeGFS HA cluster name.
+beegfs_ha_cluster_username: hacluster              # BeeGFS HA cluster username.
+beegfs_ha_cluster_password: hapassword             # BeeGFS HA cluster username's password.
+beegfs_ha_cluster_password_sha512_salt: randomSalt # BeeGFS HA cluster username's password salt.
+----
+. 根據 link:custom-architectures-plan-file-system.html["規劃檔案系統"^] 部分指定此檔案系統的BeeGFS管理IP：
++
+[source, yaml]
+----
+beegfs_ha_mgmtd_floating_ip: <IP ADDRESS>
+----
++
+
+NOTE: 儘管看似冗餘、但當您將BeeGFS檔案系統擴充至單一HA叢集以外的位置時、「beegfs_ha_mgmtd_浮 點_ip'是很重要的。部署後續HA叢集時、不需要額外的BeeGFS管理服務、並指向第一個叢集所提供的管理服務。
+
+. 視需要啟用電子郵件警示：
++
+[source, yaml]
+----
+beegfs_ha_enable_alerts: True
+# E-mail recipient list for notifications when BeeGFS HA resources change or fail.
+beegfs_ha_alert_email_list: ["<EMAIL>"]
+# This dictionary is used to configure postfix service (/etc/postfix/main.cf) which is required to set email alerts.
+beegfs_ha_alert_conf_ha_group_options:
+      # This parameter specifies the local internet domain name. This is optional when the cluster nodes have fully qualified hostnames (i.e. host.example.com)
+      mydomain: <MY_DOMAIN>
+beegfs_ha_alert_verbosity: 3
+#  1) high-level node activity
+#  3) high-level node activity + fencing action information + resources (filter on X-monitor)
+#  5) high-level node activity + fencing action information + resources
+----
+. 強烈建議啟用隔離功能、否則當主要節點故障時、服務可能無法在次要節點上啟動。
++
+.. 指定下列項目以全域啟用隔離：
++
+[source, yaml]
+----
+beegfs_ha_cluster_crm_config_options:
+  stonith-enabled: True
+----
++
+... 請注意任何支援的項目 link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters["叢集內容"^] 如有需要、也可在此處指定。由於BeeGFS HA角色已經過許多測試、因此通常不需要調整這些功能 link:https://github.com/netappeseries/beegfs/blob/ae038bb2f7617d18a36cc4df8ca9464bd5039b8b/roles/beegfs_ha_7_2/defaults/main.yml#L54["預設值"^]。
+
+
+.. 接下來選取並設定隔離代理程式：
++
+... 選項1：若要使用APC電力分配單元（PDU）啟用隔離功能：
++
+[source, yaml]
+----
+beegfs_ha_fencing_agents:
+  fence_apc:
+    - ipaddr: <PDU_IP_ADDRESS>
+      login: <PDU_USERNAME>
+      passwd: <PDU_PASSWORD>
+      pcmk_host_map: "<HOSTNAME>:<PDU_PORT>,<PDU_PORT>;<HOSTNAME>:<PDU_PORT>,<PDU_PORT>"
+----
+... 選項2：若要使用Lenovo XCC（及其他BMC）提供的RedfISH API來啟用屏障：
++
+[source, yaml]
+----
+redfish: &redfish
+  username: <BMC_USERNAME>
+  password: <BMC_PASSWORD>
+  ssl_insecure: 1 # If a valid SSL certificate is not available specify “1”.
+
+beegfs_ha_fencing_agents:
+  fence_redfish:
+    - pcmk_host_list: <HOSTNAME>
+      ip: <BMC_IP>
+      <<: *redfish
+    - pcmk_host_list: <HOSTNAME>
+      ip: <BMC_IP>
+      <<: *redfish
+----
+... 如需設定其他隔離代理程式的詳細資訊、請參閱 link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHat文件"^]。
+
+
+
+
+. BeeGFS HA角色可套用許多不同的調校參數、以協助進一步最佳化效能。其中包括最佳化核心記憶體使用率和區塊裝置I/O、以及其他參數。角色隨附合理的套裝組合 link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L106["預設值"^] 根據NetApp E系列區塊節點的測試結果、但除非您指定以下項目、否則預設不會套用這些項目：
++
+[source, yaml]
+----
+beegfs_ha_enable_performance_tuning: True
+----
++
+.. 如有需要、也可在此處指定預設效能調校的任何變更。查看完整內容 link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/docs/performance_tuning.md["效能調校參數"^] 其他詳細資料請參閱文件。
+
+
+. 為了確保BeeGFS服務所使用的浮動IP位址（有時稱為邏輯介面）可在檔案節點之間容錯移轉、所有網路介面必須一致命名。根據預設、網路介面名稱是由核心產生、因此無法保證產生一致的名稱、即使是安裝在相同PCIe插槽中的網路介面卡、也能在相同的伺服器機型上產生一致的名稱。在部署設備之前建立庫存並已知產生介面名稱時、這也很有用。根據伺服器或的區塊圖、確保裝置名稱一致 `lshw  -class network -businfo` 輸出時、請指定所需的PCIe位址對邏輯介面對應、如下所示：
++
+.. 對於InfiniBand（IPoIB）網路介面：
++
+[source, yaml]
+----
+eseries_ipoib_udev_rules:
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: i1a
+----
+.. 對於乙太網路介面：
++
+[source, yaml]
+----
+eseries_ip_udev_rules:
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: e1a
+----
++
+
+IMPORTANT: 為了避免在重新命名介面時發生衝突（避免重新命名）、您不應使用任何可能的預設名稱、例如eth0、ens9f0、ib0或ibs4f0。一般的命名慣例是使用「e」或「i」作為乙太網路或InfiniBand、接著是PCIe插槽編號、以及字母來表示連接埠。例如、安裝在插槽3的InfiniBand介面卡的第二個連接埠為：i3b。
+
++
+
+NOTE: 如果您使用已驗證的檔案節點模型、請按一下 link:https://docs.netapp.com/us-en/beegfs/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes["請按這裡"^] PCIe位址對邏輯連接埠對應範例。
+
+
+
+. （可選）指定應套用至叢集中所有BeeGFS服務的組態。您可以找到預設組態值 link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L159["請按這裡"^]和個別服務組態是在其他地方指定的：
++
+.. BeeGFS管理服務：
++
+[source, yaml]
+----
+beegfs_ha_beegfs_mgmtd_conf_ha_group_options:
+  <OPTION>: <VALUE>
+----
+.. BeeGFS中繼資料服務：
++
+[source, yaml]
+----
+beegfs_ha_beegfs_meta_conf_ha_group_options:
+  <OPTION>: <VALUE>
+----
+.. BeeGFS儲存服務：
++
+[source, yaml]
+----
+beegfs_ha_beegfs_storage_conf_ha_group_options:
+  <OPTION>: <VALUE>
+----
+
+
+. 截至BeeGFS 7.2.7和7.3.1 link:https://doc.beegfs.io/latest/advanced_topics/authentication.html["連線驗證"^] 必須設定或明確停用。您可以使用以Ansible為基礎的部署來設定這項功能：
++
+.. 根據預設、部署會自動設定連線驗證、並產生 `connauthfile` 將會發佈至所有檔案節點、並搭配BeeGFS服務使用。此檔案也會放置/維護在的Ansible控制節點上 `<INVENTORY>/files/beegfs/<sysMgmtdHost>_connAuthFile` 應將其維護（安全）以供需要存取此檔案系統的用戶端重複使用。
++
+... 產生新的金鑰指定 `-e "beegfs_ha_conn_auth_force_new=True` 執行Ansible教戰手冊時。請注意、如果是、則會忽略此項 `beegfs_ha_conn_auth_secret` 已定義。
+... 如需進階選項、請參閱隨附的完整預設清單 link:https://github.com/netappeseries/beegfs/blob/release-3.1.0/roles/beegfs_ha_7_3/defaults/main.yml#L32["BeeGFS HA角色"^]。
+
+
+.. 您可以在中定義下列項目、以使用自訂密碼 `ha_cluster.yml`：
++
+[source, yaml]
+----
+beegfs_ha_conn_auth_secret: <SECRET>
+----
+.. 連線驗證可完全停用（不建議）：
++
+[source, yaml]
+----
+beegfs_ha_conn_auth_enabled: false
+----
+
+
+
+
+按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/ha_cluster.yml["請按這裡"^] 例如、代表通用檔案節點組態的完整庫存檔案。
+
+
+
+=== 使用具有NetApp EF600區塊節點的HDR（200GB）InfiniBand：
+
+若要將HDR(200Gb) InfiniBand搭配EF600使用、子網路管理程式必須支援虛擬化。如果使用交換器連接檔案和區塊節點、則必須在整個Fabric的子網路管理程式上啟用此功能。
+
+如果區塊和檔案節點是使用InfiniBand直接連線、則為的執行個體 `opensm` 必須在每個檔案節點上為直接連線至區塊節點的每個介面進行設定。這是透過指定來完成 `configure: true` 何時 link:custom-architectures-inventory-configure-file-nodes.html["設定檔案節點儲存介面"^]。
+
+目前為的收件匣版本 `opensm` 隨附支援的Linux套裝作業系統不支援虛擬化。而是需要您安裝及設定的版本 `opensm` 來自Mellanox OpenFabrics Enterprise Distribution（OFED）。雖然仍支援使用Ansible進行部署、但仍需執行幾個額外步驟：
+
+. 使用Curl或您想要的工具、下載中所列OpenSM版本的套件 link:beegfs-technology-requirements.html["技術需求"^] 章節、從Mellanox的網站到 `<INVENTORY>/packages/` 目錄。例如：
++
+[source, bash]
+----
+curl -o packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+
+curl -o packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+----
+. 低於 `group_vars/ha_cluster.yml` 定義下列組態：
++
+[source, yaml]
+----
+### OpenSM package and configuration information
+eseries_ib_opensm_allow_upgrades: true
+eseries_ib_opensm_skip_package_validation: true
+eseries_ib_opensm_rhel_packages: []
+eseries_ib_opensm_custom_packages:
+  install:
+    - files:
+        add:
+          "packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+          "packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+    - packages:
+        add:
+          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+  uninstall:
+    - packages:
+        remove:
+          - opensm
+          - opensm-libs
+      files:
+        remove:
+          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+
+eseries_ib_opensm_options:
+  virt_enabled: "2"
+----
+
