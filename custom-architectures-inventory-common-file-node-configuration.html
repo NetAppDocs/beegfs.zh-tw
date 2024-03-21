@@ -1,0 +1,2468 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>指定通用檔案節點組態</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="指定通用檔案節點組態" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+	<meta property="og:description" content="使用群組變數（群組_vars）指定通用檔案節點組態。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/beegfs/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="使用群組變數（群組_vars）指定通用檔案節點組態。">
+  <meta name="keywords" content=" BeeGFS on NetApp, NetApp Custom Architectures, EF600"><!-- Icons -->
+  <link rel="icon" href="/zh-tw/beegfs/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/beegfs/css/ie-netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/ie-landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/beegfs/css/ie-tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel="canonical" href="https://docs.netapp.com/zh-tw/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.netapp.com/us-en/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://docs.netapp.com/zh-tw/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="en" href="https://docs.netapp.com/us-en/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.netapp.com/ja-jp/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.netapp.com/ko-kr/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://docs.netapp.com/zh-cn/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.netapp.com/de-de/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.netapp.com/es-es/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.netapp.com/fr-fr/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <link rel="alternate" hreflang="it" href="https://docs.netapp.com/it-it/beegfs/custom-architectures-inventory-common-file-node-configuration.html" />
+  <!-- Top level site integrations -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js"></script>
+    <script type="text/javascript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-document-language="true" data-domain-script="72570c5c-fe30-465f-b0e0-b77f7fb4ae34"></script>
+    <script type="text/javascript">function OptanonWrapper() { }</script>
+    <script type="text/plain" class="optanon-category-C0002" src="https://assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js"></script>
+    <script class="optanon-category-C0001">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.setAttribute('class','optanon-category-C0001');j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MD73T9M');</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      const MASTHEAD_OFFSET = 65;
+      const SECTIONS = $("main h2, main h3");
+      // PAGE NAV - Init
+      if (SECTIONS.length == 0) {
+        // remove if there is no elements
+        /*
+        $("#ie-right-navbar").remove();
+        $("#ie-right-navbar-collapse").remove();
+        */
+      } else {
+        $(".page-nav-title").css('display', 'block');
+        for (var i = 0; i < SECTIONS.length; i++) {
+          var sectionId = $(SECTIONS[i]).attr('id');
+          var sectionName = $(SECTIONS[i]).text();
+          var subClass = $(SECTIONS[i]).is("h3") ? ' page-nav__sublink' : '';
+          $("#page-menu").append('<li class="page-nav-item"><a href="#' + sectionId + '" class="page-nav__link' + subClass + '">' + sectionName + '</a></li>');
+        }
+      }
+    });
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/beegfs/js/na-search.js'></script><script src='/zh-tw/beegfs/js/ie-clouddocs.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script>
+    /*
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+      */
+  </script>
+  <script src='/zh-tw/beegfs/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/beegfs/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/beegfs/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/beegfs/js/jszip.min.js'></script><script src='/zh-tw/beegfs/js/ie-pdf-ux.js'></script></head>
+
+
+  <body class role="document" data-flavor="">
+    <div class="skip-to-main">
+      <a href="#main" >Skip to main content</a>
+    </div><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD73T9M"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="page" class="">
+      <div id="ie-phone-menu" class=""></div>
+      <div id="ie-content-wrap" class="">
+        <nav id="ie-new-header">
+    <ul>
+        <li id="ie-phone-menu-button">
+            <a href="#">
+                <image id="" src="/zh-tw/beegfs/images/hamburger.svg" alt="menu" />
+            </a>
+        </li>
+
+        <li>
+            <a href="https://www.netapp.com/tw">
+                <image id="ie-header-logo" src="/zh-tw/beegfs/images/netapp_logo.svg" alt="netapp" />
+            </a>
+        </li>
+        <li id="ie-header-docs">
+            <a href="https://www.netapp.com/support-and-training/documentation/">文件</a>
+        </li>
+
+        <!-- Empty container to push header left with or without lang selector -->
+        <li id="empty-container" style="margin-left: auto">
+        </li>
+        <!-- Start Language Selector --><li id="ie-language-dropdown">
+            <div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+                <div class="custom-dropdown-select custom-dropdown-select-lang">
+                    <img src="/zh-tw/beegfs/images/language_white_24dp.svg" class="n-globe__icon" />
+                    <span class="lang-name">繁體中文</span>
+                    <img src="/zh-tw/beegfs/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/zh-tw/beegfs/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu"><li>
+                        <a href="https://docs.netapp.com/zh-tw/beegfs/custom-architectures-inventory-common-file-node-configuration.html"
+                            target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/us-en/beegfs/custom-architectures-inventory-common-file-node-configuration.html"
+                            target="_self"><span translate="no" class="notranslate">English</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ja-jp/beegfs/custom-architectures-inventory-common-file-node-configuration.html"
+                            target="_self"><span translate="no" class="notranslate">日本語</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ko-kr/beegfs/custom-architectures-inventory-common-file-node-configuration.html"
+                            target="_self"><span translate="no" class="notranslate">한국어</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-cn/beegfs/custom-architectures-inventory-common-file-node-configuration.html"
+                            target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/de-de/beegfs/custom-architectures-inventory-common-file-node-configuration.html"
+                            target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/es-es/beegfs/custom-architectures-inventory-common-file-node-configuration.html"
+                            target="_self"><span translate="no" class="notranslate">Español</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/fr-fr/beegfs/custom-architectures-inventory-common-file-node-configuration.html"
+                            target="_self"><span translate="no" class="notranslate">Français</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/it-it/beegfs/custom-architectures-inventory-common-file-node-configuration.html"
+                            target="_self"><span translate="no" class="notranslate">Italiano</span></a>
+                    </li></ul>
+            </div>
+            </li>
+        <!-- End Language Selector -->
+
+
+        <li id="ie-allnetapp">
+            <div id="allnetapp-dropdown" class="custom-dropdown custom-dropdown-allnetapp">
+                <div class="custom-dropdown-select custom-dropdown-select-allnetapp">
+                    <img src="/zh-tw/beegfs/images/apps_white_24dp.svg" alt="" class="allnetapp-icon" />
+                    <span class="allnetapp-name">所有 NetApp</span>
+                    <img src="/zh-tw/beegfs/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/zh-tw/beegfs/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu allnetapp-dropdown">
+                    <li>
+                        <a href="https://bluexp.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">BlueXP</span></a>
+                    </li>
+                    <li>
+                        <a href="https://mysupport.netapp.com/site/"
+                            target="_self"><span translate="no" class="notranslate">支援</span></a>
+                    </li>
+                    <li>
+                        <a href="https://kb.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">知識庫</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.netapp.com/support-and-training/netapp-learning-services/"
+                            target="_self"><span translate="no" class="notranslate">訓練</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+
+<div id="ie-new-sidebar-collapse" style="display: none">
+    <img id="sidebar-expand" class="ie-searchbox-icon" src="/zh-tw/beegfs/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-new-sidebar">
+    <div id="ie-product-identity-lockup">
+        <div id="sidebar-collapse" class="">
+            <img src="/zh-tw/beegfs/images/double_arrow.svg" alt="" />
+        </div>
+        <div id="ie-breadcrumb" class="">
+  <ul class="ie-breadcrumb">
+    <li class="">
+      <a href="https://docs.netapp.com">所有文件</a>
+    </li>
+    
+    
+
+    
+    <li class="">
+      <a href="https://docs.netapp.com/zh-tw/e-series-family/">
+        E-Series
+      </a>
+    </li>
+    
+  </ul>
+  
+  <div class="ie-product-name" >
+    <!--<a href="/zh-tw/beegfs/">-->
+      BeeGFS on NetApp with E-Series Storage
+    <!--</a>-->
+  </div>
+</div>
+
+            
+
+        
+        
+
+<div id="ie-searchbox" class="ie-searchbox-sidebar ">
+    <img class="ie-searchbox-icon" src="/zh-tw/beegfs/images/loupe.svg" alt=""/>
+    <div id="react-search" 
+        data-search-html="/zh-tw/beegfs/search.html" 
+        data-type="widget"
+        data-placeholder="搜尋說明文件"
+        data-no-results-found="找不到 {query} 的結果"
+        data-did-you-mean="搜尋 {suggestion}。"
+        data-no-results-found-did-you-mean="找不到 {query} 的結果。您的意思是 {suggestion} 嗎？"
+        data-results-found="找到 {hitCount} 個結果"
+        data-error-message="發生錯誤。請再試一次。"
+        data-error-reset="重設搜尋"
+        data-sk-es-pf-indexes="" 
+        data-flavor="">
+    </div>
+</div>
+        
+    </div>
+    <div id="ie-new-toc"><script>
+  let sidebarAccordion = true;
+
+  /* specific css rules for Mac */
+  if(navigator.platform.match('Mac') !== null) {
+    document.body.setAttribute('class', 'OSX');
+  }
+
+</script>
+
+<div id="ie-sidebar-container">
+  <ul id="ie-sidebar-list" ><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="NetApp文件上的BeeGFS"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/index.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/zh-tw/beegfs/index.html">
+        NetApp文件上的BeeGFS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="開始使用"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 開始使用</div>-->
+         開始使用
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="本網站內容"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/whats-included.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/beegfs/whats-included.html">
+        本網站內容
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="詞彙與概念"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-terms.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/beegfs/beegfs-terms.html">
+        詞彙與概念
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用通過驗證的架構"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 使用通過驗證的架構</div>-->
+         使用通過驗證的架構
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽與需求"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 總覽與需求</div>-->
+         總覽與需求
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="解決方案總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-solution-overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-solution-overview.html">
+        解決方案總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設計世代"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-gens.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-gens.html">
+        設計世代
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="架構總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-architecture-overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-architecture-overview.html">
+        架構總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="技術需求"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-technology-requirements.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-technology-requirements.html">
+        技術需求
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="檢視解決方案設計"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 檢視解決方案設計</div>-->
+         檢視解決方案設計
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設計總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-design-overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-design-overview.html">
+        設計總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="硬體組態"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-design-hardware-architecture.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-design-hardware-architecture.html">
+        硬體組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="軟體組態"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-design-software-architecture.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-design-software-architecture.html">
+        軟體組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設計驗證"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-design-solution-verification.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-design-solution-verification.html">
+        設計驗證
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="規模調整準則"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-design-solution-sizing-guidelines.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-design-solution-sizing-guidelines.html">
+        規模調整準則
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="效能調校"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-design-performance-tuning.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-design-performance-tuning.html">
+        效能調校
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="大容量選項"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-design-high-capacity-building-block.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-design-high-capacity-building-block.html">
+        大容量選項
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="部署解決方案"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 部署解決方案</div>-->
+         部署解決方案
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="部署總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-deploy-overview.html">
+        部署總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="瞭解Ansible庫存"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-learn-ansible.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-deploy-learn-ansible.html">
+        瞭解Ansible庫存
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="檢視最佳實務做法"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-bestpractice.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-deploy-bestpractice.html">
+        檢視最佳實務做法
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="部署硬體"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-hardware.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-deploy-hardware.html">
+        部署硬體
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="部署軟體"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 部署軟體</div>-->
+         部署軟體
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設定檔案和區塊節點"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-setup-nodes.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/beegfs-deploy-setup-nodes.html">
+        設定檔案和區塊節點
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="調整系統設定以獲得效能"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="beegfs-deploy-file-node-tuning.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/beegfs-deploy-file-node-tuning.html">
+        調整系統設定以獲得效能
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設定Ansible控制節點"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-setting-up-an-ansible-control-node.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/beegfs-deploy-setting-up-an-ansible-control-node.html">
+        設定Ansible控制節點
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建立可Ansible庫存"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-create-inventory.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/beegfs-deploy-create-inventory.html">
+        建立可Ansible庫存
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="定義BeeGFS建置區塊"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-define-inventory.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/beegfs-deploy-define-inventory.html">
+        定義BeeGFS建置區塊
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="部署BeeGFS"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-playbook.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/beegfs-deploy-playbook.html">
+        部署BeeGFS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設定BeeGFS用戶端"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-configure-clients.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/beegfs-deploy-configure-clients.html">
+        設定BeeGFS用戶端
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="擴充BeeGFS叢集"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-scale-building-blocks.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-deploy-scale-building-blocks.html">
+        擴充BeeGFS叢集
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建議的Volume百分比"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-recommended-volume-percentages.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-deploy-recommended-volume-percentages.html">
+        建議的Volume百分比
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="大容量選項"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/beegfs-deploy-high-capacity-building-block.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/beegfs-deploy-high-capacity-building-block.html">
+        大容量選項
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用自訂架構"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 使用自訂架構</div>-->
+         使用自訂架構
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="總覽與需求"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-overview.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/beegfs/custom-architectures-overview.html">
+        總覽與需求
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="初始設定"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 初始設定</div>-->
+         初始設定
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="安裝和連接硬體"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-setup-cable-hw.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-setup-cable-hw.html">
+        安裝和連接硬體
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設定檔案和區塊節點"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-setup-nodes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-setup-nodes.html">
+        設定檔案和區塊節點
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設定Ansible控制節點"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-setup-ansible-control-node.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-setup-ansible-control-node.html">
+        設定Ansible控制節點
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="定義BeeGFS檔案系統"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 定義BeeGFS檔案系統</div>-->
+         定義BeeGFS檔案系統
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ansible Inventory Overview"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-inventory-overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-inventory-overview.html">
+        Ansible Inventory Overview
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="規劃檔案系統"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-plan-file-system.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-plan-file-system.html">
+        規劃檔案系統
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="定義檔案和區塊節點"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 定義檔案和區塊節點</div>-->
+         定義檔案和區塊節點
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設定個別檔案節點"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-inventory-configure-file-nodes.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/custom-architectures-inventory-configure-file-nodes.html">
+        設定個別檔案節點
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設定個別區塊節點"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-inventory-configure-block-nodes.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/custom-architectures-inventory-configure-block-nodes.html">
+        設定個別區塊節點
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="指定通用檔案節點組態"
+      data-li-level="4#" 
+      class="  ie-sidebar-selected    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/custom-architectures-inventory-common-file-node-configuration.html">
+        指定通用檔案節點組態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="指定通用區塊節點組態"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-inventory-common-block-node-configuration.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/custom-architectures-inventory-common-block-node-configuration.html">
+        指定通用區塊節點組態
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="定義BeeGFS服務"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 定義BeeGFS服務</div>-->
+         定義BeeGFS服務
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFS管理服務"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-inventory-beegfs-management.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/custom-architectures-inventory-beegfs-management.html">
+        BeeGFS管理服務
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFS中繼資料服務"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-inventory-beegfs-metadata.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/custom-architectures-inventory-beegfs-metadata.html">
+        BeeGFS中繼資料服務
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFS儲存服務"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-inventory-beegfs-storage.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-tw/beegfs/custom-architectures-inventory-beegfs-storage.html">
+        BeeGFS儲存服務
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="將BeeGFS服務對應至檔案節點"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-inventory-map-services-to-file-nodes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-inventory-map-services-to-file-nodes.html">
+        將BeeGFS服務對應至檔案節點
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="部署BeeGFS檔案系統"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 部署BeeGFS檔案系統</div>-->
+         部署BeeGFS檔案系統
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ansible教戰手冊總覽"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-deploy-playbook-overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-deploy-playbook-overview.html">
+        Ansible教戰手冊總覽
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="部署BeeGFS HA叢集"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-deploy-ha-cluster.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-deploy-ha-cluster.html">
+        部署BeeGFS HA叢集
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="部署BeeGFS用戶端"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-deploy-beegfs-clients.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-deploy-beegfs-clients.html">
+        部署BeeGFS用戶端
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="驗證BeeGFS部署"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/custom-architectures-deploy-verify.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/custom-architectures-deploy-verify.html">
+        驗證BeeGFS部署
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理BeeGFS叢集"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 管理BeeGFS叢集</div>-->
+         管理BeeGFS叢集
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="概述、主要概念和術語"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-overview.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/beegfs/administer-clusters-overview.html">
+        概述、主要概念和術語
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用Ansible與PCS的時機"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-ansible-pcs.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/beegfs/administer-clusters-ansible-pcs.html">
+        使用Ansible與PCS的時機
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="檢查叢集的狀態"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-examine-state.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/beegfs/administer-clusters-examine-state.html">
+        檢查叢集的狀態
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="重新設定及更新"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 重新設定及更新</div>-->
+         重新設定及更新
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="重新設定HA叢集和BeeGFS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-reconfigure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/administer-clusters-reconfigure.html">
+        重新設定HA叢集和BeeGFS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="更新HA叢集和BeeGFS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-update.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/administer-clusters-update.html">
+        更新HA叢集和BeeGFS
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="服務與維護"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/beegfs/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/beegfs/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 服務與維護</div>-->
+         服務與維護
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="容錯移轉和容錯回復服務"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-failover-failback.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/administer-clusters-failover-failback.html">
+        容錯移轉和容錯回復服務
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="將叢集置於維護模式"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-maintenance-mode.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/administer-clusters-maintenance-mode.html">
+        將叢集置於維護模式
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="停止並啟動叢集"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-stop-start-cluster.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/administer-clusters-stop-start-cluster.html">
+        停止並啟動叢集
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="取代檔案節點"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-replace-file-nodes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/administer-clusters-replace-file-nodes.html">
+        取代檔案節點
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="擴充或縮小叢集"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-expand-shrink-cluster.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-tw/beegfs/administer-clusters-expand-shrink-cluster.html">
+        擴充或縮小叢集
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="疑難排解"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/administer-clusters-troubleshoot.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/beegfs/administer-clusters-troubleshoot.html">
+        疑難排解
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="法律聲明"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/custom-architectures-inventory-common-file-node-configuration.html" 
+      dale-entry-url="/legal-notices.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/zh-tw/beegfs/legal-notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+
+  $(".ie-sidebar-button").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    expandedLI = $('li.ie-sidebar-expand')
+
+    const li = $(this).closest("li");
+
+    const parentsLI = $(li).parents('li');
+
+    expandedLI.map(element => {
+      if (sidebarAccordion && !li.hasClass('ie-sidebar-expand') && jQuery.inArray(expandedLI[element], parentsLI) == -1) {
+        $(expandedLI[element]).toggleClass('ie-sidebar-expand');
+        $(expandedLI[element]).children("ul").animate({ height: 'toggle' }, 400, function () {
+          $(li).children("ul").toggleClass('ie-sidebar-open');
+
+        })
+      }
+
+    })
+
+    $(li).toggleClass('ie-sidebar-expand');
+    $(li).children("ul").animate({ height: 'toggle' }, 400, function () {
+      $(li).children("ul").toggleClass('ie-sidebar-open');
+    })
+  });
+
+
+  
+    $("li.ie-sidebar-selected").parents('ul').toggleClass("ie-sidebar-open");
+    $("li.ie-sidebar-selected").toggleClass("ie-sidebar-expand")
+    $("ul.ie-sidebar-open").parent().toggleClass("ie-sidebar-expand");
+    $("li.ie-sidebar-selected").children('ul').toggleClass("ie-sidebar-open")
+  
+  
+</script>
+    </div>
+</div>
+<script>
+
+    
+    let sidebarScrollTopPosition = 0;
+    $("#ie-new-toc").on("scroll", function () {
+        if (sidebarScrollTopPosition == 0) {
+            $.cookie("sidebarScroll", $("#ie-new-toc").scrollTop(), {
+                path: "/zh-tw/beegfs"
+            });
+        }
+
+        if ($("#ie-new-toc").scrollTop() > 0) {
+            $('#ie-product-identity-lockup').addClass('ie-addShadow');
+        } else {
+            $('#ie-product-identity-lockup').removeClass('ie-addShadow');
+        }
+    });
+
+    $(function () {
+        if ($.cookie("sidebarScroll")) {
+            $("#ie-new-toc").scrollTop($.cookie("sidebarScroll"));
+        }
+    });
+
+    function setSidebarBottom() {
+        const footerGap = PXinViewport($(".n-footer"));
+        document.getElementById("ie-new-sidebar").style.bottom = Math.max(0, footerGap) + "px";
+    }
+
+    window.onscroll = () => {
+        setSidebarBottom();
+    };
+
+    $("#sidebar-collapse").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        if ($.cookie("sidebarScroll")) {
+            sidebarScrollTopPosition = $.cookie("sidebarScroll");
+        }
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 350, function () {
+            $("#ie-new-sidebar-collapse").show();
+            $("#ie-new-sidebar").removeClass("open")
+            $("#ie-new-sidebar").addClass("close")
+            $("#ie-new-sidebar").removeAttr("style")
+        });
+        $(".ie-content-pane").animate({ width: (width + sidebarWidth), marginLeft: (marginLeft - sidebarWidth) }, 350, function () {
+            resizeContent()
+        })
+
+    });
+    $("#sidebar-expand").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 250, function () {
+            $('#ie-new-sidebar').css('display', 'flex');
+            $("#ie-new-sidebar-collapse").hide();
+            $("#ie-new-sidebar").removeClass("close")
+            $("#ie-new-sidebar").addClass("open")
+            setSidebarBottom();
+
+            if (sidebarScrollTopPosition != 0) {
+                $.cookie("sidebarScroll", sidebarScrollTopPosition, {
+                    path: "/zh-tw/beegfs"
+                })
+                $("#ie-new-toc").scrollTop(sidebarScrollTopPosition);
+                sidebarScrollTopPosition = 0;
+            }
+        });
+        $(".ie-content-pane").animate({ width: (width - sidebarWidth), 'marginLeft': (marginLeft + sidebarWidth) }, 250, function () {
+            resizeContent()
+        })
+    });
+    function resizeContent() {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        const rightNavbarVisible =  $("#ie-right-navbar").css('display') && $("#ie-right-navbar").css('display') != 'none';
+        const sidebarVisible = $("#ie-new-sidebar").css('display') != 'none';
+        const rightNavbarWidth = $("#ie-right-navbar").width();
+        const rightNavbarCollapseWidth = $("#ie-right-navbar-collapse").width();
+        const rightNavbarCollapseVisible = $("#ie-right-navbar-collapse").css('display') && $("#ie-right-navbar-collapse").css('display') != 'none';
+        
+        if (rightNavbarVisible && sidebarVisible) {
+            $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarWidth}px)`)
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+        } else if (sidebarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarCollapseWidth}px)`)
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar").width()}px)`)
+            }
+
+        } else if (rightNavbarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            $(".ie-content-pane").width(`calc(100% - ${rightNavbarWidth}px)`)
+        } else {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${rightNavbarCollapseWidth}px)`);
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar-collapse").width()}px) `);
+            }
+            
+        }
+    }
+    $(window).on("resize load", function () {
+        setSidebarBottom();
+        resizeContent()
+    });
+
+
+</script>
+
+<div class="ie-content-pane ie-component-detail-content ie-component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <!-- include utility.html -->
+      <div class="ie-info-disclaimer">
+    <span>
+      <div class="ie-info-disclaimer-container">
+        <div class="ie-info-disclaimer-icon">
+          <img src="/zh-tw/beegfs/images/notification-icons.svg" class="luci-icon" alt="" />
+        </div>
+        <div class="ie-info-disclaimer-content">
+          <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </span>
+  </div><div class="ie-component-detail-heading-wrap">
+  <h1 class="ie-component-detail-heading">指定通用檔案節點組態</h1>
+</div>
+
+<div id="ie-byline">
+  
+<div class="page-details">
+    
+        
+            <time datetime="2023-01-31 13:48:46 +0000">01/31/2023</time>
+        
+    
+    
+        <span>貢獻者
+        </span>
+    
+    
+</div>
+<div class="page-controls">
+    <div id="contribute-dropdown" class="custom-dropdown custom-dropdown-contrib" >
+        <div class="custom-dropdown-select custom-dropdown-select-contrib">
+        <span class="contrib-name"><img src="/zh-tw/beegfs/images/discuss-sm.svg" alt="" class="github-icon" />建議變更</span>
+        <img src="/zh-tw/beegfs/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown invisible" />
+        <img src="/zh-tw/beegfs/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup" />
+        </div>
+        <ul class="custom-dropdown-menu suggested-changes-dropdown"><li>
+                <a target="_blank" href="https://github.com/NetAppDocs/beegfs.zh-tw/issues/new?template=new-from-page.yml&page-url=https://docs.netapp.com/zh-tw/beegfs/custom-architectures-inventory-common-file-node-configuration.html&page-title=指定通用檔案節點組態" class="page-nav-contribute-link" role="button">請求文件變更</a>
+            </li><li> 
+                <a target="_blank" href="https://github.com/NetAppDocs/beegfs/blob/main/custom/define-beegfs-fs/define-nodes/custom-architectures-inventory-common-file-node-configuration.adoc" class="page-nav-contribute-link" role="button">編輯本頁</a>
+            </li><li><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  >瞭解如何貢獻</a></li>
+        </ul>
+    </div>
+    <div id="pdf-control-container">
+        <div class="n-pdf-header">
+            <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+                <img class="adobe-icon" src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>PDF<img src="/zh-tw/beegfs/images/dropdown-arrow.svg" class="custom-icon" alt="" />
+            </a>
+        </div>
+        <div class="n-pdf-body-container">
+            <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+                    
+                    
+                    
+                    <a target="_blank" class="pdf-download-link" href="/zh-tw/beegfs/pdfs/fullsite-sidebar/採用E系列儲存設備的NetApp_BeeGFS.pdf" >
+                    <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>此文件 PDF 的網站</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/開始使用.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            開始使用
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/使用通過驗證的架構.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            使用通過驗證的架構
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/總覽與需求.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            總覽與需求
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/檢視解決方案設計.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            檢視解決方案設計
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/部署解決方案.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            部署解決方案
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/部署軟體.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            部署軟體
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/使用自訂架構.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            使用自訂架構
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/初始設定.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            初始設定
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/定義BeeGFS檔案系統.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            定義BeeGFS檔案系統
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/定義檔案和區塊節點.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            定義檔案和區塊節點
+          </a>
+          
+
+
+
+
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/定義BeeGFS服務.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            定義BeeGFS服務
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/部署BeeGFS檔案系統.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            部署BeeGFS檔案系統
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/管理BeeGFS叢集.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            管理BeeGFS叢集
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/重新設定及更新.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            重新設定及更新
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/beegfs/pdfs/sidebar/服務與維護.pdf" 
+            
+          >
+            <img src="/zh-tw/beegfs/images/pdf-icon.png" alt="" width="16" height="16"/>
+            服務與維護
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+            <div class="zip-pdf-link-container" style="display: none;">   
+                <a href="#" id="zipPdf">
+                <img src="/zh-tw/beegfs/images/pdf-zip.png" alt="" width="16" height="16"/>
+                <pre>個別的 PDF 文件集合<span class="zip-size"></span></pre>
+                </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+        </div>
+    </div>        
+<script>
+$("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+$("#toggleButtonPdf").on('click', function(e){ 
+    e.stopPropagation();
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+});
+
+//hide is by clicking outside pdfcontainer
+$(document).on('click', function (e) {
+    if ($('#toggleContainerPdf').is(':visible') && !$('.n-pdf-body-container').is(e.target) && !$('.n-pdf-body-container').has(e.target).length)  {
+        
+        $("#toggleContainerPdf").toggle('display');
+        $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+        $("#toggleButtonPdf").removeClass("active");
+    }
+});
+</script>
+<script>
+    function getPdfLocation() {
+        const pdfLocation = window.scrollX + document.querySelector('#pdf-control-container').getBoundingClientRect().left
+        if (pdfLocation < 450) {
+            $(".n-pdf-body-container").addClass("block")
+        } else {
+            $(".n-pdf-body-container").removeClass("block")
+        }
+    
+    }
+    $( window ).on( "resize", function() {
+        getPdfLocation()
+} );
+</script>
+<script>
+    const pdfButtonWidth =  $(".n-pdf-header").width();
+    const pdfMenuWidth = $(".n-pdf-body-container").width();
+    $(".n-pdf-body-container").css('margin-left', `calc(${pdfButtonWidth - pdfMenuWidth}px)`);
+</script>
+</div>
+
+    
+
+</div>
+
+
+
+
+<div class="content-to-index">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>使用群組變數（群組_vars）指定通用檔案節點組態。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="總覽">總覽</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>所有檔案節點的組態均應定義於 <code>group_vars/ha_cluster.yml</code>。通常包括：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>如何連線及登入每個檔案節點的詳細資料。</p>
+</li>
+<li>
+<p>通用網路組態。</p>
+</li>
+<li>
+<p>是否允許自動重新開機。</p>
+</li>
+<li>
+<p>如何設定防火牆和SELinux狀態。</p>
+</li>
+<li>
+<p>叢集組態、包括警示和隔離。</p>
+</li>
+<li>
+<p>效能調校：</p>
+</li>
+<li>
+<p>通用BeeGFS服務組態。</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="註">
+</td>
+<td class="content">
+此檔案中設定的選項也可在個別檔案節點上定義、例如使用混合式硬體模型、或是每個節點的密碼不同。個別檔案節點的組態優先於此檔案中的組態。
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="步驟">步驟</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>建立檔案 <code>group_vars/ha_cluster.yml</code> 並填入如下內容：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>指出Ansible Control節點應如何與遠端主機進行驗證：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">ansible_ssh_user: root
+ansible_become_password: &lt;PASSWORD&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/warning.svg" alt="警告">
+</td>
+<td class="content">
+尤其是在正式作業環境中、請勿以純文字儲存密碼。請改用Ansible Vault（請參閱） <a href="https://docs.ansible.com/ansible/latest/vault_guide/index.html" target="_blank" rel="noopener">"使用Ansible Vault加密內容"</a>）或 <code>--ask-become-pass</code> 執行教戰手冊時的選項。如果是 <code>ansible_ssh_user</code> 已經是root、您可以選擇省略 <code>ansible_become_password</code>。
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>如果您在乙太網路或InfiniBand介面上設定靜態IP（例如叢集IP）、且多個介面位於同一個IP子網路（例如、如果ib0使用192.168.1.10/24、而ib1使用192.168.1.11/24）、必須設定其他IP路由表和規則、多重主目錄支援才能正常運作。只需啟用提供的網路介面組態掛勾、如下所示：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">eseries_ip_default_hook_templates:
+  - 99-multihoming.j2</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>部署叢集時、視儲存傳輸協定而定、可能需要重新啟動節點、以協助探索遠端區塊裝置（E系列磁碟區）或套用組態的其他層面。依預設、節點會在重新開機前提示、但您可以指定下列項目、讓節點自動重新啟動：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">eseries_common_allow_host_reboot: true</code></pre>
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>根據預設、重新開機後、若要確保區塊裝置和其他服務已就緒、Ansible將會等到系統完成 <code>default.target</code> 在繼續部署之前就已到達。在使用NVMe / IB的某些情況下、這可能不夠長、無法初始化、探索及連線至遠端裝置。這可能會導致自動部署提早繼續、而且失敗。若要避免這種情況、使用NVMe / IB時也必須定義下列項目：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">eseries_common_reboot_test_command: "! systemctl status eseries_nvme_ib.service || systemctl --state=exited | grep eseries_nvme_ib.service"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>BeeGFS和HA叢集服務需要多個防火牆連接埠才能進行通訊。除非您想要手動設定防火牆（不建議）、否則請指定下列項目、以建立必要的防火牆區域並自動開啟連接埠：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_firewall_configure: True</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>目前不支援SELinux、建議將狀態設為停用、以避免衝突（尤其是使用RDMA時）。請設定下列項目、以確保SELinux已停用：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">eseries_beegfs_ha_disable_selinux: True
+eseries_selinux_state: disabled</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>設定驗證、讓檔案節點能夠通訊、根據組織原則調整預設值：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_cluster_name: hacluster                  # BeeGFS HA cluster name.
+beegfs_ha_cluster_username: hacluster              # BeeGFS HA cluster username.
+beegfs_ha_cluster_password: hapassword             # BeeGFS HA cluster username's password.
+beegfs_ha_cluster_password_sha512_salt: randomSalt # BeeGFS HA cluster username's password salt.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>根據 <a href="custom-architectures-plan-file-system.html" target="_blank" rel="noopener">"規劃檔案系統"</a> 部分指定此檔案系統的BeeGFS管理IP：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_mgmtd_floating_ip: &lt;IP ADDRESS&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="註">
+</td>
+<td class="content">
+儘管看似冗餘、但當您將BeeGFS檔案系統擴充至單一HA叢集以外的位置時、「beegfs_ha_mgmtd_浮 點_ip'是很重要的。部署後續HA叢集時、不需要額外的BeeGFS管理服務、並指向第一個叢集所提供的管理服務。
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>視需要啟用電子郵件警示：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_enable_alerts: True
+# E-mail recipient list for notifications when BeeGFS HA resources change or fail.
+beegfs_ha_alert_email_list: ["&lt;EMAIL&gt;"]
+# This dictionary is used to configure postfix service (/etc/postfix/main.cf) which is required to set email alerts.
+beegfs_ha_alert_conf_ha_group_options:
+      # This parameter specifies the local internet domain name. This is optional when the cluster nodes have fully qualified hostnames (i.e. host.example.com)
+      mydomain: &lt;MY_DOMAIN&gt;
+beegfs_ha_alert_verbosity: 3
+#  1) high-level node activity
+#  3) high-level node activity + fencing action information + resources (filter on X-monitor)
+#  5) high-level node activity + fencing action information + resources</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>強烈建議啟用隔離功能、否則當主要節點故障時、服務可能無法在次要節點上啟動。</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>指定下列項目以全域啟用隔離：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_cluster_crm_config_options:
+  stonith-enabled: True</code></pre>
+</div>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>請注意任何支援的項目 <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters" target="_blank" rel="noopener">"叢集內容"</a> 如有需要、也可在此處指定。由於BeeGFS HA角色已經過許多測試、因此通常不需要調整這些功能 <a href="https://github.com/netappeseries/beegfs/blob/ae038bb2f7617d18a36cc4df8ca9464bd5039b8b/roles/beegfs_ha_7_2/defaults/main.yml#L54" target="_blank" rel="noopener">"預設值"</a>。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>接下來選取並設定隔離代理程式：</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>選項1：若要使用APC電力分配單元（PDU）啟用隔離功能：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_fencing_agents:
+  fence_apc:
+    - ipaddr: &lt;PDU_IP_ADDRESS&gt;
+      login: &lt;PDU_USERNAME&gt;
+      passwd: &lt;PDU_PASSWORD&gt;
+      pcmk_host_map: "&lt;HOSTNAME&gt;:&lt;PDU_PORT&gt;,&lt;PDU_PORT&gt;;&lt;HOSTNAME&gt;:&lt;PDU_PORT&gt;,&lt;PDU_PORT&gt;"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>選項2：若要使用Lenovo XCC（及其他BMC）提供的RedfISH API來啟用屏障：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">redfish: &amp;redfish
+  username: &lt;BMC_USERNAME&gt;
+  password: &lt;BMC_PASSWORD&gt;
+  ssl_insecure: 1 # If a valid SSL certificate is not available specify “1”.
+
+beegfs_ha_fencing_agents:
+  fence_redfish:
+    - pcmk_host_list: &lt;HOSTNAME&gt;
+      ip: &lt;BMC_IP&gt;
+      &lt;&lt;: *redfish
+    - pcmk_host_list: &lt;HOSTNAME&gt;
+      ip: &lt;BMC_IP&gt;
+      &lt;&lt;: *redfish</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>如需設定其他隔離代理程式的詳細資訊、請參閱 <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters" target="_blank" rel="noopener">"RedHat文件"</a>。</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>BeeGFS HA角色可套用許多不同的調校參數、以協助進一步最佳化效能。其中包括最佳化核心記憶體使用率和區塊裝置I/O、以及其他參數。角色隨附合理的套裝組合 <a href="https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L106" target="_blank" rel="noopener">"預設值"</a> 根據NetApp E系列區塊節點的測試結果、但除非您指定以下項目、否則預設不會套用這些項目：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_enable_performance_tuning: True</code></pre>
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>如有需要、也可在此處指定預設效能調校的任何變更。查看完整內容 <a href="https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/docs/performance_tuning.md" target="_blank" rel="noopener">"效能調校參數"</a> 其他詳細資料請參閱文件。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>為了確保BeeGFS服務所使用的浮動IP位址（有時稱為邏輯介面）可在檔案節點之間容錯移轉、所有網路介面必須一致命名。根據預設、網路介面名稱是由核心產生、因此無法保證產生一致的名稱、即使是安裝在相同PCIe插槽中的網路介面卡、也能在相同的伺服器機型上產生一致的名稱。在部署設備之前建立庫存並已知產生介面名稱時、這也很有用。根據伺服器或的區塊圖、確保裝置名稱一致 <code>lshw  -class network -businfo</code> 輸出時、請指定所需的PCIe位址對邏輯介面對應、如下所示：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>對於InfiniBand（IPoIB）網路介面：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">eseries_ipoib_udev_rules:
+  "&lt;PCIe ADDRESS&gt;": &lt;NAME&gt; # Ex: 0000:41:00.0: i1a</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>對於乙太網路介面：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">eseries_ip_udev_rules:
+  "&lt;PCIe ADDRESS&gt;": &lt;NAME&gt; # Ex: 0000:41:00.0: e1a</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/important.svg" alt="重要">
+</td>
+<td class="content">
+為了避免在重新命名介面時發生衝突（避免重新命名）、您不應使用任何可能的預設名稱、例如eth0、ens9f0、ib0或ibs4f0。一般的命名慣例是使用「e」或「i」作為乙太網路或InfiniBand、接著是PCIe插槽編號、以及字母來表示連接埠。例如、安裝在插槽3的InfiniBand介面卡的第二個連接埠為：i3b。
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/beegfs/images/note.svg" alt="註">
+</td>
+<td class="content">
+如果您使用已驗證的檔案節點模型、請按一下 <a href="https://docs.netapp.com/us-en/beegfs/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes" target="_blank" rel="noopener">"請按這裡"</a> PCIe位址對邏輯連接埠對應範例。
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>（可選）指定應套用至叢集中所有BeeGFS服務的組態。您可以找到預設組態值 <a href="https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L159" target="_blank" rel="noopener">"請按這裡"</a>和個別服務組態是在其他地方指定的：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>BeeGFS管理服務：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_beegfs_mgmtd_conf_ha_group_options:
+  &lt;OPTION&gt;: &lt;VALUE&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>BeeGFS中繼資料服務：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_beegfs_meta_conf_ha_group_options:
+  &lt;OPTION&gt;: &lt;VALUE&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>BeeGFS儲存服務：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_beegfs_storage_conf_ha_group_options:
+  &lt;OPTION&gt;: &lt;VALUE&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>截至BeeGFS 7.2.7和7.3.1 <a href="https://doc.beegfs.io/latest/advanced_topics/authentication.html" target="_blank" rel="noopener">"連線驗證"</a> 必須設定或明確停用。您可以使用以Ansible為基礎的部署來設定這項功能：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>根據預設、部署會自動設定連線驗證、並產生 <code>connauthfile</code> 將會發佈至所有檔案節點、並搭配BeeGFS服務使用。此檔案也會放置/維護在的Ansible控制節點上 <code>&lt;INVENTORY&gt;/files/beegfs/&lt;sysMgmtdHost&gt;_connAuthFile</code> 應將其維護（安全）以供需要存取此檔案系統的用戶端重複使用。</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>產生新的金鑰指定 <code>-e "beegfs_ha_conn_auth_force_new=True</code> 執行Ansible教戰手冊時。請注意、如果是、則會忽略此項 <code>beegfs_ha_conn_auth_secret</code> 已定義。</p>
+</li>
+<li>
+<p>如需進階選項、請參閱隨附的完整預設清單 <a href="https://github.com/netappeseries/beegfs/blob/release-3.1.0/roles/beegfs_ha_7_3/defaults/main.yml#L32" target="_blank" rel="noopener">"BeeGFS HA角色"</a>。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>您可以在中定義下列項目、以使用自訂密碼 <code>ha_cluster.yml</code>：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_conn_auth_secret: &lt;SECRET&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>連線驗證可完全停用（不建議）：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">beegfs_ha_conn_auth_enabled: false</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>按一下 <a href="https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/ha_cluster.yml" target="_blank" rel="noopener">"請按這裡"</a> 例如、代表通用檔案節點組態的完整庫存檔案。</p>
+</div>
+<div class="sect2">
+<h3 id="使用具有netapp-ef600區塊節點的hdr200gbinfiniband">使用具有NetApp EF600區塊節點的HDR（200GB）InfiniBand：</h3>
+<div class="paragraph">
+<p>若要將HDR(200Gb) InfiniBand搭配EF600使用、子網路管理程式必須支援虛擬化。如果使用交換器連接檔案和區塊節點、則必須在整個Fabric的子網路管理程式上啟用此功能。</p>
+</div>
+<div class="paragraph">
+<p>如果區塊和檔案節點是使用InfiniBand直接連線、則為的執行個體 <code>opensm</code> 必須在每個檔案節點上為直接連線至區塊節點的每個介面進行設定。這是透過指定來完成 <code>configure: true</code> 何時 <a href="custom-architectures-inventory-configure-file-nodes.html" target="_blank" rel="noopener">"設定檔案節點儲存介面"</a>。</p>
+</div>
+<div class="paragraph">
+<p>目前為的收件匣版本 <code>opensm</code> 隨附支援的Linux套裝作業系統不支援虛擬化。而是需要您安裝及設定的版本 <code>opensm</code> 來自Mellanox OpenFabrics Enterprise Distribution（OFED）。雖然仍支援使用Ansible進行部署、但仍需執行幾個額外步驟：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>使用Curl或您想要的工具、下載中所列OpenSM版本的套件 <a href="beegfs-technology-requirements.html" target="_blank" rel="noopener">"技術需求"</a> 章節、從Mellanox的網站到 <code>&lt;INVENTORY&gt;/packages/</code> 目錄。例如：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">curl -o packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+
+curl -o packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>低於 <code>group_vars/ha_cluster.yml</code> 定義下列組態：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">### OpenSM package and configuration information
+eseries_ib_opensm_allow_upgrades: true
+eseries_ib_opensm_skip_package_validation: true
+eseries_ib_opensm_rhel_packages: []
+eseries_ib_opensm_custom_packages:
+  install:
+    - files:
+        add:
+          "packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+          "packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+    - packages:
+        add:
+          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+  uninstall:
+    - packages:
+        remove:
+          - opensm
+          - opensm-libs
+      files:
+        remove:
+          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+
+eseries_ib_opensm_options:
+  virt_enabled: "2"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+<div id="ie-right-navbar-collapse" class="close">
+  <img id="navbar-expand" class="ie-searchbox-icon" src="/zh-tw/beegfs/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-right-navbar" class="open">
+  <div id="right-navbar-collapse">
+    <img src="/zh-tw/beegfs/images/double_arrow.svg" alt="" />
+  </div>
+  <div class="page-nav-container">
+    <nav class="page-nav-fixed">
+      <div class="page-nav-title">在本頁</div>
+      <div class="page-nav-links">
+        <ul class="page-nav-inner" id="page-menu"></ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<script>
+  resizeContent();
+  function setRightBarHeight() {
+    var h = 0;
+
+    // header 1
+    h += PXinViewport($('.n-footer'));
+    h += PXinViewport($('#ie-new-header'));
+
+    if ($('#ie-right-navbar').length) {
+      $('#ie-right-navbar').css({ height: `calc(100vh - ${h}px)` });
+    }
+    if ($('.page-nav-links').length) {
+      h += 98;
+      $('.page-nav-links').css({ height: `calc(100vh - ${h}px)` });
+    }
+  }
+
+  $(document).ready(function () {
+    // PAGE NAV - Click
+    const MASTHEAD_OFFSET = 65;
+    const SECTIONS = $("main h2, main h3");
+    let calculateActiveSection = false;
+    setTimeout(() => {
+      calculateActiveSection = true;
+    }, 100)
+
+    $(".page-nav__link").click(function (event) {
+      calculateActiveSection = false;
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      var target = $(event.target);
+      target.addClass('page-nav__link--active');
+      location.hash = event.target.hash;
+      setTimeout(() => {
+        calculateActiveSection = true;
+      }, 100)
+
+    });
+
+    // PAGE NAV - Scroll
+    $(window).on('resize scroll', function () {
+      if (calculateActiveSection) {
+        var activeSection = getActiveSection(SECTIONS, MASTHEAD_OFFSET);
+        if (activeSection) {
+          var activeHref = $(activeSection).attr('id');
+          $(".page-nav__link").removeClass('page-nav__link--active');
+          $("#page-menu a[href=#" + activeHref + "]").addClass('page-nav__link--active');
+          if (location.hash != "#" + activeHref) {
+            if (history.replaceState) {
+              history.replaceState(null, null, "#" + activeHref);
+            }
+          }
+        }
+      }
+    });
+
+    $(".n-pdf-button").click(function () {
+      $(this).toggleClass("active");
+    });
+
+    $.fn.isVisibleAndInViewport = function () {
+      var elementTop = $(this).offset().top;
+      var elementBottom = elementTop + $(this).outerHeight();
+
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+
+      return elementBottom > viewportTop && elementTop < viewportBottom && $(this).is(":visible");
+    };
+
+
+    $(window).on('resize scroll', function () {
+      setRightBarHeight();
+    });
+
+    $(window).trigger('resize');
+
+
+  });
+
+  $("#right-navbar-collapse").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 350, function () {
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+    });
+    $(".ie-content-pane").animate({ width: (width + rightNavbarWidth) }, 350, function () {
+      resizeContent()
+      setSidebarBottom();
+    })
+
+  });
+  $("#navbar-expand").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 250, function () {
+      $("#ie-right-navbar-collapse").removeClass("open")
+      $("#ie-right-navbar-collapse").addClass("close")
+      $("#ie-right-navbar").removeClass("close")
+      $("#ie-right-navbar").addClass("open")
+      setRightBarHeight();
+      setSidebarBottom();
+    });
+    $(".ie-content-pane").animate({ width: (width - rightNavbarWidth) }, 250, function () {
+      resizeContent()
+    })
+  });
+
+  function navbarResize() {
+    const rightNavbarResized = $("#ie-right-navbar-collapse").hasClass('resized');
+    if (window.innerWidth < 1024) {
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+      $("#ie-right-navbar").removeAttr("style")
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar-collapse").addClass("resized")
+    } else {
+      if (rightNavbarResized) {
+        $('#ie-right-navbar').removeClass('close');
+        $('#ie-right-navbar').addClass('open');
+        $("#ie-right-navbar-collapse").removeClass("resized")
+        $("#ie-right-navbar-collapse").removeClass("open")
+        $("#ie-right-navbar-collapse").addClass("close")
+      }
+    }
+    resizeContent()
+  }
+  navbarResize();
+  $(window).on('resize load', function () {
+    navbarResize()
+  });
+
+  function getActiveSection(sections, offset) {
+    var scrollPosition = $(window).scrollTop() + offset + 5;
+    var activeSection;
+    for (var i = 0; i < sections.length; i++) {
+      var el = $(sections[i]);
+      var activePosition = el.offset().top;
+      if (activePosition > scrollPosition) {
+        break;
+      }
+
+      activeSection = sections[i];
+    }
+
+    return activeSection;
+  }
+
+  $("a[href*=#]:not([href=#])").click(function () {
+    setTimeout(() => {
+      $(window).trigger('scroll');
+    }, 105)
+  })
+
+  const hashOnLoad = location.href.split("#")[1];
+  setTimeout(function () {
+    if (hashOnLoad) {
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      $("#page-menu a[href=#" + hashOnLoad + "]").addClass('page-nav__link--active');
+    }
+  }, 100)
+
+</script>
+
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+        <div class="n-footer__left">
+          <li class="n-footer__copyright-link">
+                    <a href="https://www.netapp.com/company/legal/copyright/">© 2024 NetApp, Inc.</a>
+          </li>
+        </div>
+        <div class="n-footer__center">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">使用條款</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">隱私權政策</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie 政策</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Cookie 設定</a>
+            </li>
+          </ul>
+       </div>
+        <div class="n-footer__right">
+              <li class="n-footer__copyright-link">
+                <a target="_self" href="javascript:netapp_mailto()">傳送有關本網頁的意見反應</a>
+              </li>
+        </div>
+     </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/beegfs/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/beegfs/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/beegfs/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/beegfs/js/ie-tabbed-blocks.js'></script>
+    <script src='/zh-tw/beegfs/js/ie-sidebar.js'></script>
+  </body>
+
+</html>
