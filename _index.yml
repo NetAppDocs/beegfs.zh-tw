@@ -1,6 +1,9 @@
 ---
 indexpage:
-  lead: BeeGFS on NetApp解決方案是NetApp認證架構（NVA）、結合BeeGFS平行檔案系統與NetApp EF600儲存系統。此解決方案是可靠、可擴充且具成本效益的基礎架構、可跟上您最極端的工作負載。
+  title: 採用E系列儲存設備的NetApp BeeGFS
+  summary: 解決方案支援BeeGFS平行叢集檔案系統、可在高效能、低延遲的NetApp E系列儲存設備上執行。NetApp支援的高成本效益、易於管理且高可用度的HPC解決方案。
+  keywords: beegfs e-series
+  lead: NetApp 上的 BeeGFS 搭配 E 系列儲存設備、是備受肯定的整合式解決方案、提供簡單、可靠、可擴充且具成本效益的高效能運算基礎架構、能跟上您最極端的工作負載。
   tiles:
   - title: 開始使用
     links:
