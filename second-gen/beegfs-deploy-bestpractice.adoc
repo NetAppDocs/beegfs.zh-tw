@@ -20,7 +20,7 @@ summary: 在NetApp解決方案上部署BeeGFS時、請遵循最佳實務準則�
 
 == 標準慣例
 
-實際組裝及建立Ansible庫存檔案時、請遵循下列標準慣例（如需詳細資訊、請參閱） link:beegfs-deploy-beegfs-general-config.html["建立可Ansible庫存"]）。
+實際組裝及建立Ansible庫存檔案時、請遵循下列標準慣例（如需詳細資訊、請參閱） link:beegfs-deploy-create-inventory.html["建立可Ansible庫存"]）。
 
 * 檔案節點主機名稱會依序編號（H01-HN）、機架頂端的數字較低、底部的數字較高。
 +

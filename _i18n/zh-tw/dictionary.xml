@@ -527,7 +527,6 @@
   <block id="d1da0cd6852302b521f35aeee065f5ea" category="summary">在NetApp解決方案上部署BeeGFS時、請遵循最佳實務準則。</block>
   <block id="38b622e4d5c9d918330c81663f61a4e3" category="doc">檢視最佳實務做法</block>
   <block id="d780de93793370946b2449b88a29b5ea" category="section-title">標準慣例</block>
-  <block id="2028bcc5ed7fdc8ba437b0150866ff2c" category="paragraph">實際組裝及建立Ansible庫存檔案時、請遵循下列標準慣例（如需詳細資訊、請參閱） <block ref="ecd3f3fdba3715697adf284eecd1c932" category="inline-link-macro-rx"></block>）。</block>
   <block id="b4d19c971bd6ad93985147c0ce9477c8" category="list-text">檔案節點主機名稱會依序編號（H01-HN）、機架頂端的數字較低、底部的數字較高。</block>
   <block id="0a4e8ee6eb2b3c9ae6b2864c18db1a80" category="paragraph">例如、命名慣例「[location（位置）[ROW][RAG] HN（機架）」看起來像「ictad22h01」。</block>
   <block id="7bf4bcec78c083e165c31432234ebef8" category="list-text">每個區塊節點都由兩個儲存控制器組成、每個控制器都有自己的主機名稱。</block>
@@ -1862,4 +1861,5 @@
   <block id="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-macro"><block ref="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-rx"></block></block>
   <block id="2352c4e1f4d0024ade0869e00e6243f4" category="paragraph"><block ref="2352c4e1f4d0024ade0869e00e6243f4" category="inline-link-macro-rx"></block></block>
   <block id="e8afe31a21b6aae9717484d865743dae" category="sidebar">NetApp 上的 BeeGFS 搭配 E 系列儲存設備、是備受肯定的整合式解決方案、提供簡單、可靠、可擴充且具成本效益的高效能運算基礎架構、能跟上您最極端的工作負載。</block>
+  <block id="3a9aabbbb8c331319a41788bf5d1786a" category="paragraph">實際組裝及建立Ansible庫存檔案時、請遵循下列標準慣例（如需詳細資訊、請參閱） <block ref="dbbcb9482f49ee969cddb7f10864cbd0" category="inline-link-macro-rx"></block>）。</block>
 </blocks>
