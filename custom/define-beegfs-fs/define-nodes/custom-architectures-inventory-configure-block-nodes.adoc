@@ -138,19 +138,19 @@ eseries_controller_nvme_roce_port_speed: auto            # General interface spe
 
 === 在NetApp EF600區塊節點上使用HDR(200Gb) InfiniBand或200GB RoCE：
 
-若要將HDR（200GB）InfiniBand搭配EF600使用、必須為每個實體連接埠設定第二個「虛擬」IP。以下是設定配備雙埠InfiniBand HDRIC之EF600的正確方法範例：
+若要將HDR（200GB）InfiniBand搭配EF600使用、必須為每個實體連接埠設定第二個「虛擬」IP。以下是正確設定配備雙埠 InfiniBand HDR HIC 的 EF600 的範例：
 
 [source, yaml]
 ----
 eseries_controller_nvme_ib_port:
   controller_a:
-    - 192.168.1.101 # Port 2a (physical)
-    - 192.168.2.101 # Port 2a (virtual)
-    - 192.168.1.100 # Port 2b (physical)
-    - 192.168.2.100 # Port 2b (virtual)
+    - 192.168.1.101   # Port 2a (virtual)
+    - 192.168.2.101   # Port 2b (virtual)
+    - 192.168.1.100   # Port 2a (physical)
+    - 192.168.2.100   # Port 2b (physical)
   controller_b:
-    - 192.168.3.101 # Port 2a (physical)
-    - 192.168.4.101 # Port 2a (virtual)
-    - 192.168.3.100 # Port 2b (physical)
-    - 192.168.4.100 # Port 2b (virtual)
+    - 192.168.3.101   # Port 2a (virtual)
+    - 192.168.4.101   # Port 2b (virtual)
+    - 192.168.3.100   # Port 2a (physical)
+    - 192.168.4.100   # Port 2b (physical)
 ----

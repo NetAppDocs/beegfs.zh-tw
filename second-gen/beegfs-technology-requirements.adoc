@@ -58,8 +58,8 @@ BeeGFS檔案節點。
 
 *雜項：*
 
-* 在RAID 1中為作業系統設定兩個1TB 7.2K SATA磁碟機（或類似磁碟機）。
-* 10GbE OCP 3.0介面卡（或類似的）、適用於頻內作業系統管理。
+* 在 RAID 1 中為作業系統設定兩個 1TB 7.2K SATA 磁碟機（或同等或更高）。
+* 1 GbE （或更好的）連接埠、用於頻內 OS 管理。
 * 1GbE BMC搭配Redfish API、可進行頻外伺服器管理。
 * 雙熱交換電源供應器與效能風扇。
 * 如果需要連接儲存InfiniBand交換器、則必須支援Mellanox光纖InfiniBand纜線。
