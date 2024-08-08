@@ -97,23 +97,23 @@ pcs resource relocate run
 
 如果您想要永久變更個別BeeGFS服務的偏好檔案節點、請調整「Ansible」（可執行）資源清冊、使偏好的節點列在第一位、然後重新執行「Ansible」（可執行）資源清冊。
 
-例如本範例 `inventory.yml` 檔案、ictad22h01是執行BeeGFS管理服務的慣用檔案節點：
+例如、在此範例檔案中 `inventory.yml` 、 beegfs_01 是執行 BeeGFS 管理服務的慣用檔案節點：
 
 [source, yaml]
 ----
         mgmt:
           hosts:
-            ictad22h01:
-            ictad22h02:
+            beegfs_01:
+            beegfs_02:
 ----
-反轉訂單會使ictad22h02上的管理服務更受歡迎：
+反轉訂單會使beegfs_02上的管理服務更受歡迎：
 
 [source, yaml]
 ----
         mgmt:
           hosts:
-            ictad22h02:
-            ictad22h01:
+            beegfs_02:
+            beegfs_01:
 ----
 
 
@@ -128,7 +128,7 @@ pcs resource relocate run
 pcs resource move <SERVICE>-monitor <HOSTNAME>
 ----
 
-WARNING: 請勿指定個別資源或資源群組。請務必指定您要重新部署BeeGFS服務的監視器名稱。例如、若要將BeeGFS管理服務移至ictad22h02、請執行： `pcs resource move mgmt-monitor ictad22h02`。您可以重複此程序、將一或多個服務移出偏好的節點。使用進行驗證 `pcs status` 這些服務已在新節點上重新部署/啟動。
+WARNING: 請勿指定個別資源或資源群組。請務必指定您要重新部署BeeGFS服務的監視器名稱。例如，要將 BeeGFS 管理服務移至 beegfs_02 ，請執行 `pcs resource move mgmt-monitor beegfs_02`：。您可以重複此程序、將一或多個服務移出偏好的節點。確認 `pcs status` 新節點上的服務已重新定位 / 啟動。
 
 若要將BeeGFS服務移回其慣用節點、請先清除暫用資源限制（視多項服務需要重複此步驟）：
 

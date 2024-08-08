@@ -23,7 +23,7 @@ NetApp解決方案BeeGFS的第二代設計已使用三種建置區塊組態設�
 * BeeGFS純儲存建置區塊。
 
 
-建置區塊連接至兩個Mellanox Quantum InfiniBand（MQM8700）交換器。十個BeeGFS用戶端也連接到InfiniBand交換器、用來執行綜合基準測試公用程式。
+建置區塊連接至兩台 NVIDIA Quantum InfiniBand （ MQM8700 ）交換器。十個BeeGFS用戶端也連接到InfiniBand交換器、用來執行綜合基準測試公用程式。
 
 下圖顯示用於驗證NetApp解決方案BeeGFS的BeeGFS組態。
 
@@ -137,8 +137,8 @@ NOTE: 有已知問題（請參閱 https://github.com/netappeseries/beegfs/blob/m
 
 
 
-== NVIDIA DGX A100 SupermPOD與BasePOD驗證
+== NVIDIA DGX SuperPOD 和 BasePOD 驗證
 
-NetApp已使用類似的BeeGFS檔案系統（由三個建置區塊組成、並套用中繼資料加上儲存組態設定檔）、驗證NVIDIAs DGX A100 SupermPOD的儲存解決方案。此NVA所描述的解決方案、需要測試資格、測試20部DGX A100 GPU伺服器、執行各種儲存設備、機器學習和深度學習基準測試。所有通過NVIDIA DGX A100 SupermPOD認證的儲存設備、都會自動通過NVIDIA BasePOD架構的使用認證。
+NetApp已使用類似的BeeGFS檔案系統（由三個建置區塊組成、並套用中繼資料加上儲存組態設定檔）、驗證NVIDIAs DGX A100 SupermPOD的儲存解決方案。此NVA所描述的解決方案、需要測試資格、測試20部DGX A100 GPU伺服器、執行各種儲存設備、機器學習和深度學習基準測試。以 NVIDIA DGX A100 SuperPOD 所建立的驗證為基礎、 NetApp 上的 BeeGFS 解決方案已獲得 DGX SuperPOD H100 、 H200 及 B200 系統的核准。這項延伸是根據 NVIDIA DGX A100 所驗證的先前基準測試和系統需求而定。
 
 如需詳細資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/72718-nva-1167-DESIGN.pdf["NVIDIA DGX超級POD與NetApp合作"^] 和 https://www.nvidia.com/en-us/data-center/dgx-basepod/["NVIDIA DGX基礎POD"^]。

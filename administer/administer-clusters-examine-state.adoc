@@ -30,13 +30,13 @@ summary: 使用PC檢視叢集的狀態。
 
 [source, console]
 ----
-[root@ictad22h01 ~]# pcs status
+[root@beegfs_01 ~]# pcs status
 Cluster name: hacluster
 Cluster Summary:
   * Stack: corosync
-  * Current DC: ictad22h01 (version 2.0.5-9.el8_4.3-ba59be7122) - partition with quorum
+  * Current DC: beegfs_01 (version 2.0.5-9.el8_4.3-ba59be7122) - partition with quorum
   * Last updated: Fri Jul  1 13:37:18 2022
-  * Last change:  Fri Jul  1 13:23:34 2022 by root via cibadmin on ictad22h01
+  * Last change:  Fri Jul  1 13:23:34 2022 by root via cibadmin on beegfs_01
   * 6 nodes configured
   * 235 resource instances configured
 ----
@@ -45,9 +45,9 @@ Cluster Summary:
 [source, console]
 ----
 Node List:
-  * Node ictad22h06: standby
-  * Online: [ ictad22h01 ictad22h02 ictad22h04 ictad22h05 ]
-  * OFFLINE: [ ictad22h03 ]
+  * Node beegfs_06: standby
+  * Online: [ beegfs_01 beegfs_02 beegfs_04 beegfs_05 ]
+  * OFFLINE: [ beegfs_03 ]
 ----
 這特別代表任何處於待命或離線狀態的節點。待命中的節點仍在參與叢集、但標記為不符合執行資源的資格。離線的節點表示叢集服務未在該節點上執行、可能是因為手動停止、或是因為節點已重新開機/關機。
 
@@ -61,12 +61,12 @@ NOTE: 當節點初次啟動時、叢集服務將會停止、需要手動啟動�
 [source, console]
 ----
 Full List of Resources:
-  * mgmt-monitor	(ocf::eseries:beegfs-monitor):	 Started ictad22h01
+  * mgmt-monitor	(ocf::eseries:beegfs-monitor):	 Started beegfs_01
   * Resource Group: mgmt-group:
-    * mgmt-FS1	(ocf::eseries:beegfs-target):	 Started ictad22h01
-    * mgmt-IP1	(ocf::eseries:beegfs-ipaddr2):	 Started ictad22h01
-    * mgmt-IP2	(ocf::eseries:beegfs-ipaddr2):	 Started ictad22h01
-    * mgmt-service	(systemd:beegfs-mgmtd):	 Started ictad22h01
+    * mgmt-FS1	(ocf::eseries:beegfs-target):	 Started beegfs_01
+    * mgmt-IP1	(ocf::eseries:beegfs-ipaddr2):	 Started beegfs_01
+    * mgmt-IP2	(ocf::eseries:beegfs-ipaddr2):	 Started beegfs_01
+    * mgmt-service	(systemd:beegfs-mgmtd):	 Started beegfs_01
 [...]
 ----
 與節點類似、如果資源有任何問題、資源狀態旁會顯示其他文字、並以括弧表示。例如、如果心臟起搏器要求資源停止、但無法在分配的時間內完成、則心臟起搏器會嘗試隔離節點。如果禁用隔離功能或隔離操作失敗，則資源狀態將是 `FAILED <HOSTNAME> (blocked)` 而起搏器將無法在不同的節點上啟動。

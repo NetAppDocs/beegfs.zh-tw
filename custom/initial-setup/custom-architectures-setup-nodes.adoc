@@ -52,7 +52,7 @@ NOTE: 如果需要使用RedfISH的BMC型屏障、請確認已啟用RedfISH、而
 啟用包含高可用度所需套件的Red Hat儲存庫：
 
 ....
-subscription-manager repo-override --repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
 
 

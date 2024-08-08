@@ -55,47 +55,59 @@ image:../media/beegfs-components.png[""]
 
 
 
+== HA架構
+
+NetApp的BeeGFS透過NetApp硬體打造完全整合的解決方案、實現共享磁碟高可用度（HA）架構、擴充BeeGFS企業版的功能。
+
+
+NOTE: 雖然BeeGFS社群版本可以免費使用、但企業版需要向NetApp等合作夥伴購買專業支援訂閱合約。企業版允許使用多項額外功能、包括恢復能力、配額強制和儲存資源池。
+
+下圖比較了共享無共享和共享磁碟HA架構。
+
+image:../media/beegfs-design-image1.png[""]
+
+如需詳細資訊、請參閱 https://www.netapp.com/blog/high-availability-beegfs/["發表NetApp支援的BeeGFS高可用度"^]。
+
+
+
 == 已驗證節點
 
-NetApp上的BeeGFS解決方案包含下列通過驗證的節點：NetApp EF600儲存系統（區塊節點）和Lenovo ThinkSystem SR665 Server（檔案節點）。
+NetApp 解決方案上的 BeeGFS 已驗證下列節點。
+
+[cols="10%,20%,70%"]
+|===
+| 節點 | 硬體 | 詳細資料 
 
 
-
-=== 區塊節點：EF600儲存系統
-
-NetApp EF600 All Flash Array提供一致、近乎即時的資料存取、同時支援任意數量的工作負載。EF600儲存系統為AI和HPC應用程式提供快速且持續的資料饋送功能、可在單一機箱中提供高達200萬個快取讀取IOPS、100微秒以下的回應時間、以及42GBps循序讀取頻寬。
+| 區塊 | NetApp EF600 儲存系統 | 專為嚴苛工作負載所設計的高效能全 NVMe 2U 儲存陣列。 
 
 
+.2+| 檔案 | Lenovo ThinkSystem SR665 V3 伺服器 | 雙插槽 2U 伺服器、採用 PCIe 5.0 、雙 AMD EPYC 9124 處理器。如需 Lenovo SR665 V3 的詳細資訊、請參閱 https://lenovopress.lenovo.com/lp1608-thinksystem-sr665-v3-server["聯想的網站"^]。 
 
-=== 檔案節點：Lenovo ThinkSystem SR665伺服器
 
-SR665是雙插槽2U伺服器、搭載PCIe 4.0。當設定為符合此解決方案的需求時、它可提供充分的效能、在組態中執行BeeGFS檔案服務、並與直接附加E系列節點所提供的處理量和IOPs的可用度保持良好平衡。
-
-如需Lenovo SR665的詳細資訊、請參閱 https://lenovopress.com/lp1269-thinksystem-sr665-server["聯想的網站"^]。
-
+| Lenovo ThinkSystem SR665 伺服器 | 雙插槽 2U 伺服器、採用 PCIe 4.0 、雙 AMD EPYC 7003 處理器。如需 Lenovo SR665 的詳細資訊、請參閱 https://lenovopress.lenovo.com/lp1269-thinksystem-sr665-server["聯想的網站"^]。 
+|===
 
 
 == 已驗證硬體設計
 
-解決方案的建置區塊（如下圖所示）使用雙插槽PCIe 4.0伺服器作為BeeGFS檔案層、使用兩個EF600儲存系統作為區塊層。
+此解決方案的建置區塊（如下圖所示）使用通過驗證的檔案節點伺服器作為 BeeGFS 檔案層、並使用兩個 EF600 儲存系統做為區塊層。
 
 image:../media/beegfs-design-image2-small.png[""]
 
+NetApp上的BeeGFS解決方案可在部署中的所有建置區塊上執行。部署的第一個建置區塊必須執行 BeeGFS 管理、中繼資料和儲存服務（稱為基礎建置區塊）。所有後續的建置區塊均可透過軟體進行設定、以擴充中繼資料和儲存服務、或是僅提供儲存服務。這種模組化方法可根據工作負載的需求擴充檔案系統、同時使用相同的基礎硬體平台和建置區塊設計。
 
-NOTE: 由於每個建置區塊都包含兩個BeeGFS檔案節點、因此在容錯移轉叢集中建立仲裁所需的建置區塊至少要有兩個。雖然您可以設定雙節點叢集、但此組態具有限制、可能會導致容錯移轉失敗。如果您需要雙節點叢集、可以將第三個裝置整合為斷路器（不過、此站台並未涵蓋該設計）。
+最多可部署五個建置區塊、形成獨立式 Linux HA 叢集。如此可利用 Pacemaker 最佳化資源管理、並與電暈器同步保持高效率同步。這些獨立式 BeeGFS HA 叢集中有一或多個是結合在一起的、可建立 BeeGFS 檔案系統、讓用戶端以單一儲存命名空間的形式存取。在硬體方面、單一 42U 機架最多可容納五個建置區塊、以及兩個用於儲存 / 資料網路的 1U InfiniBand 交換器。請參閱下圖以取得視覺呈現。
 
-每個建置區塊都能透過雙層硬體設計、將檔案層和區塊層的故障網域區隔開來、提供高可用度。每個層級都能獨立容錯移轉、提供更高的恢復能力、並降低串聯故障的風險。搭配NVMeoF使用HDRInfiniBand可在檔案和區塊節點之間提供高處理量和最低延遲、並提供完整備援和足夠的連結超額訂閱、以避免分散式設計成為瓶頸、即使系統部分降級。
 
-NetApp上的BeeGFS解決方案可在部署中的所有建置區塊上執行。部署的第一個建置區塊必須執行BeeGFS管理、中繼資料和儲存服務（稱為基礎建置區塊）。所有後續的建置區塊都是透過軟體設定、以執行BeeGFS中繼資料和儲存服務、或僅執行儲存服務。每個建置區塊的不同組態設定檔可用度、可利用相同的基礎硬體平台和建置區塊設計來擴充檔案系統中繼資料或儲存容量和效能。
-
-獨立式Linux HA叢集最多可合併五個建置區塊、確保每個叢集資源管理程式（起搏器）擁有合理數量的資源、並減少維持叢集成員同步所需的訊息傳輸負荷（電暈器同步）。建議每個叢集至少有兩個建置區塊、以允許足夠的成員建立仲裁。其中一個或多個獨立式BeeGFS HA叢集會結合在一起、以建立一個BeeGFS檔案系統（如下圖所示）、可供用戶端作為單一儲存命名空間存取。
+NOTE: 在容錯移轉叢集中建立仲裁所需的建置區塊至少有兩個。雙節點叢集具有可能會阻止容錯移轉成功的限制。您可以將第三個裝置整合為 tiebreaker 來設定雙節點叢集、但本文件並未說明該設計。
 
 image:../media/beegfs-design-image3.png[""]
 
-雖然每個機架的建置區塊數量最終取決於特定站台的電力和冷卻需求、 此解決方案的設計可在單一42U機架中部署最多五個建置區塊、同時仍可容納兩個用於儲存/資料網路的1U InfiniBand交換器。每個建置區塊都需要八個IB連接埠（每個交換器四個用於備援）、因此五個建置區塊會在40埠的HDRInfiniBand交換器（例如NVIDIA QM8700）上留下一半的連接埠、以供實作fat樹狀結構或類似的非區塊拓撲。這項組態可確保儲存設備或運算/GPU機架的數量能夠擴充、而不會產生網路瓶頸。或者、您也可以根據儲存架構廠商的建議、使用超額訂閱的儲存架構。
 
-下圖顯示80節點的fat樹狀結構拓撲。
 
-image:../media/beegfs-design-image4.png[""]
+== Ansible
 
-藉由使用Ansible做為部署引擎、在NetApp上部署BeeGFS、系統管理員可以使用現代化的基礎架構做為程式碼實務、來維護整個環境。如此可大幅簡化原本複雜的系統、讓系統管理員能夠在同一個位置定義及調整組態、無論環境的規模有多大、都能確保系統一致地套用組態。BeeGFS系列可從取得 https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^] 和 https://github.com/netappeseries/beegfs/["NetApp的E系列GitHub"^]。
+NetApp上的BeeGFS是使用Ansible Automation（位於GitHub和Ansible Galaxis）（BeeGFS收藏可從取得）來交付及部署 https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^] 和 https://github.com/netappeseries/beegfs/["NetApp的E系列GitHub"^]）。雖然Ansible主要是針對用來組裝BeeGFS建置區塊的硬體進行測試、但您可以設定它在任何使用支援Linux套裝作業系統的x86型伺服器上執行。
+
+如需詳細資訊、請參閱 https://www.netapp.com/blog/deploying-beegfs-eseries/["部署BeeGFS搭配E系列儲存設備"^]。

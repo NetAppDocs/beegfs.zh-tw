@@ -48,6 +48,12 @@ NOTE: 如需BeeGFS版本的詳細資訊、請參閱 link:https://doc.beegfs.io/l
 
 
 | 7.3.1 | 7.3.2 | 是的 | 使用beegfs集合v3.1.0升級 
+
+
+| 7.3.2 | 7.4.1.. | 是的 | 使用beegfs集合v3.2.0升級 
+
+
+| 7.4.1.. | 7.4.2.. | 是的 | 使用beegfs集合v3.2.0升級 
 |===
 
 
@@ -83,7 +89,7 @@ ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgra
 
 === 步驟3：更新可執行教戰手冊（僅更新主要或次要版本時）
 
-如果您要在主要或次要版本之間移動、請在中 `playbook.yml` 用於部署及維護叢集的檔案、請更新的名稱 `beegfs_ha_<VERSION>` 角色以反映所需版本。例如、如果您想要部署BeeGFS 7.3、這就是 `beegfs_ha_7_3`：
+如果您要在主要或次要版本之間移動、請在 `playbook.yml` 用於部署和維護叢集的檔案中、更新角色名稱 `beegfs_ha_<VERSION>` 以反映所需的版本。例如，如果您想部署 BeeGFS 7.4 ，這將是 `beegfs_ha_7_4`：
 
 [source, yaml]
 ----
@@ -95,7 +101,7 @@ ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgra
   tasks:
     - name: Ensure BeeGFS HA cluster is setup.
       ansible.builtin.import_role:  # import_role is required for tag availability.
-        name: beegfs_ha_7_3
+        name: beegfs_ha_7_4
 ----
 如需本方針檔案內容的詳細資訊、請參閱 link:custom-architectures-deploy-ha-cluster.html["部署BeeGFS HA叢集"^] 區段。
 

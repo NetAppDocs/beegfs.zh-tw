@@ -29,13 +29,13 @@ ansible_host: <MANAGEMENT_IP>
 # OPTIONAL: If you want to use the NetApp E-Series Host Collection’s IPoIB role to configure InfiniBand interfaces for clients to connect to BeeGFS file systems:
 eseries_ipoib_interfaces:
   - name: <INTERFACE>
-    address: <IP>/<SUBNET_MASK> # Example: 100.127.1. 1/16
-  - name: <INTERFACE>0
+    address: <IP>/<SUBNET_MASK> # Example: 100.127.1.1/16
+  - name: <INTERFACE>
     address: <IP>/<SUBNET_MASK>
 ....
 +
 
-NOTE: 目前、每個用戶端都必須設定兩個InfiniBand介面、兩個儲存IPoIB子網路各一個。如果針對此處列出的每個BeeGFS服務使用範例子網路和建議範圍、用戶端應該設定一個介面、範圍為「100127.1」。從0到100、127.99.255、另一個在100、128.1。0到100、128。99.255。
+NOTE: 如果使用兩個子網路定址方案進行部署、則必須在每個用戶端上設定兩個 InfiniBand 介面、每個都在兩個儲存 IPoIB 子網路中設定一個。如果針對此處列出的每項 BeeGFS 服務使用範例子網路和建議範圍、則用戶端應在「至」範圍內設定一個介面、而在「至」中設定另一個介面 `100.127.1.0` `100.127.99.255` `100.128.1.0` `100.128.99.255`。
 
 . 建立新檔案「client_inventory.yml」、然後在頂端填入下列參數：
 +
@@ -58,18 +58,18 @@ NOTE: 請勿以純文字儲存密碼。請改用Ansible Vault（請參閱的「A
     # Ansible group representing all BeeGFS clients:
     beegfs_clients:
       hosts:
-        ictad21h01:
-        ictad21h02:
-        ictad21h03:
-        ictad21h04:
-        ictad21h05:
-        ictad21h06:
-        ictad21h07:
-        ictad21h08:
-        ictad21h09:
-        ictad21h10:
+        beegfs_01:
+        beegfs_02:
+        beegfs_03:
+        beegfs_04:
+        beegfs_05:
+        beegfs_06:
+        beegfs_07:
+        beegfs_08:
+        beegfs_09:
+        beegfs_10:
       vars:
-        # OPTION 1: If you’re using the Mellanox OFED drivers and they are already installed:
+        # OPTION 1: If you’re using the NVIDIA OFED drivers and they are already installed:
         eseries_ib_skip: True # Skip installing inbox drivers when using the IPoIB role.
         beegfs_client_ofed_enable: True
         beegfs_client_ofed_include_path: "/usr/src/ofa_kernel/default/include"
@@ -81,7 +81,7 @@ NOTE: 請勿以純文字儲存密碼。請改用Ansible Vault（請參閱的「A
 ....
 +
 
-NOTE: 使用Mellanox OFED驅動程式時、請確定「beegfs_client_ofed_include_path」指向適用於Linux安裝的正確「標頭包含路徑」。如需詳細資訊、請參閱的BeeGFS文件 https://doc.beegfs.io/latest/advanced_topics/rdma_support.html["RDMA支援"^]。
+NOTE: 使用 NVIDIA OFED 驅動程式時、請 `beegfs_client_ofed_include_path` 務必針對您的 Linux 安裝指向正確的「標頭包含路徑」。如需詳細資訊，請參閱的 BeeGFS 文件 https://doc.beegfs.io/latest/advanced_topics/rdma_support.html["RDMA支援"^]。
 
 . 在「client_inventory.yml」檔案中、列出您要掛載在任何先前定義「vars」底部的BeeGFS檔案系統。
 +

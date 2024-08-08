@@ -17,18 +17,23 @@ summary: 每個建置區塊都由兩個已驗證的x86檔案節點組成、這�
 每個建置區塊都包含兩個已驗證的x86檔案節點、這些節點使用HDR（200GB）InfiniBand纜線直接連接至兩個區塊節點。
 
 
-NOTE: 由於每個建置區塊都包含兩個BeeGFS檔案節點、因此在容錯移轉叢集中建立仲裁所需的建置區塊至少要有兩個。雖然可以設定雙節點叢集、但此組態有一些限制、可能會在某些情況下導致容錯移轉失敗。如果需要雙節點叢集、也可以將第三個裝置整合為斷路器、但此部署程序並未涵蓋這一點。
+NOTE: 在容錯移轉叢集中建立仲裁所需的建置區塊至少有兩個。雙節點叢集具有可能會阻止容錯移轉成功的限制。您可以將第三個裝置整合為 tiebreaker 來設定雙節點叢集、但本文件並未說明該設計。
 
-除非另有說明、否則無論是用於執行BeeGFS中繼資料和儲存服務、或僅用於儲存服務、叢集中每個建置區塊的下列步驟都相同。
+下列步驟對於叢集中的每個建置區塊都是相同的、無論是用於執行 BeeGFS 中繼資料和儲存服務、還是僅用於儲存服務、除非另有說明。
 
 .步驟
-. 以InfiniBand模式設定每個BeeGFS檔案節點、並在PCIe插槽2、3、5及6中安裝四個PCIe 4.0 ConnectX-6雙埠主機通道介面卡（HCA）。
+. 使用中指定的模型，設定每個 BeeGFS 檔案節點與四個主機通道介面卡 (HCAs) link:beegfs-technology-requirements.html["技術需求"]。根據下列規格、將 HCA 插入檔案節點的 PCIe 插槽：
++
+** * Lenovo ThinkSystem SR665 V3 伺服器： * 使用 PCIe 插槽 1 、 2 、 4 和 5 。
+** * Lenovo ThinkSystem SR665 伺服器： * 使用 PCIe 插槽 2 、 3 、 5 和 6 。
+
+
 . 使用雙埠200GB主機介面卡（HIC）設定每個BeeGFS區塊節點、並在其兩個儲存控制器中的每個都安裝HIC。
 +
-將建置區塊架起、使兩個BeeGFS檔案節點在BeeGFS區塊節點上方。下圖顯示BeeGFS建置區塊的正確硬體組態（後視圖）。
+將建置區塊架起、使兩個BeeGFS檔案節點在BeeGFS區塊節點上方。下圖顯示 BeeGFS 建置區塊的正確硬體組態、使用 Lenovo ThinkSystem SR665 V3 伺服器做為檔案節點（後視圖）。
 
 +
-image:../media/buildingblock.png[""]
+image:../media/buildingblock-sr665v3.png[""]
 
 +
 
@@ -43,17 +48,20 @@ image:../media/driveslots.png[""]
 
 
 
-. 若要纜線連接檔案和區塊節點、請使用1公尺InfiniBand HDR200GB直接連接銅線、使其符合下圖所示的拓撲。
+. 使用連接區塊和檔案節點 link:beegfs-technology-requirements.html#block-file-cables["1M InfiniBand HDR 200GB 直接連接銅線"]、使它們符合下圖所示的拓撲。
 +
-image:../media/directattachcable.png[""]
+image:../media/directattachcable-sr665v3.png[""]
 
 +
 
 NOTE: 橫跨多個建置區塊的節點永遠不會直接連線。每個建置區塊都應視為獨立式單元、而建置區塊之間的所有通訊都是透過網路交換器進行。
 
-. 使用2公尺（或適當長度）的InfiniBand HDR200GB直接連接銅線、將每個檔案節點上剩餘的InfiniBand連接埠纜線連接至儲存網路所用的InfiniBand交換器。
+. 使用特定於 InfiniBand 儲存交換器的、將檔案節點上的其餘 InfiniBand 連接埠連接至儲存網路的 InfiniBand 交換 link:beegfs-technology-requirements.html#file-switch-cables["2 公尺 InfiniBand 纜線"] 器。
 +
-如果使用的是冗餘InfiniBand交換器、請將下圖中以淺綠色強調顯示的連接埠連接至不同的交換器。
+當使用分離器纜線將儲存交換器連接至檔案節點時、一條纜線應從交換器分支出來、並連接至淡綠色的連接埠。另一條分離器纜線應從交換器分支出來、並連接至暗綠色的連接埠。
+
++
+此外、對於具有備援交換器的儲存網路、淡綠色的連接埠應連接至一台交換器、而深綠色的連接埠則應連接至另一台交換器。
 
 +
 image:../media/networkcable.png[""]

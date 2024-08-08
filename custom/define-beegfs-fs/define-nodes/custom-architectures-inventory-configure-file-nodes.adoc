@@ -25,7 +25,7 @@ summary: 使用主機變數（host_vars）指定個別檔案節點的組態。
 * 定義IP或Ansible主機名稱應用於連線至節點。
 * 設定用於HA叢集服務（起搏器和電暈器同步）的其他介面和叢集IP、以便與其他檔案節點通訊。根據預設、這些服務使用的網路與管理介面相同、但應該有額外的介面可供備援。一般做法是在儲存網路上定義額外的IP、避免需要額外的叢集或管理網路。
 +
-** 任何用於叢集通訊的網路效能、對檔案系統效能並不重要。使用預設的叢集組態時、通常至少需要1Gbps的網路、才能提供足夠的效能來執行叢集作業、例如同步節點狀態和協調叢集資源狀態變更。緩慢/忙碌的網路可能會導致資源狀態變更的時間比平常長、而且在極端的情況下、如果無法在合理的時間範圍內傳送訊號、則可能會導致節點從叢集中被逐出。
+** 任何用於叢集通訊的網路效能、對檔案系統效能並不重要。使用預設叢集組態時、通常至少有 1 Gb/s 網路可為叢集作業提供足夠的效能、例如同步節點狀態和協調叢集資源狀態變更。緩慢/忙碌的網路可能會導致資源狀態變更的時間比平常長、而且在極端的情況下、如果無法在合理的時間範圍內傳送訊號、則可能會導致節點從叢集中被逐出。
 
 
 * 設定介面、用於透過所需的傳輸協定連線至區塊節點（例如：iSCSI/iSER、NVMe/IB、NVMe/RoCE、FCP等）。
@@ -143,7 +143,7 @@ eseries_nvme_roce_interfaces:
 
 === 進階：在乙太網路與InfiniBand模式之間切換NVIDIA ConnectX VPI介面卡
 
-NVIDIA ConnectX-Virtual Protocol Interconnect（VPI）介面卡支援InfiniBand和乙太網路作為傳輸層。切換模式不會自動協商、必須使用進行設定 `mstconfig` 工具隨附於 `mstflint`的開放原始碼套件 link:https://docs.nvidia.com/networking/display/MFTV4133/MFT+Supported+Configurations+and+Parameters["Mellanox Firmare工具（MFT）"^]。只需變更一次介面卡模式即可。這可以手動完成、也可以包含在Ansible清單中、做為使用設定的任何介面的一部分 `eseries-[ib|ib_iser|ipoib|nvme_ib|nvme_roce|roce]_interfaces:` 以自動檢查/套用。
+NVIDIA ConnectX-Virtual Protocol Interconnect（VPI）介面卡支援InfiniBand和乙太網路作為傳輸層。在模式之間切換不會自動協商，而且必須使用中隨附的工具進行設定 `mstconfig` `mstflint`，這是屬於的開放原始碼套件 link:https://docs.nvidia.com/networking/display/mftv4270/mft+supported+configurations+and+parameters["NVIDIA Firmare 工具（ MFT ）"^]。只需變更一次介面卡模式即可。這可以手動完成、也可以納入 Ansible 庫存、做為任何使用庫存區段設定的介面一部分 `eseries-[ib|ib_iser|ipoib|nvme_ib|nvme_roce|roce]_interfaces:` 、以自動檢查 / 套用。
 
 例如、將InfiniBand模式中的介面電流變更為乙太網路、以便用於RoCE：
 

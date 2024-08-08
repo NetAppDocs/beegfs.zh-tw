@@ -33,12 +33,12 @@ BeeGFS網路組態包含下列元件。
 +
 Ansible型部署可處理反向路徑（RP）和位址解析傳輸協定（Arp）行為的強化、同時確保啟動和停止浮動IP；動態建立對應的IP路由和規則、讓多重主目錄網路組態正常運作。
 
-* * BeeGFS用戶端多軌組態*_Multi-rail _是指應用程式使用多個獨立網路「軌道」來提高效能的能力。
+* BeeGFS 用戶端多軌組態 * _Multi-rail 是指應用程式使用多個不同網路連線（或「 rail 」）來提高效能的能力。
 +
-雖然BeeGFS可以使用RDMA進行連線、但BeeGFS使用IPoIB來簡化探索和建立RDMA連線的程序。若要允許BeeGFS用戶端使用多個InfiniBand介面、您可以使用位於不同子網路中的IP位址來設定每個用戶端、然後為每個子網路中一半的BeeGFS伺服器服務設定偏好的介面。
+BeeGFS 實作多軌支援、可在單一 IPoIB 子網路中使用多個 IB 介面。此功能可在 RDMA NIC 之間啟用動態負載平衡等功能、以最佳化網路資源的使用。它也與 NVIDIA GPUDirect 儲存設備（ GDS ）整合、可提供更高的系統頻寬、並減少用戶端 CPU 的延遲和使用率。
 
 +
-在下圖中、以淺綠色強調顯示的介面位於一個IP子網路（例如「100127.0.0/16」）、而暗綠色介面則位於另一個子網路（例如「100128.0.0/16」）。
+本文件提供單一 IPoIB 子網路組態的說明。支援雙 IPoIB 子網路組態、但並未提供與單一子網路組態相同的優勢。
 
 +
 下圖顯示多個BeeGFS用戶端介面之間的流量平衡。
@@ -51,7 +51,7 @@ image:../media/beegfs-design-image8.png[""]
 
 +
 ....
-root@ictad21h01:/mnt/beegfs# beegfs-ctl --getentryinfo myfile
+root@beegfs01:/mnt/beegfs# beegfs-ctl --getentryinfo myfile
 Entry type: file
 EntryID: 11D-624759A9-65
 Metadata node: meta_01_tgt_0101 [ID: 101]
@@ -65,13 +65,6 @@ Stripe pattern details:
   + 201 @ stor_02_tgt_0201 [ID: 201]
   + 202 @ stor_02_tgt_0201 [ID: 201]
 ....
-+
-使用兩個IPoIB子網路是邏輯上的差異。您可以視需要使用單一實體InfiniBand子網路（儲存網路）。
-
-+
-
-NOTE: BeeGFS 7.3.0新增多重軌道支援、可在單一IPoIB子網路中使用多個IB介面。BeeGFS on NetApp解決方案的設計是在BeeGFS 7.3.0正式推出之前開發、因此示範如何使用兩個IP子網路來使用BeeGFS用戶端上的兩個IB介面。多重IP子網路方法的一項優點是不需要在BeeGFS用戶端節點上設定多重主頁（如需詳細資訊、請參閱） https://doc.beegfs.io/7.3.0/advanced_topics/rdma_support.html["BeeGFS RDMA支援"^]）。
-
 
 
 
@@ -98,7 +91,7 @@ image:../media/beegfs-design-image10.png[""]
 
 BeeGFS檔案節點已設定為高可用度（HA）叢集、以便在多個檔案節點之間進行BeeGFS服務的容錯移轉。
 
-HA叢集設計是以兩個廣泛使用的Linux HA專案為基礎：叢集成員資格的電暈器同步、以及叢集資源管理的起搏器。如需詳細資訊、請參閱 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_overview-of-high-availability-configuring-and-managing-high-availability-clusters["適用於高可用度附加元件的Red Hat訓練"^]。
+HA叢集設計是以兩個廣泛使用的Linux HA專案為基礎：叢集成員資格的電暈器同步、以及叢集資源管理的起搏器。如需更多資訊、請參閱 https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_overview-of-high-availability-configuring-and-managing-high-availability-clusters["適用於高可用度附加元件的Red Hat訓練"^]。
 
 NetApp撰寫並擴充數個開放式叢集架構（OCF）資源代理程式、讓叢集能夠智慧地啟動及監控BeeGFS資源。
 

@@ -22,7 +22,7 @@ summary: 在每部伺服器的基礎板管理控制器（BMC）上設定網路�
 
 . 在每部伺服器的基礎板管理控制器（BMC）上設定網路。
 +
-若要瞭解如何為已驗證的Lenovo SR665檔案節點設定網路、請參閱 https://thinksystem.lenovofiles.com/help/index.jsp?topic=%2F7D2W%2Fset_the_network_connection.html["Lenovo ThinkSystem文件"^]。
+若要瞭解如何為已驗證的 Lenovo SR665 V3 檔案節點設定網路、請參閱 https://pubs.lenovo.com/sr665-v3/["Lenovo ThinkSystem文件"^]。
 
 +
 
@@ -35,7 +35,7 @@ NOTE: 底板管理控制器（BMC）有時稱為服務處理器、是內建於�
 +
 若要瞭解如何設定已驗證之Lenovo SR665檔案節點的系統設定、請參閱 link:beegfs-deploy-file-node-tuning.html["調整系統設定以獲得效能"]。
 
-. 安裝Red Hat 8.4並設定用於管理作業系統的主機名稱和網路連接埠、包括從Ansible控制節點進行SSH連線。
+. 安裝Red Hat 9.3並設定用於管理作業系統的主機名稱和網路連接埠、包括從Ansible控制節點進行SSH連線。
 +
 此時請勿在任何InfiniBand連接埠上設定IP。
 
@@ -43,15 +43,15 @@ NOTE: 底板管理控制器（BMC）有時稱為服務處理器、是內建於�
 
 NOTE: 雖然並非嚴格要求、但後續章節假設主機名稱會依序編號（例如H1-HN）、並提及應該在ODD或偶數主機上完成的工作。
 
-. 使用RedHat訂購管理程式來註冊及訂閱系統、以便從正式的Red Hat儲存庫安裝所需的套件、並將更新限制為支援的Red Hat版本：「Subscree-manager版本--set=8.4」。如需相關指示、請參閱 https://access.redhat.com/solutions/253273["如何註冊及訂閱RHEL系統"^] 和  https://access.redhat.com/solutions/2761031["如何限制更新"^]。
+. 使用 RedHat Subscription Manager 註冊並訂閱系統、以便從正式的 Red Hat 儲存庫安裝所需的套件、並將更新限制為支援的 Red Hat 版本： `subscription-manager release --set=9.3`。有關說明，請參閱 https://access.redhat.com/solutions/253273["如何註冊及訂閱RHEL系統"^] 和  https://access.redhat.com/solutions/2761031["如何限制更新"^]。
 . 啟用包含高可用度所需套件的Red Hat儲存庫。
 +
 ....
-subscription-manager repo-override --repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
-. 將所有ConnectX-6 HCA韌體更新為中建議的版本 link:beegfs-technology-requirements.html["技術需求"]。
+. 將所有 HCA 韌體更新至中建議的版本 link:beegfs-technology-requirements.html["技術需求"]。
 +
-您可以下載並執行已套用建議韌體的mlxup工具版本、以完成此更新。您可以從下載此工具 https://network.nvidia.com/support/firmware/mlxup-mft/["mlxup -更新與查詢公用程式"^] （link:https://docs.nvidia.com/networking/display/MLXUPFWUTILITY/mlxup+-+Firmware+Utility+User+Guide["使用指南"^]）。
+您可以下載並執行已套用建議韌體的mlxup工具版本、以完成此更新。您可以從（）下載此工具 https://network.nvidia.com/support/firmware/mlxup-mft/["mlxup -更新與查詢公用程式"^]link:https://docs.nvidia.com/networking/display/mlxupfwutility["使用指南"^]。
 
 
 

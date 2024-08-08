@@ -131,7 +131,7 @@ beegfs_ha_cluster_crm_config_options:
   stonith-enabled: True
 ----
 +
-... 請注意任何支援的項目 link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters["叢集內容"^] 如有需要、也可在此處指定。由於BeeGFS HA角色已經過許多測試、因此通常不需要調整這些功能 link:https://github.com/netappeseries/beegfs/blob/ae038bb2f7617d18a36cc4df8ca9464bd5039b8b/roles/beegfs_ha_7_2/defaults/main.yml#L54["預設值"^]。
+... 附註如有需要、也可在此處指定任何支援 link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters["叢集內容"^] 的項目。由於 BeeGFS HA 角色隨附許多經過測試的功能，因此通常不需要調整這些 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L54["預設值"^]功能。
 
 
 .. 接下來選取並設定隔離代理程式：
@@ -165,19 +165,19 @@ beegfs_ha_fencing_agents:
       ip: <BMC_IP>
       <<: *redfish
 ----
-... 如需設定其他隔離代理程式的詳細資訊、請參閱 link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHat文件"^]。
+... 如需設定其他隔離代理程式的詳細資訊，請參閱 link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHat文件"^]。
 
 
 
 
-. BeeGFS HA角色可套用許多不同的調校參數、以協助進一步最佳化效能。其中包括最佳化核心記憶體使用率和區塊裝置I/O、以及其他參數。角色隨附合理的套裝組合 link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L106["預設值"^] 根據NetApp E系列區塊節點的測試結果、但除非您指定以下項目、否則預設不會套用這些項目：
+. BeeGFS HA角色可套用許多不同的調校參數、以協助進一步最佳化效能。其中包括最佳化核心記憶體使用率和區塊裝置I/O、以及其他參數。根據 NetApp E-Series 區塊節點的測試、角色隨附一組合理的 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L180["預設值"^] 、但預設不會套用這些功能、除非您指定：
 +
 [source, yaml]
 ----
 beegfs_ha_enable_performance_tuning: True
 ----
 +
-.. 如有需要、也可在此處指定預設效能調校的任何變更。查看完整內容 link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/docs/performance_tuning.md["效能調校參數"^] 其他詳細資料請參閱文件。
+.. 如有需要、也可在此處指定預設效能調校的任何變更。如需其他詳細資料、請參閱完整 link:https://github.com/NetApp/beegfs/blob/master/docs/beegfs_ha/performance_tuning.md["效能調校參數"^] 文件。
 
 
 . 為了確保BeeGFS服務所使用的浮動IP位址（有時稱為邏輯介面）可在檔案節點之間容錯移轉、所有網路介面必須一致命名。根據預設、網路介面名稱是由核心產生、因此無法保證產生一致的名稱、即使是安裝在相同PCIe插槽中的網路介面卡、也能在相同的伺服器機型上產生一致的名稱。在部署設備之前建立庫存並已知產生介面名稱時、這也很有用。根據伺服器或的區塊圖、確保裝置名稱一致 `lshw  -class network -businfo` 輸出時、請指定所需的PCIe位址對邏輯介面對應、如下所示：
@@ -187,14 +187,14 @@ beegfs_ha_enable_performance_tuning: True
 [source, yaml]
 ----
 eseries_ipoib_udev_rules:
-  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: i1a
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:01:00.0: i1a
 ----
 .. 對於乙太網路介面：
 +
 [source, yaml]
 ----
 eseries_ip_udev_rules:
-  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: e1a
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:01:00.0: e1a
 ----
 +
 
@@ -206,7 +206,7 @@ NOTE: 如果您使用已驗證的檔案節點模型、請按一下 link:https://
 
 
 
-. （可選）指定應套用至叢集中所有BeeGFS服務的組態。您可以找到預設組態值 link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L159["請按這裡"^]和個別服務組態是在其他地方指定的：
+. （可選）指定應套用至叢集中所有BeeGFS服務的組態。可以找到預設組態值 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L237["請按這裡"^]、並在其他地方指定個別服務組態：
 +
 .. BeeGFS管理服務：
 +
@@ -236,7 +236,7 @@ beegfs_ha_beegfs_storage_conf_ha_group_options:
 .. 根據預設、部署會自動設定連線驗證、並產生 `connauthfile` 將會發佈至所有檔案節點、並搭配BeeGFS服務使用。此檔案也會放置/維護在的Ansible控制節點上 `<INVENTORY>/files/beegfs/<sysMgmtdHost>_connAuthFile` 應將其維護（安全）以供需要存取此檔案系統的用戶端重複使用。
 +
 ... 產生新的金鑰指定 `-e "beegfs_ha_conn_auth_force_new=True` 執行Ansible教戰手冊時。請注意、如果是、則會忽略此項 `beegfs_ha_conn_auth_secret` 已定義。
-... 如需進階選項、請參閱隨附的完整預設清單 link:https://github.com/netappeseries/beegfs/blob/release-3.1.0/roles/beegfs_ha_7_3/defaults/main.yml#L32["BeeGFS HA角色"^]。
+... 如需進階選項，請參閱隨附的完整預設清單 link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L21["BeeGFS HA角色"^]。
 
 
 .. 您可以在中定義下列項目、以使用自訂密碼 `ha_cluster.yml`：
@@ -265,15 +265,15 @@ beegfs_ha_conn_auth_enabled: false
 
 如果區塊和檔案節點是使用InfiniBand直接連線、則為的執行個體 `opensm` 必須在每個檔案節點上為直接連線至區塊節點的每個介面進行設定。這是透過指定來完成 `configure: true` 何時 link:custom-architectures-inventory-configure-file-nodes.html["設定檔案節點儲存介面"^]。
 
-目前為的收件匣版本 `opensm` 隨附支援的Linux套裝作業系統不支援虛擬化。而是需要您安裝及設定的版本 `opensm` 來自Mellanox OpenFabrics Enterprise Distribution（OFED）。雖然仍支援使用Ansible進行部署、但仍需執行幾個額外步驟：
+目前支援的 Linux 套裝作業系統隨附的收件匣版本 `opensm` 不支援虛擬化。而是必須從 NVIDIA OpenFabrics Enterprise Distribution （ OFED ）安裝和設定的版本 `opensm` 。雖然仍支援使用Ansible進行部署、但仍需執行幾個額外步驟：
 
-. 使用Curl或您想要的工具、下載中所列OpenSM版本的套件 link:beegfs-technology-requirements.html["技術需求"^] 章節、從Mellanox的網站到 `<INVENTORY>/packages/` 目錄。例如：
+. 使用 Curl 或您想要的工具、將 NVIDIA 網站一節中所列 OpenSM 版本的套件下載 link:beegfs-technology-requirements.html["技術需求"^] 到 `<INVENTORY>/packages/` 目錄中。例如：
 +
 [source, bash]
 ----
-curl -o packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+curl -o packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 
-curl -o packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+curl -o packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 ----
 . 低於 `group_vars/ha_cluster.yml` 定義下列組態：
 +
@@ -287,12 +287,12 @@ eseries_ib_opensm_custom_packages:
   install:
     - files:
         add:
-          "packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
-          "packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+          "packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
+          "packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
     - packages:
         add:
-          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+          - /tmp/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
   uninstall:
     - packages:
         remove:
@@ -300,8 +300,8 @@ eseries_ib_opensm_custom_packages:
           - opensm-libs
       files:
         remove:
-          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+          - /tmp/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 
 eseries_ib_opensm_options:
   virt_enabled: "2"

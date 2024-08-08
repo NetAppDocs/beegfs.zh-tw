@@ -5,46 +5,12 @@
   <block id="e95081b0e85f690a9bdcb41ea940c186" category="summary">若要在NetApp上實作BeeGFS解決方案、請確定您的環境符合技術需求。</block>
   <block id="de65efa2c0698ededf4229cafcca2d08" category="doc">技術需求</block>
   <block id="47dee50ad0138b8f5ca70e40e86e6c04" category="section-title">硬體需求</block>
-  <block id="d53750273c9ab2292caf240393c86d48" category="paragraph">下表列出在NetApp解決方案上實作單一第二代建置區塊設計所需的硬體元件。</block>
-  <block id="27d858ba39131558c9ade0aa37a22659" category="admonition">解決方案的任何特定實作所使用的硬體元件、可能會因客戶需求而異。</block>
-  <block id="e93f994f01c537c4e2f7d8528c3eb5e9" category="cell">數</block>
   <block id="16cc6ce48a597aebb8ab5132cb3523dc" category="cell">硬體元件</block>
   <block id="5a2ebfb8baa378cfcfcba58bbb1380c2" category="cell">需求</block>
   <block id="d41d8cd98f00b204e9800998ecf8427e" category="doc"></block>
   <block id="c81e728d9d4c2f636f067f89cc14862c" category="paragraph">2.</block>
-  <block id="6c6f9283374bfbf220de6327277c1815" category="paragraph">BeeGFS檔案節點。</block>
-  <block id="2864e4eb2e0cb17f0531cd785e63c7da" category="paragraph">每個檔案節點都應符合或超過下列組態、以達到預期的效能。</block>
-  <block id="31d64135897b5391e512521bf41f9777" category="paragraph">*處理器：*</block>
-  <block id="b95b123279b2f800990f9c2191373708" category="list-text">2個AMD EPYC 7343 16C 3.2 GHz。</block>
-  <block id="4616efc57076900a6225244dcfc89027" category="list-text">設定為兩個NUMA區域。</block>
-  <block id="13519812c056b113bbb6f853259e7691" category="paragraph">*記憶體：*</block>
-  <block id="2c271e30e1c41fa7fc170637cbe07507" category="list-text">256GB。</block>
-  <block id="4b0f34cee48d8b67ee838abeca68c9a6" category="list-text">16x 16GB Truc4 3200MHz（2RX8 1.2V）RDIMM A（較少的DIMM容量更小）。</block>
-  <block id="3449cc07bd9fb49ca5e13dd993a70e88" category="list-text">以最大化記憶體頻寬。</block>
-  <block id="9f5ef4bd76579737bfe585f29a5951e8" category="paragraph">* PCIe擴充：四個PCE Gen4 x16插槽：*</block>
-  <block id="f00f227030eb163a017a1730e0ddefb6" category="list-text">每個NUMA區域有兩個插槽。</block>
-  <block id="d12719622b3ae7d145ba3994f18ac93f" category="list-text">每個插槽都應為Mellanox MCX653106A-HDAT介面卡提供足夠的電力/冷卻能力。</block>
   <block id="a631c0a4a9b408ccc2559c2a3323af51" category="paragraph">*雜項：*</block>
-  <block id="30a4226a3d02d27336f749ae5dcd893b" category="list-text">1GbE BMC搭配Redfish API、可進行頻外伺服器管理。</block>
-  <block id="173ee7b6334b65c38509a87b47bd79da" category="list-text">雙熱交換電源供應器與效能風扇。</block>
-  <block id="84edc2766d3f7158f313edb5aed216f7" category="list-text">如果需要連接儲存InfiniBand交換器、則必須支援Mellanox光纖InfiniBand纜線。</block>
-  <block id="2d6de8e1dccd3e2e9834a5a60d4566de" category="paragraph">*聯想SR665-*</block>
-  <block id="d89c6895636b2b8a24392a0f977e2684" category="list-text">自訂的NetApp機型包括所需的XClarity控制器韌體版本、以支援雙埠Mellanox ConnectX-6介面卡。如需訂購詳細資料、請聯絡NetApp。</block>
   <block id="c9f0f895fb98ab9159f51fd0297e236d" category="cell">8.</block>
-  <block id="df57d52bbf8cf40e07c14985e453c567" category="cell">Mellanox ConnectX-6 HCA（適用於檔案節點）。</block>
-  <block id="ebf2a6ec614aa7ef6c7da2be9e2c23a7" category="list-text">MCX653106A-HDAT主機通道配接卡（HDRB 200GB、雙埠QSFP56、PCIe4.0 x16）。</block>
-  <block id="151b6979304b49e9f2fa40146bc63177" category="cell">1M HDRInfiniBand纜線（適用於檔案/區塊節點直接連接）。</block>
-  <block id="334ee84af8f0aba772fc0297b7d99d85" category="list-text">MCP1650-H001E30（1公尺Mellanox被動銅線、IB HDR、最高200Gbps、QSFP56、30AWE）。</block>
-  <block id="1d09a937487a970ae4b132b9d1bbd92e" category="paragraph">如果需要、可調整長度以考慮檔案與區塊節點之間的距離。</block>
-  <block id="3c947c9bfa7d34adb44f61243d2bdaf0" category="cell">HDRInfiniBand纜線（適用於檔案節點/儲存交換器連線）</block>
-  <block id="826f9c9f2a5a5dd3ddf276fdf6370236" category="paragraph">需要長度適當的InfiniBand HDRdr纜線（QSFP56收發器）、才能將檔案節點連接至儲存葉交換器。可能的選項包括：</block>
-  <block id="43f0edb9f1ba2bdb6e116f1a9ebc5efa" category="list-text">MCP1650-H002E26（2公尺Mellanox被動銅線、IB HDRs、最高200GB/s、QSFP56、30AWE）。</block>
-  <block id="e2c1cd9a1de33e9b1dfe101cbbeac58b" category="list-text">MSFS1S00-H003E（3公尺Mellanox主動式光纖纜線、IB HDRs、最高200GB/s、QSFP56）。</block>
-  <block id="5fbc0fc6a38b0dbbeffcd2c2d4dcac9d" category="cell">E系列區塊節點</block>
-  <block id="604f81d1187ffc116528d5f0ab32fb11" category="paragraph">兩個EF600控制器設定如下：</block>
-  <block id="577a9a467c2913dcad30956ec32e78e6" category="list-text">記憶體：256GB（每個控制器128GB）。</block>
-  <block id="7e4c29cb3d75f6a12c915cb4eaaf3a1e" category="list-text">介面卡：2埠200GB/HDR（NVMe / IB）。</block>
-  <block id="d0fbc950f348eb754ea8bad25fabc0a7" category="list-text">磁碟機：設定以符合所需容量。</block>
   <block id="7ddb33edf227a18eb76201fcb9e2c9db" category="section-title">軟體需求</block>
   <block id="440907229edb210984831982728c0047" category="paragraph">為了達到可預測的效能與可靠性、NetApp解決方案上的BeeGFS版本會測試採用實作解決方案所需的特定軟體元件版本。</block>
   <block id="5fea6233624bde259c99b82e6d7de3c6" category="section-title">軟體部署需求</block>
@@ -54,69 +20,27 @@
   <block id="eb57eb77389d7d4e71c5790c9c6ec1a7" category="cell">BeeGFS</block>
   <block id="9197ec103d780b6779cb78eec6afce31" category="cell">7.2.6</block>
   <block id="51cf7c858a71d06ee12a42cfbff97da7" category="cell">電暈器同步</block>
-  <block id="5d2d6ad0b2b4cf8622bcf4cddca922d1" category="cell">3.1.5-1.</block>
   <block id="d95adee972ae170512bd3bdbce557054" category="cell">起搏器</block>
-  <block id="300cc3f7d5595a3ab5ad8f666e682b51" category="cell">2.1.0-8</block>
   <block id="0a0d34e3921098e12d40efeb9e5b64ff" category="cell">OpenSM</block>
-  <block id="571ffe54d5507ffba520fd66014b973a" category="paragraph">OpenSM-5.9.0（從mlnx_ofed 5.4.0-1.3.0）</block>
-  <block id="fc9d1b1033b1fe0ed02e41584f187a0d" category="admonition">只有直接連線才需要啟用虛擬化。</block>
   <block id="13f2a3097f055e043d74b20940df2658" category="section-title">Ansible控制節點需求</block>
   <block id="c3ee5ddf91e65773d3e9d27f9e627350" category="inline-link">Ansible文件</block>
   <block id="83d32979307efd813f41ef5070206fd3" category="paragraph">NetApp上的BeeGFS解決方案是從可存取的控制節點進行部署和管理。如需詳細資訊、請參閱<block ref="4410f583cbabaee2389115371eb2ab02" category="inline-link-rx"></block>。</block>
   <block id="158a122309f0454b31e4853755a5962a" category="paragraph">下表所列的軟體需求、是下列NetApp BeeGFS Ansible系列產品的特定版本。</block>
   <block id="d51d5ee15f404c2f4f7863bebcde1fac" category="cell">Ansible</block>
-  <block id="c34646f8692ab9a9dce46b8b8b249892" category="cell">2.11透過pip安裝時：Ansible -4.7.0與Ansible -core &lt; 2.12、&gt;=2.11.6</block>
   <block id="a7f5f35426b927411fc9231b56382173" category="cell">Python</block>
-  <block id="47588d4b158a37889ddf44eeb8e88b0f" category="cell">3.9</block>
   <block id="d35d779fe31977939a0a72c5c962d2af" category="cell">其他Python套件</block>
-  <block id="77d3bd829df9097aa38d64335f6aad7f" category="cell">密碼編譯-35.5.0、netaddr-0.8.0</block>
-  <block id="6f82e755e888096a221d29f2d5410b52" category="cell">BeeGFS Ansible收藏</block>
-  <block id="272f0a04b740763e0a29316bc4af89a4" category="cell">3.0.00.0</block>
   <block id="5510cedb08df4208db0688e41cea716f" category="section-title">檔案節點需求</block>
   <block id="eae2868fd17cac4569887ad9ccca42c2" category="paragraph">RedHat Enterprise Linux</block>
-  <block id="c902ad984234c1eef95b7912574d9aeb" category="paragraph">RedHat 8.4伺服器實體配備高可用度（2插槽）。</block>
   <block id="1f8b1bc6c0a349e88a3353e347489a9a" category="admonition">檔案節點需要有效的RedHat Enterprise Linux Server訂閱和Red Hat Enterprise Linux高可用度附加元件。</block>
   <block id="2488fead2064d4aeb886afc1a0010ee7" category="cell">Linux核心</block>
-  <block id="d4b0f66130f05055ad49d7919514984a" category="cell">4.18.0-305.25.1.el8_4.x86_64</block>
   <block id="f6883581bd882ffdf705127738982586" category="cell">InfiniBand / RDMA驅動程式</block>
-  <block id="3882d32c66e7e768145ecd8f104b0c08" category="cell">收件匣</block>
-  <block id="0f8b40e8389c6b79812629492fb9facd" category="cell">ConnectX-6 HCA韌體</block>
-  <block id="4ebe5da399ec2e4a8aa42aee4a85eef5" category="cell">韌體：20.31.1014</block>
-  <block id="1669d53b71fac20015fb08bdb7e0f816" category="cell">PXE-3.6.0403.</block>
-  <block id="56f186085ad1743522ca2a29632d91eb" category="cell">UEFI：14.24.0013</block>
   <block id="fbc534ed33feffdfe8fc56e7cde13e6e" category="section-title">EF600區塊節點需求</block>
   <block id="e791d47d690cbc6aa7c7f9434ebd2fa1" category="cell">作業系統SANtricity</block>
-  <block id="aa64d564cff905bb777c7f6cceb9c9d3" category="cell">11.70.2</block>
   <block id="b384b3cf4ffa3a81a88e8687dd6ca028" category="cell">NVSRAM</block>
-  <block id="2bd1a0272130dcc2055e0f904d00fe3c" category="cell">N6000-872834 - D06.dlp</block>
   <block id="b89cb5f38b54c6181858af1281dcaeef" category="cell">磁碟機韌體</block>
   <block id="df4607ba320342072b2dc12271b08d2f" category="cell">最新版本適用於使用中的磁碟機機型。</block>
-  <block id="024464eb7b3fd909a9746dff88c6b9c9" category="section-title">其他需求</block>
-  <block id="61440af9eaf0ce02a7d08f34876b087d" category="paragraph">下表所列設備用於驗證、但可視需要使用適當的替代方案。一般而言、NetApp建議執行最新的軟體版本、以避免非預期的問題。</block>
-  <block id="81a57f3c03234ff1f2a69dde51a4eb30" category="cell">安裝軟體</block>
-  <block id="3ba6b98074aa537a4599a5717fc1667c" category="list-text">2個Mellanox MQM8700 200GB InfiniBand交換器</block>
-  <block id="5506d82b19c7fb79ef3ae9c724240c8e" category="list-text">韌體3.9.2110</block>
-  <block id="d80c6d0ee3d3645d6e79f023da5f811d" category="paragraph">* 1個可控制節點（虛擬化）：*</block>
-  <block id="b5d77813b4d6bf45ad5812887dddc3b6" category="list-text">處理器：Intel（R）Xeon（R）Gold 6146 CPU @ 3.20GHz</block>
-  <block id="ed7e62a0a7749f5ecdeacff73f47cd74" category="list-text">記憶體：8GB</block>
-  <block id="9b127271fc710f9ccddb6752d4706302" category="list-text">本機儲存設備：24GB</block>
-  <block id="0da4148b13259a822cbef39b72084c99" category="list-text">CentOS Linux 8.4.2105</block>
-  <block id="4c082b998d02b58acba9fe2b7c4fa784" category="list-text">核心4.18.0-305.3.1.el8.x86_64</block>
-  <block id="e213de1dde80716b46e639e6e4211241" category="paragraph">安裝的Ansible和Python版本與上表中的版本相符。</block>
-  <block id="bc5f18e7f65533d407f6b5c4ee36f1a8" category="paragraph">* 10倍BeeGFS用戶端（CPU節點）：*</block>
-  <block id="ba4ebea566ef71314e819a2849f2df50" category="list-text">處理器：1個AMD EPYC 7302 16核心CPU（3.0GHz）</block>
-  <block id="e21bd6758a43c483b7d0071867188cf3" category="list-text">記憶體：128GB</block>
-  <block id="6045a9bd677549ebf210bae5890c8473" category="list-text">網路：2個Mellanox MCX653106A-HDAT（每個介面卡連接一個連接埠）。</block>
-  <block id="73611f9a837b7a25dad3a9c5d1a98658" category="list-text">Ubuntu 20.04</block>
-  <block id="5c102f668db12e3182739e89576e526b" category="list-text">核心：5.4.0-100-generic</block>
-  <block id="11c40f47f4b43c52533122c701bc0c0c" category="list-text">InfiniBand驅動程式：Mellanox OFED 5.4.1到1.0.3.0</block>
-  <block id="03fa34a7812c6af1b694c2914333785b" category="paragraph">* 1個BeeGFS用戶端（GPU節點）：*</block>
-  <block id="6299da9dcf5c047e5fda43f47d185352" category="list-text">處理器：2個採用2.25GHz的AMD EPYC 7742 64核心CPU</block>
-  <block id="9278571d707ba27f73c7811c10c50142" category="list-text">記憶體：1TB</block>
-  <block id="d4974e31435247f5311454d41461425a" category="paragraph">此系統以NVIDIA HGX A100平台為基礎、內含四個A100 GPU。</block>
   <block id="cef5ab698867f39ec4b495cba708da1a" category="summary">BeeGFS on NetApp解決方案結合BeeGFS平行檔案系統與NetApp EF600儲存系統、打造可靠、可擴充且具成本效益的基礎架構、可跟上嚴苛工作負載的腳步。</block>
   <block id="c0c4b60d27032c028c91440e9d3be949" category="doc">解決方案總覽</block>
-  <block id="038a39033a8ecd147024e4510f646b8c" category="paragraph">此設計充分利用最新企業伺服器與儲存硬體及網路速度所提供的效能密度、 需要具備雙AMD EPYC 7003「Milan」處理器的檔案節點、並支援PCIe 4.0、並使用200GB（HDRs）InfiniBand直接連線至區塊節點、以使用NVMe/IB傳輸協定提供端點對端NVMe和NVMeoF。</block>
   <block id="c6ff1c8ffcd7024a30e7240129bf57a8" category="section-title">NVA方案</block>
   <block id="f109ec830b8ab112f8e89da398d4ca0f" category="paragraph">NetApp上的BeeGFS解決方案是NetApp驗證架構（NVA）方案的一部分、可為客戶提供特定工作負載和使用案例的參考組態和規模調整指導。NVA解決方案經過徹底測試與設計、可將部署風險降至最低、並加速上市時間。</block>
   <block id="2a3b399798aa16ecfbc1425cc560bfad" category="section-title">使用案例</block>
@@ -172,25 +96,10 @@
   <block id="9ac96964e53d6a8061e16551c85e7b05" category="paragraph">作為平行檔案系統、BeeGFS會將其檔案等量磁碟區化到多個伺服器節點上、以最大化讀寫效能和擴充性。伺服器節點可共同運作、提供單一檔案系統、讓其他伺服器節點（通常稱為_Clients_）同時掛載及存取。這些用戶端可以像NTFS、XFS或ext4等本機檔案系統一樣、查看及使用分散式檔案系統。</block>
   <block id="2cd4f3c05097f81722656ab8de9b6a25" category="paragraph">這四項主要服務可在多種支援的Linux套裝作業系統上執行、並可透過任何支援TCP/IP或RDMA的網路進行通訊、包括InfiniBand（IB）、OMNI-Path（opa）和RDMA over Converged Ethernet（roce）。BeeGFS伺服器服務（管理、儲存及中繼資料）是使用者空間精靈、而用戶端則是原生核心模組（無修補程式）。所有元件均可在不重新開機的情況下安裝或更新、而且您可以在同一個節點上執行任何服務組合。</block>
   <block id="006d93ef4f9eec646f24191298096ff5" category="section-title">已驗證節點</block>
-  <block id="c96c4db6ed51cc2193de3faf12adec4b" category="paragraph">NetApp上的BeeGFS解決方案包含下列通過驗證的節點：NetApp EF600儲存系統（區塊節點）和Lenovo ThinkSystem SR665 Server（檔案節點）。</block>
-  <block id="27413f72a901dfdce9c9f5b55bb8de24" category="section-title">區塊節點：EF600儲存系統</block>
-  <block id="c9423adc70506c44748bf2f624d7f901" category="paragraph">NetApp EF600 All Flash Array提供一致、近乎即時的資料存取、同時支援任意數量的工作負載。EF600儲存系統為AI和HPC應用程式提供快速且持續的資料饋送功能、可在單一機箱中提供高達200萬個快取讀取IOPS、100微秒以下的回應時間、以及42GBps循序讀取頻寬。</block>
-  <block id="651e200415759284120b2ec1a66b1a96" category="section-title">檔案節點：Lenovo ThinkSystem SR665伺服器</block>
-  <block id="6b9e4d337aab66ffe52d7442d4de33cd" category="paragraph">SR665是雙插槽2U伺服器、搭載PCIe 4.0。當設定為符合此解決方案的需求時、它可提供充分的效能、在組態中執行BeeGFS檔案服務、並與直接附加E系列節點所提供的處理量和IOPs的可用度保持良好平衡。</block>
   <block id="18bc6212071e7cb1cca90788a40a9301" category="inline-link">聯想的網站</block>
-  <block id="81024062a06a8ee37394167df6e2e925" category="paragraph">如需Lenovo SR665的詳細資訊、請參閱<block ref="2cce034b75e116efa73dc639a17202fa" category="inline-link-rx"></block>。</block>
   <block id="4b2aed7f56892904807d2a0dba262f91" category="section-title">已驗證硬體設計</block>
-  <block id="9e33e1f9796877cc85735e8b785ca26f" category="paragraph">解決方案的建置區塊（如下圖所示）使用雙插槽PCIe 4.0伺服器作為BeeGFS檔案層、使用兩個EF600儲存系統作為區塊層。</block>
   <block id="9aff371c3d72ae246b764db116d45c50" category="paragraph"><block ref="9aff371c3d72ae246b764db116d45c50" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="5c48dcdddb94107a7a67762c9d1dbe6f" category="admonition">由於每個建置區塊都包含兩個BeeGFS檔案節點、因此在容錯移轉叢集中建立仲裁所需的建置區塊至少要有兩個。雖然您可以設定雙節點叢集、但此組態具有限制、可能會導致容錯移轉失敗。如果您需要雙節點叢集、可以將第三個裝置整合為斷路器（不過、此站台並未涵蓋該設計）。</block>
-  <block id="6a07b0ff8ee12bcea9aba90004bdf2e9" category="paragraph">每個建置區塊都能透過雙層硬體設計、將檔案層和區塊層的故障網域區隔開來、提供高可用度。每個層級都能獨立容錯移轉、提供更高的恢復能力、並降低串聯故障的風險。搭配NVMeoF使用HDRInfiniBand可在檔案和區塊節點之間提供高處理量和最低延遲、並提供完整備援和足夠的連結超額訂閱、以避免分散式設計成為瓶頸、即使系統部分降級。</block>
-  <block id="3c08ab3aeeb113b43a410e04cd194da5" category="paragraph">NetApp上的BeeGFS解決方案可在部署中的所有建置區塊上執行。部署的第一個建置區塊必須執行BeeGFS管理、中繼資料和儲存服務（稱為基礎建置區塊）。所有後續的建置區塊都是透過軟體設定、以執行BeeGFS中繼資料和儲存服務、或僅執行儲存服務。每個建置區塊的不同組態設定檔可用度、可利用相同的基礎硬體平台和建置區塊設計來擴充檔案系統中繼資料或儲存容量和效能。</block>
-  <block id="8c75634d2e6f2b333be16514a845f21a" category="paragraph">獨立式Linux HA叢集最多可合併五個建置區塊、確保每個叢集資源管理程式（起搏器）擁有合理數量的資源、並減少維持叢集成員同步所需的訊息傳輸負荷（電暈器同步）。建議每個叢集至少有兩個建置區塊、以允許足夠的成員建立仲裁。其中一個或多個獨立式BeeGFS HA叢集會結合在一起、以建立一個BeeGFS檔案系統（如下圖所示）、可供用戶端作為單一儲存命名空間存取。</block>
   <block id="68f8e190e5b0a73975772032f02e616d" category="paragraph"><block ref="68f8e190e5b0a73975772032f02e616d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="2656fcaf8e3676a2cbef703871ecdf24" category="paragraph">雖然每個機架的建置區塊數量最終取決於特定站台的電力和冷卻需求、 此解決方案的設計可在單一42U機架中部署最多五個建置區塊、同時仍可容納兩個用於儲存/資料網路的1U InfiniBand交換器。每個建置區塊都需要八個IB連接埠（每個交換器四個用於備援）、因此五個建置區塊會在40埠的HDRInfiniBand交換器（例如NVIDIA QM8700）上留下一半的連接埠、以供實作fat樹狀結構或類似的非區塊拓撲。這項組態可確保儲存設備或運算/GPU機架的數量能夠擴充、而不會產生網路瓶頸。或者、您也可以根據儲存架構廠商的建議、使用超額訂閱的儲存架構。</block>
-  <block id="70fe669a3a23094d7db9486a417dbef3" category="paragraph">下圖顯示80節點的fat樹狀結構拓撲。</block>
-  <block id="2fcf68f5d15d3841e3d288e4c8a6107c" category="paragraph"><block ref="2fcf68f5d15d3841e3d288e4c8a6107c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d6a8fb7565b3c37b0228984862a3977c" category="paragraph">藉由使用Ansible做為部署引擎、在NetApp上部署BeeGFS、系統管理員可以使用現代化的基礎架構做為程式碼實務、來維護整個環境。如此可大幅簡化原本複雜的系統、讓系統管理員能夠在同一個位置定義及調整組態、無論環境的規模有多大、都能確保系統一致地套用組態。BeeGFS系列可從取得<block ref="6e6b4aec10f34b8873e2101fed073d9a" category="inline-link-rx"></block> 和<block ref="6e9ef2e0fff4844f9560394ab05a51e9" category="inline-link-rx"></block>。</block>
   <block id="c8a0fcd1a15bb039926f56fd15ce82e9" category="summary">適用於NetApp解決方案BeeGFS的詞彙與概念。</block>
   <block id="5d146c3fd3b69782d69f66b386b88a4c" category="doc">詞彙與概念</block>
   <block id="5710fc980ad3cc07a2d53a30f8e42802" category="paragraph">下列術語與概念適用於NetApp上的BeeGFS解決方案。</block>
@@ -232,7 +141,6 @@
   <block id="edcc56d654a1a9362699f309c738a185" category="list-text">高可用度（HA）是以共享磁碟、雙層硬體設計為基礎</block>
   <block id="189fdda096d5b994e140eac128f464e1" category="section-title">第二代設計</block>
   <block id="145c927b5996411105e8a05381bfab75" category="section-title">第一代設計</block>
-  <block id="41ae1cb2edd9d144116e252e5f5c4e54" category="paragraph">NetApp的第一代BeeGFS是專為使用NetApp EF600 NVMe儲存系統、BeeGFS平行檔案系統、NVIDIA DGX™A100系統及NVIDIA®Mellanox®Quantum™QM8700 200Gbps IB交換器的機器學習（ML）和人工智慧（AI）工作負載所設計。此設計也針對儲存設備和運算叢集互連架構提供200Gbps InfiniBand（IB）、為高效能工作負載提供完全以IB為基礎的架構。</block>
   <block id="8c2de6dc6972aa428c25b73867ee0c6c" category="inline-link-macro">NetApp EF系列AI搭配NVIDIA DGX A100系統和BeeGFS</block>
   <block id="cb0e1ee82028e21bcb25d1cedee42a90" category="paragraph">如需第一代產品的詳細資訊、請參閱 <block ref="7c75f12548abfaad3f9a226ecdfc54d3" category="inline-link-macro-rx"></block>。</block>
   <block id="745f22cbd412f2eab6c6bf95417e8b09" category="doc">本網站所含內容</block>
@@ -242,7 +150,6 @@
   <block id="ef200d7e9d983785df6b4e01fa65bf59" category="section-title">Ansible集合與角色</block>
   <block id="31f2ceaa03965649e2e37df5634511e7" category="paragraph">您可以使用Ansible（常用的IT自動化引擎）在NetApp上部署BeeGFS解決方案、以自動化應用程式部署。Ansible會使用一系列的檔案、統稱為庫存、用來建立您要部署的BeeGFS檔案系統模型。</block>
   <block id="87d27d52f7fc81e8a134f2e3d2a57ecf" category="inline-link">NetApp E系列BeeGFS系列</block>
-  <block id="f4bf5484498b52d77cb39955020e5321" category="paragraph">Ansible允許NetApp等公司使用Ansible銀河系統上的集合來擴充內建功能（請參閱<block ref="8dd9c2247c6151110981020f59a5fca3" category="inline-link-rx"></block>）。集合包括執行特定功能或工作的模組（例如建立E系列Volume）、以及可呼叫多個模組和其他角色的角色。此自動化方法可縮短部署BeeGFS檔案系統和基礎HA叢集所需的時間。此外、它還能簡化新增建置區塊的作業、以擴充現有的檔案系統。</block>
   <block id="4aa1cf90ffa01d3b63825bad839d9e29" category="inline-link-macro">瞭解Ansible庫存</block>
   <block id="1325754275d5677e560f21035bc1ac47" category="paragraph">如需其他詳細資料、請參閱 <block ref="dd39ef1fcc2e17fe1fe509b7ac2d5dea" category="inline-link-macro-rx"></block>。</block>
   <block id="5b3ae76175242b9c0c63ba5668657f49" category="admonition">由於在NetApp解決方案上部署BeeGFS涉及許多步驟、因此NetApp不支援手動部署解決方案。</block>
@@ -283,20 +190,16 @@
   <block id="02f510b4f0f01c83fb0898c7c21472f3" category="section-title">設定檔案節點</block>
   <block id="58ee770c560ec650edbb0731c6882d53" category="list-text">在每部伺服器的基礎板管理控制器（BMC）上設定網路。</block>
   <block id="75ae096871a25daf3dcd5da902c66ecf" category="inline-link">Lenovo ThinkSystem文件</block>
-  <block id="501998f9bebe4eeda8377a94578e9255" category="paragraph">若要瞭解如何為已驗證的Lenovo SR665檔案節點設定網路、請參閱<block ref="3a3ba9924e08a04d2eb4947b4cdb2550" category="inline-link-rx"></block>。</block>
   <block id="0c112c89dd8c3ce2b92d5e4844ea4641" category="admonition">底板管理控制器（BMC）有時稱為服務處理器、是內建於各種伺服器平台的頻外管理功能的一般名稱、即使作業系統未安裝或無法存取、也能提供遠端存取。廠商通常會以自己的品牌行銷這項功能。例如、在Lenovo SR665上、BMC稱為_Lenovo XClarity Controller（XCC）_。</block>
   <block id="290a84841d7341364c4abf862a74583f" category="list-text">設定系統設定以獲得最大效能。</block>
   <block id="04c7f6322804081c61ca0d88cef85904" category="paragraph">您可以使用UEFI設定（先前稱為BIOS）或使用許多BMC提供的Redfish API來設定系統設定。系統設定會因做為檔案節點的伺服器機型而有所不同。</block>
   <block id="354f37da23eacae1fc163775964a0a2e" category="paragraph">若要瞭解如何設定已驗證之Lenovo SR665檔案節點的系統設定、請參閱 <block ref="dbe1843153b6696d3dd846d3a25ea7b2" category="inline-link-macro-rx"></block>。</block>
-  <block id="7e57b24d8418675e1eb9185b3a783ef7" category="list-text">安裝Red Hat 8.4並設定用於管理作業系統的主機名稱和網路連接埠、包括從Ansible控制節點進行SSH連線。</block>
   <block id="63b34e32fcac1724c46edd575672332b" category="paragraph">此時請勿在任何InfiniBand連接埠上設定IP。</block>
   <block id="e9074e57167186919a163cd099187dd0" category="admonition">雖然並非嚴格要求、但後續章節假設主機名稱會依序編號（例如H1-HN）、並提及應該在ODD或偶數主機上完成的工作。</block>
   <block id="0123fb5bcbcd68deb7c43ec913e70705" category="inline-link">如何註冊及訂閱RHEL系統</block>
   <block id="29f7e22c9a0b8d15ea802eee7a5e07cf" category="inline-link">如何限制更新</block>
-  <block id="da5ddad82ac3e5b8ada040f6f5d0b4b1" category="list-text">使用RedHat訂購管理程式來註冊及訂閱系統、以便從正式的Red Hat儲存庫安裝所需的套件、並將更新限制為支援的Red Hat版本：「Subscree-manager版本--set=8.4」。如需相關指示、請參閱<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 和 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
   <block id="577885e812bad7e4780317a271722339" category="list-text">啟用包含高可用度所需套件的Red Hat儲存庫。</block>
   <block id="3c438be737391744e2fed6f73c418638" category="inline-link-macro">技術需求</block>
-  <block id="f12bdbd9e0ff4f2d314f49b8ae9d6e79" category="list-text">將所有ConnectX-6 HCA韌體更新為中建議的版本 <block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>。</block>
   <block id="de2787072a70ede6b3c4b90ff28fe789" category="inline-link">mlxup -更新與查詢公用程式</block>
   <block id="febfb51b621938c49980eee52ab6a373" category="section-title">設定區塊節點</block>
   <block id="1dab115fdeed11b46ad9a32f690cfc8a" category="paragraph">設定每個控制器上的管理連接埠、以設定EF600區塊節點。</block>
@@ -310,7 +213,6 @@
   <block id="91177a5a4b0c27f810e6deb9395eef4a" category="inline-link">NetApp E系列BeeGFS GitHub</block>
   <block id="489a8841f96385c3fca8ff239dc24250" category="paragraph">Ansible清單定義檔案和區塊節點的組態、並代表您要部署的BeeGFS檔案系統。清單包括主機、群組和變數、說明所需的BeeGFS檔案系統。您可以從下載範例庫存<block ref="5f5a4f2bb780d1d47d6a1c5865c757e8" category="inline-link-rx"></block>。</block>
   <block id="2b030b2e370bebb88648070cda0b66eb" category="section-title">Ansible模組與角色</block>
-  <block id="2c237568ac6f7bc2fd09645044287519" category="paragraph">若要套用Ansible庫存所述的組態、請使用NetApp E系列Ansible集合中提供的各種Ansible模組和角色、尤其是BeeGFS HA 7.2角色（可從取得<block ref="aa2af16a93b1d617ca7c38eef1d0c556" category="inline-link-rx"></block>）部署端點對端點解決方案。</block>
   <block id="27633c2a48532dabf935531ba52193df" category="paragraph">NetApp E系列Ansible產品組合中的每個角色、都是完整的BeeGFS on NetApp解決方案端點對端部署。這些角色使用NetApp E系列SANtricity 的《Sf2、Host和BeeGFS》集合、可讓您使用HA（高可用度）來設定BeeGFS檔案系統。然後您可以配置及對應儲存設備、並確保叢集儲存設備已準備就緒可供使用。</block>
   <block id="ca467fdffa66288bc6eeca1d49467e2e" category="paragraph">雖然角色會提供深入的文件、但部署程序會說明如何使用第二代BeeGFS建置區塊設計來部署NetApp驗證架構。</block>
   <block id="7c1be9d0f9dc743e2a1540004da3eb1d" category="admonition">雖然部署步驟會嘗試提供足夠的詳細資料、以確保事先使用Ansible的經驗並非先決條件、但您應該對Ansible及相關術語有一定的瞭解。</block>
@@ -365,13 +267,11 @@
   <block id="f4bf34ee26e45437b7b34ee3858d3f39" category="list-text">如有需要、請從Ansible控制節點設定無密碼SSH、並將其設定為BeeGFS用戶端的每個主機：</block>
   <block id="c9793ac6c6a163b585094181979efe25" category="paragraph">「sh-copy -id &lt;user&gt;@&lt;hostname_or_ip&gt;'」</block>
   <block id="05c8acf59a637c421ef21a4a37d674de" category="list-text">在「host_vars/」下、為每個BeeGFS用戶端建立一個名為「.yml」的檔案、其中包含下列內容、並在預留位置文字中填入適合您環境的正確資訊：</block>
-  <block id="eb92eeb67c4903777d624fd51e30acfa" category="admonition">目前、每個用戶端都必須設定兩個InfiniBand介面、兩個儲存IPoIB子網路各一個。如果針對此處列出的每個BeeGFS服務使用範例子網路和建議範圍、用戶端應該設定一個介面、範圍為「100127.1」。從0到100、127.99.255、另一個在100、128.1。0到100、128。99.255。</block>
   <block id="ca6b4577e851d5587e19a3d017db68b1" category="list-text">建立新檔案「client_inventory.yml」、然後在頂端填入下列參數：</block>
   <block id="ec6e88f08b026e04d1ce5f5f31493b21" category="inline-link">使用Ansible Vault加密內容</block>
   <block id="d424a4948912165baf5c9641ad4de044" category="admonition">請勿以純文字儲存密碼。請改用Ansible Vault（請參閱的「Ansible」文件）<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>）或是在執行該教戰手冊時使用「Ask（隨叫隨到）」選項。</block>
   <block id="8f27eda73b5d4e7594b05bed1b90a053" category="list-text">在「client_inventory.yml」檔案中、在「beegfs_clients」群組中列出所有應設定為BeeGFS用戶端的主機、然後指定建置BeeGFS用戶端核心模組所需的任何其他組態。</block>
   <block id="42d868a1eb5776ce2eb9b95938bcc056" category="inline-link">RDMA支援</block>
-  <block id="675bf44585d9e9ed71a38bde5f37fb5f" category="admonition">使用Mellanox OFED驅動程式時、請確定「beegfs_client_ofed_include_path」指向適用於Linux安裝的正確「標頭包含路徑」。如需詳細資訊、請參閱的BeeGFS文件<block ref="ad551773fffeead9219b565416da2397" category="inline-link-rx"></block>。</block>
   <block id="b9d3c4e1c18127cf36ad951b208d45bb" category="list-text">在「client_inventory.yml」檔案中、列出您要掛載在任何先前定義「vars」底部的BeeGFS檔案系統。</block>
   <block id="0ebb92016a1cd310802bb6e22bcd491c" category="admonition">「beegfs_client_config」代表已測試的設定。如需所有選項的完整概觀、請參閱netapp_eseries.beegfs`集合「beegfs_client」角色隨附的文件。這包括有關安裝多個BeeGFS檔案系統或多次安裝同一個BeeGFS檔案系統的詳細資料。</block>
   <block id="853c95fff114a0396695a5a34c4f78f1" category="list-text">建立新的「client_playbook .yml」檔案、然後填入下列參數：</block>
@@ -387,15 +287,9 @@
   <block id="527f436644c629cc1f2330d74c5c29b4" category="list-text">* BeeGFS伺服器多重主頁組態*為了提高解決方案的密度、每個檔案節點都有多個儲存介面、其中IP設定在同一個IP子網路中。</block>
   <block id="5a19238d05fdcdb09e439e41a0a94349" category="paragraph">需要額外的組態、以確保此組態能與Linux網路堆疊正常運作、因為在預設情況下、如果某個介面的IP位在同一子網路中、則可在不同的介面上回應對該介面的要求。除了其他缺點、這種預設行為也使得無法正確建立或維護RDMA連線。</block>
   <block id="e7a28f6c997a9c0eba41eb574b5f829c" category="paragraph">Ansible型部署可處理反向路徑（RP）和位址解析傳輸協定（Arp）行為的強化、同時確保啟動和停止浮動IP；動態建立對應的IP路由和規則、讓多重主目錄網路組態正常運作。</block>
-  <block id="99e50b7bb7e3ca73eb910eaf99c6f100" category="list-text">* BeeGFS用戶端多軌組態*_Multi-rail _是指應用程式使用多個獨立網路「軌道」來提高效能的能力。</block>
-  <block id="24cb2caf398043c3ad552915f0ec2b22" category="paragraph">雖然BeeGFS可以使用RDMA進行連線、但BeeGFS使用IPoIB來簡化探索和建立RDMA連線的程序。若要允許BeeGFS用戶端使用多個InfiniBand介面、您可以使用位於不同子網路中的IP位址來設定每個用戶端、然後為每個子網路中一半的BeeGFS伺服器服務設定偏好的介面。</block>
-  <block id="89b4732ecad8d523a7b684af09ad56ee" category="paragraph">在下圖中、以淺綠色強調顯示的介面位於一個IP子網路（例如「100127.0.0/16」）、而暗綠色介面則位於另一個子網路（例如「100128.0.0/16」）。</block>
   <block id="12ec3f7db1a39d49d76e159a6fc9be24" category="paragraph">下圖顯示多個BeeGFS用戶端介面之間的流量平衡。</block>
   <block id="8336bf936a644f2a0962fc710a65d3db" category="paragraph"><block ref="8336bf936a644f2a0962fc710a65d3db" category="inline-image-macro-rx" type="image"></block></block>
   <block id="02eef1a6d9aefa452755edb315057e27" category="paragraph">由於BeeGFS中的每個檔案通常會跨越多個儲存服務進行等量分佈、因此多重軌道組態可讓用戶端達到比單一InfiniBand連接埠更高的處理量。例如、下列程式碼範例顯示通用的檔案分段組態、可讓用戶端在兩個介面之間平衡流量：</block>
-  <block id="7a11ff2c7aa2ff0eccecba650f1db9f5" category="paragraph">使用兩個IPoIB子網路是邏輯上的差異。您可以視需要使用單一實體InfiniBand子網路（儲存網路）。</block>
-  <block id="315faf76d806cf96ff685ed2e65a9d16" category="inline-link">BeeGFS RDMA支援</block>
-  <block id="96002ab5a7c353b76ef0cc2e390f7131" category="admonition">BeeGFS 7.3.0新增多重軌道支援、可在單一IPoIB子網路中使用多個IB介面。BeeGFS on NetApp解決方案的設計是在BeeGFS 7.3.0正式推出之前開發、因此示範如何使用兩個IP子網路來使用BeeGFS用戶端上的兩個IB介面。多重IP子網路方法的一項優點是不需要在BeeGFS用戶端節點上設定多重主頁（如需詳細資訊、請參閱）<block ref="bb2f67f854c27129a1f13b908e56ca65" category="inline-link-rx"></block>）。</block>
   <block id="b28b500a27afaa858536ee53a4c02d91" category="section-title">EF600區塊節點組態</block>
   <block id="6e88eb560b5c117f0226888b924af1c5" category="paragraph">區塊節點由兩個主動/主動式RAID控制器組成、可共用存取同一組磁碟機。一般而言、每個控制器擁有系統上設定的一半磁碟區、但可視需要接管其他控制器。</block>
   <block id="674757e2095af366602187ca856f8ec4" category="paragraph">檔案節點上的多重路徑軟體可決定每個磁碟區的作用中最佳化路徑、並在纜線、介面卡或控制器故障時自動移至替代路徑。</block>
@@ -407,7 +301,6 @@
   <block id="f4fa0385d373373f4ab191231ead5909" category="section-title">BeeGFS檔案節點組態</block>
   <block id="5e2d5eb9f991b81a298fb57212c715fe" category="paragraph">BeeGFS檔案節點已設定為高可用度（HA）叢集、以便在多個檔案節點之間進行BeeGFS服務的容錯移轉。</block>
   <block id="f409d0a0c329860646597bbcc45fcc4b" category="inline-link">適用於高可用度附加元件的Red Hat訓練</block>
-  <block id="48a9bfc91c9cb5a8f6f7fc37080d3b95" category="paragraph">HA叢集設計是以兩個廣泛使用的Linux HA專案為基礎：叢集成員資格的電暈器同步、以及叢集資源管理的起搏器。如需詳細資訊、請參閱<block ref="a896e9cb42c24f9ab5c574f54ad83b08" category="inline-link-rx"></block>。</block>
   <block id="79b70ba13b6d273b53c66d816a15830d" category="paragraph">NetApp撰寫並擴充數個開放式叢集架構（OCF）資源代理程式、讓叢集能夠智慧地啟動及監控BeeGFS資源。</block>
   <block id="ff07f4dbc22a6f0ecb4a11bfb6136d40" category="section-title">BeeGFS HA叢集</block>
   <block id="7a189557128751d94f2d8bca38ccf462" category="paragraph">一般而言、當您啟動BeeGFS服務（無論是否有HA）時、必須有幾個資源：</block>
@@ -442,12 +335,10 @@
   <block id="92d102b77ed7526653d6ed77bc5f9297" category="list-text">NUMA節點0中的連接埠一律連線至第一個區塊節點。</block>
   <block id="41d34f3f75f0a6f23825fec8c1f6b167" category="list-text">NUMA節點1中的連接埠會連線至第二個區塊節點。</block>
   <block id="058a7d9db61c859b343066aa0c6cd3c7" category="paragraph"><block ref="058a7d9db61c859b343066aa0c6cd3c7" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="109d8b81996cf829eba8acc62259eaee" category="admonition">對於具有備援交換器的儲存網路、以淺綠色列出的連接埠應連接至一台交換器、以深綠色標示的連接埠則連接至另一台交換器。</block>
   <block id="1109e0767ef0b323f02f85cdaa9a589d" category="paragraph">圖中所示的佈線組態可讓每個BeeGFS服務：</block>
   <block id="12e9ec8c0cb3aa87bfb400a73712d79b" category="list-text">無論執行BeeGFS服務的檔案節點為何、都可在相同的NUMA區域中執行。</block>
   <block id="488f6220ee8bab2e1e3621f7f99b598c" category="list-text">無論故障發生在何處、都要有次要的最佳路徑可通往前端儲存網路和後端區塊節點。</block>
   <block id="e2ae85c4e917fafc3b545710dcc3fdf1" category="list-text">如果區塊節點中的檔案節點或控制器需要維護、請將效能影響降至最低。</block>
-  <block id="76af1dbb7a81b9258eeb702dd63164e2" category="paragraph">若要充分運用PCIe雙向頻寬、請確定每個InfiniBand介面卡上的一個連接埠連接至儲存架構、另一個連接埠則連接至區塊節點。理論上、HDRInfiniBand連接埠的最大速度為25Gbps（不會計訊號和其他負荷）。PCIe 4.0 x16插槽的最大單一方向頻寬為32Gbps、因此在實作包含雙埠InfiniBand介面卡的檔案節點時、可能會造成瓶頸、理論上可處理50GBps的頻寬。</block>
   <block id="33f3e0c9879fd051eb380c62267a24cf" category="paragraph">下圖顯示用於充分運用PCIe雙向頻寬的纜線設計。</block>
   <block id="5a81a38e29a457f16f6a1a9146cb73de" category="paragraph"><block ref="5a81a38e29a457f16f6a1a9146cb73de" category="inline-image-macro-rx" type="image"></block></block>
   <block id="1a72dacfce92d062255a929bbb18fc8d" category="paragraph">對於每個BeeGFS服務、請使用相同的介面卡、將用戶端流量所使用的慣用連接埠、與服務磁碟區的主要擁有者區塊節點控制器路徑連線。如需詳細資訊、請參閱 <block ref="1ce6299bc86692b3e97783bdba904848" category="inline-link-macro-rx"></block>。</block>
@@ -457,7 +348,6 @@
   <block id="ba33770125b7249843843e3524e48e5e" category="list-text">單一基礎建置區塊、包括BeeGFS管理、中繼資料和儲存服務。</block>
   <block id="dc0ae690014a6e4ed1d17d728fce2e3a" category="list-text">BeeGFS中繼資料加上儲存建置區塊。</block>
   <block id="f789cf74ad54c463cf1827c970b695c0" category="list-text">BeeGFS純儲存建置區塊。</block>
-  <block id="c7dfb273d9605bd7640f597b869aef23" category="paragraph">建置區塊連接至兩個Mellanox Quantum InfiniBand（MQM8700）交換器。十個BeeGFS用戶端也連接到InfiniBand交換器、用來執行綜合基準測試公用程式。</block>
   <block id="f27d4d7620b1158ad830c498a6faf1c5" category="paragraph">下圖顯示用於驗證NetApp解決方案BeeGFS的BeeGFS組態。</block>
   <block id="c76715003b58d0566ea40579fbf2b849" category="paragraph"><block ref="c76715003b58d0566ea40579fbf2b849" category="inline-image-macro-rx" type="image"></block></block>
   <block id="dfa0c76fc554fa6837cfe216381eb3df" category="section-title">BeeGFS檔案分段</block>
@@ -526,10 +416,8 @@
   <block id="38b622e4d5c9d918330c81663f61a4e3" category="doc">檢視最佳實務做法</block>
   <block id="d780de93793370946b2449b88a29b5ea" category="section-title">標準慣例</block>
   <block id="b4d19c971bd6ad93985147c0ce9477c8" category="list-text">檔案節點主機名稱會依序編號（H01-HN）、機架頂端的數字較低、底部的數字較高。</block>
-  <block id="0a4e8ee6eb2b3c9ae6b2864c18db1a80" category="paragraph">例如、命名慣例「[location（位置）[ROW][RAG] HN（機架）」看起來像「ictad22h01」。</block>
   <block id="7bf4bcec78c083e165c31432234ebef8" category="list-text">每個區塊節點都由兩個儲存控制器組成、每個控制器都有自己的主機名稱。</block>
   <block id="1d6d5c920cb7d130fd45d8ced35ebec2" category="paragraph">儲存陣列名稱是指可Ansible庫存中的整個區塊儲存系統。儲存陣列名稱應依序編號（A01-A）、個別控制器的主機名稱則衍生自該命名慣例。</block>
-  <block id="213b6742fe86c9b7a08c68d5206d723a" category="paragraph">例如、名為「ictad22a01」的區塊節點通常可以為每個控制器設定主機名稱、例如「ictad22a01-a」和「ictad22a01-b」、但在「Ansible」目錄中稱為「ictad22a01」。</block>
   <block id="a902add826ee667d7f067acb8b49432f" category="list-text">同一個建置區塊內的檔案和區塊節點共用相同的編號配置、並在機架中彼此相鄰、兩個檔案節點位於頂端、兩個區塊節點位於其正下方。</block>
   <block id="2761f73c104511b8aaeef2eb6c84f3d3" category="paragraph">例如、在第一個建置區塊中、檔案節點H01和h02都直接連接至區塊節點A01和A02。從上到下、主機名稱為H01、h02、A01和A02。</block>
   <block id="33324ee77729f51ada2c5446c9c21488" category="list-text">建置區塊會根據主機名稱以連續順序安裝、因此編號較低的主機名稱位於機架頂端、編號較高的主機名稱位於底部。</block>
@@ -579,8 +467,6 @@
   <block id="5e0ca78bea1b6ed4af93b1b1c5d7c573" category="cell">192．168．8．10</block>
   <block id="3581177979a7b934a2accd3f5f999444" category="cell">192．168．8．100</block>
   <block id="49213c8f0e8758438d7a69e2789a8b7d" category="cell">192．168．8．101</block>
-  <block id="39927fda75baba1d602f4ac8906cb4ef" category="section-title">BeeGFS用戶端伺服器IPoIB定址方案（兩個子網路）</block>
-  <block id="db65743173e4ff7d9ed62df6220dc4a4" category="paragraph">為了讓BeeGFS用戶端使用兩個InfiniBand連接埠、每個子網路需要兩個IPoIB子網路、而BeeGFS伺服器服務的一半則在每個子網路上設定偏好的IP、以確保用戶端使用兩個InfiniBand連接埠來最大化備援和檔案系統的可能處理量。</block>
   <block id="5e98efce8292b94590f3ca502c1d8697" category="paragraph">每個檔案節點都會執行多個BeeGFS伺服器服務（管理、中繼資料或儲存設備）。為了讓每項服務獨立容錯移轉至其他檔案節點、每項服務都會設定獨特的IP位址、以便在兩個節點之間浮動（有時稱為邏輯介面或LIF）。</block>
   <block id="4db8c0036deb36a38e4df4660af9ed06" category="paragraph">此部署雖然並非必要、但會假設這些連線使用下列IPoIB子網路範圍、並定義套用下列規則的標準定址方案：</block>
   <block id="8d41eefa8441a4ca177fe0f2676a9512" category="list-text">第二個八位元組永遠是不符合或甚至不符合、取決於檔案節點InfiniBand連接埠是ODD或偶數。</block>
@@ -588,7 +474,6 @@
   <block id="3aed58e1cc4af0e5cda8b7e10e2fd863" category="admonition">除了用於頻內作業系統管理的介面、電暈同步還能使用其他介面來進行叢集心律跳轉和同步。如此可確保單一介面遺失不會導致整個叢集中斷運作。</block>
   <block id="d95a2f19c705379e32f8030de274d07e" category="list-text">BeeGFS管理服務永遠是「xxx.xxx.Y.101.0」或「xxx.xxx.Y.102.0」。</block>
   <block id="29cd1587ba2833db9af29eac16f0d72b" category="list-text">BeeGFS中繼資料服務一律位於「xxx.yyy.101.zzz」或「xxx.xxx.y.102.zzz」。</block>
-  <block id="60c1357dfcd221c354054e43ac815018" category="list-text">BeeGFS儲存服務永遠是「xxx.xxx.y.103.zzz」或「xxx.xxx.y.103.zzz」。</block>
   <block id="be092b10130fe0c97dd9358f0c131935" category="list-text">範圍從「100.xxx.1.1」到「100.xxx.99.255」的位址會保留給用戶端。</block>
   <block id="3ac8c958d4c77187295fd53646229e9e" category="paragraph">下表提供子網路A的範圍：100127.0.0/16。</block>
   <block id="261addf78c7b2c961032b3dd08ba0b1f" category="cell">目的</block>
@@ -635,13 +520,10 @@
   <block id="6721128d9ea380f9965cc220f28619e1" category="list-text">*必要組態參數的預設設定。*必要的組態參數會影響BeeGFS服務的設定方式、以及E系列磁碟區（區塊裝置）如何由心臟起搏器設定格式及掛載。這些必要的組態參數包括：</block>
   <block id="93de4dab2e303d649f94f0880095e6ef" category="list-text">BeeGFS服務組態參數</block>
   <block id="c5b3473e89672cc155d0436c6e60bd52" category="inline-link">BeeGFS服務組態參數</block>
-  <block id="bf8b3766586fac2207dd5c620d7b308d" category="paragraph">您可以視需要覆寫組態參數的預設設定。如需可針對特定工作負載或使用案例進行調整的參數、請參閱<block ref="d22612d773394e50d7efa2e9719d459e" category="inline-link-rx"></block>。</block>
   <block id="334a50f926a902a241ecfae54f3cce32" category="list-text">Volume格式化和掛載參數會設定為建議的預設值、而且只能針對進階使用案例進行調整。預設值會執行下列動作：</block>
   <block id="4b9b870ed7f3db8f28c2ddcf4d3bd986" category="list-text">根據目標類型（例如管理、中繼資料或儲存設備）、以及基礎磁碟區的RAID組態和區段大小、最佳化初始磁碟區格式。</block>
   <block id="9f641b3b08e18d35b2219dee293e2038" category="list-text">調整心臟起搏器如何掛載每個Volume、以確保變更立即排清至E系列區塊節點。如此可在檔案節點發生故障且正在進行作用中寫入時、避免資料遺失。</block>
   <block id="72247689b02927b1ceac4fb69e6c9954" category="inline-link">Volume格式化與掛載組態參數</block>
-  <block id="71ba07d5377dd195ceff5f6dbddc08dc" category="paragraph">如需可針對特定工作負載或使用案例進行調整的參數、請參閱<block ref="2996b969524b278e7da0cf1bb77d8754" category="inline-link-rx"></block>。</block>
-  <block id="728ecec149994e53980e0103b04d3e1b" category="list-text">*安裝在檔案節點上的Linux作業系統中的系統設定。*當您在的步驟4中建立「Ansible」清單時、可以覆寫預設的Linux OS系統設定 <block ref="ecd3f3fdba3715697adf284eecd1c932" category="inline-link-macro-rx"></block>。</block>
   <block id="c5d80eb8c0726de2a9804385295dc0e3" category="paragraph">預設設定是用來驗證NetApp解決方案上的BeeGFS、但您可以變更這些設定、以因應您的特定工作負載或使用案例進行調整。您可以變更的一些Linux作業系統設定範例包括：</block>
   <block id="b56281fe1e5f14da49b6d1d4c6ad0cd9" category="list-text">E系列區塊裝置上的I/O佇列。</block>
   <block id="43a8170c4aebbb467c4d4b59d77a7662" category="paragraph">您可以在作為BeeGFS目標的E系列區塊裝置上設定I/O佇列、以便：</block>
@@ -654,7 +536,6 @@
   <block id="aa8e8d4d1817c4e08c70cd3c1b4c89b9" category="list-text">CPU設定：</block>
   <block id="423dd652f980ba19cb7fb7f577576270" category="paragraph">您可以調整CPU頻率調節器和其他CPU組態、以獲得最大效能。</block>
   <block id="eb2cf8d186779ea110100038f3ec2e90" category="list-text">讀取要求大小。</block>
-  <block id="17dd6d5b67055565e29c50f8150ce378" category="paragraph">您可以增加Mellanox HCA的最大讀取要求大小。</block>
   <block id="ba4dcc8d5b46a4c30176506ef828aea4" category="section-title">區塊節點的效能調校</block>
   <block id="4f59030dbd3da04d4b74738f5149fffb" category="paragraph">根據套用至特定BeeGFS建置區塊的組態設定檔、區塊節點上設定的Volume群組會稍微變更。例如、使用24個磁碟機EF600區塊節點：</block>
   <block id="841fc343eee01328e222ebada200ca5d" category="list-text">對於單一基礎建置區塊、包括BeeGFS管理、中繼資料和儲存服務：</block>
@@ -694,140 +575,94 @@
   <block id="cdd25d91a2d0aca59a80f91cfe9af9de" category="cell">擁有控制器</block>
   <block id="f4d0c8022be4f31d06814c33705037ff" category="cell">meta_01.yml</block>
   <block id="1f7aa6705d5b742085538c627f6f9c2b" category="cell">8015</block>
-  <block id="01098d2436a5e4cf506036d6aca3c6b9" category="cell">i1b：100、127.101.1/16 i2b：100、128.102.1/16</block>
   <block id="cfcd208495d565ef66e7dff9f98764da" category="cell">0</block>
-  <block id="ca9fd584227ff345bca2ef90d5c56e63" category="cell">ictad22a01</block>
   <block id="7ef878b8d47cf2658a8b7e4c1b8f133d" category="cell">beegfs_m1_m2_m5_m6.</block>
   <block id="7fc56270e7a70fa81a5935b72eacbe29" category="cell">答</block>
   <block id="60b1afbaab870bf5621ed87ae12559fe" category="cell">meta_02.yml</block>
   <block id="62d2b7ba91f34c0ac08aa11c359a8d2c" category="cell">8025</block>
-  <block id="e04871f7c2f611e8ad3e026ef33ce958" category="cell">i2b:100128.102.2/16 i1b:100127.101.2/16</block>
   <block id="9d5ed678fe57bcca610140957afab571" category="cell">b</block>
   <block id="3ce592406a461bfadfa5ab1f08c5c506" category="cell">meta_03.yml</block>
   <block id="a2b8a85a29b2d64ad6f47275bf1360c6" category="cell">8035</block>
-  <block id="e04d4c629001763b33c4ff8b9896d667" category="cell">i3b：100127.101.3/16 i4b：100128.102.3/16</block>
   <block id="c4ca4238a0b923820dcc509a6f75849b" category="cell">1.</block>
-  <block id="e2113f2adde9ccc87fb733b80de62a05" category="cell">ictad22a02</block>
   <block id="c229ea898f8c27aeb40c65332e30db3f" category="cell">Beegfs_m3_m4_m7_M8</block>
   <block id="7f6482de225123824ca5b23c1cf79f05" category="cell">meta_04.yml</block>
   <block id="704cddc91e28d1a5517518b2f12bc321" category="cell">8045</block>
-  <block id="0d343c87415ff2c30cb55d5962ced8e2" category="cell">i4b：100、128.102.4 / 16 i3b：100、127.101.4 / 16</block>
   <block id="833a23c43dc9c206a593873d80d04903" category="cell">meta_05.yml</block>
   <block id="444b0d9a802792791bb9a2da568b463d" category="cell">8055</block>
-  <block id="685d00be66f443c6c339b81cc66fa4a3" category="cell">i1b：100127.101.5/16 i2b：100128.102.5/16</block>
   <block id="38774c8cd9de3fd76c7df6b0746f2f2b" category="cell">meta_06.yml</block>
   <block id="320e4df890a1a620573db8170f39a093" category="cell">8065</block>
-  <block id="f084a55203c0946ef5605449dede3354" category="cell">i2b:100128.102.6/16 i1b:100127.101.6/16</block>
   <block id="5a681b3e1f7ad2d965284e36f4f6b7d3" category="cell">meta_07.yml</block>
   <block id="ede529dfcbb2907e9760eea0875cdd12" category="cell">8075</block>
-  <block id="59a587289a0c0568b62bb3b0beb25710" category="cell">i3b：100、127.101.7 / 16 i4b：100、128.102.7 / 16</block>
   <block id="a9cc3f3ebc7a8daedf369af06faba518" category="cell">meta_08.yml</block>
   <block id="5011bf6d8a37692913fce3a15a51f070" category="cell">8085</block>
-  <block id="183b03ffff0f1c540c2bcc4fa7645e8f" category="cell">i4b：100、128.102.8 / 16 i3b：100、127.101.8 / 16</block>
   <block id="89f0938aa83de82ca99f8b06297ed69c" category="list-text">在「Group_vars/」下、使用下列範本建立資源群組「shor_01」到「shor_08」的檔案、然後填入每個服務的預留位置值、以參照範例：</block>
   <block id="9b62ac6b206ab6cafe8dafa0990559c7" category="inline-link-macro">建議的儲存資源池過度資源配置百分比</block>
   <block id="ab2ec57b0e9afdc73bcc69a962ee35c4" category="admonition">如需正確使用尺寸、請參閱 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>。</block>
   <block id="b627976db3394ccf24342632cef6f4f1" category="cell">STOR_01.yml</block>
   <block id="40f4da34bbe180214c23b9e55da4f772" category="cell">8013</block>
-  <block id="2fcc40eb936b77784739bed3cda30225" category="cell">i1b：100、127.103.1/16 i2b：100、128.104.1/16</block>
   <block id="5ef33d06ff783e8453c10b95db8c1253" category="cell">beegfs_s1_s2</block>
   <block id="70963f6e36ca66556bef5f6ae74ad0ad" category="cell">STOR_02.yml</block>
   <block id="1ecdec353419f6d7e30857d00d0312d1" category="cell">8023</block>
-  <block id="bf4e53a6c43ad511c5f730de94f1c989" category="cell">i2b:100128.104.2/16 i1b:100127.103.2/16</block>
   <block id="a4253b13d64a7017467d335c0c147ed3" category="cell">STOR_03.yml</block>
   <block id="fc5b3186f1cf0daece964f78259b7ba0" category="cell">8033</block>
-  <block id="d2f781a145f7598ae80a6ed6a34a297d" category="cell">i3b：100、127.103.3 / 16 i4b：100、128.104.3/16</block>
   <block id="a3cc9ef3e643fd2d2e1b6c2672b1c361" category="cell">beegfs_s2_s4</block>
   <block id="d471f1c4be4f658b822b7cfcfc808efa" category="cell">STOR_04.yml</block>
   <block id="5bd529d5b07b647a8863cf71e98d651a" category="cell">8043</block>
-  <block id="87b35387416f5837e6e2523744e368f9" category="cell">i4b：100、128.104.4/16 i3b：100、127.103.4/16</block>
   <block id="6a0625f228a1c5802a3d0ca970c7ebac" category="cell">STOR_05.yml</block>
   <block id="dfccdb8b1cc7e4dab6d33db0fef12b88" category="cell">8053</block>
-  <block id="457859c18e2dfb216c95ea335da7fdc9" category="cell">i1b：100、127.103.5/16 i2b：100、128.104.5/16</block>
   <block id="2ac54a6d92aca96fef8d0eac5b813f34" category="cell">Beegfs_S1_S6</block>
   <block id="09da1a861f10d113069c5e1da9d2decd" category="cell">STOR_06.yml</block>
   <block id="8d1f1aac0dd8a76b49e8bbdda0c7c98c" category="cell">8063</block>
-  <block id="1bd035750c97cc091a94b72035e34013" category="cell">i2b:100128.104.6/16 i1b:100127.103.6/16</block>
   <block id="cf124e58023b3726106af9c8718a48ed" category="cell">STOR_07.yml</block>
   <block id="ffa9b486ad206c638c657b7ed335635c" category="cell">8073</block>
-  <block id="d319c022fb006d05c63de544a768c7b5" category="cell">i3b：100、127.103.7 / 16 i4b：100、128.104.7/16</block>
   <block id="3e96e523215f928a3915e79e1451e2e7" category="cell">Beegfs_S7_S8</block>
   <block id="0e4b036746af52a755e4b546698b2b61" category="cell">STOR_08.yml</block>
   <block id="20ef119e812e178ecb44efa448b57ebc" category="cell">8083</block>
-  <block id="abf8898bf8b809341f1a690241343288" category="cell">i4b：100、128.104.8/16 i3b：100、127.103.8 / 16</block>
   <block id="80e0c052ed9f2bde54c56adb04f880f1" category="section-title">步驟3：設定中繼資料+儲存建置區塊的詳細目錄</block>
   <block id="9e701ac8f2dd669a0e51464b4d8e3331" category="paragraph">這些步驟說明如何設定BeeGFS中繼資料+儲存建置區塊的可執行庫存。</block>
   <block id="ff1cbf3210fb9b21912445c6ea8cb9f6" category="list-text">在「inventory.yml」中、在現有組態下填入下列參數：</block>
   <block id="628d1b90e1a21bbcec24af78377f8297" category="list-text">在「Group_vars/」下、使用下列範本建立資源群組「meta_09」到「meta_16」的檔案、然後填入每個服務的預留位置值、以參照範例：</block>
   <block id="bc5e8003da73758b95c46194672943bb" category="admonition">如需正確使用尺寸、請參閱 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>。</block>
   <block id="9c6de3c786b8c9c409de2fd8070e5072" category="cell">meta_09.yml</block>
-  <block id="4bcb81674e1186a66143fec42901c209" category="cell">i1b：100、127.101.9 / 16 i2b：100、128.102.9 / 16</block>
-  <block id="a54f967fcc27024d3780cfad23300dd8" category="cell">ictad22a03</block>
   <block id="2ea9f3181dbee99d651a0d6c53be4a36" category="cell">Beegfs_m9_m10_M13_M14</block>
   <block id="f370a281056494e99bcade5ddef17b26" category="cell">meta_10.yml</block>
-  <block id="89d68a1b94d4d1c926944117a136dad1" category="cell">i2b:100128.102.10/16 i1b:100127.101.10/16</block>
   <block id="27f563eed2131061540c21a6239b43d8" category="cell">meta_11.ml</block>
-  <block id="6239aa390b35659bc861841760941247" category="cell">i3b：100、127.101.11 / 16 i4b：100、128.102.11/16</block>
-  <block id="af2f976032e920d54c9455a8e1fd675d" category="cell">ictad22a04</block>
   <block id="7c335ef1ce51db644c52518580d45d49" category="cell">Beegfs_M11_M12_M15_M16</block>
   <block id="a2a3007e91ab84d40e9453997468f1ad" category="cell">meta_12.ml</block>
-  <block id="a65f2e74154cdd3870324bbed77b4bd5" category="cell">i4b：100、128.102.12/16 i3b：100、127.101.12 / 16</block>
   <block id="14c79c2a227a377885225e0f4dcf53b0" category="cell">meta_13.yml</block>
-  <block id="b6b9f36adb7974a0f6d17412ec3fee68" category="cell">i1b：100、127.101.13 / 16 i2b：100、128.102.1/16</block>
   <block id="07e72a8a343c421129dc3a92902de565" category="cell">meta_14.yml</block>
-  <block id="c44a959db7ffec72c54df85a2b00175b" category="cell">i2b:100128.102.14/16 i1b:100127.101.14/16</block>
   <block id="d4d36ef3d915a0d2eaac8c62f1d8eff6" category="cell">meta_15.yml</block>
-  <block id="44b67b40baecc652e6f08e274b29865b" category="cell">i3b：100、127.101.15、16 i4b：100、128.102.15/16</block>
   <block id="b465a4b4c591a6f2e44fedac80e726d0" category="cell">meta_16.myl</block>
-  <block id="23344e5747f1b08172f5d05aa88919e5" category="cell">i4b：100、128.102.16/16 i3b：100、127.101.16/16</block>
   <block id="91e38d134a7ca4a23006b0cf023d9011" category="list-text">在「Group_vars/」下、使用下列範本建立資源群組「shor_09」到「shor_16」的檔案、然後填入每個服務的預留位置值、以參照範例：</block>
   <block id="ca61951791cd6f4d50294a908b9eee76" category="admonition">如需正確使用尺寸、請參閱 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>...</block>
   <block id="71c1385fcc844d118e8b2688b0cfd2d6" category="cell">STOR_09.yml</block>
-  <block id="b183ecb3a449e6250fd1771086e68253" category="cell">i1b：100、127.103.9/16 i2b：100、128.104.9 / 16</block>
   <block id="9282f3f43896f146dcbcc2d03d530b59" category="cell">beegfs_s9_s10</block>
   <block id="8f72ae1bf7ca7b8218a4bf9e719f5e7d" category="cell">STOR_10.yml</block>
-  <block id="b8569c1d93725d20f1a50fb74f3947df" category="cell">i2b:100128.104.10/16 i1b:100127.103.10/16</block>
   <block id="e5a3d4f42adb756f3b3c2e3ed045e4a8" category="cell">STOR_11.yml</block>
-  <block id="53b0db6fe7b8e62a2dcc9bf455bcf174" category="cell">i3b：100、127.103.11/16 i4b：100、128.104.11/16</block>
   <block id="6e4cec4b32bddd9c9a3574aacee223b6" category="cell">Beegfs_S11_s12.</block>
   <block id="05fd4833433a12b38d11d8045aebddff" category="cell">Stor_12.ml</block>
-  <block id="9df04e8249070b73fc9be81b8f249664" category="cell">i4b：100、128.104.12/16 i3b：100、127.103.12/16</block>
   <block id="437037bccd34f3db0b238843b50fe65a" category="cell">STOR_13.yml</block>
-  <block id="527c5e3cde165799cdd8148db81d6473" category="cell">i1b：100、127.103.13/16 i2b：100、128.104.13/16</block>
   <block id="7db433542754f496e2d707f51bf00c05" category="cell">beegfs_s13_s14</block>
   <block id="b3c4ed6c5b5c833713923f9e9bdfb9b9" category="cell">STOR_14.yml</block>
-  <block id="80cd11504622edd89d4abbc32c1245aa" category="cell">i2b:100128.104.14/16 i1b:100127.103.14/16</block>
   <block id="4871ef58b7b91db78d33bb4d95e4bf27" category="cell">STOR_15.yml</block>
-  <block id="040551498fc870111512145ed93337fc" category="cell">i3b：100、127.103.15/16 i4b：100、128.104.15/16</block>
   <block id="b1a9c1cb2640dd5bc9fb4e80dda30200" category="cell">Beegfs_S15_S16</block>
   <block id="b02a9cdb541eba39e680a1da9c6299c7" category="cell">STOR_16.yml</block>
-  <block id="4799f858e623362408f753fa051a2699" category="cell">i4b：100、128.104.16/16 i3b：100、127.103.16/16</block>
   <block id="dea1f079dcd8c8280e07dcd96ea8c075" category="section-title">步驟4：設定僅儲存建置區塊的庫存</block>
   <block id="711be1acedea341e1f5455f007cdb22b" category="paragraph">這些步驟說明如何設定BeeGFS純儲存區塊的可執行庫存。設定中繼資料+儲存設備的組態與純儲存設備建置區塊之間的主要差異、在於所有中繼資料資源群組都不存在、而且每個儲存資源池的「Criteria _DRIVE _count」也會從10變更為12。</block>
   <block id="5b6fe069463b7f5581a1864de036e765" category="list-text">在「Group_vars/」下、使用下列範本建立資源群組「shor_17」到「shor_24」的檔案、然後填寫每個服務的預留位置值、以參照範例：</block>
   <block id="80f4c22d8a78e5d96cdf5bef28444426" category="admonition">如需正確使用尺寸、請參閱 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>。</block>
   <block id="f9838993bed3d0e550ae346ed2e4355e" category="cell">STOR_17.yml</block>
-  <block id="de15a372e63adf3e9d172fcfe67bffbc" category="cell">i1b：100、127.103.17/16 i2b：100、128.104.17/16</block>
-  <block id="5e71a5c8d7eefee3fe82fe28b69d3c1e" category="cell">ictad22a05</block>
   <block id="8cf4aacf94a115dfc0190ee6782190d3" category="cell">Beegfs_S17_s18</block>
   <block id="7876b49b042d07da9a565db780a9b186" category="cell">STOR_18.yml</block>
-  <block id="e14872a3791e3d785c59a5fb1892c4cf" category="cell">i2b:100128.104.18/16 i1b:100127.103.18/16</block>
   <block id="291847ab33dfc1d81beed13f4d7a0519" category="cell">STOR_19.yml</block>
-  <block id="29d24f7d913acaf024704d56a3b47f4d" category="cell">i3b：100127.103.19/16 i4b：100128.104.19/16</block>
-  <block id="114a9ab19efb0876a3622e54afc5bdbb" category="cell">ictad22a06.</block>
   <block id="6a972920f626e0b0b8d505315beaf38b" category="cell">Beegfs_s19_S20</block>
   <block id="943a4f354a2af18dac1fe2a6e14fe880" category="cell">Stor_20.ml</block>
-  <block id="e441e411ebace2ff01e6e612efceb07a" category="cell">i4b：100、128.104.20/16 i3b：100、127.103.20/16</block>
   <block id="a5aadbbde2e0b66fc661a126f5a1ce1e" category="cell">STOR_21.yml</block>
-  <block id="4a7361f8632968e437b2bae55a7d6a5e" category="cell">i1b：100、127.103.21/16 i2b：100、128.104.21/16</block>
   <block id="9c82263beb960ece0e5b6ac0604bb4d9" category="cell">Beegfs_S21_S22</block>
   <block id="4879e56fe4d161ba3e4df67f961c483a" category="cell">STOR_22.yml</block>
-  <block id="8768cf88da2b645b99d30056c6b1f6e7" category="cell">i2b:100128.104.22/16 i1b:100127.103.22/16</block>
   <block id="316b3c9a6656c51b87a725bf1f678a52" category="cell">STOR_23.yml</block>
-  <block id="5eda737d72e69dcbdd869d84cc7c0e48" category="cell">i3b：100、127.103.23 / 16 i4b：100、128.104.23 / 16</block>
   <block id="2404c81b13915ef9d59e0ac6328f4c10" category="cell">beegfs_S23_s24</block>
   <block id="47662afeeaa16771e7d516dd96ade0b7" category="cell">STOR_24.yml</block>
-  <block id="a9088dda4778ef90eb3b6f87b070cd25" category="cell">i4b：100、128.104.24/16 i3b：100、127.103.24/16</block>
   <block id="66136a118d01240429805a157ae4b538" category="summary">針對第二代建置區塊、依照每個儲存資源池組態的標準四個磁碟區進行操作時、請參閱這些建議的百分比。</block>
   <block id="13d38edc52fe6e049aae05e6fce1573a" category="paragraph">當遵循第二代建置區塊每個儲存池組態的標準四個磁碟區時、請參閱下表。</block>
   <block id="2d115a94acc324947afb0abf7c47d665" category="paragraph">下表提供每個BeeGFS中繼資料或儲存目標的「Eseria_storage儲存資源池組態」中、作為磁碟區大小的建議百分比：</block>
@@ -857,30 +692,18 @@
   <block id="e5e4c2e4c004bc7dbd4a04d4b0971e53" category="paragraph">視部署規模和Ansible控制節點與BeeGFS檔案和區塊節點之間的網路效能而定、部署時間可能會有所不同。</block>
   <block id="c38012b2187d10d4a33d168693918570" category="summary">每個建置區塊都由兩個已驗證的x86檔案節點組成、這些節點使用HDR（200GB）InfiniBand直接連線至兩個NetApp區塊節點。</block>
   <block id="0893812920a9268362b89a618b2f05c4" category="paragraph">每個建置區塊都包含兩個已驗證的x86檔案節點、這些節點使用HDR（200GB）InfiniBand纜線直接連接至兩個區塊節點。</block>
-  <block id="cf173c7219b93e53cad26c1f5975c527" category="admonition">由於每個建置區塊都包含兩個BeeGFS檔案節點、因此在容錯移轉叢集中建立仲裁所需的建置區塊至少要有兩個。雖然可以設定雙節點叢集、但此組態有一些限制、可能會在某些情況下導致容錯移轉失敗。如果需要雙節點叢集、也可以將第三個裝置整合為斷路器、但此部署程序並未涵蓋這一點。</block>
-  <block id="0cc464de9a37ad072fa7529593389b2a" category="paragraph">除非另有說明、否則無論是用於執行BeeGFS中繼資料和儲存服務、或僅用於儲存服務、叢集中每個建置區塊的下列步驟都相同。</block>
-  <block id="ee6202c3dca3dfe457b79b5ff39c7765" category="list-text">以InfiniBand模式設定每個BeeGFS檔案節點、並在PCIe插槽2、3、5及6中安裝四個PCIe 4.0 ConnectX-6雙埠主機通道介面卡（HCA）。</block>
   <block id="9df6f3b087eea6552beb54d44653501a" category="list-text">使用雙埠200GB主機介面卡（HIC）設定每個BeeGFS區塊節點、並在其兩個儲存控制器中的每個都安裝HIC。</block>
-  <block id="31562d2b8d25ec86381df6ff0157e4b7" category="paragraph">將建置區塊架起、使兩個BeeGFS檔案節點在BeeGFS區塊節點上方。下圖顯示BeeGFS建置區塊的正確硬體組態（後視圖）。</block>
-  <block id="7a549152f69a4c5a4d90a9ad467016da" category="paragraph"><block ref="7a549152f69a4c5a4d90a9ad467016da" category="inline-image-macro-rx" type="image"></block></block>
   <block id="9e5081bbd0a64102ab8844f96776d6ea" category="admonition">生產使用案例的電源供應器組態通常應使用備援PSU。</block>
   <block id="cf31d049daa8cd238cb4238371f2e5d0" category="list-text">如有需要、請在每個BeeGFS區塊節點中安裝磁碟機。</block>
   <block id="eb86aba8f900c8f076cdcddafcf7271f" category="list-text">如果建置區塊將用於執行BeeGFS中繼資料和儲存服務、而較小的磁碟機則用於中繼資料磁碟區、請確認它們已安裝在最外側的磁碟機插槽中、如下圖所示。</block>
   <block id="c448ee45144a8930f2211d0a4edb7b91" category="list-text">對於所有的建置區塊組態、如果磁碟機機箱未完全安裝、請確定插槽0–11和12–23中已安裝相同數量的磁碟機、以獲得最佳效能。</block>
   <block id="4885044112b3b6c6858ae6802eb99831" category="paragraph"><block ref="4885044112b3b6c6858ae6802eb99831" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="472ae30ca7767b7347c25c071e0e4b13" category="list-text">若要纜線連接檔案和區塊節點、請使用1公尺InfiniBand HDR200GB直接連接銅線、使其符合下圖所示的拓撲。</block>
-  <block id="835b8f1e6b31f0d45576eed50cfe4027" category="paragraph"><block ref="835b8f1e6b31f0d45576eed50cfe4027" category="inline-image-macro-rx" type="image"></block></block>
   <block id="7fd5b7ef2a561c49e1b59a838397af45" category="admonition">橫跨多個建置區塊的節點永遠不會直接連線。每個建置區塊都應視為獨立式單元、而建置區塊之間的所有通訊都是透過網路交換器進行。</block>
-  <block id="ca7450c6e9a714419bebd35c8d11414a" category="list-text">使用2公尺（或適當長度）的InfiniBand HDR200GB直接連接銅線、將每個檔案節點上剩餘的InfiniBand連接埠纜線連接至儲存網路所用的InfiniBand交換器。</block>
-  <block id="678e3f5ded0c872017877baf55a34219" category="paragraph">如果使用的是冗餘InfiniBand交換器、請將下圖中以淺綠色強調顯示的連接埠連接至不同的交換器。</block>
   <block id="7a8dd1c52597fd7244751f757c26132e" category="paragraph"><block ref="7a8dd1c52597fd7244751f757c26132e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="57f799feabdc3b75aa704ff51e74f4c1" category="list-text">視需要、依照相同的佈線準則組裝其他建置組塊。</block>
   <block id="6a2ae129e5b77fd39f068e6cdee42d2a" category="admonition">可部署在單一機架中的建置區塊總數、取決於每個站台可用的電力和冷卻。</block>
   <block id="b11764419626b2eff6352f3d8e6022e3" category="summary">若要設定可Ansible控制節點、請識別可透過網路存取所有檔案和區塊節點管理連接埠的虛擬或實體機器、以便用來設定解決方案。</block>
   <block id="bfcf60c321d0d2cb85402c7a22d208b9" category="paragraph">若要設定Ansible控制節點、您必須識別可透過網路存取所有檔案和區塊節點管理連接埠的虛擬或實體機器、以便用來設定解決方案。</block>
-  <block id="c98e4789c5801c863a516b10b7663838" category="paragraph">下列步驟已在CentOS 8.4上進行測試。如需您偏好的Linux套裝作業系統專屬的步驟、請參閱<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>。</block>
-  <block id="9987c24bf4e936399e49e8ef8615083d" category="list-text">安裝Python 3.9並確保安裝正確版本的「pip」。</block>
-  <block id="bc55433e1f3f1b08c02a0254a0f864c1" category="list-text">建立符號連結、確保每當叫用「python3」或「python」時、都會使用Python 3.9二進位檔。</block>
   <block id="e7a81038c18b15bf5d97b77fb110af03" category="list-text">安裝NetApp BeeGFS集合所需的Python套件。</block>
   <block id="7f883f5609524995f000fc99b8f5691a" category="admonition">若要確保您安裝的是受支援版本的Ansible和所有必要的Python套件、請參閱BeeGFS集合的讀我檔案。支援的版本也會在中註明 <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>。</block>
   <block id="a36d9a848f44be3e2b8d092a5861995a" category="list-text">確認已安裝Ansible和Python的正確版本。</block>
@@ -896,8 +719,6 @@
   <block id="f710d81b04cfd57ef65bc4cca28bc3d4" category="section-title">步驟1：定義所有建置區塊的組態</block>
   <block id="08ecdaa3e32e095bd8f7ecec87a6ffe1" category="paragraph">定義套用至所有建置區塊的組態、無論您個別套用至哪些組態設定檔。</block>
   <block id="135b308ed83c53f1516b7c754566d1c4" category="list-title">開始之前</block>
-  <block id="17de9612747c3e48aee3a32b1da30959" category="list-text">使用BitBucket或Git等來源控制系統來儲存內含Ansible庫存和教戰手冊檔案的目錄內容。</block>
-  <block id="fc62f55b3e3e861f3b20a7ae40279cab" category="list-text">建立一個.gidignore檔案、指定Git應該忽略的檔案。這有助於避免在Git中儲存大型檔案。</block>
   <block id="1633329793556e695f8ae53c7f3c8756" category="list-text">在Ansible控制節點上、找出您要用來儲存Ansible庫存和教戰手冊檔案的目錄。</block>
   <block id="2af34d0fd4b17ecc42b7fb40d3a2019d" category="paragraph">除非另有說明、否則會針對此目錄建立此步驟中建立的所有檔案和目錄、以及執行下列步驟。</block>
   <block id="31f13138a9fb78368dd1c5b8b9cb522e" category="list-text">建立下列子目錄：</block>
@@ -927,7 +748,6 @@
   <block id="ba4d50db9221cc812d5f7981d4600c2d" category="paragraph">使用「beegfs_ha_alert_email_lists」指定一封或多封應接收叢集事件警示的電子郵件。</block>
   <block id="e69d5d030b5267144694edd30e58fa4b" category="admonition">儘管看似冗餘、但當您將BeeGFS檔案系統擴充至單一HA叢集以外的位置時、「beegfs_ha_mgmtd_浮 點_ip'是很重要的。部署後續HA叢集時、不需要額外的BeeGFS管理服務、並指向第一個叢集所提供的管理服務。</block>
   <block id="7509dcf152f48abcba19fa72adedb808" category="inline-link">在Red Hat High Availability叢集中設定隔離功能</block>
-  <block id="da185ecc8c2bce6af5f506542a665aab" category="list-text">設定隔離代理程式。（如需詳細資訊、請參閱<block ref="dc7760afd7fe301addd396cbb1b31319" category="inline-link-rx"></block>） 下列輸出顯示設定一般隔離代理程式的範例。請選擇下列其中一個選項。</block>
   <block id="b2f365e9dc240069eb174f596f8086dd" category="paragraph">在此步驟中、請注意：</block>
   <block id="83a5cc26327b36012de2442c022e0357" category="list-text">預設會啟用隔離功能、但您需要設定隔離_agent_。</block>
   <block id="502142ce464e9e0c49b233594ce3af26" category="list-text">在「PCM1_host_map」或「PCM1_host_list」中指定的「&lt;主機名稱&gt;」必須對應至「Ansible」清單中的主機名稱。</block>
@@ -938,9 +758,6 @@
   <block id="2e468d52e0778656623f6a98e831b3c0" category="paragraph">若要啟用效能調校、請指定：</block>
   <block id="5886796779dc029ac41ffca429f9f5d1" category="list-text">（選用）您可以視需要調整Linux作業系統中的效能調校參數。</block>
   <block id="fe7cbbcd6bbbe894cb7364e04d36c7ae" category="inline-link">E系列BeeGFS GitHub網站</block>
-  <block id="a2a731b1d02a58e1e3cbcdae15a63023" category="paragraph">如需可調整的可用調校參數完整清單、請參閱BeeGFS HA角色的效能調校預設值一節<block ref="32c82538a26b94ce448b7cce29eb6898" category="inline-link-rx"></block>。此檔案中的叢集所有節點或個別節點的「host_vars」檔案、都可以覆寫預設值。</block>
-  <block id="3abafbb6a7adaface99f5d9cd23b12d0" category="list-text">若要在區塊和檔案節點之間提供完整的200GB/HDR/連線能力、請使用Mellanox Open Fabrics Enterprise Distribution（MLNX_OFED）中的Open Subnet Manager（OpenSM）套件。（收件匣「opensm」套件不支援必要的虛擬化功能。） 雖然支援使用Ansible進行部署、但您必須先將所需的套件下載至執行BeeGFS角色所用的Ansible控制節點。</block>
-  <block id="b98ee7eab01ffcc8be1325c0937f01e8" category="list-text">使用「Curl」或您想要的工具、從Mellanox的網站下載列在技術需求區段中的OpenSM版本套件至「套件/」目錄。例如：</block>
   <block id="372ec1e9d1761b6aa16b9f0b54a4433b" category="list-text">在「group vars/ha_cluster．yml」（視需要調整套件）中填入下列參數：</block>
   <block id="382cd5df5d20e8ee60bea9f8be1884e3" category="list-text">設定「udev"規則、確保邏輯InfiniBand連接埠識別碼與基礎PCIe裝置之間的對應一致。</block>
   <block id="acb63a2b1a344472ec1b72c168bf5a95" category="paragraph">「udev"規則必須是每個作為BeeGFS檔案節點之伺服器平台的PCIe拓撲所特有的規則。</block>
@@ -955,7 +772,6 @@
   <block id="a18d6a60f542af2e3b0784928e17f417" category="list-text">若要確保最佳效能、請在中安裝區塊節點所列的版本 <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>。</block>
   <block id="8c41baf1ca98e1184f48c4721d44d431" category="inline-link">NetApp支援網站</block>
   <block id="38119f4253b4080e689702afd647df1f" category="paragraph">請從下載對應的檔案<block ref="3f80e15ba326a9eb1fc39b6d8ba81472" category="inline-link-rx"></block>。您可以手動升級、或是將它們納入Ansible控制節點的「套件/」目錄、然後在「Eserie_storage儲存系統.yml」中填入下列參數、以使用Ansible進行升級：</block>
-  <block id="a5a82f3b02ae57420ae1197446e1efc0" category="list-text">從下載並安裝適用於區塊節點中安裝之磁碟機的最新磁碟機韌體<block ref="7bf536b69fb1e52c85b84904e073cbdb" category="inline-link-rx"></block>。您可以手動升級、或是將它們納入Ansible控制節點的「套件/」目錄、然後在「Eserie_storage儲存系統.yml」中填入下列參數、以使用Ansible進行升級：</block>
   <block id="72423a5fa99fafb4c2dc7b7e7f7d7962" category="admonition">將「Eseria_drive_韌 體_grade_drives_online」設定為「假」會加速升級、但必須等到部署BeeGFS之後才能執行。這是因為該設定需要在升級前停止所有磁碟機的I/O、以避免應用程式錯誤。雖然在設定磁碟區之前執行線上磁碟機韌體升級仍很快、但我們建議您將此值設為「true」、以避免日後發生問題。</block>
   <block id="2b0551e04ffc3a713c07e9a9611b9897" category="list-text">若要最佳化效能、請對全域組態進行下列變更：</block>
   <block id="6b7cf272a4e3aeaf52c2d0ca991829e5" category="list-text">若要確保最佳的Volume資源配置和行為、請指定下列參數：</block>
@@ -982,7 +798,6 @@
   <block id="bbb8600e28b07b4e7765ccb37c8ba72d" category="paragraph">SOC P狀態</block>
   <block id="16a2e561c536a77cbfd10490ea398be6" category="paragraph">P0</block>
   <block id="f7d2d14860cfdee82e8cf9418c1ec624" category="paragraph">DF C狀態</block>
-  <block id="450e20de3fc0482fa7bdadc4622005ed" category="paragraph">P-State 1.</block>
   <block id="9c1a39470ba5d6a8856c5e813e20ef6b" category="paragraph">啟用記憶體關機</block>
   <block id="3011761cbf6a8eb38a41f6b38210c119" category="paragraph">每個插槽的NUMA節點</block>
   <block id="4142a6b2c0ac3aaf643751457e9aad6a" category="paragraph">NPS1</block>
@@ -1017,7 +832,6 @@
   <block id="12623d7cc9dff74b7325aa809ffc84df" category="sidebar">部落格-深入瞭解BeeGFS和E系列</block>
   <block id="0af9e7bf64a8e8c1b37ec554248f3d14" category="sidebar">部落格-適用於初學者的BeeGFS</block>
   <block id="6316c96cdd51a54d33d0011cf5f10c81" category="sidebar">部落格- HA for BeeGFS</block>
-  <block id="d5bc9778dcd2b28ce384782d014e53fc" category="sidebar">影片：利用NetApp上的BeeGFS加速AI工作負載</block>
   <block id="b89fcecfac1f6b8376165aabe5b6c5ee" category="sidebar">其他文件</block>
   <block id="bc4fe2352063642d68529f2aa0ca7ca3" category="sidebar">NetApp 產品文件</block>
   <block id="dbd68e15f4c30d2a47d780a9bf4f3da1" category="sidebar">BeeGFS文件</block>
@@ -1038,12 +852,8 @@
   <block id="e304a70d2f42f62cefb9b474f73a1e91" category="sidebar">建議的Volume百分比</block>
   <block id="ba13e086fe19056a379b6240e05651a8" category="sidebar">TR-4915 -使用E系列和BeeGFS進行AI資料移動</block>
   <block id="bc893b2686532fc683cb056beffd08aa" category="cell">磁碟機大小（10+2 RAID 6）儲存Volume群組</block>
-  <block id="132789d9474eae064aef2cd5266138d8" category="section-title">NVIDIA DGX A100 SupermPOD與BasePOD驗證</block>
-  <block id="d88f3188efb434f39b922170592443b5" category="paragraph">NetApp已使用類似的BeeGFS檔案系統（由三個建置區塊組成、並套用中繼資料加上儲存組態設定檔）、驗證NVIDIAs DGX A100 SupermPOD的儲存解決方案。此NVA所描述的解決方案、需要測試資格、測試20部DGX A100 GPU伺服器、執行各種儲存設備、機器學習和深度學習基準測試。所有通過NVIDIA DGX A100 SupermPOD認證的儲存設備、都會自動通過NVIDIA BasePOD架構的使用認證。</block>
   <block id="64dc43320ec1a44c390fafb5e2408f4b" category="inline-link">NVIDIA DGX基礎POD</block>
   <block id="33d753992c8525a016e60650889ef7a9" category="paragraph">如需詳細資訊、請參閱<block ref="917e0b817a1bc5579c3d00c8de7a0790" category="inline-link-rx"></block> 和<block ref="d4d49ddfca3de3daecdc231399362db8" category="inline-link-rx"></block>。</block>
-  <block id="e79ef600cb60c3e821f1cef23dcb17c1" category="list-text">NVIDIA DGX A100 SupermPOD與NVIDIA BasePOD架構的外部資格</block>
-  <block id="1e5b7e91f7684d1e82eca499bd3e9f00" category="paragraph">NetApp的第二代BeeGFS已經過最佳化、可滿足嚴苛工作負載的效能需求、包括高效能運算（HPC）和HPC型機器學習（ML）、深度學習（DL）和類似的人工智慧（AI）技術。透過採用共享磁碟高可用度（HA）架構、NetApp上的BeeGFS解決方案也能滿足企業和其他組織的資料耐用度和可用度需求、這些企業和組織在尋找能夠隨工作負載和使用案例而擴充的儲存設備時、無法承受停機或資料遺失的風險。此解決方案不僅已通過NetApp驗證、也已通過外部認證、成為NVIDIA DGX超級POD和DGX基礎POD的儲存選項。</block>
   <block id="53c31a8ba69af9d096629948d271d34d" category="paragraph-title">利用頻寬的纜線</block>
   <block id="bbe48fb854ea022537208eeeff822f91" category="paragraph-title">關於這項工作</block>
   <block id="48c7c41b72e1d678923ce3571aa65b2d" category="paragraph-title">步驟</block>
@@ -1159,12 +969,9 @@
   <block id="a65e0cef92147365de773d870438a30d" category="section-title">將個別BeeGFS服務移至替代檔案節點</block>
   <block id="606a28acf3a90904d7e27f3497573da7" category="section-title">將BeeGFS服務永久移至新的檔案節點</block>
   <block id="8f56c19ef179745c1437a4f477337649" category="paragraph">如果您想要永久變更個別BeeGFS服務的偏好檔案節點、請調整「Ansible」（可執行）資源清冊、使偏好的節點列在第一位、然後重新執行「Ansible」（可執行）資源清冊。</block>
-  <block id="7f86f0b1f1f7dc413a7da5a9a5acb79a" category="paragraph">例如本範例<block ref="d28e452e49fc926f32af1d87afcff3ce" prefix=" " category="inline-code"></block> 檔案、ictad22h01是執行BeeGFS管理服務的慣用檔案節點：</block>
-  <block id="b2d792db6eba9ea2a4bd7ebaf525e9a4" category="paragraph">反轉訂單會使ictad22h02上的管理服務更受歡迎：</block>
   <block id="346788f496d57b1e768d1dfaccdb3660" category="section-title">暫時將BeeGFS服務移至替代檔案節點</block>
   <block id="bad9cbcf702b276e1564c24e67ad301c" category="paragraph">一般而言、如果某個節點正在進行維護、您會想要使用[Failover and failover countures]（#Failover與容錯回復步驟）（#容 錯移轉與容錯回復）將所有服務移出該節點。</block>
   <block id="0a51cf78eac085426260a02c70378519" category="paragraph">如果由於某些原因、您確實需要將個別服務移至不同的檔案節點執行：</block>
-  <block id="9adf512d668d8b56c695d172f4de3f90" category="admonition">請勿指定個別資源或資源群組。請務必指定您要重新部署BeeGFS服務的監視器名稱。例如、若要將BeeGFS管理服務移至ictad22h02、請執行：<block ref="2349d8eb257904ae75bc6d292598087c" prefix=" " category="inline-code"></block>。您可以重複此程序、將一或多個服務移出偏好的節點。使用進行驗證<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 這些服務已在新節點上重新部署/啟動。</block>
   <block id="15bda9336e0e061125e3b40fe7bfbb0f" category="paragraph">若要將BeeGFS服務移回其慣用節點、請先清除暫用資源限制（視多項服務需要重複此步驟）：</block>
   <block id="d5c46792adbb43a012cbc1e858dc8bf4" category="paragraph">當您準備好將服務實際移回偏好的節點時、請執行：</block>
   <block id="05ccfd1bb05ec0cb0ad0dbc5cfa2b32d" category="paragraph">請注意、此命令會重新部署任何不再具有暫用資源限制的服務、而這些服務並未位於偏好的節點上。</block>
@@ -1224,7 +1031,6 @@
   <block id="a6dea15cd908ef20a94b7b92df902f0b" category="section-title">調查/解決的步驟</block>
   <block id="d418f50c5ddea28b4ca856017b36cb20" category="section-title">步驟1：檢查BeeGFS監視器是否偵測到故障：</block>
   <block id="a0d295ceecafcdade2e77c52fee836e0" category="paragraph">如果容錯移轉是由BeeGFS監控器觸發、您應該會看到錯誤（如果沒有、請繼續下一步）。</block>
-  <block id="1792a4cca8d37bb062059acbb40ebf88" category="paragraph">在此例中、BeeGFS服務meta_08因為某些原因而停止。若要繼續進行疑難排解、我們應該開機ictad22h02並檢閱服務記錄、網址為<block ref="45434eee994714888e9eafad4993b0d3" prefix=" " category="inline-code"></block>。例如、BeeGFS服務可能因為內部問題或節點問題而發生應用程式錯誤。</block>
   <block id="ba35f78b5ee9757310a818131880e7ba" category="admonition">不同於來自心臟起搏器的記錄、BeeGFS服務的記錄不會分散到叢集中的所有節點。若要調查這些故障類型、必須從發生故障的原始節點取得記錄。</block>
   <block id="e7ed0a662a65a2b9a77688262294bdeb" category="paragraph">監視器可能回報的問題包括：</block>
   <block id="7cdeb72a25ab193e904385b516b1b346" category="list-text">無法存取目標！</block>
@@ -1381,7 +1187,6 @@
   <block id="91eaeb6e5e7e4e970687d3f792cb1fc2" category="inline-link-macro">使用自訂架構</block>
   <block id="1fd9deaaaf47488f551e416eed092dc4" category="paragraph">對叢集的Ansible庫存檔案進行必要或想要的更新。請參閱 <block ref="45bb05730b6b8d8285ea6a3b0b08136e" category="inline-link-macro-rx"></block> 請參閱以下章節、瞭解您特定升級需求的詳細資訊。請參閱 <block ref="cd8d64b4736b3d402448d2252c8caef5" category="inline-link-macro-rx"></block> 一節、提供設定BeeGFS HA庫存的一般資訊。</block>
   <block id="e9bec369ce9e01aa4b52853b96332456" category="section-title">步驟3：更新可執行教戰手冊（僅更新主要或次要版本時）</block>
-  <block id="741fd5c03969a4e2dd468f897af24b03" category="paragraph">如果您要在主要或次要版本之間移動、請在中<block ref="2f78c4e27feaf25ffb33d97e8ff7e7a6" prefix=" " category="inline-code"></block> 用於部署及維護叢集的檔案、請更新的名稱<block ref="66b5cc4f55c22b7b05dfd4be1be47aab" prefix=" " category="inline-code"></block> 角色以反映所需版本。例如、如果您想要部署BeeGFS 7.3、這就是<block ref="7bfdf60ffcc8e818739972660aeebf71" prefix=" " category="inline-code"></block>：</block>
   <block id="800371603b58ee549a4a9674cd231cfd" category="inline-link-macro">部署BeeGFS HA叢集</block>
   <block id="8bb6abf93d767c3eea0b12c8c4b6bbb9" category="paragraph">如需本方針檔案內容的詳細資訊、請參閱 <block ref="fb53cae6b899ceb0b1bf986adcdc0e3a" category="inline-link-macro-rx"></block> 區段。</block>
   <block id="66422423510da7fd29c77f6559cd7ef6" category="section-title">步驟4：執行BeeGFS升級</block>
@@ -1434,7 +1239,6 @@
   <block id="44ebd117631269d8cc52eda82b890ecc" category="list-text">Python（pip）套件：ipaddr和netaddr</block>
   <block id="8486bce50d4152772da3c4531a015ab8" category="paragraph">此外、建議您從控制節點設定無密碼SSH、以連接所有BeeGFS檔案節點和用戶端。</block>
   <block id="5bca534f5a45c18ffc0306e63b306c62" category="section-title">BeeGFS檔案節點</block>
-  <block id="db9f63f8d00e9b524f09cf9c3bdce9c6" category="paragraph">檔案節點必須執行RedHat 8.4、並可存取含有必要套件（心律調整器、電暈器同步、Fence代理程式、資源代理程式）的HA儲存庫。例如、您可以執行下列命令、在RedHat 8上啟用適當的儲存庫：</block>
   <block id="676b08aacbe937f16d558f23d90b29da" category="section-title">BeeGFS用戶端節點</block>
   <block id="dc203cff346fc33ab19584264833d533" category="paragraph">BeeGFS用戶端Ansible角色可用於安裝BeeGFS用戶端套件、以及管理BeeGFS掛載。此角色已通過RedHat 8.4和Ubuntu 22.04測試。</block>
   <block id="2e0da5c1c3cbd1cda1312f57209c96e4" category="inline-link-macro">BeeGFS支援Linux發佈與核心</block>
@@ -1444,7 +1248,6 @@
   <block id="882d9f125986842da2dd0a55dab49692" category="paragraph">本節將逐步介紹填入的內容<block ref="6ec1b7d2e07359817e585e3cab8e078f" prefix=" " category="inline-code"></block> 叢集中每個檔案節點的檔案。這些檔案應僅包含特定檔案節點專屬的組態。這通常包括：</block>
   <block id="3a67b6422642abadfa758fc6684f8438" category="list-text">定義IP或Ansible主機名稱應用於連線至節點。</block>
   <block id="fc0fd95b8cee27585e1c24e4d4a97663" category="list-text">設定用於HA叢集服務（起搏器和電暈器同步）的其他介面和叢集IP、以便與其他檔案節點通訊。根據預設、這些服務使用的網路與管理介面相同、但應該有額外的介面可供備援。一般做法是在儲存網路上定義額外的IP、避免需要額外的叢集或管理網路。</block>
-  <block id="d3bb2cb10c3de19eafb23408d3a400a6" category="list-text">任何用於叢集通訊的網路效能、對檔案系統效能並不重要。使用預設的叢集組態時、通常至少需要1Gbps的網路、才能提供足夠的效能來執行叢集作業、例如同步節點狀態和協調叢集資源狀態變更。緩慢/忙碌的網路可能會導致資源狀態變更的時間比平常長、而且在極端的情況下、如果無法在合理的時間範圍內傳送訊號、則可能會導致節點從叢集中被逐出。</block>
   <block id="a557d06b3a2f8ed98f967366125754a4" category="list-text">設定介面、用於透過所需的傳輸協定連線至區塊節點（例如：iSCSI/iSER、NVMe/IB、NVMe/RoCE、FCP等）。</block>
   <block id="3990d1c8eb99844fa4339dea97a4f692" category="inline-link-macro">規劃檔案系統</block>
   <block id="346674dbd97098838f5327dc1e5c9c18" category="paragraph">參考中定義的IP定址方案 <block ref="9b15c2b73cdd7b8794597878cdbf2b1c" category="inline-link-macro-rx"></block> 區段中、針對叢集中的每個檔案節點建立一個檔案<block ref="29c5616b1b8c32726b3152860a451439" prefix=" " category="inline-code"></block> 並填入如下內容：</block>
@@ -1476,8 +1279,6 @@
   <block id="6c92285fa6d3e827b198d120ea3ac674" category="inline-link-macro">請按這裡</block>
   <block id="02613a7c8b7a72805b5196cbf7ed0def" category="paragraph">按一下 <block ref="6ff86e054594e10fe2118d48eb3fbd14" category="inline-link-macro-rx"></block> 例如、代表單一檔案節點的完整庫存檔案。</block>
   <block id="310ccb00662c7e9dcc32789c0d9b1b7a" category="section-title">進階：在乙太網路與InfiniBand模式之間切換NVIDIA ConnectX VPI介面卡</block>
-  <block id="dcc92cf452bd744849cd00433f6a6065" category="inline-link-macro">Mellanox Firmare工具（MFT）</block>
-  <block id="ed6cbc43ac185fea723a14d38091893c" category="paragraph">NVIDIA ConnectX-Virtual Protocol Interconnect（VPI）介面卡支援InfiniBand和乙太網路作為傳輸層。切換模式不會自動協商、必須使用進行設定<block ref="366fe119442ebda85ac564541700d0b5" prefix=" " category="inline-code"></block> 工具隨附於<block ref="a55706c70f646ff289a7f6fb8ddc1353" prefix=" " category="inline-code"></block>的開放原始碼套件 <block ref="c5b5fd4585af953450ea07aa852104bf" category="inline-link-macro-rx"></block>。只需變更一次介面卡模式即可。這可以手動完成、也可以包含在Ansible清單中、做為使用設定的任何介面的一部分<block ref="d6ca1855b29b160948694322764a86cb" prefix=" " category="inline-code"></block> 以自動檢查/套用。</block>
   <block id="2b4c9bc157bda4a68fe7b673b411f9cd" category="paragraph">例如、將InfiniBand模式中的介面電流變更為乙太網路、以便用於RoCE：</block>
   <block id="f352db79870cb8a06a0551761aba6955" category="list-text">針對您要設定的每個介面指定<block ref="366fe119442ebda85ac564541700d0b5" prefix=" " category="inline-code"></block> 做為指定的對應（或字典）<block ref="ced82128b540acaf7a5a55ad007dc9fc" prefix=" " category="inline-code"></block> 其中<block ref="ecb5fc74e9cd1f249d43a2bdbf2f239d" prefix=" " category="inline-code"></block> 由HCA的介面連接埠號碼決定。。<block ref="ecb5fc74e9cd1f249d43a2bdbf2f239d" prefix=" " category="inline-code"></block> 值可透過執行來決定<block ref="2ea620f2a9b9bed90c46047fef7e151b" prefix=" " category="inline-code"></block> 並從PCI插槽名稱新增1至最後一個數字、然後轉換為十進位。</block>
   <block id="070b28e93cab063481c989d1404f9835" category="list-text">例如給定的<block ref="92c00058a177a7a840386578304e1345" prefix=" " category="inline-code"></block> （2 + 1 -&gt; HCA連接埠3）-&gt;<block ref="f5e96e67a1ff914902859c7140e258c6" prefix=" " category="inline-code"></block>：</block>
@@ -1508,21 +1309,16 @@
   <block id="679f9b26ee84fb8a265eb6a80d1141b0" category="list-text">指定下列項目以全域啟用隔離：</block>
   <block id="2b86513417433b960c2a9628820cce70" category="inline-link-macro">叢集內容</block>
   <block id="a4a918a45181164207929d52aec36aec" category="inline-link-macro">預設值</block>
-  <block id="bcc67e5cda8ee1e21250342139467d00" category="list-text">請注意任何支援的項目 <block ref="1f696c148c590f4530f1598592f9a4b4" category="inline-link-macro-rx"></block> 如有需要、也可在此處指定。由於BeeGFS HA角色已經過許多測試、因此通常不需要調整這些功能 <block ref="d630d35a07d393b0d4bb83a7523d1703" category="inline-link-macro-rx"></block>。</block>
   <block id="8cb3e998c7b1e4cbe36289f2177363b5" category="list-text">接下來選取並設定隔離代理程式：</block>
   <block id="bc6b3ed04c45895c341d99b6765c1caa" category="list-text">選項1：若要使用APC電力分配單元（PDU）啟用隔離功能：</block>
   <block id="94ebb967d1a890978b9758e3f2aac3bb" category="list-text">選項2：若要使用Lenovo XCC（及其他BMC）提供的RedfISH API來啟用屏障：</block>
   <block id="7f2e85da597afbbb84c30c58c72fc4a2" category="inline-link-macro">RedHat文件</block>
-  <block id="18c5e5e72191184c4e18d312bc7fafef" category="list-text">如需設定其他隔離代理程式的詳細資訊、請參閱 <block ref="611005f72b088bb8cef495741d6f0861" category="inline-link-macro-rx"></block>。</block>
-  <block id="3a6d72343adc910bbcf2be9191e40f88" category="list-text">BeeGFS HA角色可套用許多不同的調校參數、以協助進一步最佳化效能。其中包括最佳化核心記憶體使用率和區塊裝置I/O、以及其他參數。角色隨附合理的套裝組合 <block ref="d9492c5c01c77d55ea71bf758fca3c1e" category="inline-link-macro-rx"></block> 根據NetApp E系列區塊節點的測試結果、但除非您指定以下項目、否則預設不會套用這些項目：</block>
   <block id="1242eea64a7ebfd7464359e597a4ec62" category="inline-link-macro">效能調校參數</block>
-  <block id="dbfad90b96c293c6b7b2b93be168cfd5" category="list-text">如有需要、也可在此處指定預設效能調校的任何變更。查看完整內容 <block ref="66aaf5e6618940d3ade7aede35016480" category="inline-link-macro-rx"></block> 其他詳細資料請參閱文件。</block>
   <block id="e535abe8b416a666cd34177ff6bbe395" category="list-text">為了確保BeeGFS服務所使用的浮動IP位址（有時稱為邏輯介面）可在檔案節點之間容錯移轉、所有網路介面必須一致命名。根據預設、網路介面名稱是由核心產生、因此無法保證產生一致的名稱、即使是安裝在相同PCIe插槽中的網路介面卡、也能在相同的伺服器機型上產生一致的名稱。在部署設備之前建立庫存並已知產生介面名稱時、這也很有用。根據伺服器或的區塊圖、確保裝置名稱一致<block ref="6efa276570b668a53eaf7bf29c69d544" prefix=" " category="inline-code"></block> 輸出時、請指定所需的PCIe位址對邏輯介面對應、如下所示：</block>
   <block id="b577b9bc7da15f148c6521018b1c26f7" category="list-text">對於InfiniBand（IPoIB）網路介面：</block>
   <block id="10b951f140b750e6d3b9a61a2aa51fc1" category="list-text">對於乙太網路介面：</block>
   <block id="e71729643558be7be36227d3edb537a5" category="admonition">為了避免在重新命名介面時發生衝突（避免重新命名）、您不應使用任何可能的預設名稱、例如eth0、ens9f0、ib0或ibs4f0。一般的命名慣例是使用「e」或「i」作為乙太網路或InfiniBand、接著是PCIe插槽編號、以及字母來表示連接埠。例如、安裝在插槽3的InfiniBand介面卡的第二個連接埠為：i3b。</block>
   <block id="62e75ccd7f725aa6905f33580950953f" category="admonition">如果您使用已驗證的檔案節點模型、請按一下 <block ref="3d76a23cff20eb55b7795ee99a64cc43" category="inline-link-macro-rx"></block> PCIe位址對邏輯連接埠對應範例。</block>
-  <block id="49d63ad68018ca272cf3bfe9a0843371" category="list-text">（可選）指定應套用至叢集中所有BeeGFS服務的組態。您可以找到預設組態值 <block ref="a57cc720fc0e96a52cf3201e2484ee55" category="inline-link-macro-rx"></block>和個別服務組態是在其他地方指定的：</block>
   <block id="1644ff30bfdd323dac0e52e1620614b2" category="list-text">BeeGFS管理服務：</block>
   <block id="c9c23b537bdcdcf7e82ad149d3e28ab1" category="list-text">BeeGFS中繼資料服務：</block>
   <block id="b292484ec320b2afcb3a63fdbff30bd3" category="list-text">BeeGFS儲存服務：</block>
@@ -1531,7 +1327,6 @@
   <block id="2beb66fd9b0c065cfc742ee53ee1055d" category="list-text">根據預設、部署會自動設定連線驗證、並產生<block ref="cd304377fdc20285a5aa94e55ae85aa7" prefix=" " category="inline-code"></block> 將會發佈至所有檔案節點、並搭配BeeGFS服務使用。此檔案也會放置/維護在的Ansible控制節點上<block ref="eee2923df30539b680421ca53d7c066b" prefix=" " category="inline-code"></block> 應將其維護（安全）以供需要存取此檔案系統的用戶端重複使用。</block>
   <block id="a6eacd255bbcfb7c0ed5589f3f4b3b80" category="list-text">產生新的金鑰指定<block ref="34efb4240137e7a93d7ad83bde309514" prefix=" " category="inline-code"></block> 執行Ansible教戰手冊時。請注意、如果是、則會忽略此項<block ref="8b76cf2fb65e09dad03ca686be5cd464" prefix=" " category="inline-code"></block> 已定義。</block>
   <block id="4d93b986f0992f2770f494a3ced4bd11" category="inline-link-macro">BeeGFS HA角色</block>
-  <block id="ce622ce5379468ed5a0a2f78bbabe2ab" category="list-text">如需進階選項、請參閱隨附的完整預設清單 <block ref="ef9c73fbbdc1b0f81755fa896cdced03" category="inline-link-macro-rx"></block>。</block>
   <block id="ca03fa9d55c2bc9aa4bb21f10949f48a" category="list-text">您可以在中定義下列項目、以使用自訂密碼<block ref="3cd295e6aaa39e2510aff65b801cc5ab" prefix=" " category="inline-code"></block>：</block>
   <block id="00d80f50123e52756def9093de1ba2aa" category="list-text">連線驗證可完全停用（不建議）：</block>
   <block id="b8a5eb74062e4ce8ebe0914712be3ae2" category="paragraph">按一下 <block ref="632283d8f4d8d92337070d81c0b8ed5f" category="inline-link-macro-rx"></block> 例如、代表通用檔案節點組態的完整庫存檔案。</block>
@@ -1539,9 +1334,7 @@
   <block id="9e152ebb462ebe95f96d2711a934ec01" category="paragraph">若要將HDR(200Gb) InfiniBand搭配EF600使用、子網路管理程式必須支援虛擬化。如果使用交換器連接檔案和區塊節點、則必須在整個Fabric的子網路管理程式上啟用此功能。</block>
   <block id="11f007a0a372dd0901653de91029d3d8" category="inline-link-macro">設定檔案節點儲存介面</block>
   <block id="7d8267855776cbf28fdb280b86e18730" category="paragraph">如果區塊和檔案節點是使用InfiniBand直接連線、則為的執行個體<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> 必須在每個檔案節點上為直接連線至區塊節點的每個介面進行設定。這是透過指定來完成<block ref="a983fd54df8f83bdfdc5756fe288aa56" prefix=" " category="inline-code"></block> 何時 <block ref="b7aaae639ec3dcbad23b6be7de000276" category="inline-link-macro-rx"></block>。</block>
-  <block id="458626752c0cbe26a6b491b0f013e5e6" category="paragraph">目前為的收件匣版本<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> 隨附支援的Linux套裝作業系統不支援虛擬化。而是需要您安裝及設定的版本<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> 來自Mellanox OpenFabrics Enterprise Distribution（OFED）。雖然仍支援使用Ansible進行部署、但仍需執行幾個額外步驟：</block>
   <block id="b13b4c123d075f5df5e6f618489fde5f" category="inline-link-macro">技術需求</block>
-  <block id="42bc30626d8bda33040bd0a59cebee54" category="list-text">使用Curl或您想要的工具、下載中所列OpenSM版本的套件 <block ref="ae114c21b1e7dc7681f7c73b9450ef94" category="inline-link-macro-rx"></block> 章節、從Mellanox的網站到<block ref="4d67f7bc650c0237a4f14903bb4e32de" prefix=" " category="inline-code"></block> 目錄。例如：</block>
   <block id="df1f716d0a26eb697eb7605722643850" category="list-text">低於<block ref="4003590e6e5408f8e5272e50f909dfac" prefix=" " category="inline-code"></block> 定義下列組態：</block>
   <block id="c25698c0b0a8b21ec89a22a39d05b4e4" category="summary">使用主機變數（host_vars）指定個別區塊節點的組態。</block>
   <block id="007670379f88b0b437948cd7ffd18854" category="doc">設定個別區塊節點</block>
@@ -1684,7 +1477,6 @@
   <block id="d5e81e99079cfbb27d893365b01c6733" category="paragraph">規劃安裝時、每個建置區塊中的所有設備都必須安裝在鄰近的機架單元中。最佳實務做法是將檔案節點直接機架在每個建置區塊的區塊節點上方。遵循檔案和模型的文件說明文件 <block ref="3876eb55ee0ffaac1627ebbb7ea8fad8" category="inline-link-macro-rx"></block> 將滑軌和硬體安裝到機架時所使用的節點。</block>
   <block id="39979c4d8cb83fc0443baa4ff7f48f07" category="paragraph">單一建置區塊範例：</block>
   <block id="53536705172b0f4e5a21ed9d9fc90a82" category="inline-image-macro">建置區塊範例</block>
-  <block id="ca5a698e3f013f50588c49da25109e06" category="paragraph"><block ref="ca5a698e3f013f50588c49da25109e06" category="inline-image-macro-rx" type="image"></block></block>
   <block id="98ac29120ce31a8b9f17cc6bcad239b1" category="paragraph">大型BeeGFS安裝範例、其中每個HA叢集有多個建置區塊、以及檔案系統中的多個HA叢集：</block>
   <block id="4ffad59982a5f378d3b3c700a5c67ab0" category="inline-image-macro">BeeGFS部署範例</block>
   <block id="10f70f19704206d8c2cee1fae42f7dea" category="paragraph"><block ref="10f70f19704206d8c2cee1fae42f7dea" category="inline-image-macro-rx" type="image"></block></block>
@@ -1741,7 +1533,6 @@
   <block id="825f3be2c17c36c0e4901143db982773" category="list-text">建立新檔案<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 並指定Ansible使用者應使用連線至每個用戶端、而Ansible密碼應用於權限提升（這需要<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> 為root、或具有Sudo權限）：</block>
   <block id="c5a4ae1aa23001e8780b413f175b50b3" category="admonition">請勿以純文字儲存密碼。請改用Ansible Vault（請參閱 <block ref="f2e33a881c3eb75b68333af99119c0b8" category="inline-link-macro-rx"></block> 使用Ansible Vault加密內容）或使用<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 執行教戰手冊時的選項。</block>
   <block id="848f64fc57104cb2b416f6102d34e699" category="list-text">在中<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 檔案中、列出應在中設定為BeeGFS用戶端的所有主機<block ref="fc2e11772a55c48ed2b4ec7bc5d94664" prefix=" " category="inline-code"></block> 然後參閱內嵌註解、取消註釋在系統上建置BeeGFS用戶端核心模組所需的任何其他組態：</block>
-  <block id="743c079a390bacd58f1ec66c241c688e" category="admonition">使用Mellanox OFED驅動程式時、請確定beegfs_client_ofed_include_path指向適用於Linux安裝的正確「標頭包含路徑」。如需詳細資訊、請參閱的BeeGFS文件 <block ref="a36a0245ff208157cbdf93cd51fc1311" category="inline-link-macro-rx"></block>。</block>
   <block id="c378775497a55638adcb42719d8daddb" category="list-text">在中<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 檔案中、列出您要掛載於任何先前定義下的BeeGFS檔案系統<block ref="b63119da730344b345cdc8f62a4711e9" prefix=" " category="inline-code"></block>：</block>
   <block id="508ccac845ca75d6cdda20dfa455a2bd" category="inline-link-macro">通用檔案節點組態</block>
   <block id="eeaa045faacfe7ac3ff3c860c9ddb470" category="list-text">截至BeeGFS 7.2.7和7.3.1 <block ref="770c4b58b3b364c4ac52cf5cc555453f" category="inline-link-macro-rx"></block> 必須設定或明確停用。視您在指定時設定連線型驗證的方式而定 <block ref="24f8b4d23bbf0a3339e16ecc2414c31b" category="inline-link-macro-rx"></block>、您可能需要調整用戶端組態：</block>
@@ -1823,7 +1614,6 @@
   <block id="16a4e0aca277107b3401d2d33d4e5c00" category="inline-link-macro">BeeGFS用戶端</block>
   <block id="1c82d73e983ef595a7c60ff4647716a7" category="paragraph">NetApp也為提供Ansible角色 <block ref="b6cde77df9fbd5f549a35216e2ea351f" category="inline-link-macro-rx"></block>（可選）用於安裝BeeGFS並將文件系統掛載到compute（計算）/GPU/Login（計算/ GPU /登錄）節點。</block>
   <block id="33abf34a1ac99d306f38ad532ed75170" category="inline-link-macro">使用指南</block>
-  <block id="15c6822a2ade4cd67d3e96c043806b65" category="paragraph">您可以下載並執行已套用建議韌體的mlxup工具版本、以完成此更新。您可以從下載此工具<block ref="d22fd7ba0031fc3b862dce4cf129cfa5" category="inline-link-rx"></block> （<block ref="841da9e9d7f929a00ebef7288ee21ef7" category="inline-link-macro-rx"></block>）。</block>
   <block id="55f7d3580cdac035324d4348b9dac05b" category="inline-link-macro">管理BeeGFS叢集</block>
   <block id="0d06184de569870cd5818ae2e6c4a6ac" category="admonition">請參閱 <block ref="0671020dd7d3d7a323a3eef6d8b61659" category="inline-link-macro-rx"></block> 一節、提供與BeeGFS高可用度（HA）叢集互動的專屬詞彙與概念的其他詳細資料。</block>
   <block id="3e3cee1fd1e1de5762df25400f62794a" category="paragraph">HPC叢集中執行需要使用檔案系統之應用程式的節點。有時也稱為運算或GPU節點。</block>
@@ -1860,6 +1650,220 @@
   <block id="e8afe31a21b6aae9717484d865743dae" category="sidebar">NetApp 上的 BeeGFS 搭配 E 系列儲存設備、是備受肯定的整合式解決方案、提供簡單、可靠、可擴充且具成本效益的高效能運算基礎架構、能跟上您最極端的工作負載。</block>
   <block id="3a9aabbbb8c331319a41788bf5d1786a" category="paragraph">實際組裝及建立Ansible庫存檔案時、請遵循下列標準慣例（如需詳細資訊、請參閱） <block ref="dbbcb9482f49ee969cddb7f10864cbd0" category="inline-link-macro-rx"></block>）。</block>
   <block id="a743f5810f84b94eef8da441707ef9cb" category="paragraph">若要將HDR（200GB）InfiniBand搭配EF600使用、必須為每個實體連接埠設定第二個「虛擬」IP。以下是正確設定配備雙埠 InfiniBand HDR HIC 的 EF600 的範例：</block>
-  <block id="c0e444d9cf9d3a48a737c4df4fa52549" category="list-text">在 RAID 1 中為作業系統設定兩個 1TB 7.2K SATA 磁碟機（或同等或更高）。</block>
-  <block id="509d1f98aaad6eee1691109893d137fe" category="list-text">1 GbE （或更好的）連接埠、用於頻內 OS 管理。</block>
+  <block id="ba83328d8d0f6845114641c46fd328ed" category="paragraph">在此例中、BeeGFS服務meta_08因為某些原因而停止。若要繼續疑難排解、我們應該開機 beegfs_02 、並檢閱服務的記錄、網址為：<block ref="45434eee994714888e9eafad4993b0d3" prefix=" " category="inline-code"></block>。例如、BeeGFS服務可能因為內部問題或節點問題而發生應用程式錯誤。</block>
+  <block id="12edeb5890095749089987982a1404ce" category="cell">7.4.1..</block>
+  <block id="edd2140e3bcb557a4bc234fc76e2dfb3" category="cell">使用beegfs集合v3.2.0升級</block>
+  <block id="fb6df547cfb7d95cb9b49b8301cad3ab" category="cell">7.4.2..</block>
+  <block id="549cabdee707d530b4b718071c2b04e9" category="paragraph">如果您要在主要或次要版本之間移動、請在<block ref="2f78c4e27feaf25ffb33d97e8ff7e7a6" prefix=" " category="inline-code"></block> 用於部署和維護叢集的檔案中、更新角色名稱<block ref="66b5cc4f55c22b7b05dfd4be1be47aab" prefix=" " category="inline-code"></block> 以反映所需的版本。例如，如果您想部署 BeeGFS 7.4 ，這將是<block ref="bf8d782a5f25b975eee48d224688885f" prefix=" " category="inline-code"></block>：</block>
+  <block id="e8c7ab07a88c53743d909983583625f9" category="paragraph">例如、在此範例檔案中<block ref="d28e452e49fc926f32af1d87afcff3ce" prefix=" " category="inline-code"></block> 、 beegfs_01 是執行 BeeGFS 管理服務的慣用檔案節點：</block>
+  <block id="cb7c9e260fba17d2ffcc93361a0eab2e" category="paragraph">反轉訂單會使beegfs_02上的管理服務更受歡迎：</block>
+  <block id="958b8a27f957bef8700299f8cafb9b9a" category="admonition">請勿指定個別資源或資源群組。請務必指定您要重新部署BeeGFS服務的監視器名稱。例如，要將 BeeGFS 管理服務移至 beegfs_02 ，請執行<block ref="ad6bdcc4dd95b7dbe9e00b9894a08e42" prefix=" " category="inline-code"></block>：。您可以重複此程序、將一或多個服務移出偏好的節點。確認<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 新節點上的服務已重新定位 / 啟動。</block>
+  <block id="de752721186f0ef334b71ac4b3fe9cb5" category="paragraph">檔案節點必須執行RedHat 9.3、並可存取含有必要套件（心律調整器、電暈器同步、Fence代理程式、資源代理程式）的HA儲存庫。例如、您可以執行下列命令、在RedHat 9上啟用適當的儲存庫：</block>
+  <block id="aaf17f2a8cba647c8702de94c1bef112" category="list-text">附註如有需要、也可在此處指定任何支援 <block ref="f4efc844d4401fa0cd59f82e6a720d5a" category="inline-link-macro-rx"></block> 的項目。由於 BeeGFS HA 角色隨附許多經過測試的功能，因此通常不需要調整這些 <block ref="62cb44c0555eaba8953c22f475d751a4" category="inline-link-macro-rx"></block>功能。</block>
+  <block id="064f7cc76dc5afb2fb3aa165873ba871" category="list-text">如需設定其他隔離代理程式的詳細資訊，請參閱 <block ref="1e76955e0560eaf6ce328d55fb062eeb" category="inline-link-macro-rx"></block>。</block>
+  <block id="b611c6838bc0b80a5b542ae4d720301f" category="list-text">BeeGFS HA角色可套用許多不同的調校參數、以協助進一步最佳化效能。其中包括最佳化核心記憶體使用率和區塊裝置I/O、以及其他參數。根據 NetApp E-Series 區塊節點的測試、角色隨附一組合理的 <block ref="e3e5af180e2cd561ad9b935d8101ce4e" category="inline-link-macro-rx"></block> 、但預設不會套用這些功能、除非您指定：</block>
+  <block id="7353e78ee2c3bb2136aa1b29915ccf4b" category="list-text">如有需要、也可在此處指定預設效能調校的任何變更。如需其他詳細資料、請參閱完整 <block ref="df0e33f301a426939663a0f2db36079c" category="inline-link-macro-rx"></block> 文件。</block>
+  <block id="37fa384fbce35691f87f5108b23924df" category="list-text">（可選）指定應套用至叢集中所有BeeGFS服務的組態。可以找到預設組態值 <block ref="cb8aac20b4c821ca121d5c55cc4298ed" category="inline-link-macro-rx"></block>、並在其他地方指定個別服務組態：</block>
+  <block id="61eef27bde9b61db5c00501b13e855d5" category="list-text">如需進階選項，請參閱隨附的完整預設清單 <block ref="cf22ff8e76067e7f0eed610c434ec47d" category="inline-link-macro-rx"></block>。</block>
+  <block id="5452bc376e228dbfc0b465054f2483c7" category="paragraph">目前支援的 Linux 套裝作業系統隨附的收件匣版本<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> 不支援虛擬化。而是必須從 NVIDIA OpenFabrics Enterprise Distribution （ OFED ）安裝和設定的版本<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> 。雖然仍支援使用Ansible進行部署、但仍需執行幾個額外步驟：</block>
+  <block id="9c279dc4c0fdf62d589e1afa8c972930" category="list-text">使用 Curl 或您想要的工具、將 NVIDIA 網站一節中所列 OpenSM 版本的套件下載 <block ref="ae114c21b1e7dc7681f7c73b9450ef94" category="inline-link-macro-rx"></block> 到<block ref="4d67f7bc650c0237a4f14903bb4e32de" prefix=" " category="inline-code"></block> 目錄中。例如：</block>
+  <block id="a7d969bead9b9df7cbb19855a88e29f0" category="list-text">任何用於叢集通訊的網路效能、對檔案系統效能並不重要。使用預設叢集組態時、通常至少有 1 Gb/s 網路可為叢集作業提供足夠的效能、例如同步節點狀態和協調叢集資源狀態變更。緩慢/忙碌的網路可能會導致資源狀態變更的時間比平常長、而且在極端的情況下、如果無法在合理的時間範圍內傳送訊號、則可能會導致節點從叢集中被逐出。</block>
+  <block id="b1c24e06350be92498850e67cc8d9f5b" category="inline-link-macro">NVIDIA Firmare 工具（ MFT ）</block>
+  <block id="042d56fca47b68c93d438d4b1275b212" category="paragraph">NVIDIA ConnectX-Virtual Protocol Interconnect（VPI）介面卡支援InfiniBand和乙太網路作為傳輸層。在模式之間切換不會自動協商，而且必須使用中隨附的工具進行設定<block ref="366fe119442ebda85ac564541700d0b5" prefix=" " category="inline-code"></block><block ref="a55706c70f646ff289a7f6fb8ddc1353" prefix=" " category="inline-code"></block>，這是屬於的開放原始碼套件 <block ref="feedb9cf3a554ef170c48364196566a1" category="inline-link-macro-rx"></block>。只需變更一次介面卡模式即可。這可以手動完成、也可以納入 Ansible 庫存、做為任何使用庫存區段設定的介面一部分<block ref="d6ca1855b29b160948694322764a86cb" prefix=" " category="inline-code"></block> 、以自動檢查 / 套用。</block>
+  <block id="815feebb5e4cc6a260b0689a8647ef51" category="admonition">使用 NVIDIA OFED 驅動程式時、請確定 beegfs_client_of_ofed_include_path 指向 Linux 安裝的正確「 header include path 」。如需詳細資訊，請參閱的 BeeGFS 文件 <block ref="a36a0245ff208157cbdf93cd51fc1311" category="inline-link-macro-rx"></block>。</block>
+  <block id="988ac7262f270e296238adb630629da1" category="paragraph"><block ref="988ac7262f270e296238adb630629da1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fbe2ee36e5e515b0ea11d513d4edd60d" category="paragraph">NetApp 解決方案上的 BeeGFS 已驗證下列節點。</block>
+  <block id="6c3a6944a808a7c0bbb6788dbec54a9f" category="cell">節點</block>
+  <block id="3c02a379965ab0dfcd77b1c484450433" category="cell">硬體</block>
+  <block id="e1e4c8c9ccd9fc39c391da4bcd093fb2" category="cell">區塊</block>
+  <block id="11eae0b95e61cd22a675ac3a648e9f79" category="cell">NetApp EF600 儲存系統</block>
+  <block id="318d8d02c042e4aa8cd7ae129f0a339b" category="cell">專為嚴苛工作負載所設計的高效能全 NVMe 2U 儲存陣列。</block>
+  <block id="0b27918290ff5323bea1e3b78a9cf04e" category="cell">檔案</block>
+  <block id="8c9b1d5381233aa78ea770058e6742e6" category="cell">Lenovo ThinkSystem SR665 V3 伺服器</block>
+  <block id="2a3586b2a3c3de10623ad3288a90f6dd" category="cell">雙插槽 2U 伺服器、採用 PCIe 5.0 、雙 AMD EPYC 9124 處理器。如需 Lenovo SR665 V3 的詳細資訊、請參閱<block ref="7f25034611c942664d16f6d0ddb47fad" category="inline-link-rx"></block>。</block>
+  <block id="ae1c04d15a9494b2729aa9280c0120fa" category="cell">Lenovo ThinkSystem SR665 伺服器</block>
+  <block id="d1c6fb9a2f602020b776764cc928e4c4" category="cell">雙插槽 2U 伺服器、採用 PCIe 4.0 、雙 AMD EPYC 7003 處理器。如需 Lenovo SR665 的詳細資訊、請參閱<block ref="65dfa08d35b276d60d397ded9080ccd5" category="inline-link-rx"></block>。</block>
+  <block id="62ecfeab471e0776b331e56e58d79d41" category="paragraph">此解決方案的建置區塊（如下圖所示）使用通過驗證的檔案節點伺服器作為 BeeGFS 檔案層、並使用兩個 EF600 儲存系統做為區塊層。</block>
+  <block id="f220d8966f97bec043102cd415b93605" category="paragraph">NetApp上的BeeGFS解決方案可在部署中的所有建置區塊上執行。部署的第一個建置區塊必須執行 BeeGFS 管理、中繼資料和儲存服務（稱為基礎建置區塊）。所有後續的建置區塊均可透過軟體進行設定、以擴充中繼資料和儲存服務、或是僅提供儲存服務。這種模組化方法可根據工作負載的需求擴充檔案系統、同時使用相同的基礎硬體平台和建置區塊設計。</block>
+  <block id="2cad05d70c2bc093824c9105ad50dc45" category="paragraph">最多可部署五個建置區塊、形成獨立式 Linux HA 叢集。如此可利用 Pacemaker 最佳化資源管理、並與電暈器同步保持高效率同步。這些獨立式 BeeGFS HA 叢集中有一或多個是結合在一起的、可建立 BeeGFS 檔案系統、讓用戶端以單一儲存命名空間的形式存取。在硬體方面、單一 42U 機架最多可容納五個建置區塊、以及兩個用於儲存 / 資料網路的 1U InfiniBand 交換器。請參閱下圖以取得視覺呈現。</block>
+  <block id="a4186acf84c4a49d9d83b2b83544a1c8" category="admonition">在容錯移轉叢集中建立仲裁所需的建置區塊至少有兩個。雙節點叢集具有可能會阻止容錯移轉成功的限制。您可以將第三個裝置整合為 tiebreaker 來設定雙節點叢集、但本文件並未說明該設計。</block>
+  <block id="7531d1760bee1e64b20f1f8975ccfc87" category="paragraph">例如，命名慣例<block ref="6171c77957e7dd932771522d0f5313aa" prefix=" " category="inline-code"></block> 如下所示：<block ref="201b23a54c1ff68053f15f81feb28cbb" prefix=" " category="inline-code"></block>。</block>
+  <block id="db94a118f0347e2dbe0ef8f3c0674d1f" category="paragraph">例如，通常名稱為的區塊節點<block ref="ca9fd584227ff345bca2ef90d5c56e63" prefix=" " category="inline-code"></block> 可以為每個控制器設定主機名稱，例如<block ref="86ee3de8557579a76634023aa5ccc100" prefix=" " category="inline-code"></block> 和<block ref="32665fb108839c23a5db4a463e74176e" prefix=" " category="inline-code"></block>，但在 Ansible 清單中則稱為<block ref="3d1a3866e5aadfdac8b0e07e6740b0fe" prefix=" " category="inline-code"></block>。</block>
+  <block id="a0e2a91b693d9eb92fb3153f61dfe4fa" category="section-title">BeeGFS 用戶端伺服器 IPoIB 定址方案</block>
+  <block id="7f5258ce731ddb14570317599b9962d9" category="list-text">BeeGFS 儲存服務永遠位於<block ref="7bda92dd6fa15b04835e990fcef5c6f7" prefix=" " category="inline-code"></block> 或<block ref="0dc2ee6e17afcd7bafe09a4e99667f35" prefix=" " category="inline-code"></block>。</block>
+  <block id="888c436af0d0f519ac3018d0df7868cd" category="section-title">IPoIB 單一子網路定址方案</block>
+  <block id="c9923a234c7bd25e331582479a38a503" category="inline-link-macro">軟體架構</block>
+  <block id="9159781ab55be88f1f26fb2b8e4e7420" category="paragraph">根據中列出的優點，本部署指南將使用單一子網路架構 <block ref="2504f4d58c8f68628557b72cf70af5b4" category="inline-link-macro-rx"></block>。</block>
+  <block id="8474461676c84fa210da74bbd55e916d" category="paragraph-title">子網路： 100.127.0.0/16</block>
+  <block id="e7e7c18d006d81c97d299954457c88f1" category="paragraph">下表提供單一子網路的範圍： 100.127.0.0.0/16 。</block>
+  <block id="039d7982c08566a6ae03eaa24cb6c670" category="cell">i1b 或 i4b</block>
+  <block id="56fd2b46f686fb44565e25ca28a93fc0" category="cell">100.127.102.0</block>
+  <block id="437dac4e62a043183f68652e142fc4a3" category="cell">100.127.102.1 - 100.127.102.255</block>
+  <block id="031082c8b0090f55cf416fb5aa46e723" category="cell">100.127.104.1-100.127.104.255</block>
+  <block id="2cc4767a51c5d45fecfa3be2bb68037c" category="section-title">IPoIB 兩個子網路定址方案</block>
+  <block id="e1c71427409ff54c1742cb28f621dcd5" category="paragraph">不再建議使用兩個子網路定址方案、但仍可實作。如需建議的兩個子網路配置、請參閱下表。</block>
+  <block id="29ebd98b5bc8daaac03bfdeefabf090e" category="admonition">如果使用兩個子網路定址方案進行部署、則必須在每個用戶端上設定兩個 InfiniBand 介面、每個都在兩個儲存 IPoIB 子網路中設定一個。如果針對此處列出的每項 BeeGFS 服務使用範例子網路和建議範圍、則用戶端應在「至」範圍內設定一個介面、而在「至」中設定另一個介面<block ref="0c41ff65aa6ae425a8c58863fcb3cef5" prefix=" " category="inline-code"></block><block ref="b4e6b2ab9469bd0c90a8b83c8ebc175f" prefix=" " category="inline-code"></block><block ref="ee8ceb74abe0adf268a6f4a36c7735d9" prefix=" " category="inline-code"></block><block ref="4a52c6bf091e6a4cd2fd08fa070352e3" prefix=" " category="inline-code"></block>。</block>
+  <block id="6dc47c91cdf35bbb7cac1fd9e1ff29d7" category="admonition">使用 NVIDIA OFED 驅動程式時、請<block ref="f24d21b8b47b3902162911c8595514e9" prefix=" " category="inline-code"></block> 務必針對您的 Linux 安裝指向正確的「標頭包含路徑」。如需詳細資訊，請參閱的 BeeGFS 文件<block ref="ad551773fffeead9219b565416da2397" category="inline-link-rx"></block>。</block>
+  <block id="ba9cd5a8827de277f30213c3a9f74d65" category="list-text">為您的部署選擇子網路定址方案。由於中列出的優點 <block ref="2504f4d58c8f68628557b72cf70af5b4" category="inline-link-macro-rx"></block>、建議您使用單一子網路定址方案。</block>
+  <block id="c9e946c487cb8ab99c1f1b0c16839f91" category="list-text">設定隔離代理程式。（如需詳細資訊、請參閱<block ref="36285c27b4e0cfacce4f264137f7dfc3" category="inline-link-rx"></block>。）下列輸出顯示設定一般隔離代理程式的範例。請選擇下列其中一個選項。</block>
+  <block id="90fd7614ddbcf02d5873d67a7e08983a" category="paragraph">如需您可以調整的可用調校參數完整清單，請參閱中 BeeGFS HA 角色的效能調校預設值一節<block ref="88ca1124cd8a9bf4401c9daba82c5025" category="inline-link-rx"></block>。 此檔案中叢集中的所有節點或個別節點的檔案都可以覆寫預設值<block ref="3342582e194d63e4c91b56623752c9c6" prefix=" " category="inline-code"></block> 。</block>
+  <block id="75d34bd8c0a1081d52b926e7b1b60689" category="inline-link-macro">檔案節點需求</block>
+  <block id="3762dd806b1df772618c9caeb19d9d43" category="list-text">若要在區塊和檔案節點之間提供完整的 200GB/HDR 連線能力、請使用 NVIDIA 開放式 Fabric 企業配送（ MLNX_OFED ）中的開放式子網路管理員（ OpenSM ）套件。所列的 MLNx_OFED 版本 <block ref="1dfb967627cb2f0e7f82d8713fd73b4c" category="inline-link-macro-rx"></block> 隨附於建議的 OpenSM 套件。雖然支援使用 Ansible 進行部署、但您必須先在所有檔案節點上安裝 MLNX_OFED 驅動程式。</block>
+  <block id="c113a52851d26cf252ec05ac9628162e" category="list-text">從下載並安裝適用於區塊節點中安裝之磁碟機的最新磁碟機韌體<block ref="df4241174f74102a38fc34a378114b68" category="inline-link-rx"></block>。您可以手動升級它們、或將它們納入<block ref="93501a11e921083efbd154e0cdff5f10" prefix=" " category="inline-code"></block> Ansible 控制節點的目錄、然後在中填入下列參數<block ref="79d2514d0f856ef18e58ebf8b9716d05" prefix=" " category="inline-code"></block> 、以使用 Ansible 進行升級：</block>
+  <block id="a94e8f341d41dc36ead41bc0876ad6b6" category="cell">i1b ： 100.127.101.1/16 i2b ： 100.127.102.1/16</block>
+  <block id="3d1a3866e5aadfdac8b0e07e6740b0fe" category="cell">netapp_01</block>
+  <block id="ceff1390fad555137a9e76549f5c5c35" category="cell">i2b ： 100.127.102.2/16 i1b ： 100.127.101.2/16</block>
+  <block id="4261093cdb58c46bcef081c2a8d50a22" category="cell">i3b ： 100.127.101.3/16 i4b ： 100.127.102.3/16</block>
+  <block id="ae9471dd5ddb2f7bbf73f8df6d11ea8d" category="cell">netapp_02</block>
+  <block id="6a4b726f26d557d3d41580df69e5f52c" category="cell">i4b ： 100.127.102.4/16 i3b ： 100.127.101.4/16</block>
+  <block id="3468e3b520debc18497bb043da48a402" category="cell">i1b ： 100.127.101.5/16 i2b ： 100.127.102.5/16</block>
+  <block id="661d119659a3196ad4ea3cd776db51f9" category="cell">i2b ： 100.127.102.6/16 i1b ： 100.127.101.6/16</block>
+  <block id="5e4915a0b5172fe24086c6612e459a18" category="cell">i3b ： 100.127.101.7/16 i4b ： 100.127.102.7/16</block>
+  <block id="d4255115c2508bc18adb598c6fb0b827" category="cell">i4b ： 100.127.102.8/16 i3b ： 100.127.101.8/16</block>
+  <block id="8d05d453ff97ca9e3418e1655244d8d5" category="cell">i1b ： 100.127.103.1/16 i2b ： 100.127.104.1/16</block>
+  <block id="f012b1a2bc162eecafcb880e45d300b3" category="cell">i2b ： 100.127.104.2/16 i1b ： 100.127.103.2/16</block>
+  <block id="92947a5a536c1c49f8a56988362e49f9" category="cell">i3b ： 100.127.103.3/16 i4b ： 100.127.104.3/16</block>
+  <block id="0b566e0d0703bad78bbac23313f53279" category="cell">i4b ： 100.127.104.4/16 i3b ： 100.127.103.4/16</block>
+  <block id="d424257a0c5e62d3b63dc54431955dbb" category="cell">i1b ： 100.127.103.5/16 i2b ： 100.127.104.5/16</block>
+  <block id="261805237e27c4db09ed2709c5b4ee1d" category="cell">i2b ： 100.127.104.6/16 i1b ： 100.127.103.6/16</block>
+  <block id="85dab52b55c7182f1c63b93086d2f9ba" category="cell">i3b ： 100.127.103.7/16 i4b ： 100.127.104.7/16</block>
+  <block id="4c348e39f74a16c489df29edbf00971e" category="cell">i4b ： 100.127.104.8/16 i3b ： 100.127.103.8/16</block>
+  <block id="aaaaf06756bef5b0c236a0c7e8a41d11" category="cell">i1b ： 100.127.101.9/16 i2b ： 100.127.102.9/16</block>
+  <block id="017d565d10fb6b2886e9ca05b035e9a9" category="cell">netapp_03</block>
+  <block id="39496d413f74d010a0d1b0c2e9ccce4e" category="cell">i2b:100.127.102.10/16 i1b:100.127.101.10/16</block>
+  <block id="6a413ad3d1000df8b4efef19a8814dce" category="cell">i3b ： 100.127.101.11/16 i4b ： 100.127.102.11/16</block>
+  <block id="c5c0f84cd4efb77f7e5e98b314d5b73f" category="cell">netapp_04</block>
+  <block id="e9be3165e6fc46ba149605e78b46fa81" category="cell">i4b ： 100.127.102.12/16 i3b ： 100.127.101.12/16</block>
+  <block id="f3f421c2e886c62a1aec7be061c685b2" category="cell">i1b ： 100 、 127.101.3/16 i2b ： 100 、 127.102.3/16</block>
+  <block id="ed8c3ab02a44fc84902022ddcb5fabe8" category="cell">i2b:100.127.102.14/16 i1b:100.127.101.14/16</block>
+  <block id="1920edec824c590f137b449a0443311a" category="cell">i3b ： 100.127.101.15/16 i4b ： 100.127.102.15/16</block>
+  <block id="73a812d8e4ab9aeff521f90df25f5e23" category="cell">i4b ： 100.127.102.16/16 i3b ： 100.127.101.16/16</block>
+  <block id="d3ff883be9e23adf4e03697eb2b136f5" category="cell">i1b ： 100.127.103.9/16 i2b ： 100.127.104.9/16</block>
+  <block id="6db8aa9802df58c38910ed6abe1ba11e" category="cell">i2b:100.127.104.10/16 i1b:100.127.103.10/16</block>
+  <block id="0e507490f78723195265893fc3dd4a5b" category="cell">i3b ： 100.127.103.11/16 i4b ： 100.127.104.11/16</block>
+  <block id="32ac4e07dd77b430c6297e3e8799efd2" category="cell">i4b ： 100.127.104.12/16 i3b ： 100.127.103.12/16</block>
+  <block id="f82dba07589e57dfcaf71442a7d0cd71" category="cell">i1b ： 100.127.103.13/16 i2b ： 100.127.104.13/16</block>
+  <block id="39c7f24708288668c898771cebf44864" category="cell">i2b:100.127.104.14/16 i1b:100.127.103.14/16</block>
+  <block id="28800e3773b860f61c7a9b36b316ed98" category="cell">i3b ： 100.127.103.15/16 i4b ： 100.127.104.15/16</block>
+  <block id="ce02872e166a5cf80f50cd4385d0d192" category="cell">i4b ： 100.127.104.16/16 i3b ： 100.127.103.16/16</block>
+  <block id="e8ed9c2d9c49ed0524af7cf1d12ba639" category="cell">i1b ： 100.127.103.17/16 i2b ： 100.127.104.17/16</block>
+  <block id="63e36b5f8b91c5859b9a169198da7feb" category="cell">netapp_05</block>
+  <block id="caf800dba53971258bebfcd9348ac486" category="cell">i2b:100.127.104.18/16 i1b:100.127.103.18/16</block>
+  <block id="7b25c9239b1b161705c2cb1b81a33c4a" category="cell">i3b ： 100.127.103.19/16 i4b ： 100.127.104.19/16</block>
+  <block id="b9fc71cc5ff86544747cf2b210fbab78" category="cell">netapp_06</block>
+  <block id="41510e449bb0d73d0aa0a826b53e7866" category="cell">i4b ： 100 、 127.104.20/16 i3b ： 100 、 127.103.20/16</block>
+  <block id="0b2d0578110fe19b63e28d0502beb0c8" category="cell">i1b ： 100.127.103.21/16 i2b ： 100.127.104.21/16</block>
+  <block id="30b35cb26fde8fb49ebb562dd442913e" category="cell">i2b:100.127.104.22/16 i1b:100.127.103.22/16</block>
+  <block id="864d7d5e08731a767f391f837e7ef23e" category="cell">i3b ： 100.127.103.23/16 i4b ： 100.127.104.23/16</block>
+  <block id="2c1d9121314a70e0d2a2ba89aec6fc0e" category="cell">i4b ： 100.127.104.24/16 i3b ： 100.127.103.24/16</block>
+  <block id="254542384d1213a7d51adea301584149" category="paragraph">P-State</block>
+  <block id="50d1288a06e5d81d403b256e91757cd8" category="paragraph">下列步驟對於叢集中的每個建置區塊都是相同的、無論是用於執行 BeeGFS 中繼資料和儲存服務、還是僅用於儲存服務、除非另有說明。</block>
+  <block id="2420c82686a86123afa7fb56270ebdba" category="list-text">使用中指定的模型，設定每個 BeeGFS 檔案節點與四個主機通道介面卡 (HCAs) <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>。根據下列規格、將 HCA 插入檔案節點的 PCIe 插槽：</block>
+  <block id="655bb8c05d377bb94fdb062b9b431c69" category="list-text">* Lenovo ThinkSystem SR665 V3 伺服器： * 使用 PCIe 插槽 1 、 2 、 4 和 5 。</block>
+  <block id="79d10643d6c05fba16a1207303e6a6c0" category="list-text">* Lenovo ThinkSystem SR665 伺服器： * 使用 PCIe 插槽 2 、 3 、 5 和 6 。</block>
+  <block id="32bf9d61588971ac8df90b5b33ea1a67" category="paragraph">將建置區塊架起、使兩個BeeGFS檔案節點在BeeGFS區塊節點上方。下圖顯示 BeeGFS 建置區塊的正確硬體組態、使用 Lenovo ThinkSystem SR665 V3 伺服器做為檔案節點（後視圖）。</block>
+  <block id="c8f2a4f5bff72a29f506dddd3d74951a" category="paragraph"><block ref="c8f2a4f5bff72a29f506dddd3d74951a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="43c3123c89f5e279387f5f5375ace233" category="inline-link-macro">1M InfiniBand HDR 200GB 直接連接銅線</block>
+  <block id="3c75c93f121f7b2c649fd946b1a935cf" category="list-text">使用連接區塊和檔案節點 <block ref="c748126fd5b6f4c3728762b1ce9f2698" category="inline-link-macro-rx"></block>、使它們符合下圖所示的拓撲。</block>
+  <block id="bf48f26aecb46f6218fe2a7e52fb9d5a" category="paragraph"><block ref="bf48f26aecb46f6218fe2a7e52fb9d5a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="be01bbade44d01019fcef77af9fc26e5" category="inline-link-macro">2 公尺 InfiniBand 纜線</block>
+  <block id="df8ecd3c13ed9e59d88fa90e10bcc47f" category="list-text">使用特定於 InfiniBand 儲存交換器的、將檔案節點上的其餘 InfiniBand 連接埠連接至儲存網路的 InfiniBand 交換 <block ref="661a89e8980e34439324f4cc2c4b1743" category="inline-link-macro-rx"></block> 器。</block>
+  <block id="8e4e4dc9d710c035afcec16817c6b5a3" category="paragraph">當使用分離器纜線將儲存交換器連接至檔案節點時、一條纜線應從交換器分支出來、並連接至淡綠色的連接埠。另一條分離器纜線應從交換器分支出來、並連接至暗綠色的連接埠。</block>
+  <block id="5059e1c6d859e6d2e881b28d0a939639" category="paragraph">此外、對於具有備援交換器的儲存網路、淡綠色的連接埠應連接至一台交換器、而深綠色的連接埠則應連接至另一台交換器。</block>
+  <block id="2b2607ba10759a35b672629d844a4bfc" category="paragraph">若要套用 Ansible 庫存中所述的組態、請使用 NetApp E-Series Ansible 集合中提供的各種 Ansible 模組和角色、尤其是部署端點對端點解決方案的 BeeGFS HA 7.4 角色（可從取得<block ref="e65da35b507a01fbe5db4a35e8ffaf77" category="inline-link-rx"></block>）。</block>
+  <block id="a3dbff02e88e9e804d80d00706cede6c" category="paragraph">Ansible 允許 NetApp 等公司使用 Ansible Galaxy 上的集合來擴充內建功能（請參閱<block ref="09c3689692686597c3ced866c6122b6c" category="inline-link-rx"></block>）。集合包括執行特定功能或工作的模組（例如建立E系列Volume）、以及可呼叫多個模組和其他角色的角色。此自動化方法可縮短部署BeeGFS檔案系統和基礎HA叢集所需的時間。此外、它還能簡化新增建置區塊的作業、以擴充現有的檔案系統。</block>
+  <block id="8bf028bec7411a5f58e9f6c9cdcb868c" category="paragraph">下列步驟已在 Ubuntu 22.04 上測試。有關首選 Linux 發行套件的特定步驟，請參閱<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>。</block>
+  <block id="6beebf7e29f7e6b87bb0cfa8afb3d664" category="list-text">安裝 Python 3.10 、並確定已安裝正確版本的<block ref="62ad1c2a46c5298f3e2c95d3babf8d0c" prefix=" " category="inline-code"></block> 。</block>
+  <block id="e709eaee39c1c94ce2b784ef354857f3" category="list-text">建立符號連結、確保每當呼叫或呼叫時都會使用 Python 3.10 二進位檔<block ref="6e8efbe3a442748b716644025479aab5" prefix=" " category="inline-code"></block><block ref="23eeeb4347bdd26bfc6b7ee9a3b755dd" prefix=" " category="inline-code"></block> 。</block>
+  <block id="0f7c31137702c2d677a474d55058637d" category="paragraph">若要瞭解如何為已驗證的 Lenovo SR665 V3 檔案節點設定網路、請參閱<block ref="05277b4b7d004e546ac1f238e66dd4bf" category="inline-link-rx"></block>。</block>
+  <block id="b8d06d76e2eaa67bfafbce3081ab48f5" category="list-text">安裝Red Hat 9.3並設定用於管理作業系統的主機名稱和網路連接埠、包括從Ansible控制節點進行SSH連線。</block>
+  <block id="7568449700f7c3e03b4500285c69b82f" category="list-text">使用 RedHat Subscription Manager 註冊並訂閱系統、以便從正式的 Red Hat 儲存庫安裝所需的套件、並將更新限制為支援的 Red Hat 版本：<block ref="085c7e75df5d271759849f369fa065a7" prefix=" " category="inline-code"></block>。有關說明，請參閱<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 和 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
+  <block id="00d3e1c43b2f440233b2874bbe49a236" category="list-text">將所有 HCA 韌體更新至中建議的版本 <block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>。</block>
+  <block id="313520f5b6c2887466092680afb5d057" category="paragraph">您可以下載並執行已套用建議韌體的mlxup工具版本、以完成此更新。您可以從（）下載此工具<block ref="d22fd7ba0031fc3b862dce4cf129cfa5" category="inline-link-rx"></block><block ref="0efbaca172e58edf29b612ba47aac915" category="inline-link-macro-rx"></block>。</block>
+  <block id="b52d8b061d9ea3d197fbe8093a3eec3f" category="admonition">當使用分離器纜線將儲存交換器連接至檔案節點時、一條纜線應分出並連接至淡綠色的連接埠。另一條纜線應分出並連接至暗綠色的連接埠。此外、對於具有備援交換器的儲存網路、淡綠色的連接埠應連接至一台交換器、而深綠色的連接埠則應連接至另一台交換器。</block>
+  <block id="dcc608d1c76fed74a96f75915bc6561f" category="paragraph">若要充分運用PCIe雙向頻寬、請確定每個InfiniBand介面卡上的一個連接埠連接至儲存架構、另一個連接埠則連接至區塊節點。</block>
+  <block id="0a31efbdaa47f7da5564c0e43b03e7ea" category="paragraph">您可以視需要覆寫組態參數的預設設定。如需可針對特定工作負載或使用案例進行調整的參數，請參閱<block ref="986eca0f3f99dd3e8d8640fddbc137d2" category="inline-link-rx"></block>。</block>
+  <block id="11a09874ac1f09275ccc827cbc44353e" category="paragraph">如需可針對特定工作負載或使用案例進行調整的參數，請參閱<block ref="0ea07919cef6ebe8518c59fc238308fd" category="inline-link-rx"></block>。</block>
+  <block id="4d8ee2002969aa8084ace10838f40531" category="list-text">* 安裝在檔案節點上的 Linux 作業系統中的系統設定。 *當您在的步驟 4 中建立 Ansible 庫存時、您可以覆寫預設的 Linux 作業系統設定 <block ref="dbbcb9482f49ee969cddb7f10864cbd0" category="inline-link-macro-rx"></block>。</block>
+  <block id="f9a2fc1e1676d37df014ebfbdfa9a90d" category="paragraph">您可以增加 NVIDIA HCA 的讀取要求大小上限。</block>
+  <block id="163d5c0f8034e540888104ef4ded6727" category="list-text">BeeGFS 用戶端多軌組態 * _Multi-rail 是指應用程式使用多個不同網路連線（或「 rail 」）來提高效能的能力。</block>
+  <block id="8d2644ad58bcbab1442816a77a82fefb" category="paragraph">BeeGFS 實作多軌支援、可在單一 IPoIB 子網路中使用多個 IB 介面。此功能可在 RDMA NIC 之間啟用動態負載平衡等功能、以最佳化網路資源的使用。它也與 NVIDIA GPUDirect 儲存設備（ GDS ）整合、可提供更高的系統頻寬、並減少用戶端 CPU 的延遲和使用率。</block>
+  <block id="992c3cb2d0c5be332151afe6ab4d5005" category="paragraph">本文件提供單一 IPoIB 子網路組態的說明。支援雙 IPoIB 子網路組態、但並未提供與單一子網路組態相同的優勢。</block>
+  <block id="2d861baf986f6a35c479d15a72c8284c" category="paragraph">HA叢集設計是以兩個廣泛使用的Linux HA專案為基礎：叢集成員資格的電暈器同步、以及叢集資源管理的起搏器。如需更多資訊、請參閱<block ref="0a03558b42ce04f55d37553193f6d76f" category="inline-link-rx"></block>。</block>
+  <block id="9d550842e04b4f253a1d3e7bb3297890" category="paragraph">建置區塊連接至兩台 NVIDIA Quantum InfiniBand （ MQM8700 ）交換器。十個BeeGFS用戶端也連接到InfiniBand交換器、用來執行綜合基準測試公用程式。</block>
+  <block id="16e30c156c86a2bc6240a20ed7b6fdc4" category="section-title">NVIDIA DGX SuperPOD 和 BasePOD 驗證</block>
+  <block id="40fa362dda8b4d271b61c38987bd5131" category="paragraph">NetApp已使用類似的BeeGFS檔案系統（由三個建置區塊組成、並套用中繼資料加上儲存組態設定檔）、驗證NVIDIAs DGX A100 SupermPOD的儲存解決方案。此NVA所描述的解決方案、需要測試資格、測試20部DGX A100 GPU伺服器、執行各種儲存設備、機器學習和深度學習基準測試。以 NVIDIA DGX A100 SuperPOD 所建立的驗證為基礎、 NetApp 上的 BeeGFS 解決方案已獲得 DGX SuperPOD H100 、 H200 及 B200 系統的核准。這項延伸是根據 NVIDIA DGX A100 所驗證的先前基準測試和系統需求而定。</block>
+  <block id="21b6d1b90774505daa15a9be831436a9" category="inline-link-macro">設計指南</block>
+  <block id="1cba1266f00c729aee1318803f870d22" category="list-text">專為 NVIDIA DGX SuperPOD A100 、 H100 、 H200 及 B200 系統所設計的架構、此架構先前已在 NVIDIA 的專用驗收叢集上驗證。如需 NVIDIA DGX SuperPOD with NetApp 的詳細 <block ref="e98320202738eb339bebe66cbb05ad8f" category="inline-link-macro-rx"></block>資訊、請參閱。</block>
+  <block id="8c044876bfc8883462e221a47dd42483" category="paragraph">NetApp 上的第二代 BeeGFS 已經過最佳化、可滿足嚴苛工作負載的效能需求、包括高效能運算（ HPC ）、機器學習（ ML ）、深度學習（ DL ）及其他人工智慧（ AI ）技術。這項設計整合了共享磁碟高可用度（ HA ）架構、可確保資料的耐用性和可用度、是無法承受停機或資料遺失的企業和其他組織的理想選擇。第二代設計包括 PCIe gen5 伺服器等元件、並支援 NVIDIA ® Quantum ™ QM9700 400GB / 秒 InfiniBand 交換器。此解決方案不僅已通過 NetApp 驗證、也已通過外部資格認證、成為 NVIDIA DGX ™ A100 SuperPOD 的儲存選項、並獲得 DGX SuperPOD H100 、 H200 及 B200 系統的延伸認證。</block>
+  <block id="10ca191b839b35e5100464ff59b95b97" category="paragraph">NetApp 上的第一代 BeeGFS 是專為使用 NetApp EF600 NVMe 儲存系統、 BeeGFS 平行檔案系統、 NVIDIA DGX ™ A100 系統和 NVIDIA ® Mellanox ® Quantum ™ QM8700 200Gb/s IB 交換器的機器學習（ ML ）和人工智慧（ AI ）工作負載所設計。這項設計也針對儲存與運算叢集互連架構提供 200Gb/s InfiniBand （ IB ）、為高效能工作負載提供完全以 IB 為基礎的架構。</block>
+  <block id="aef5a6ba281c6919d0a3e3ff7d8feaf3" category="section-title">設計總覽</block>
+  <block id="a1d7af56cbcfca285cd257ae3430a2d3" category="inline-link-macro">架構總覽</block>
+  <block id="61dd8d13bec6e1ac3455eb2e13d61261" category="paragraph">NetApp 上的 BeeGFS 解決方案是一種可擴充的建置區塊架構、可針對各種嚴苛的工作負載進行設定。無論是處理許多小型檔案、管理大量檔案作業、或是混合式工作負載、都能自訂檔案系統以滿足這些需求。高可用度的設計採用兩層硬體結構、可在多個硬體層進行自動容錯移轉、確保效能一致、即使在部分系統降級期間也是如此。BeeGFS 檔案系統可在不同的 Linux 套裝作業系統中提供高效能且可擴充的環境、並為用戶端提供單一易存取的儲存命名空間。如需詳細資訊，請參閱 <block ref="45037eea1e64b480408f051dfe424a3c" category="inline-link-macro-rx"></block>。</block>
+  <block id="ddf44cacce7787e9c71d290998a2d033" category="list-text">NVIDIA DGX SuperPOD 系統採用 DGX 、搭配 A100 、 H100 、 H200 和 B200 GPU 。</block>
+  <block id="bcaa6be52b9fd12687892056d441d7e4" category="paragraph">若要在 NetApp 上實作 BeeGFS 解決方案、請確保您的環境符合本文件所述的技術需求。</block>
+  <block id="7bf6b11b50ef88e180323b13813659d7" category="paragraph">開始之前、請先確認您的硬體符合下列規格、以便在 NetApp 解決方案上進行 BeeGFS 的單一第二代建置區塊設計。特定部署的確切元件可能會因客戶需求而異。</block>
+  <block id="694e8d1f2ee056f98ee488bdc4982d73" category="cell">數量</block>
+  <block id="678215bc9d3a2c222903818ef89e7a55" category="paragraph">[[beegfs-file-nodes]]BeeGFS 檔案節點</block>
+  <block id="d065c203a4b9103e8896c456d35cceea" category="paragraph">每個檔案節點都應符合或超過建議檔案節點的規格、以達到預期的效能。</block>
+  <block id="fbb1fad3a6f7d3538a8a1f8e9b6f1f08" category="paragraph">* 建議的檔案節點選項： *</block>
+  <block id="5be994ecb912a7fb7448cc05f90afcf7" category="list-text">* Lenovo ThinkSystem SR665 V*</block>
+  <block id="c0c1df1f325217c6fa04ce4c03ba875a" category="list-text">* 處理器： * 2 個 AMD EPYC 9124 16C 3.0 GHz （設定為兩個 NUMA 區域）。</block>
+  <block id="e679361e60a219fe470d3ddb1f34a7d7" category="list-text">* 記憶體： * 256GB （ 16x 16GB TruDDR5 4800MHz RDIMM ）</block>
+  <block id="9946d99f0bd7932556af9646233dd2e8" category="list-text">* PCIe 擴充： * 四個 PCIe Gen5 x16 插槽（每個 NUMA 區域兩個）</block>
+  <block id="accd99f82c9ad3f026edd29ae4aaa9d8" category="list-text">適用於作業系統的 RAID 1 中有兩個磁碟機（ 1TB 7.2K SATA 或更高）</block>
+  <block id="c618fd1e9213f6ba6e4961e3d1165110" category="list-text">1GbE 連接埠、用於頻內 OS 管理</block>
+  <block id="db812d54d604d8c71ffd5e4be563e3e5" category="list-text">1GbE BMC 搭配 Redfish API 、用於頻外伺服器管理</block>
+  <block id="15cf8b6d2674b1d9c9b0383ecfee8929" category="list-text">雙熱交換電源供應器和效能風扇</block>
+  <block id="1fb2f6fd0ecd0371486e7642b03c5dee" category="list-text">* Lenovo ThinkSystem SR66*</block>
+  <block id="78cbac434e403c43ef215a8541f8e62a" category="list-text">* 處理器： * 2 個 AMD EPYC 7343 16C 3.2 GHz （設定為兩個 NUMA 區域）。</block>
+  <block id="634d6174b88e5856171cb65f69c870d6" category="list-text">* 記憶體： * 256GB （ 16x 16GB TruDDR4 3200MHz RDIMM ）</block>
+  <block id="7d381836b9e0d0145f8901a9e826a329" category="list-text">* PCIe 擴充： * 四個 PCIe Gen4 x16 插槽（每個 NUMA 區域兩個）</block>
+  <block id="d48fef98b199bc014ab3ec9e1726d82f" category="cell">[[eserie-block-nodes]] E 系列區塊節點（ EF600 陣列）</block>
+  <block id="5872124f70156463c9454d8aee246fb5" category="paragraph">* 記憶體： * 256GB （每個控制器 128GB ）。* 介面卡： * 2 埠 200GB/HDR （ NVMe / IB ）。* 磁碟機： * 設定為符合所需容量。</block>
+  <block id="dd92cda6bcab8af774c512e385f3bbb2" category="cell">[[InfiniBand 介面卡 ]] InfiniBand 主機卡介面卡（適用於檔案節點）。</block>
+  <block id="1e36a3ec484f8d613eabadcfb7010a41" category="paragraph">主機卡介面卡會因檔案節點所使用的伺服器機型而異。驗證檔案節點的建議包括：</block>
+  <block id="22d9c94f9f4ead6ee028aeb105c59845" category="list-text">* Lenovo ThinkSystem SR665 V3 伺服器： *</block>
+  <block id="6ea32d47808c9a0a8b4ad8ce7c3d46a8" category="list-text">MCX755106AS-Heat ConnectX-7 、 NDR200 、 QSFP112 、 2 埠、 PCIe Gen5 x16 、 InfiniBand 介面卡</block>
+  <block id="2f02d951d56eb9f3451bbc826c3e8750" category="list-text">* Lenovo ThinkSystem SR665 伺服器： *</block>
+  <block id="a6db2cf27367b5061d9dcb3d029e4836" category="list-text">MCX653106A-HDAT ConnectX-6 、 HDR 、 QSFP-56 、 2 埠、 PCIe Gen4 x16 、 InfiniBand 介面卡</block>
+  <block id="b74051cf2ad1a189f8a05453712ca47a" category="cell">儲存網路交換器</block>
+  <block id="abf33d394022ed774955ca8b4e892340" category="paragraph">儲存網路交換器的 InfiniBand 速度必須達到 200Gb/s 。建議的交換器機型包括：</block>
+  <block id="d7405c22a666ad0d0cb249c209ed8a2a" category="list-text">* NVIDIA QM9700 Quantum 2 NDR InfiniBand 交換器 *</block>
+  <block id="8371ac7bb43cddb78635bb02c4ecf477" category="list-text">* NVIDIA MQM8700 Quantum HDR InfiniBand 交換器 *</block>
+  <block id="118d935cca54466f59122caecfde09ad" category="section-title">纜線需求</block>
+  <block id="5206d6e34399595cf0319b48c8caef2b" category="paragraph">[block-file-cables] * 從區塊節點直接連線至檔案節點。 *</block>
+  <block id="1fe3c9d0657c143dd35fa09974da425b" category="cell">產品編號</block>
+  <block id="ba2a9c6c8c77e03f83ef8bf543612275" category="cell">長度</block>
+  <block id="c3fc989bc0ee89bd4f833252b93ae9fc" category="cell">MCP1650-H001E30 （ NVIDIA 被動銅線、 QSFP56 、 200Gb/s ）</block>
+  <block id="9859011cc78b3687689e719ce0d111a5" category="cell">1M</block>
+  <block id="c3667b017c25447e1a7b085049b10bd4" category="paragraph">[file-switch-cables] * 從檔案節點連線至儲存網路交換器。 *根據您的 InfiniBand 儲存交換器、從下表中選取適當的纜線選項。+ 建議的纜線長度為 2 公尺；不過、這可能會因客戶的環境而異。</block>
+  <block id="e71a6bc9da9d285c521501e596936972" category="cell">交換器模式</block>
+  <block id="6fd115591b61cfe21f37443a0afb71e0" category="cell">纜線類型</block>
+  <block id="0f0a45940e8946022b971d4ccdf6154e" category="cell">NVIDIA QM9700</block>
+  <block id="a87ff679a2f3e71d9181a67b7542122c" category="cell">4</block>
+  <block id="979ceabbdb73904b7beec8a0d58c32b8" category="cell">主動式光纖</block>
+  <block id="270f13016300dfe6e2fe7c681978bef9" category="cell">MFA7U10-H002 （ NVIDIA 主動式光纖纜線、 InfiniBand 400GB / 秒至 2x 200Gb/s 、 OSFP 至 2x QSFP56 ）</block>
+  <block id="f629de18a131cfa25b9f36ef4690fc92" category="cell">被動銅</block>
+  <block id="bebb3995ccd5809442d1bb1bc0a25e3a" category="cell">MCP7Y60-H002 （ NVIDIA 被動式銅線、 InfiniBand 400GB / 秒至 2x 200Gb/s 、 OSFP 至 2x QSFP56 ）</block>
+  <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700</block>
+  <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E （ NVIDIA 主動式光纖纜線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
+  <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26 （ NVIDIA 被動式銅線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
+  <block id="0db451285b4ab90f8e6012dfd8f0d190" category="paragraph">RedHat 9.3伺服器實體配備高可用度（2插槽）。</block>
+  <block id="099646c88bdb63cce0ec389f4c842fed" category="cell">5.14.0-362.24.1.el9_3.x86_64</block>
+  <block id="de4e152f23f311bbd0da3bd3cc07390d" category="cell">MLNX_OFED_LINOD-23.10-3.2.0-LTS</block>
+  <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCA 韌體</block>
+  <block id="cf135b5c065c2f500279337fc59c78ac" category="paragraph">* ConnectX-7 HCA 韌體 * 韌體： 28.39.1002 + PXE ： 3.7.0201 + UEFI ： 14.32.0012</block>
+  <block id="932d22339e7f2f10a02d7bf453b85501" category="paragraph">* ConnectX-6 HCA 韌體 * 韌體： 20.31.1014 + PXE ： 3.6.0403 + UEFI ： 14.24.0013</block>
+  <block id="41d49156a74390ee5d03e3516c1dca6b" category="cell">11.80.0</block>
+  <block id="36744b059ba2d833befd7109b0ba5167" category="cell">N6000-880834-D08.dp</block>
+  <block id="141a8d7da406be785ba26084a46e1c00" category="cell">7.4.4..</block>
+  <block id="92f9c52d96ebf7ac8dc2f41e6e11647a" category="cell">3.1.5-4.</block>
+  <block id="c60a2cf4eb7f8efdd97013c9acb1f45b" category="cell">2.1.4-5.</block>
+  <block id="a1a2ed259d1be22e6373097baea242eb" category="paragraph">OpenSM-5.17.2 （來自 MLNX_OFED_LINOS-23.10-3.2.0-LTS ）</block>
+  <block id="5487c77147bdac492714cd2896a16557" category="cell">透過 Pip 安裝 6.x ： Ansable-6.0.0 和 Ansible 核心 &gt;= 2.13.0</block>
+  <block id="b1e65a5d34a577630a4fc7840358333f" category="cell">3.9 （或更新版本）</block>
+  <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">密碼編譯 -43.0.0 、 netaddr-1.3.0 、 ipaddr-2.2.0</block>
+  <block id="7af6b9890b6c8ce699616c59f48b5248" category="cell">NetApp E-Series BeeGFS Ansible Collection</block>
+  <block id="070afde0274dc6039a8a8949d12a15cd" category="cell">3.2.0</block>
 </blocks>

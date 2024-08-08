@@ -22,7 +22,7 @@ summary: 您可以使用第二代NetApp BeeGFS建置區塊設計、在NetApp上�
 
 您可以使用Ansible（常用的IT自動化引擎）在NetApp上部署BeeGFS解決方案、以自動化應用程式部署。Ansible會使用一系列的檔案、統稱為庫存、用來建立您要部署的BeeGFS檔案系統模型。
 
-Ansible允許NetApp等公司使用Ansible銀河系統上的集合來擴充內建功能（請參閱 https://galaxy.ansible.com/netapp_eseries["NetApp E系列BeeGFS系列"^]）。集合包括執行特定功能或工作的模組（例如建立E系列Volume）、以及可呼叫多個模組和其他角色的角色。此自動化方法可縮短部署BeeGFS檔案系統和基礎HA叢集所需的時間。此外、它還能簡化新增建置區塊的作業、以擴充現有的檔案系統。
+Ansible 允許 NetApp 等公司使用 Ansible Galaxy 上的集合來擴充內建功能（請參閱 https://galaxy.ansible.com/netapp_eseries/santricity["NetApp E系列BeeGFS系列"^]）。集合包括執行特定功能或工作的模組（例如建立E系列Volume）、以及可呼叫多個模組和其他角色的角色。此自動化方法可縮短部署BeeGFS檔案系統和基礎HA叢集所需的時間。此外、它還能簡化新增建置區塊的作業、以擴充現有的檔案系統。
 
 如需其他詳細資料、請參閱 link:beegfs-deploy-learn-ansible.html["瞭解Ansible庫存"]。
 

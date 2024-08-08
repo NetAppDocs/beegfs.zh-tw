@@ -32,20 +32,20 @@ BeeGFS解決方案包含根據驗證測試進行效能調校的建議。
 +
 ** BeeGFS服務組態參數
 +
-您可以視需要覆寫組態參數的預設設定。如需可針對特定工作負載或使用案例進行調整的參數、請參閱 https://github.com/netappeseries/beegfs/blob/135d9a04ae96f4d202300bae870c6404b77b6865/roles/beegfs_ha_7_2/defaults/main.yml#L155["BeeGFS服務組態參數"^]。
+您可以視需要覆寫組態參數的預設設定。如需可針對特定工作負載或使用案例進行調整的參數，請參閱 https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L237["BeeGFS服務組態參數"^]。
 
 ** Volume格式化和掛載參數會設定為建議的預設值、而且只能針對進階使用案例進行調整。預設值會執行下列動作：
 +
 *** 根據目標類型（例如管理、中繼資料或儲存設備）、以及基礎磁碟區的RAID組態和區段大小、最佳化初始磁碟區格式。
 *** 調整心臟起搏器如何掛載每個Volume、以確保變更立即排清至E系列區塊節點。如此可在檔案節點發生故障且正在進行作用中寫入時、避免資料遺失。
 +
-如需可針對特定工作負載或使用案例進行調整的參數、請參閱 https://github.com/netappeseries/beegfs/blob/135d9a04ae96f4d202300bae870c6404b77b6865/roles/beegfs_ha_7_2/defaults/main.yml#L258["Volume格式化與掛載組態參數"^]。
+如需可針對特定工作負載或使用案例進行調整的參數，請參閱 https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L279["Volume格式化與掛載組態參數"^]。
 
 
 
 
 
-. *安裝在檔案節點上的Linux作業系統中的系統設定。*當您在的步驟4中建立「Ansible」清單時、可以覆寫預設的Linux OS系統設定 link:beegfs-deploy-beegfs-general-config.html["建立可Ansible庫存"]。
+. * 安裝在檔案節點上的 Linux 作業系統中的系統設定。 *當您在的步驟 4 中建立 Ansible 庫存時、您可以覆寫預設的 Linux 作業系統設定 link:beegfs-deploy-create-inventory.html["建立可Ansible庫存"]。
 +
 預設設定是用來驗證NetApp解決方案上的BeeGFS、但您可以變更這些設定、以因應您的特定工作負載或使用案例進行調整。您可以變更的一些Linux作業系統設定範例包括：
 
@@ -71,7 +71,7 @@ BeeGFS解決方案包含根據驗證測試進行效能調校的建議。
 
 ** 讀取要求大小。
 +
-您可以增加Mellanox HCA的最大讀取要求大小。
+您可以增加 NVIDIA HCA 的讀取要求大小上限。
 
 
 

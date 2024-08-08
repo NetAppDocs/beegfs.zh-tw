@@ -86,11 +86,11 @@ BeeGFS本身的版本是根據<major> 一份《Section.Section.》<minor> 版本
 
 === BeeGFS檔案節點
 
-檔案節點必須執行RedHat 8.4、並可存取含有必要套件（心律調整器、電暈器同步、Fence代理程式、資源代理程式）的HA儲存庫。例如、您可以執行下列命令、在RedHat 8上啟用適當的儲存庫：
+檔案節點必須執行RedHat 9.3、並可存取含有必要套件（心律調整器、電暈器同步、Fence代理程式、資源代理程式）的HA儲存庫。例如、您可以執行下列命令、在RedHat 9上啟用適當的儲存庫：
 
 [source, bash]
 ----
-subscription-manager repo-override repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+subscription-manager repo-override repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ----
 
 

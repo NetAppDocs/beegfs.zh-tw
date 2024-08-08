@@ -37,7 +37,7 @@ CAUTION: 在繼續安裝之前、請先確認您已充分瞭解特定BeeGFS部�
 
 單一建置區塊範例：
 
-image:../media/buildingblock.png["建置區塊範例"]
+image:../media/buildingblock-sr665v3.png["建置區塊範例"]
 
 大型BeeGFS安裝範例、其中每個HA叢集有多個建置區塊、以及檔案系統中的多個HA叢集：
 
