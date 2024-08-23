@@ -1,0 +1,98 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-update-storage-array.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, update, upgrade, SANtricityOS, firmware, drive 
+summary: 升級 HA 叢集 E-Series 儲存陣列的步驟。 
+---
+= 升級 E-Series 儲存陣列
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+請依照下列步驟升級 HA 叢集的 E-Series 儲存陣列（區塊節點）。
+
+
+
+== 總覽
+
+使用最新的韌體、讓 HA 叢集的 NetApp E-Series 儲存陣列保持在最新狀態、以確保最佳效能和更高的安全性。儲存陣列的韌體更新是使用 SANtricity OS 、 NVSRAM 和磁碟機韌體檔案來套用。
+
+
+IMPORTANT: 雖然儲存陣列可以在 HA 叢集上線時進行升級、但建議您將叢集置於維護模式、以便進行所有升級。
+
+
+
+== 區塊節點升級步驟
+
+下列步驟概述如何使用 `Netapp_Eseries.Santricity` Ansible 集合更新儲存陣列的韌體。在繼續之前、請檢閱link:https://docs.netapp.com/us-en/e-series/upgrade-santricity/overview-upgrade-consider-task.html["升級考量"^]以更新 E-Series 系統。
+
+
+NOTE: 只能從 11.70.5P1 升級至 SANtricity OS 11.80 或更新版本。在套用進一步升級之前、必須先將儲存陣列升級至 11.70.5P1 。
+
+. 驗證您的 Ansible 控制節點是否使用最新的 SANtricity Ansible Collection 。
++
+** 可存取的集合升級 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^]，執行下列命令：
++
+[source, console]
+----
+ansible-galaxy collection install netapp_eseries.santricity --upgrade
+----
+** 若要進行離線升級link:https://galaxy.ansible.com/ui/repo/published/netapp_eseries/santricity/["Ansible Galaxy"^]、請從下載集合 tarball 、將其傳輸至您的控制節點、然後執行：
++
+[source, console]
+----
+ansible-galaxy collection install netapp_eseries-santricity-<VERSION>.tar.gz --upgrade
+----
++
+請參閱 link:https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html["安裝集合"^] 以取得更多資訊。
+
+
+
+. 取得儲存陣列和磁碟機的最新韌體。
++
+.. 下載韌體檔案。
++
+*** * SANtricity OS 和 NVSRAS:* 瀏覽至link:https://mysupport.netapp.com/site/products/all/details/eseries-santricityos/downloads-tab["NetApp 支援網站"^]、並下載適用於您儲存陣列機型的最新版 SANtricity OS 和 NVSRAS* 。
+*** * 磁碟機韌體： * 瀏覽link:https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["E-Series 磁碟韌體站台"^]並下載每個儲存陣列磁碟機機型的最新韌體。
+
+
+.. 將 SANtricity OS 、 NVSRAM 和磁碟機韌體檔案儲存在 Ansible 控制節點的 `<inventory_directory>/packages`目錄中。
+
+
+. 如有必要、請更新叢集的 Ansible 庫存檔案、以納入所有需要更新的儲存陣列（區塊節點）。如需指引、請參閱link:../custom/architectures-inventory-overview.html["Ansible Inventory Overview"^]一節。
+. 確保叢集處於最佳狀態、且每個 BeeGFS 服務都位於其偏好的節點上。如 link:clusters-examine-state.html["檢查叢集的狀態"^] 需詳細資訊、請參閱。
+. 按照中的說明將叢集置於維護模式link:clusters-maintenance-mode.html["將叢集置於維護模式"^]。
+. 建立名為的新 Ansible 教 `update_block_node_playbook.yml`戰手冊。請將下列內容填入教戰手冊、將 SANtricity OS 、 NVSRAM 和磁碟機韌體版本取代為您想要的升級路徑：
++
+....
+- hosts: eseries_storage_systems
+  gather_facts: false
+  any_errors_fatal: true
+  collections:
+    - netapp_eseries.santricity
+  vars:
+    eseries_firmware_firmware: "packages/<SantricityOS>.dlp"
+    eseries_firmware_nvsram: "packages/<NVSRAM>.dlp"
+    eseries_drive_firmware_firmware_list:
+      - "packages/<drive_firmware>.dlp"
+    eseries_drive_firmware_upgrade_drives_online: true
+
+  tasks:
+    - name: Configure NetApp E-Series block nodes.
+      import_role:
+        name: nar_santricity_management
+....
+. 若要啟動更新、請從 Ansible 控制節點執行下列命令：
++
+[listing]
+----
+ansible-playbook -i inventory.yml update_block_node_playbook.yml
+----
+. 完成教戰手冊後、請確認每個儲存陣列都處於最佳狀態。
+. 將叢集移出維護模式、並驗證叢集處於最佳狀態、每項 BeeGFS 服務都位於其偏好的節點上。
+

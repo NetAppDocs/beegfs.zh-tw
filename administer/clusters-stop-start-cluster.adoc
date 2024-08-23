@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-stop-start-cluster.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, stop, start 
+summary: 正常停止及啟動HA叢集。 
+---
+= 停止並啟動叢集
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+正常停止及啟動HA叢集。
+
+
+
+== 總覽
+
+本節說明如何正常關機並重新啟動BeeGFS叢集。可能需要的範例案例包括電力維護或資料中心或機架之間的移轉。
+
+
+
+== 步驟
+
+如果您基於任何原因需要停止整個BeeGFS叢集並關閉所有服務執行：
+
+[source, console]
+----
+pcs cluster stop --all
+----
+您也可以在個別節點上停止叢集（這會自動將服務容錯移轉至另一個節點）、不過建議您先將節點置於待命狀態（請參閱link:clusters-failover-failback.html["容錯移轉"^]一節）：
+
+[source, console]
+----
+pcs cluster stop <HOSTNAME>
+----
+若要在所有節點上啟動叢集服務和資源、請執行下列步驟：
+
+[source, console]
+----
+pcs cluster start --all
+----
+或在特定節點上啟動服務：
+
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+此時請執行 `pcs status` 並驗證叢集和BeeGFS服務是否在所有節點上啟動、以及服務是否在您預期的節點上執行。
+
+
+TIP: 視叢集的大小而定、整個叢集可能需要一段時間（秒到分鐘）才能停止、或是顯示已在中啟動 `pcs status`。如果 `pcs cluster <COMMAND>` 在執行「Ctrl+C」以取消命令之前、請先掛斷五分鐘以上、然後登入叢集的每個節點並使用 `pcs status` 查看叢集服務（電暈器同步/起搏器）是否仍在該節點上執行。從叢集仍在作用中的任何節點、您都可以檢查封鎖叢集的資源為何。手動解決此問題、命令應已完成或可重新執行、以停止任何剩餘的服務。

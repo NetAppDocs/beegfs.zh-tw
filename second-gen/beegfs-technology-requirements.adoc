@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-technology-requirements.html 
+permalink: second-gen/beegfs-technology-requirements.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 若要在NetApp上實作BeeGFS解決方案、請確定您的環境符合技術需求。 
 ---
@@ -10,7 +10,7 @@ summary: 若要在NetApp上實作BeeGFS解決方案、請確定您的環境符�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -30,7 +30,7 @@ summary: 若要在NetApp上實作BeeGFS解決方案、請確定您的環境符�
  a| 
 2.
  a| 
-[[beegfs-file-nodes]]BeeGFS 檔案節點
+BeeGFS 檔案節點
  a| 
 每個檔案節點都應符合或超過建議檔案節點的規格、以達到預期的效能。
 
@@ -70,12 +70,12 @@ summary: 若要在NetApp上實作BeeGFS解決方案、請確定您的環境符�
 
 
 
-| 2. | [[eserie-block-nodes]] E 系列區塊節點（ EF600 陣列）  a| 
-* 記憶體： * 256GB （每個控制器 128GB ）。* 介面卡： * 2 埠 200GB/HDR （ NVMe / IB ）。* 磁碟機： * 設定為符合所需容量。
+| 2. | E-Series 區塊節點（ EF600 陣列）  a| 
+* 記憶體： * 256GB （每個控制器 128GB ）。* 介面卡： * 2 埠 200GB/HDR （ NVMe / IB ）。* 磁碟機： * 設定為符合所需的中繼資料和儲存容量。
 
 
 
-| 8. | [[InfiniBand 介面卡 ]] InfiniBand 主機卡介面卡（適用於檔案節點）。  a| 
+| 8. | InfiniBand 主機卡介面卡（適用於檔案節點）。  a| 
 主機卡介面卡會因檔案節點所使用的伺服器機型而異。驗證檔案節點的建議包括：
 
 * * Lenovo ThinkSystem SR665 V3 伺服器： *
@@ -104,7 +104,7 @@ summary: 若要在NetApp上實作BeeGFS解決方案、請確定您的環境符�
 
 === 纜線需求
 
-[block-file-cables] * 從區塊節點直接連線至檔案節點。 *
+* 從區塊節點直接連線至檔案節點。 *
 
 [cols="10%,70%,20%"]
 |===
@@ -113,7 +113,7 @@ summary: 若要在NetApp上實作BeeGFS解決方案、請確定您的環境符�
 
 | 8. | MCP1650-H001E30 （ NVIDIA 被動銅線、 QSFP56 、 200Gb/s ） | 1M 
 |===
-[file-switch-cables] * 從檔案節點連線至儲存網路交換器。 *根據您的 InfiniBand 儲存交換器、從下表中選取適當的纜線選項。+ 建議的纜線長度為 2 公尺；不過、這可能會因客戶的環境而異。
+* 從檔案節點到儲存網路交換器的連線。 *根據您的 InfiniBand 儲存交換器、從下表中選取適當的纜線選項。+ 建議的纜線長度為 2 公尺；不過、這可能會因客戶的環境而異。
 
 [cols="20%,10%,15%,55%"]
 |===

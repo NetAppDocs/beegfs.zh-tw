@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-terms.html 
+permalink: get-started/beegfs-terms.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 適用於NetApp解決方案BeeGFS的詞彙與概念。 
 ---
@@ -10,14 +10,14 @@ summary: 適用於NetApp解決方案BeeGFS的詞彙與概念。
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
 下列術語與概念適用於NetApp上的BeeGFS解決方案。
 
 
-TIP: 請參閱 link:administer-clusters-overview.html["管理BeeGFS叢集"] 一節、提供與BeeGFS高可用度（HA）叢集互動的專屬詞彙與概念的其他詳細資料。
+TIP: 如link:../administer/clusters-overview.html["管理BeeGFS叢集"]需與 BeeGFS 高可用度（ HA ）叢集互動的專屬詞彙與概念、請參閱一節。
 
 [cols="25h,~"]
 |===

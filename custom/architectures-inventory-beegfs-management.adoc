@@ -1,0 +1,88 @@
+---
+sidebar: sidebar 
+permalink: custom/architectures-inventory-beegfs-management.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: BeeGFS服務是使用群組變數（群組_vars）進行設定。 
+---
+= 定義BeeGFS管理服務
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+BeeGFS服務是使用群組變數（群組_vars）進行設定。
+
+
+
+== 總覽
+
+本節將逐步說明如何定義BeeGFS管理服務。對於特定檔案系統、HA叢集中只應有一項此類型的服務。設定此服務包括定義：
+
+* 服務類型（管理）。
+* 定義任何僅應套用至此BeeGFS服務的組態。
+* 設定一個或多個可連線至此服務的浮動IP（邏輯介面）。
+* 指定磁碟區儲存此服務資料的位置/方式（BeeGFS管理目標）。
+
+
+
+
+== 步驟
+
+建立新檔案 `group_vars/mgmt.yml`、並參照link:architectures-plan-file-system.html["規劃檔案系統"^]區段、填入內容如下：
+
+. 指出此檔案代表BeeGFS管理服務的組態：
++
+[source, yaml]
+----
+beegfs_service: management
+----
+. 定義任何僅應套用至此BeeGFS服務的組態。除非您需要啟用配額、否則管理服務通常不需要此項功能、無論是否支援任何的組態參數 `beegfs-mgmtd.conf` 可隨附。請注意、下列參數會自動/在其他地方設定、不應在此處指定： `storeMgmtdDirectory`、 `connAuthFile`、 `connDisableAuthentication`、 `connInterfacesFile`和 `connNetFilterFile`。
++
+[source, yaml]
+----
+beegfs_ha_beegfs_mgmtd_conf_resource_group_options:
+  <beegfs-mgmt.conf:key>:<beegfs-mgmt.conf:value>
+----
+. 設定其他服務和用戶端用來連線至此服務的一或多個浮動IP（這會自動設定BeeGFS） `connInterfacesFile` 選項）：
++
+[source, yaml]
+----
+floating_ips:
+  - <INTERFACE>:<IP/SUBNET> # Primary interface. Ex. i1b:100.127.101.0/16
+  - <INTERFACE>:<IP/SUBNET> # Secondary interface(s) as needed.
+----
+. 您也可以指定一或多個允許用於傳出通訊的IP子網路（這會自動設定BeeGFS） `connNetFilterFile` 選項）：
++
+[source, yaml]
+----
+filter_ip_ranges:
+  - <SUBNET>/<MASK> # Ex. 192.168.10.0/24
+----
+. 指定BeeGFS管理目標、此服務將根據下列準則儲存資料：
++
+.. 相同的儲存資源池或磁碟區群組名稱可用於多個BeeGFS服務/目標、只要確保使用相同名稱即可 `name`、 `raid_level`、 `criteria_*`和 `common_*` 每個服務的組態（每個服務所列的磁碟區應該不同）。
+.. 磁碟區大小應指定為儲存資源池/磁碟區群組的百分比、且使用特定儲存資源池/磁碟區群組的所有服務/磁碟區的總容量不得超過100。注意使用 SSD 時、建議您在 Volume 群組中保留一些可用空間、以最大化 SSD 效能和使用壽命（按一下link:../second-gen/beegfs-deploy-recommended-volume-percentages.html["請按這裡"^]以取得詳細資料）。
+.. 按一下 link:https://github.com/netappeseries/santricity/tree/release-1.3.1/roles/nar_santricity_host#role-variables["請按這裡"^] 以取得可用的完整組態選項清單 `eseries_storage_pool_configuration`。請注意一些選項、例如 `state`、 `host`、 `host_type`、 `workload_name`和 `workload_metadata` 而且磁碟區名稱會自動產生、不應在此處指定。
+
+
+
+
+[source, yaml]
+----
+beegfs_targets:
+  <BLOCK_NODE>: # The name of the block node as found in the Ansible inventory. Ex: netapp_01
+    eseries_storage_pool_configuration:
+      - name: <NAME> # Ex: beegfs_m1_m2_m5_m6
+        raid_level: <LEVEL> # One of: raid1, raid5, raid6, raidDiskPool
+        criteria_drive_count: <DRIVE COUNT> # Ex. 4
+        common_volume_configuration:
+          segment_size_kb: <SEGMENT SIZE> # Ex. 128
+        volumes:
+          - size: <PERCENT> # Percent of the pool or volume group to allocate to this volume. Ex. 1
+            owning_controller: <CONTROLLER> # One of: A, B
+----
+按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/mgmt.yml["請按這裡"^] 例如、代表BeeGFS管理服務的完整庫存檔案。

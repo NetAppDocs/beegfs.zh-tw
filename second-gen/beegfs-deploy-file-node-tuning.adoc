@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-file-node-tuning.html 
+permalink: second-gen/beegfs-deploy-file-node-tuning.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 為了發揮最大效能、我們建議您在您做為檔案節點的伺服器機型上設定系統設定。 
 ---
@@ -10,7 +10,7 @@ summary: 為了發揮最大效能、我們建議您在您做為檔案節點的�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

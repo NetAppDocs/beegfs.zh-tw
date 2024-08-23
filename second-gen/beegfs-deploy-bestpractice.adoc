@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-bestpractice.html 
+permalink: second-gen/beegfs-deploy-bestpractice.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 在NetApp解決方案上部署BeeGFS時、請遵循最佳實務準則。 
 ---
@@ -10,7 +10,7 @@ summary: 在NetApp解決方案上部署BeeGFS時、請遵循最佳實務準則�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

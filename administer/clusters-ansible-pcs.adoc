@@ -1,0 +1,25 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-ansible-pcs.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, pcs, Ansible 
+summary: 您應該何時使用Ansible與PCS命令列工具來管理HA叢集？ 
+---
+= 使用Ansible與PCS工具的時機
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+您應該何時使用Ansible與PCS命令列工具來管理HA叢集？
+
+所有叢集部署和重新設定工作都應使用外部可控制節點的Ansible來完成。叢集狀態的暫時性變更（例如、將節點置入和移出待命）通常是透過登入叢集的一個節點（最好是未降級或即將進行維護的節點）、以及使用PCS命令列工具來執行。
+
+修改任何叢集組態、包括資源、限制、內容及BeeGFS服務本身、都應該使用Ansible來完成。維護叢集的一部分、是維護「Ansible Inventory and playbook（Ansible Inventory and playbook）」的最新複本（理想的來源控制方式是追蹤變更）。當您需要變更組態時、請更新詳細目錄、然後重新執行匯入BeeGFS HA角色的Ansible教戰手冊。
+
+HA角色會處理將叢集置於維護模式、然後在重新啟動BeeGFS或叢集服務以套用新組態之前進行任何必要的變更。由於在初始部署之外通常不需要完整的節點重新開機、因此重新執行Ansible通常被視為「安全」程序、但如果任何BeeGFS服務需要重新啟動、則建議在維護期間或下班時間重新執行。這些重新啟動通常不會造成應用程式錯誤、但可能會影響效能（某些應用程式處理效能可能優於其他應用程式）。
+
+當您想要將整個叢集恢復到完全最佳狀態時、重新執行Ansible也是一個選項、而且在某些情況下、可能比使用PC更容易恢復叢集狀態。尤其是在叢集因某種原因而停機的緊急情況下、一旦所有節點都備份重新執行Ansible、就可能比嘗試使用PC更快且更可靠地還原叢集。

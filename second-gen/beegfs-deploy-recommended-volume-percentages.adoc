@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-recommended-volume-percentages.html 
+permalink: second-gen/beegfs-deploy-recommended-volume-percentages.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 針對第二代建置區塊、依照每個儲存資源池組態的標準四個磁碟區進行操作時、請參閱這些建議的百分比。 
 ---
@@ -10,7 +10,7 @@ summary: 針對第二代建置區塊、依照每個儲存資源池組態的標�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-architecture-overview.html 
+permalink: second-gen/beegfs-architecture-overview.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: NetApp上的BeeGFS解決方案包含架構設計考量、可用來判斷支援已驗證工作負載所需的特定設備、纜線和組態。 
 ---
@@ -10,7 +10,7 @@ summary: NetApp上的BeeGFS解決方案包含架構設計考量、可用來判�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -47,7 +47,7 @@ BeeGFS檔案系統包含下列主要服務：
 
 下圖顯示了與NetApp E系列系統搭配使用的BeeGFS解決方案元件和關係。
 
-image:../media/beegfs-components.png[""]
+image:beegfs-components.png["BeeGFS 元件"]
 
 作為平行檔案系統、BeeGFS會將其檔案等量磁碟區化到多個伺服器節點上、以最大化讀寫效能和擴充性。伺服器節點可共同運作、提供單一檔案系統、讓其他伺服器節點（通常稱為_Clients_）同時掛載及存取。這些用戶端可以像NTFS、XFS或ext4等本機檔案系統一樣、查看及使用分散式檔案系統。
 
@@ -64,7 +64,7 @@ NOTE: 雖然BeeGFS社群版本可以免費使用、但企業版需要向NetApp�
 
 下圖比較了共享無共享和共享磁碟HA架構。
 
-image:../media/beegfs-design-image1.png[""]
+image:beegfs-design-image1.png["HA 架構比較"]
 
 如需詳細資訊、請參閱 https://www.netapp.com/blog/high-availability-beegfs/["發表NetApp支援的BeeGFS高可用度"^]。
 
@@ -93,7 +93,7 @@ NetApp 解決方案上的 BeeGFS 已驗證下列節點。
 
 此解決方案的建置區塊（如下圖所示）使用通過驗證的檔案節點伺服器作為 BeeGFS 檔案層、並使用兩個 EF600 儲存系統做為區塊層。
 
-image:../media/beegfs-design-image2-small.png[""]
+image:beegfs-design-image2-small.png["建置區塊"]
 
 NetApp上的BeeGFS解決方案可在部署中的所有建置區塊上執行。部署的第一個建置區塊必須執行 BeeGFS 管理、中繼資料和儲存服務（稱為基礎建置區塊）。所有後續的建置區塊均可透過軟體進行設定、以擴充中繼資料和儲存服務、或是僅提供儲存服務。這種模組化方法可根據工作負載的需求擴充檔案系統、同時使用相同的基礎硬體平台和建置區塊設計。
 
@@ -102,7 +102,7 @@ NetApp上的BeeGFS解決方案可在部署中的所有建置區塊上執行。�
 
 NOTE: 在容錯移轉叢集中建立仲裁所需的建置區塊至少有兩個。雙節點叢集具有可能會阻止容錯移轉成功的限制。您可以將第三個裝置整合為 tiebreaker 來設定雙節點叢集、但本文件並未說明該設計。
 
-image:../media/beegfs-design-image3.png[""]
+image:beegfs-design-image3.png["BeeGFS HA 叢集擴充"]
 
 
 

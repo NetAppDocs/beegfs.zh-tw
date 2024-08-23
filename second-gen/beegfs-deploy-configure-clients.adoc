@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-configure-clients.html 
+permalink: second-gen/beegfs-deploy-configure-clients.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600. 
 summary: 在需要存取BeeGFS檔案系統的任何主機（例如運算或GPU節點）上安裝及設定BeeGFS用戶端。在這項工作中、您可以使用Ansible和BeeGFS集合。 
 ---
@@ -10,7 +10,7 @@ summary: 在需要存取BeeGFS檔案系統的任何主機（例如運算或GPU�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

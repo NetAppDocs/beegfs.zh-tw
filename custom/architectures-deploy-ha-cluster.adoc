@@ -1,0 +1,153 @@
+---
+sidebar: sidebar 
+permalink: custom/architectures-deploy-ha-cluster.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: 使用方針來指定部署BeeGFS HA叢集時應執行哪些工作。 
+---
+= 部署BeeGFS HA叢集
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用方針來指定部署BeeGFS HA叢集時應執行哪些工作。
+
+
+
+== 總覽
+
+本節說明如何組裝標準方針、以在NetApp上部署/管理BeeGFS。
+
+
+
+== 步驟
+
+
+
+=== 建立可執行的教戰手冊
+
+建立檔案 `playbook.yml` 並填入如下內容：
+
+. 首先定義一組工作（通常稱為 link:https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html#playbook-syntax["玩遊戲"^]）、只能在NetApp E系列區塊節點上執行。我們會使用暫停工作在執行安裝之前先行提示（以避免意外執行教戰手冊）、然後匯入 `nar_santricity_management` 角色：此角色負責套用中定義的任何一般系統組態 `group_vars/eseries_storage_systems.yml` 或個人 `host_vars/<BLOCK NODE>.yml` 檔案：
++
+[source, yaml]
+----
+- hosts: eseries_storage_systems
+  gather_facts: false
+  collections:
+    - netapp_eseries.santricity
+  tasks:
+    - name: Verify before proceeding.
+      pause:
+        prompt: "Are you ready to proceed with running the BeeGFS HA role? Depending on the size of the deployment and network performance between the Ansible control node and BeeGFS file and block nodes this can take awhile (10+ minutes) to complete."
+    - name: Configure NetApp E-Series block nodes.
+      import_role:
+        name: nar_santricity_management
+----
+. 定義要在所有檔案和區塊節點上執行的播放：
++
+[source, yaml]
+----
+- hosts: all
+  any_errors_fatal: true
+  gather_facts: false
+  collections:
+    - netapp_eseries.beegfs
+----
+. 在這場活動中、我們可以選擇定義一組「預先工作」、在部署HA叢集之前應先執行。這對於驗證/安裝任何先決條件（如Python）來說都很有用。我們也可以進行任何飛行前檢查、例如驗證是否支援提供的Ansible標記：
++
+[source, yaml]
+----
+  pre_tasks:
+    - name: Ensure a supported version of Python is available on all file nodes.
+      block:
+        - name: Check if python is installed.
+          failed_when: false
+          changed_when: false
+          raw: python --version
+          register: python_version
+
+        - name: Check if python3 is installed.
+          raw: python3 --version
+          failed_when: false
+          changed_when: false
+          register: python3_version
+          when: 'python_version["rc"] != 0 or (python_version["stdout"] | regex_replace("Python ", "")) is not version("3.0", ">=")'
+
+        - name: Install python3 if needed.
+          raw: |
+            id=$(grep "^ID=" /etc/*release* | cut -d= -f 2 | tr -d '"')
+            case $id in
+              ubuntu) sudo apt install python3 ;;
+              rhel|centos) sudo yum -y install python3 ;;
+              sles) sudo zypper install python3 ;;
+            esac
+          args:
+            executable: /bin/bash
+          register: python3_install
+          when: python_version['rc'] != 0 and python3_version['rc'] != 0
+          become: true
+
+        - name: Create a symbolic link to python from python3.
+          raw: ln -s /usr/bin/python3 /usr/bin/python
+          become: true
+          when: python_version['rc'] != 0
+      when: inventory_hostname not in groups[beegfs_ha_ansible_storage_group]
+
+    - name: Verify any provided tags are supported.
+      fail:
+        msg: "{{ item }} tag is not a supported BeeGFS HA tag. Rerun your playbook command with --list-tags to see all valid playbook tags."
+      when: 'item not in ["all", "storage", "beegfs_ha", "beegfs_ha_package", "beegfs_ha_configure", "beegfs_ha_configure_resource", "beegfs_ha_performance_tuning", "beegfs_ha_backup", "beegfs_ha_client"]'
+      loop: "{{ ansible_run_tags }}"
+----
+. 最後、這場活動會將BeeGFS HA角色匯入您要部署的BeeGFS版本：
++
+[source, yaml]
+----
+  tasks:
+    - name: Verify the BeeGFS HA cluster is properly deployed.
+      import_role:
+        name: beegfs_ha_7_4 # Alternatively specify: beegfs_ha_7_3.
+----
++
+
+NOTE: 每個支援的主要.次要 版本BeeGFS均維持BeeGFS HA角色。這可讓使用者選擇何時升級主要/次要版本。目前(`beegfs_7_3`(`beegfs_7_2`支援 BeeGFS 7.3.x 或 BeeGFS 7.2.x ）。根據預設、兩個角色都會在發行時部署最新的BeeGFS修補程式版本、不過使用者可以選擇覆寫此版本、並視需要部署最新的修補程式。如link:https://github.com/NetApp/beegfs/blob/master/docs/beegfs_ha/upgrade.md["升級指南"^]需詳細資訊、請參閱最新資訊。
+
+. 選用：如果您想要定義其他工作、請記住是否應將工作導向 `all` 主機（包括E系列儲存系統）或僅檔案節點。如有需要、請使用定義專為檔案節點而設計的新遊戲 `- hosts: ha_cluster`。
+
+
+按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/playbook.yml["請按這裡"^] 例如完整的教戰手冊檔案。
+
+
+
+=== 安裝NetApp Ansible Collection
+
+BeeGFS的Ansible及所有相依項目集合均保留在上 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^]。在Ansible控制節點上執行下列命令、以安裝最新版本：
+
+[source, bash]
+----
+ansible-galaxy collection install netapp_eseries.beegfs
+----
+雖然通常不建議使用、但也可以安裝特定版本的集合：
+
+[source, bash]
+----
+ansible-galaxy collection install netapp_eseries.beegfs:==<MAJOR>.<MINOR>.<PATCH>
+----
+
+
+=== 執行教戰手冊
+
+從包含的Ansible控制節點上的目錄 `inventory.yml` 和 `playbook.yml` 檔案、請依照下列步驟執行方針：
+
+[source, bash]
+----
+ansible-playbook -i inventory.yml playbook.yml
+----
+根據叢集的大小、初始部署可能需要20分鐘以上的時間。如果部署因任何原因而失敗、只要修正任何問題（例如：錯誤佈線、節點未啟動等）、然後重新啟動可執行的方針即可。
+
+指定link:architectures-inventory-common-file-node-configuration.html["通用檔案節點組態"^]時，如果您選擇預設選項讓 Ansible 自動管理連線型驗證，則 `connAuthFile`可在 `<playbook_dir>/files/beegfs/<sysMgmtdHost>_connAuthFile`（預設）找到用作共用密碼的。任何需要存取檔案系統的用戶端都必須使用此共用密碼。如果使用設定用戶端，則會自動處理此link:architectures-deploy-beegfs-clients.html["BeeGFS用戶端角色"^]問題。

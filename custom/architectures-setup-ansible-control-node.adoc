@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: custom/architectures-setup-ansible-control-node.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: 設定Ansible控制節點以部署及管理檔案系統。 
+---
+= 設定Ansible Control Node
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+設定Ansible控制節點以部署及管理檔案系統。
+
+
+
+== 總覽
+
+Ansible控制節點是用於管理叢集的實體或虛擬Linux機器。它必須符合下列要求：
+
+* 歡迎參加 link:../second-gen/beegfs-technology-requirements.html#ansible-control-node-requirements["需求"^]BeeGFS HA 角色、包括 Ansible 、 Python 的安裝版本、以及任何其他 Python 套件。
+* 與官員會面 link:https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-node-requirements["Ansible控制節點需求"^] 包括作業系統版本。
+* 可存取所有檔案和區塊節點的SSH和HTTPS。
+
+
+可以找到詳細的安裝步驟link:../second-gen/beegfs-deploy-setting-up-an-ansible-control-node.html["請按這裡"^]。

@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-define-inventory.html 
+permalink: second-gen/beegfs-deploy-define-inventory.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 定義一般的Ansible庫存結構之後、請定義BeeGFS檔案系統中每個建置區塊的組態。 
 ---
@@ -10,7 +10,7 @@ summary: 定義一般的Ansible庫存結構之後、請定義BeeGFS檔案系統�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

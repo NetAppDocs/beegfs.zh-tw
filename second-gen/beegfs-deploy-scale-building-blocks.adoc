@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-scale-building-blocks.html 
+permalink: second-gen/beegfs-deploy-scale-building-blocks.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 設定起搏器和電暈器同步、使其可擴充至超過五個建置區塊。 
 ---
@@ -10,7 +10,7 @@ summary: 設定起搏器和電暈器同步、使其可擴充至超過五個建�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

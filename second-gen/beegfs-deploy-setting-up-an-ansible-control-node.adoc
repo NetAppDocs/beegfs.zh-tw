@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-setting-up-an-ansible-control-node.html 
+permalink: second-gen/beegfs-deploy-setting-up-an-ansible-control-node.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 若要設定可Ansible控制節點、請識別可透過網路存取所有檔案和區塊節點管理連接埠的虛擬或實體機器、以便用來設定解決方案。 
 ---
@@ -10,7 +10,7 @@ summary: 若要設定可Ansible控制節點、請識別可透過網路存取所�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

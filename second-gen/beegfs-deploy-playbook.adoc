@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-playbook.html 
+permalink: second-gen/beegfs-deploy-playbook.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 部署及管理組態時、需要執行一或多個包含執行必要工作的教戰手冊、並將整體系統移至所需狀態。 
 ---
@@ -10,7 +10,7 @@ summary: 部署及管理組態時、需要執行一或多個包含執行必要�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -103,7 +103,7 @@ ansible-playbook -i inventory.yml playbook.yml --forks 20
 ....
 +
 
-NOTE: 特別是對於較大型的部署、建議使用「叉具」參數來覆寫預設的叉具數量（5）、以增加可選主機平行設定的主機數量。（如需詳細資訊、請參閱  https://www.ansible.com/blog/ansible-performance-tuning["Ansible Performance調校"^] 和 https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html["控制方針執行"^]） 最大值設定取決於Ansible控制節點上可用的處理能力。上述20個範例是在具有4個CPU（Intel（R）Xeon（R）Gold 6146 CPU @ 3.20GHz）的虛擬Ansible控制節點上執行。
+NOTE: 特別是對於較大型的部署、 `forks`建議使用參數覆寫預設的叉具（ 5 ）、以增加 Ansible 平行設定的主機數量。（如需詳細資訊 https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html["控制方針執行"^]、請參閱。）最大值設定取決於 Ansible 控制節點上可用的處理能力。上述20個範例是在具有4個CPU（Intel（R）Xeon（R）Gold 6146 CPU @ 3.20GHz）的虛擬Ansible控制節點上執行。
 
 +
 視部署規模和Ansible控制節點與BeeGFS檔案和區塊節點之間的網路效能而定、部署時間可能會有所不同。

@@ -8,9 +8,9 @@ indexpage:
   - title: 開始使用
     links:
     - title: 解決方案總覽
-      url: "/beegfs-solution-overview.html"
+      url: "/second-gen/beegfs-solution-overview.html"
     - title: 架構總覽
-      url: "/beegfs-architecture-overview.html"
+      url: "/second-gen/beegfs-architecture-overview.html"
     - title: 部落格-深入瞭解BeeGFS和E系列
       url: https://www.netapp.com/blog/solution-support-for-beegfs-and-e-series/
     - title: 部落格-適用於初學者的BeeGFS

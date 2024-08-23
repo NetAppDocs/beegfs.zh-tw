@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: custom/architectures-overview.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: BeeGFS on NetApp解決方案結合BeeGFS平行檔案系統與NetApp E系列儲存系統、打造可靠、可擴充且具成本效益的基礎架構、可跟上嚴苛工作負載的腳步。 
+---
+= 總覽與需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用Ansible部署BeeGFS高可用度叢集時、請將任何NetApp E/EF系列儲存系統當作BeeGFS區塊節點、將x86伺服器當作BeeGFS檔案節點。
+
+
+TIP: 本節中使用的術語定義可在link:../get-started/beegfs-terms.html["詞彙與概念"]頁面中找到。
+
+
+
+== 簡介
+
+雖然link:../second-gen/beegfs-solution-overview.html["NetApp認證的架構"]提供預先定義的參考組態和規模指南、但有些客戶和合作夥伴可能偏好設計更適合特定需求或硬體偏好的自訂架構。在NetApp上選擇BeeGFS的主要優點之一、就是能夠使用Ansible部署BeeGFS共享磁碟HA叢集、藉由NetApp著作的HA元件來簡化叢集管理並提升可靠性。在NetApp上部署客製化BeeGFS架構仍是使用Ansible、在靈活的硬體範圍內維持類似應用裝置的方法。
+
+本節概述在NetApp硬體上部署BeeGFS檔案系統、以及使用Ansible來設定BeeGFS檔案系統所需的一般步驟。如需有關 BeeGFS 檔案系統設計的最佳實務、以及最佳化範例的詳細資訊link:../second-gen/beegfs-solution-overview.html["NetApp認證的架構"]、請參閱一節。
+
+
+
+== 部署總覽
+
+部署BeeGFS檔案系統通常需要執行下列步驟：
+
+* 初始設定：
++
+** 安裝/纜線硬體。
+** 設定檔案和區塊節點。
+** 設定可Ansible控制節點。
+
+
+* 將BeeGFS檔案系統定義為可Ansible庫存。
+* 針對檔案和區塊節點執行Ansible、以部署BeeGFS。
++
+** （可選）設置客戶端和BeeGFS掛載。
+
+
+
+
+後續章節將更詳細地說明這些步驟。
+
+[NOTE]
+====
+Ansible負責所有的軟體資源配置與組態工作、包括：
+
+* 在區塊節點上建立/對應磁碟區。
+* 在檔案節點上格式化/調整磁碟區。
+* 在檔案節點上安裝/設定軟體。
+* 建立HA叢集並設定BeeGFS資源和檔案系統服務。
+
+
+====
+
+
+== 需求
+
+Ansible的BeeGFS支援已於發表 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"] 這是一套角色與模組的集合、可將BeeGFS HA叢集的端點對端點部署與管理自動化。
+
+BeeGFS本身的版本是根據<major> 一份《Section.Section.》<minor> 版本管理方案進行版本管理<patch> 、而該集合則負責維護<major> 每個支援的BeeGFS版本（<minor> 例如BeeGFS 7.2或BeeGFS 7.3）的角色。隨著集合更新發行、每個角色的修補程式版本將會更新、以指出該版本分支的最新可用BeeGFS版本（例如：7.2.8）。每個版本的集合也會針對特定的Linux發行版本和版本進行測試和支援、目前適用於檔案節點的Red Hat、以及適用於用戶端的RedHat和Ubuntu。不支援執行其他發佈版本、不建議執行其他版本（尤其是其他主要版本）。
+
+
+
+=== Ansible Control Node
+
+此節點將包含用於管理BeeGFS的目錄和方針。它需要：
+
+* Ansible 6.x（Ansible核心2.13）
+* Python 3.6（或更新版本）
+* Python（pip）套件：ipaddr和netaddr
+
+
+此外、建議您從控制節點設定無密碼SSH、以連接所有BeeGFS檔案節點和用戶端。
+
+
+
+=== BeeGFS檔案節點
+
+檔案節點必須執行RedHat 9.3、並可存取含有必要套件（心律調整器、電暈器同步、Fence代理程式、資源代理程式）的HA儲存庫。例如、您可以執行下列命令、在RedHat 9上啟用適當的儲存庫：
+
+[source, bash]
+----
+subscription-manager repo-override repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
+----
+
+
+=== BeeGFS用戶端節點
+
+BeeGFS用戶端Ansible角色可用於安裝BeeGFS用戶端套件、以及管理BeeGFS掛載。此角色已通過RedHat 8.4和Ubuntu 22.04測試。
+
+如果您不使用Ansible來設定BeeGFS用戶端和BeeGFS、則可以選擇任何 link:https://doc.beegfs.io/latest/release_notes.html#supported-linux-distributions-and-kernels["BeeGFS支援Linux發佈與核心"] 可以使用。

@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-design-solution-verification.html 
+permalink: second-gen/beegfs-design-solution-verification.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: NetApp解決方案BeeGFS的第二代設計已使用三種建置區塊組態設定檔進行驗證。 
 ---
@@ -10,7 +10,7 @@ summary: NetApp解決方案BeeGFS的第二代設計已使用三種建置區塊�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -27,7 +27,7 @@ NetApp解決方案BeeGFS的第二代設計已使用三種建置區塊組態設�
 
 下圖顯示用於驗證NetApp解決方案BeeGFS的BeeGFS組態。
 
-image:beegfs-design-image12.png[""]
+image:beegfs-design-image12.png["BeeGFS 驗證組態"]
 
 
 
@@ -57,22 +57,22 @@ mpirun --allow-run-as-root --mca btl tcp -np 48 -map-by node -hostfile 10xnodes 
 .一個BeeGFS基礎（管理、中繼資料和儲存）建置區塊
 下圖顯示單一BeeGFS基礎（管理、中繼資料和儲存）建置區塊的IOR測試結果。
 
-image:beegfs-design-image13.png[""]
+image:beegfs-design-image13.png["單一 BeeGFS 基礎建置區塊 IOR 結果"]
 
 .BeeGFS中繼資料+儲存建置區塊
 下圖顯示單一BeeGFS中繼資料+儲存建置區塊的IOR測試結果。
 
-image:beegfs-design-image14.png[""]
+image:beegfs-design-image14.png["單一 BeeGFS 中繼資料和儲存建置會區塊 IOR 結果"]
 
 .BeeGFS純儲存建置區塊
 下圖顯示單一BeeGFS純儲存建置區塊的IOR測試結果。
 
-image:beegfs-design-image15.png[""]
+image:beegfs-design-image15.png["單一 BeeGFS 儲存 IOR 結果"]
 
 .三個BeeGFS建置區塊
 下圖顯示使用三個BeeGFS建置區塊的IOR測試結果。
 
-image:beegfs-design-image16.png[""]
+image:beegfs-design-image16.png["三個 BeeGFS 建置區塊的 IOR 結果"]
 
 如預期、基礎建置區塊與後續中繼資料+儲存建置區塊之間的效能差異可忽略不計。比較中繼資料+儲存建置區塊與純儲存建置區塊、可看出讀取效能略有提升、因為使用額外的磁碟機做為儲存目標。不過、寫入效能並無顯著差異。若要達到更高的效能、您可以將多個建置區塊一起新增、以線性方式擴充效能。
 
@@ -88,7 +88,7 @@ IOR頻寬測試使用OpenMPI、使用單一高效能GPU伺服器執行多個IOR�
 
 下圖顯示使用三個BeeGFS建置區塊和單一用戶端的IOR測試結果。
 
-image:beegfs-design-image17.png[""]
+image:beegfs-design-image17.png["三個 BeeGFS 建置區塊、搭配單一用戶端 IOR 結果"]
 
 
 NOTE: 這些測試的BeeGFS分段設定為1MB chunksize、每個檔案有八個目標。
@@ -111,12 +111,12 @@ mpirun -h 10xnodes –map-by node np $processes mdtest -e 4k -w 4k -i 3 -I 16 -z
 .一個BeeGFS中繼資料+儲存建置區塊
 下圖顯示含有一個BeeGFS中繼資料+儲存建置區塊的MDTest結果。
 
-image:beegfs-design-image18.png[""]
+image:beegfs-design-image18.png["單一 BeeGFS 中繼資料和儲存建置會區塊 MDTest 結果"]
 
 .兩個BeeGFS中繼資料+儲存建置區塊
 下圖顯示含有兩個BeeGFS中繼資料+儲存建置區塊的MDTest結果。
 
-image:beegfs-design-image19.png[""]
+image:beegfs-design-image19.png["兩個 BeeGFS 中繼資料和儲存建置區塊 MDTest 結果"]
 
 
 

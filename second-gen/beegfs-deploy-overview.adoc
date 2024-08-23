@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-overview.html 
+permalink: second-gen/beegfs-deploy-overview.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 您可以使用第二代NetApp BeeGFS建置區塊設計、在NetApp上部署BeeGFS至已驗證的檔案和區塊節點。 
 ---
@@ -10,7 +10,7 @@ summary: 您可以使用第二代NetApp BeeGFS建置區塊設計、在NetApp上�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

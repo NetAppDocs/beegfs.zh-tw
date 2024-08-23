@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-learn-ansible.html 
+permalink: second-gen/beegfs-deploy-learn-ansible.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 開始部署之前、請務必瞭解如何使用Ansible、使用第二代BeeGFS建置區塊設計、在NetApp上設定及部署BeeGFS解決方案。 
 ---
@@ -10,7 +10,7 @@ summary: 開始部署之前、請務必瞭解如何使用Ansible、使用第二�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

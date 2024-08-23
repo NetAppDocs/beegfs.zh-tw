@@ -1,0 +1,166 @@
+---
+sidebar: sidebar 
+permalink: custom/architectures-inventory-configure-file-nodes.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: 使用主機變數（host_vars）指定個別檔案節點的組態。 
+---
+= 設定個別檔案節點
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用主機變數（host_vars）指定個別檔案節點的組態。
+
+
+
+== 總覽
+
+本節將逐步介紹填入的內容 `host_vars/<FILE_NODE_HOSTNAME>.yml` 叢集中每個檔案節點的檔案。這些檔案應僅包含特定檔案節點專屬的組態。這通常包括：
+
+* 定義IP或Ansible主機名稱應用於連線至節點。
+* 設定用於HA叢集服務（起搏器和電暈器同步）的其他介面和叢集IP、以便與其他檔案節點通訊。根據預設、這些服務使用的網路與管理介面相同、但應該有額外的介面可供備援。一般做法是在儲存網路上定義額外的IP、避免需要額外的叢集或管理網路。
++
+** 任何用於叢集通訊的網路效能、對檔案系統效能並不重要。使用預設叢集組態時、通常至少有 1 Gb/s 網路可為叢集作業提供足夠的效能、例如同步節點狀態和協調叢集資源狀態變更。緩慢/忙碌的網路可能會導致資源狀態變更的時間比平常長、而且在極端的情況下、如果無法在合理的時間範圍內傳送訊號、則可能會導致節點從叢集中被逐出。
+
+
+* 設定介面、用於透過所需的傳輸協定連線至區塊節點（例如：iSCSI/iSER、NVMe/IB、NVMe/RoCE、FCP等）。
+
+
+
+
+== 步驟
+
+link:architectures-plan-file-system.html["規劃檔案系統"]針對叢集中的每個檔案節點、參考一節中定義的 IP 定址方案會建立檔案 `host_vars/<FILE_NODE_HOSTNAME>/yml`、並填入檔案、如下所示：
+
+. 在頂端指定Ansible應使用的IP或主機名稱來SSH連接節點並加以管理：
++
+[source, yaml]
+----
+ansible_host: "<MANAGEMENT_IP>"
+----
+. 設定可用於叢集流量的其他IP：
++
+.. 如果網路類型為 link:https://github.com/netappeseries/host/tree/release-1.2.0/roles/ipoib["InfiniBand（使用IPoIB）"^]：
++
+[source, yaml]
+----
+eseries_ipoib_interfaces:
+- name: <INTERFACE>  # Example: ib0 or i1b
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+- name: <INTERFACE>  # Additional interfaces as needed.
+  address: <IP/SUBNET>
+----
+.. 如果網路類型為 link:https://github.com/netappeseries/host/tree/release-1.2.0/roles/roce["融合式乙太網路上的RDMA（RoCE）"^]：
++
+[source, yaml]
+----
+eseries_roce_interfaces:
+- name: <INTERFACE>  # Example: eth0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+- name: <INTERFACE>  # Additional interfaces as needed.
+  address: <IP/SUBNET>
+----
+.. 如果網路類型為 link:https://github.com/netappeseries/host/tree/release-1.2.0/roles/ip["乙太網路（僅TCP、無RDMA）"^]：
++
+[source, yaml]
+----
+eseries_ip_interfaces:
+- name: <INTERFACE>  # Example: eth0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+- name: <INTERFACE>  # Additional interfaces as needed.
+  address: <IP/SUBNET>
+----
+
+
+. 指出叢集流量應使用哪些IP、優先IP列在較高的位置：
++
+[source, yaml]
+----
+beegfs_ha_cluster_node_ips:
+- <MANAGEMENT_IP> # Including the management IP is typically but not required.
+- <IP_ADDRESS>    # Ex: 100.127.100.1
+- <IP_ADDRESS>    # Additional IPs as needed.
+----
++
+
+NOTE: 在步驟2中設定的IPS不會作為叢集IP使用、除非包含在中 `beegfs_ha_cluster_node_ips` 清單。這可讓您使用Ansible來設定其他IP /介面、以便在需要時用於其他用途。
+
+. 如果檔案節點需要透過IP型傳輸協定來通訊區塊節點、則必須在適當的介面上設定IP、以及安裝/設定該傳輸協定所需的任何套件。
++
+.. 如果使用 link:https://github.com/netappeseries/host/blob/master/roles/iscsi/README.md["iSCSI"^]：
++
+[source, yaml]
+----
+eseries_iscsi_interfaces:
+- name: <INTERFACE>  # Example: eth0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+----
+.. 如果使用 link:https://github.com/netappeseries/host/blob/master/roles/ib_iser/README.md["商用"^]：
++
+[source, yaml]
+----
+eseries_ib_iser_interfaces:
+- name: <INTERFACE>  # Example: ib0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+  configure: true # If the file node is directly connected to the block node set to true to setup OpenSM.
+----
+.. 如果使用 link:https://github.com/netappeseries/host/blob/master/roles/nvme_ib/README.md["NVMe / IB"^]：
++
+[source, yaml]
+----
+eseries_nvme_ib_interfaces:
+- name: <INTERFACE>  # Example: ib0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+  configure: true # If the file node is directly connected to the block node set to true to setup OpenSM.
+----
+.. 如果使用 link:https://github.com/netappeseries/host/blob/master/roles/nvme_roce/README.md["NVMe / RoCE"^]：
++
+[source, yaml]
+----
+eseries_nvme_roce_interfaces:
+- name: <INTERFACE>  # Example: eth0.
+  address: <IP/SUBNET> # Example: 100.127.100.1/16
+----
+.. 其他通訊協定：
++
+... 如果使用 link:https://github.com/netappeseries/host/blob/master/roles/nvme_fc/README.md["NVMe / FC"^]，不需要設定個別介面。BeeGFS叢集部署會自動偵測傳輸協定、並視需要安裝/設定需求。如果您使用Fabric來連接檔案和區塊節點、請確保交換器已依照NetApp和交換器廠商的最佳實務做法正確分區。
+... 使用FCP或SAS不需要安裝或設定其他軟體。如果使用FCP、請確定交換器已正確分區如下 link:https://docs.netapp.com/us-en/e-series/config-linux/fc-configure-switches-task.html["NetApp"^] 以及交換器廠商的最佳實務做法。
+... 目前不建議使用IB SRP。視E系列區塊節點支援的項目而定、請使用NVMe/IB或iSER。
+
+
+
+
+
+
+按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/host_vars/ictad22h01.yml["請按這裡"^] 例如、代表單一檔案節點的完整庫存檔案。
+
+
+
+=== 進階：在乙太網路與InfiniBand模式之間切換NVIDIA ConnectX VPI介面卡
+
+NVIDIA ConnectX-Virtual Protocol Interconnect（VPI）介面卡支援InfiniBand和乙太網路作為傳輸層。在模式之間切換不會自動協商，而且必須使用中隨附的工具進行設定 `mstconfig` `mstflint`，這是屬於的開放原始碼套件 link:https://docs.nvidia.com/networking/display/mftv4270/mft+supported+configurations+and+parameters["NVIDIA Firmare 工具（ MFT ）"^]。只需變更一次介面卡模式即可。這可以手動完成、也可以納入 Ansible 庫存、做為任何使用庫存區段設定的介面一部分 `eseries-[ib|ib_iser|ipoib|nvme_ib|nvme_roce|roce]_interfaces:` 、以自動檢查 / 套用。
+
+例如、將InfiniBand模式中的介面電流變更為乙太網路、以便用於RoCE：
+
+. 針對您要設定的每個介面指定 `mstconfig` 做為指定的對應（或字典） `LINK_TYPE_P<N>` 其中 `<N>` 由HCA的介面連接埠號碼決定。。 `<N>` 值可透過執行來決定 `grep PCI_SLOT_NAME /sys/class/net/<INTERFACE_NAME>/device/uevent` 並從PCI插槽名稱新增1至最後一個數字、然後轉換為十進位。
++
+.. 例如給定的 `PCI_SLOT_NAME=0000:2f:00.2` （2 + 1 -> HCA連接埠3）-> `LINK_TYPE_P3: eth`：
++
+[source, yaml]
+----
+eseries_roce_interfaces:
+- name: <INTERFACE>
+  address: <IP/SUBNET>
+  mstconfig:
+    LINK_TYPE_P3: eth
+----
+
+
+
+
+如需其他詳細資料、請參閱 link:https://github.com/netappeseries/host["NetApp E系列主機系列文件"^] 針對您使用的介面類型/傳輸協定。
