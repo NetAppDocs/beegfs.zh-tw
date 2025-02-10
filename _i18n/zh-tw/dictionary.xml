@@ -719,7 +719,6 @@
   <block id="970c2de774d4cba551050f0b96346cc6" category="section-title">步驟4：定義應套用至所有檔案節點的組態</block>
   <block id="68decee7f537598fe42c449c7effd748" category="paragraph">檔案節點的共用組態是在稱為「ha_cluster」的群組中定義。本節中的步驟會建置應包含在「group vars/ha_cluster．yml」檔案中的組態。</block>
   <block id="01eabbaba4e3200ffffeaf687ced4089" category="list-text">在檔案頂端、定義預設值、包括在檔案節點上用做「show」使用者的密碼。</block>
-  <block id="c61c5c1226a5daff294e618d1b90ec26" category="admonition">尤其是在正式作業環境中、請勿以純文字儲存密碼。請改用Ansible Vault（請參閱）<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>）或是執行教戰手冊時的「Ask–變為pass」選項。如果「Ansip_ssh使用者」已經是「root」、您可以選擇省略「Ansible變成密碼」。</block>
   <block id="3eeae040dcd4e8e08ba89cd729351414" category="list-text">您也可以設定高可用度（HA）叢集的名稱、並指定叢集內通訊的使用者。</block>
   <block id="22bf408c8339ca14dab3745bbe56780d" category="paragraph">如果您要修改私有IP定址方案、也必須更新預設的「beegfs_ha_mgmtd_浮 點IP」。這必須符合您稍後為BeeGFS管理資源群組所設定的項目。</block>
   <block id="ba4d50db9221cc812d5f7981d4600c2d" category="paragraph">使用「beegfs_ha_alert_email_lists」指定一封或多封應接收叢集事件警示的電子郵件。</block>
@@ -745,7 +744,6 @@
   <block id="aad0b8e6a3552eebcdcf125f218d1954" category="section-title">步驟5：定義通用區塊節點的組態</block>
   <block id="f9ed56c11a1443e285b3d786249fe6aa" category="paragraph">區塊節點的共用組態是在稱為「Eseria_storage系統」的群組中定義。本節中的步驟會建置應包含在「group _vars/ Eseries _storage系統.yml」檔案中的組態。</block>
   <block id="7d304d17d15c3332b9d8584fa30f070b" category="list-text">設定「Ansible connection to local（可連線至本機）」、提供系統密碼、並指定是否應驗證SSL憑證。（通常情況下、Ansible會使用SSH連線至託管主機、但在使用NetApp E系列儲存系統做為區塊節點的情況下、模組會使用REST API進行通訊。） 在檔案頂端新增下列項目：</block>
-  <block id="41c70fb9d233363d68fe27194430adc1" category="admonition">不建議以純文字列出任何密碼。使用Ansible保存庫或使用「-Extra vars」執行Ansible時提供「Eserie_system_password」。</block>
   <block id="a18d6a60f542af2e3b0784928e17f417" category="list-text">若要確保最佳效能、請在中安裝區塊節點所列的版本 <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>。</block>
   <block id="8c41baf1ca98e1184f48c4721d44d431" category="inline-link">NetApp支援網站</block>
   <block id="38119f4253b4080e689702afd647df1f" category="paragraph">請從下載對應的檔案<block ref="3f80e15ba326a9eb1fc39b6d8ba81472" category="inline-link-rx"></block>。您可以手動升級、或是將它們納入Ansible控制節點的「套件/」目錄、然後在「Eserie_storage儲存系統.yml」中填入下列參數、以使用Ansible進行升級：</block>
@@ -1713,12 +1711,10 @@
   <block id="40fa362dda8b4d271b61c38987bd5131" category="paragraph">NetApp已使用類似的BeeGFS檔案系統（由三個建置區塊組成、並套用中繼資料加上儲存組態設定檔）、驗證NVIDIAs DGX A100 SupermPOD的儲存解決方案。此NVA所描述的解決方案、需要測試資格、測試20部DGX A100 GPU伺服器、執行各種儲存設備、機器學習和深度學習基準測試。以 NVIDIA DGX A100 SuperPOD 所建立的驗證為基礎、 NetApp 上的 BeeGFS 解決方案已獲得 DGX SuperPOD H100 、 H200 及 B200 系統的核准。這項延伸是根據 NVIDIA DGX A100 所驗證的先前基準測試和系統需求而定。</block>
   <block id="21b6d1b90774505daa15a9be831436a9" category="inline-link-macro">設計指南</block>
   <block id="1cba1266f00c729aee1318803f870d22" category="list-text">專為 NVIDIA DGX SuperPOD A100 、 H100 、 H200 及 B200 系統所設計的架構、此架構先前已在 NVIDIA 的專用驗收叢集上驗證。如需 NVIDIA DGX SuperPOD with NetApp 的詳細 <block ref="e98320202738eb339bebe66cbb05ad8f" category="inline-link-macro-rx"></block>資訊、請參閱。</block>
-  <block id="8c044876bfc8883462e221a47dd42483" category="paragraph">NetApp 上的第二代 BeeGFS 已經過最佳化、可滿足嚴苛工作負載的效能需求、包括高效能運算（ HPC ）、機器學習（ ML ）、深度學習（ DL ）及其他人工智慧（ AI ）技術。這項設計整合了共享磁碟高可用度（ HA ）架構、可確保資料的耐用性和可用度、是無法承受停機或資料遺失的企業和其他組織的理想選擇。第二代設計包括 PCIe gen5 伺服器等元件、並支援 NVIDIA ® Quantum ™ QM9700 400GB / 秒 InfiniBand 交換器。此解決方案不僅已通過 NetApp 驗證、也已通過外部資格認證、成為 NVIDIA DGX ™ A100 SuperPOD 的儲存選項、並獲得 DGX SuperPOD H100 、 H200 及 B200 系統的延伸認證。</block>
   <block id="10ca191b839b35e5100464ff59b95b97" category="paragraph">NetApp 上的第一代 BeeGFS 是專為使用 NetApp EF600 NVMe 儲存系統、 BeeGFS 平行檔案系統、 NVIDIA DGX ™ A100 系統和 NVIDIA ® Mellanox ® Quantum ™ QM8700 200Gb/s IB 交換器的機器學習（ ML ）和人工智慧（ AI ）工作負載所設計。這項設計也針對儲存與運算叢集互連架構提供 200Gb/s InfiniBand （ IB ）、為高效能工作負載提供完全以 IB 為基礎的架構。</block>
   <block id="aef5a6ba281c6919d0a3e3ff7d8feaf3" category="section-title">設計總覽</block>
   <block id="a1d7af56cbcfca285cd257ae3430a2d3" category="inline-link-macro">架構總覽</block>
   <block id="61dd8d13bec6e1ac3455eb2e13d61261" category="paragraph">NetApp 上的 BeeGFS 解決方案是一種可擴充的建置區塊架構、可針對各種嚴苛的工作負載進行設定。無論是處理許多小型檔案、管理大量檔案作業、或是混合式工作負載、都能自訂檔案系統以滿足這些需求。高可用度的設計採用兩層硬體結構、可在多個硬體層進行自動容錯移轉、確保效能一致、即使在部分系統降級期間也是如此。BeeGFS 檔案系統可在不同的 Linux 套裝作業系統中提供高效能且可擴充的環境、並為用戶端提供單一易存取的儲存命名空間。如需詳細資訊，請參閱 <block ref="45037eea1e64b480408f051dfe424a3c" category="inline-link-macro-rx"></block>。</block>
-  <block id="ddf44cacce7787e9c71d290998a2d033" category="list-text">NVIDIA DGX SuperPOD 系統採用 DGX 、搭配 A100 、 H100 、 H200 和 B200 GPU 。</block>
   <block id="bcaa6be52b9fd12687892056d441d7e4" category="paragraph">若要在 NetApp 上實作 BeeGFS 解決方案、請確保您的環境符合本文件所述的技術需求。</block>
   <block id="7bf6b11b50ef88e180323b13813659d7" category="paragraph">開始之前、請先確認您的硬體符合下列規格、以便在 NetApp 解決方案上進行 BeeGFS 的單一第二代建置區塊設計。特定部署的確切元件可能會因客戶需求而異。</block>
   <block id="694e8d1f2ee056f98ee488bdc4982d73" category="cell">數量</block>
@@ -1918,4 +1914,13 @@
   <block id="0594ef398f6882c7d1d98994e3906850" category="paragraph">* 從區塊節點直接連線至檔案節點。 *</block>
   <block id="b38917fef1efbb1471841f7a026c98c3" category="paragraph">* 從檔案節點到儲存網路交換器的連線。 *根據您的 InfiniBand 儲存交換器、從下表中選取適當的纜線選項。+ 建議的纜線長度為 2 公尺；不過、這可能會因客戶的環境而異。</block>
   <block id="a00d274d551f6b74718d44ea2bb6e6c3" category="sidebar">更新 HA 叢集元件</block>
+  <block id="67f62a9c37bde591abc850b5a2b22b02" category="list-text">建立叢集密碼的子目錄，並使用 Ansible Vault 加密檔案以保護檔案安全（請參閱<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>）：</block>
+  <block id="8e7f7bdc10cb596910cce6b79c2e2ed6" category="list-text">創建子目錄<block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>。</block>
+  <block id="166355001b2692bdc29d698719b5f702" category="list-text">在<block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>目錄中，建立一個標示為的密碼檔案<block ref="97a67fc90fe6d13cef22fa951de48f8d" prefix=" " category="inline-code"></block>。</block>
+  <block id="da8d8318ceb4254068ec25272c92bc85" category="list-text">使用下列項目填入<block ref="b8d32e4c2d78b6e404b69e5c1fbf3118" prefix=" " category="inline-code"></block>，根據您的組態取代所有的使用者名稱和密碼參數：</block>
+  <block id="7e60d329db54d74d692f53620b366281" category="list-text">在出現提示時執行<block ref="150063209c60b18e2173569bd82ec639" prefix=" " category="inline-code"></block>並設定資料保險箱密碼。</block>
+  <block id="1d2459ca9cef1e38badde9d192eff628" category="admonition">如果<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block>已經<block ref="63a9f0ea7bb98050796b649e85481845" prefix=" " category="inline-code"></block>是，則您可以選擇性地省略，<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>並在執行教戰手冊時指定<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block>選項。</block>
+  <block id="49e794dd3d68025fd6943b67048e4f27" category="paragraph">NetApp 上的第二代 BeeGFS 已經過最佳化、可滿足嚴苛工作負載的效能需求、包括高效能運算（ HPC ）、機器學習（ ML ）、深度學習（ DL ）及其他人工智慧（ AI ）技術。這項設計整合了共享磁碟高可用度（ HA ）架構、可確保資料的耐用性和可用度、是無法承受停機或資料遺失的企業和其他組織的理想選擇。第二代設計包括 PCIe gen5 伺服器等元件、並支援 NVIDIA ® Quantum ™ QM9700 400GB / 秒 InfiniBand 交換器。此解決方案不僅已通過 NetApp 驗證，也已通過外部資格認證，成為 NVIDIA DGX ™ A100 SuperPOD 的儲存選項，並獲得 DGX SuperPOD H100 ， H200 及 B200 系統的延伸認證。</block>
+  <block id="7da4cabbb2f4c4e53ccb9660355b7dd1" category="list-text">NVIDIA DGX SuperPOD 系統採用 DGX ，搭配 A100 ， H100 ， H200 和 B200 GPU 。</block>
+  <block id="e02a1b9bf28135b2931b63ac814ff7ac" category="sidebar">NVA-1174 - BeeGFS on NetApp EF 系列搭配 NVIDIA DGX SuperPOD 系統</block>
 </blocks>

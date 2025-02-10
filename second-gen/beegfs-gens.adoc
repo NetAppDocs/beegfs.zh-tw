@@ -27,7 +27,7 @@ BeeGFS on NetApp解決方案目前正處於第二代設計階段。
 
 == 第二代設計
 
-NetApp 上的第二代 BeeGFS 已經過最佳化、可滿足嚴苛工作負載的效能需求、包括高效能運算（ HPC ）、機器學習（ ML ）、深度學習（ DL ）及其他人工智慧（ AI ）技術。這項設計整合了共享磁碟高可用度（ HA ）架構、可確保資料的耐用性和可用度、是無法承受停機或資料遺失的企業和其他組織的理想選擇。第二代設計包括 PCIe gen5 伺服器等元件、並支援 NVIDIA ® Quantum ™ QM9700 400GB / 秒 InfiniBand 交換器。此解決方案不僅已通過 NetApp 驗證、也已通過外部資格認證、成為 NVIDIA DGX ™ A100 SuperPOD 的儲存選項、並獲得 DGX SuperPOD H100 、 H200 及 B200 系統的延伸認證。
+NetApp 上的第二代 BeeGFS 已經過最佳化、可滿足嚴苛工作負載的效能需求、包括高效能運算（ HPC ）、機器學習（ ML ）、深度學習（ DL ）及其他人工智慧（ AI ）技術。這項設計整合了共享磁碟高可用度（ HA ）架構、可確保資料的耐用性和可用度、是無法承受停機或資料遺失的企業和其他組織的理想選擇。第二代設計包括 PCIe gen5 伺服器等元件、並支援 NVIDIA ® Quantum ™ QM9700 400GB / 秒 InfiniBand 交換器。此解決方案不僅已通過 NetApp 驗證，也已通過外部資格認證，成為 NVIDIA DGX ™ A100 SuperPOD 的儲存選項，並獲得 DGX SuperPOD H100 ， H200 及 B200 系統的延伸認證。
 
 
 

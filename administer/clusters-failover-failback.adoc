@@ -54,7 +54,7 @@ pcs cluster start <HOSTNAME>
 
 [source, console]
 ----
-pcs cluster node unstandby <HOSTNAME>
+pcs node unstandby <HOSTNAME>
 ----
 最後、將所有BeeGFS服務重新部署回其偏好的節點：
 

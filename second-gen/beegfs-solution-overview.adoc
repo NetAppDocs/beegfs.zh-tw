@@ -34,7 +34,7 @@ NetApp 上的 BeeGFS 解決方案是一種可擴充的建置區塊架構、可�
 
 下列使用案例適用於NetApp上的BeeGFS解決方案：
 
-* NVIDIA DGX SuperPOD 系統採用 DGX 、搭配 A100 、 H100 、 H200 和 B200 GPU 。
+* NVIDIA DGX SuperPOD 系統採用 DGX ，搭配 A100 ， H100 ， H200 和 B200 GPU 。
 * 人工智慧（AI）包括機器學習（ML）、深度學習（DL）、大規模自然語言處理（NLP）、以及自然語言理解（N5U）。如需詳細資訊、請參閱 https://www.netapp.com/blog/beefs-for-ai-fact-vs-fiction/["BeeGFS for AI：事實與虛構"^]。
 * 高效能運算（HPC）、包括透過MPI（訊息傳遞介面）和其他分散式運算技術加速的應用程式。如需詳細資訊、請參閱 https://www.netapp.com/blog/beegfs-for-ai-ml-dl/["為什麼BeeGFS超越HPC"^]。
 * 應用程式工作負載的特徵為：
