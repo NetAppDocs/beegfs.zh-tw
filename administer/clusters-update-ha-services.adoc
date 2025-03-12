@@ -1,0 +1,184 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-update-ha-services.html 
+keywords: Cluster, Administration, Update, Upgrade, Pacemaker, Corosync 
+summary: 在 HA 叢集中升級節律器和電暈器同步套件的步驟。 
+---
+= 升級 HA 叢集中的 Pacemaker 和 corosync 套件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+請依照下列步驟升級 HA 叢集中的節律器和電暈器同步套件。
+
+
+
+== 總覽
+
+升級 Pacemaker 和 corosync 可確保叢集從新功能，安全修補程式和效能改善中獲益。
+
+
+
+== 升級方法
+
+升級叢集有兩種建議方法：滾動升級或完全關閉叢集。每種方法都有自己的優缺點。您的升級程序可能會因心律調整器版本而異。請參閱 ClusterLabs 的link:https://clusterlabs.org/projects/pacemaker/doc/3.0/Pacemaker_Administration/html/upgrading.html["升級 Pacemaker 叢集"^]說明文件，以判斷要使用哪種方法。在遵循升級方法之前，請確認：
+
+* NetApp BeeGFS 解決方案支援全新的節律器和電暈器同步套件。
+* BeeGFS 檔案系統和 Pacemaker 叢集組態有有效的備份。
+* 叢集處於正常狀態。
+
+
+
+
+=== 循環升級
+
+此方法涉及從叢集中移除每個節點，將其升級，然後將其重新引入叢集，直到所有節點都執行新版本為止。這種方法可讓叢集持續運作，這是較大型 HA 叢集的理想選擇，但在處理過程中會有執行混合版本的風險。在雙節點叢集中，應避免使用此方法。
+
+. 確認叢集處於最佳狀態，且每個 BeeGFS 服務都在其偏好的節點上執行。如 link:clusters-examine-state.html["檢查叢集的狀態"^] 需詳細資訊、請參閱。
+. 若要升級節點，請將其置入待命模式，以耗盡（或移動）所有 BeeGFS 服務：
++
+[source, console]
+----
+pcs node standby <HOSTNAME>
+----
+. 執行下列步驟，確認節點的服務已耗盡：
++
+[source, console]
+----
+pcs status
+----
++
+請確定未將任何服務回報為待命節點上的服務 `Started`。
+
++
+
+NOTE: 視叢集大小而定，服務可能需要幾秒鐘或幾分鐘才能移至姊妹節點。如果 BeeGFS 服務無法在姊妹節點上啟動link:clusters-troubleshoot.html["疑難排解指南"^]，請參閱。
+
+. 關閉節點上的叢集：
++
+[source, console]
+----
+pcs cluster stop <HOSTNAME>
+----
+. 升級節點上的 Pacemaker ， corossync 和 PCS 套件：
++
+
+NOTE: 套件管理員命令會因作業系統而異。下列命令適用於執行 RHEL 8 及後續版本的系統。
+
++
+[source, console]
+----
+dnf update pacemaker-<version>
+----
++
+[source, console]
+----
+dnf update corosync-<version>
+----
++
+[source, console]
+----
+dnf update pcs-<version>
+----
+. 在節點上啟動 Pacemaker 叢集服務：
++
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+. 如果 `pcs`套件已更新，請使用叢集重新驗證節點：
++
+[source, console]
+----
+pcs host auth <HOSTNAME>
+----
+. 確認此工具的節律器組態仍然有效 `crm_verify`。
++
+
+NOTE: 只需在叢集升級期間驗證一次即可。
+
++
+[source, console]
+----
+crm_verify -L -V
+----
+. 將節點從待機狀態移出：
++
+[source, console]
+----
+pcs node unstandby <HOSTNAME>
+----
+. 將所有 BeeGFS 服務重新部署回其偏好的節點：
++
+[source, console]
+----
+pcs resource relocate run
+----
+. 針對叢集中的每個節點重複上述步驟，直到所有節點都執行所需的節律器，電暈器同步和 PCS 版本為止。
+. 最後，請執行 `pcs status`並確認叢集狀況良好，並 `Current DC`回報所需的節律器版本。
++
+
+NOTE: 如果 `Current DC`報告為「 ixed 版本」，則叢集中的某個節點仍在使用舊版 Pacemaker 執行，需要升級。如果任何升級的節點無法重新加入叢集，或資源無法啟動，請查看叢集記錄，並參閱 Pacemaker 版本說明或使用者指南，以瞭解已知的升級問題。
+
+
+
+
+
+=== 完成叢集關機
+
+在此方法中，所有叢集節點和資源都會關閉，節點會升級，然後重新啟動叢集。如果節律器和電暈器同步版本不支援混合版本的組態，則必須使用此方法。
+
+. 確認叢集處於最佳狀態，且每個 BeeGFS 服務都在其偏好的節點上執行。如 link:clusters-examine-state.html["檢查叢集的狀態"^] 需詳細資訊、請參閱。
+. 關閉所有節點上的叢集軟體（ Pacemaker 和 corosync ）。
++
+
+NOTE: 視叢集大小而定，整個叢集可能需要幾秒鐘或幾分鐘才能停止。
+
++
+[source, console]
+----
+pcs cluster stop --all
+----
+. 當所有節點上的叢集服務都關閉之後，請根據您的需求，升級每個節點上的 Pacemaker ， corosync 和 PCS 套件。
++
+
+NOTE: 套件管理員命令會因作業系統而異。下列命令適用於執行 RHEL 8 及後續版本的系統。
+
++
+[source, console]
+----
+dnf update pacemaker-<version>
+----
++
+[source, console]
+----
+dnf update corosync-<version>
+----
++
+[source, console]
+----
+dnf update pcs-<version>
+----
+. 升級所有節點之後，請在所有節點上啟動叢集軟體：
++
+[source, console]
+----
+pcs cluster start --all
+----
+. 如果 `pcs`套件已更新，請重新驗證叢集中的每個節點：
++
+[source, console]
+----
+pcs host auth <HOSTNAME>
+----
+. 最後，請執行 `pcs status`並確認叢集狀況良好，並 `Current DC`報告正確的節律器版本。
++
+
+NOTE: 如果 `Current DC`報告為「 ixed 版本」，則叢集中的某個節點仍在使用舊版 Pacemaker 執行，需要升級。
+
+

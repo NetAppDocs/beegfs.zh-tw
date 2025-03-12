@@ -37,9 +37,9 @@ summary: 避免HA叢集意外回應環境中的預期變更。
 
 [source, console]
 ----
-pcs property show maintenance-mode
+pcs property config
 ----
-當叢集正常運作時、這會傳回「假」。若要啟用維護模式執行：
+ `maintenance-mode`如果叢集正常運作，則不會顯示內容。如果叢集目前處於維護模式，則內容會報告為 `true`。若要啟用維護模式執行：
 
 [source, console]
 ----

@@ -139,6 +139,10 @@ sidebar:
       entries:
       - title: 更新 BeeGFS 版本
         url: "/administer/clusters-update-beegfs.html"
+      - title: 升級 Pacemaker 和電暈器同步套件
+        url: "/administer/clusters-update-ha-services.html"
+      - title: 更新檔案節點介面卡韌體
+        url: "/administer/clusters-update-hca-firmware.html"
       - title: 升級 E-Series 儲存陣列
         url: "/administer/clusters-update-storage-array.html"
     - title: 服務與維護

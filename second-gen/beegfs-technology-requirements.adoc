@@ -51,21 +51,6 @@ BeeGFS 檔案節點
 
 
 
-* * Lenovo ThinkSystem SR66*
-+
-** * 處理器： * 2 個 AMD EPYC 7343 16C 3.2 GHz （設定為兩個 NUMA 區域）。
-** * 記憶體： * 256GB （ 16x 16GB TruDDR4 3200MHz RDIMM ）
-** * PCIe 擴充： * 四個 PCIe Gen4 x16 插槽（每個 NUMA 區域兩個）
-** *雜項：*
-+
-*** 適用於作業系統的 RAID 1 中有兩個磁碟機（ 1TB 7.2K SATA 或更高）
-*** 1GbE 連接埠、用於頻內 OS 管理
-*** 1GbE BMC 搭配 Redfish API 、用於頻外伺服器管理
-*** 雙熱交換電源供應器和效能風扇
-
-
-
-
 
 
 
@@ -81,11 +66,6 @@ BeeGFS 檔案節點
 * * Lenovo ThinkSystem SR665 V3 伺服器： *
 +
 ** MCX755106AS-Heat ConnectX-7 、 NDR200 、 QSFP112 、 2 埠、 PCIe Gen5 x16 、 InfiniBand 介面卡
-
-
-* * Lenovo ThinkSystem SR665 伺服器： *
-+
-** MCX653106A-HDAT ConnectX-6 、 HDR 、 QSFP-56 、 2 埠、 PCIe Gen4 x16 、 InfiniBand 介面卡
 
 
 
@@ -115,21 +95,27 @@ BeeGFS 檔案節點
 |===
 * 從檔案節點到儲存網路交換器的連線。 *根據您的 InfiniBand 儲存交換器、從下表中選取適當的纜線選項。+ 建議的纜線長度為 2 公尺；不過、這可能會因客戶的環境而異。
 
-[cols="20%,10%,15%,55%"]
+[cols="20%,15%,10%,55%"]
 |===
-| 交換器模式 | 數量 | 纜線類型 | 產品編號 
+| 交換器模式 | 纜線類型 | 數量 | 產品編號 
 
 
-| NVIDIA QM9700 | 4 | 主動式光纖 | MFA7U10-H002 （ NVIDIA 主動式光纖纜線、 InfiniBand 400GB / 秒至 2x 200Gb/s 、 OSFP 至 2x QSFP56 ） 
+.4+| NVIDIA QM9700 .3+| 主動式光纖（包括收發器） | 2. | MMA4Z00-NS （多重模式， IB/ETH ， 800Gb/s 2x400Gb/s 雙埠 OFP ） 
 
 
-| NVIDIA QM9700 | 4 | 被動銅 | MCP7Y60-H002 （ NVIDIA 被動式銅線、 InfiniBand 400GB / 秒至 2x 200Gb/s 、 OSFP 至 2x QSFP56 ） 
+| 4 | MFP7E20-Nxxx （多重模式， 4 通道對兩條 2 通道分離器光纖纜線） 
 
 
-| NVIDIA MQM8700 | 8. | 主動式光纖 | MFS1S00-H003E （ NVIDIA 主動式光纖纜線、 InfiniBand 200Gb/s 、 QSFP56 ） 
+| 8. | MMA1Z00-NS400 （多重模式， IB/ETH ， 400GB / 秒單埠 QSFP-112 ） 
 
 
-| NVIDIA MQM8700 | 8. | 被動銅 | MCP1650-H002E26 （ NVIDIA 被動式銅線、 InfiniBand 200Gb/s 、 QSFP56 ） 
+| 被動銅 | 2. | MCP7Y40-N002 （ NVIDIA 被動銅線分離器纜線， InfiniBand 800Gb/s 至 4x 200Gb/s ， OSFP 至 4x QSFP112 ） 
+
+
+.2+| NVIDIA MQM8700 | 主動式光纖 | 8. | MFS1S00-H003E （ NVIDIA 主動式光纖纜線、 InfiniBand 200Gb/s 、 QSFP56 ） 
+
+
+| 被動銅 | 8. | MCP1650-H002E26 （ NVIDIA 被動式銅線、 InfiniBand 200Gb/s 、 QSFP56 ） 
 |===
 
 
@@ -159,15 +145,12 @@ IMPORTANT: 檔案節點需要有效的RedHat Enterprise Linux Server訂閱和Red
 | Linux核心 | 5.14.0-362.24.1.el9_3.x86_64 
 
 
-| InfiniBand / RDMA驅動程式 | MLNX_OFED_LINOD-23.10-3.2.0-LTS 
-
-
  a| 
 HCA 韌體
  a| 
-* ConnectX-7 HCA 韌體 * 韌體： 28.39.1002 + PXE ： 3.7.0201 + UEFI ： 14.32.0012
+* ConnectX-7 HCA 韌體 * 韌體： 28.42.1000 + PXE ： 3.7.0500 + UEFI ： 14.35.0015
 
-* ConnectX-6 HCA 韌體 * 韌體： 20.31.1014 + PXE ： 3.6.0403 + UEFI ： 14.24.0013
+* ConnectX-6 HCA 韌體 * 韌體： 20.43.1014 + PXE ： 3.7.0500 + UEFI ： 14.36.0016
 
 |===
 
@@ -179,10 +162,10 @@ HCA 韌體
 | 軟體 | 版本 
 
 
-| 作業系統SANtricity | 11.80.0 
+| 作業系統SANtricity | 11.90R1 
 
 
-| NVSRAM | N6000-880834-D08.dp 
+| NVSRAM | N6000-890834-D02.dp 
 
 
 | 磁碟機韌體 | 最新版本適用於使用中的磁碟機機型。 
@@ -201,15 +184,16 @@ HCA 韌體
 | BeeGFS | 7.4.4.. 
 
 
-| 電暈器同步 | 3.1.5-4. 
+| 電暈器同步 | 3.1.7-1 
 
 
-| 起搏器 | 2.1.4-5. 
+| 起搏器 | 2.1.6-10 
 
 
-| OpenSM  a| 
-OpenSM-5.17.2 （來自 MLNX_OFED_LINOS-23.10-3.2.0-LTS ）
+| 圍欄代理（紅魚 / APC ） | 4.10.0-55 
 
+
+| InfiniBand / RDMA驅動程式 | MLNX_OFED_LINOD-23.10-3.2.0-LTS 
 |===
 
 

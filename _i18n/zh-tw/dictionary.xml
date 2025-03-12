@@ -21,7 +21,6 @@
   <block id="9197ec103d780b6779cb78eec6afce31" category="cell">7.2.6</block>
   <block id="51cf7c858a71d06ee12a42cfbff97da7" category="cell">電暈器同步</block>
   <block id="d95adee972ae170512bd3bdbce557054" category="cell">起搏器</block>
-  <block id="0a0d34e3921098e12d40efeb9e5b64ff" category="cell">OpenSM</block>
   <block id="13f2a3097f055e043d74b20940df2658" category="section-title">Ansible控制節點需求</block>
   <block id="c3ee5ddf91e65773d3e9d27f9e627350" category="inline-link">Ansible文件</block>
   <block id="83d32979307efd813f41ef5070206fd3" category="paragraph">NetApp上的BeeGFS解決方案是從可存取的控制節點進行部署和管理。如需詳細資訊、請參閱<block ref="4410f583cbabaee2389115371eb2ab02" category="inline-link-rx"></block>。</block>
@@ -920,7 +919,6 @@
   <block id="9e94ba8f70ed52b0ae6c2a8725f97a9f" category="paragraph">若要在所有節點上啟動叢集服務和資源、請執行下列步驟：</block>
   <block id="80bd5673b361d19dc46e6b882f98b061" category="paragraph">或在特定節點上啟動服務：</block>
   <block id="56ad9ec5396c5f035697d1e62c4b0926" category="paragraph">此時請執行<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 並驗證叢集和BeeGFS服務是否在所有節點上啟動、以及服務是否在您預期的節點上執行。</block>
-  <block id="f2cc0b0e79d5eccda5009e593729ce23" category="admonition">視叢集的大小而定、整個叢集可能需要一段時間（秒到分鐘）才能停止、或是顯示已在中啟動<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>。如果<block ref="88f9ea6da6d01a3e529f8aa41e0e4643" prefix=" " category="inline-code"></block> 在執行「Ctrl+C」以取消命令之前、請先掛斷五分鐘以上、然後登入叢集的每個節點並使用<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 查看叢集服務（電暈器同步/起搏器）是否仍在該節點上執行。從叢集仍在作用中的任何節點、您都可以檢查封鎖叢集的資源為何。手動解決此問題、命令應已完成或可重新執行、以停止任何剩餘的服務。</block>
   <block id="9cdd9805effd30bec624c806fd980309" category="summary">在叢集節點之間移動BeeGFS服務。</block>
   <block id="f6054493b235622c6d85c56597db1eb1" category="doc">容錯移轉和容錯回復服務</block>
   <block id="2c053c4f4aa73d509803b712a335712b" category="paragraph">BeeGFS服務可在叢集中的節點之間進行容錯移轉、以確保當節點發生故障或需要執行計畫性維護時、用戶端能夠繼續存取檔案系統。本節說明系統管理員在從故障中恢復後、或在節點之間手動移動服務時、如何修復叢集。</block>
@@ -971,7 +969,6 @@
   <block id="92a6e3227dfe7be15777e64043fb613f" category="list-text">檔案節點作業系統、核心或其他套件更新。</block>
   <block id="6c1cf36b91fdf2375e857652291bab2e" category="paragraph">一般而言、將叢集手動置於維護模式的唯一理由、是避免它對環境中的外部變更做出回應。如果叢集中的個別節點需要實體修復、請勿使用維護模式、只要依照上述程序將該節點置於待命狀態即可。請注意、重新執行Anunible會自動將叢集置於維護模式、以利進行大部分的軟體維護、包括升級和組態變更。</block>
   <block id="bbf6745fae83e12806200feeb795f0ef" category="paragraph">若要檢查叢集是否處於維護模式、請執行：</block>
-  <block id="4a6b1ae7d59c5bf02b1b5759e9f9b8e7" category="paragraph">當叢集正常運作時、這會傳回「假」。若要啟用維護模式執行：</block>
   <block id="4ecbc8384cde54344112e6ab08db42be" category="paragraph">您可以執行PCS狀態並確保所有資源都顯示為「（Unmanaged）」、以進行驗證。若要使叢集離開維護模式執行：</block>
   <block id="9afe1c93907babebeb4d7a466e216a3e" category="summary">新增或移除叢集的建置區塊。</block>
   <block id="da82c1c93eafcb34930ae3da89361e1e" category="doc">擴充或縮小叢集</block>
@@ -1728,15 +1725,9 @@
   <block id="c618fd1e9213f6ba6e4961e3d1165110" category="list-text">1GbE 連接埠、用於頻內 OS 管理</block>
   <block id="db812d54d604d8c71ffd5e4be563e3e5" category="list-text">1GbE BMC 搭配 Redfish API 、用於頻外伺服器管理</block>
   <block id="15cf8b6d2674b1d9c9b0383ecfee8929" category="list-text">雙熱交換電源供應器和效能風扇</block>
-  <block id="1fb2f6fd0ecd0371486e7642b03c5dee" category="list-text">* Lenovo ThinkSystem SR66*</block>
-  <block id="78cbac434e403c43ef215a8541f8e62a" category="list-text">* 處理器： * 2 個 AMD EPYC 7343 16C 3.2 GHz （設定為兩個 NUMA 區域）。</block>
-  <block id="634d6174b88e5856171cb65f69c870d6" category="list-text">* 記憶體： * 256GB （ 16x 16GB TruDDR4 3200MHz RDIMM ）</block>
-  <block id="7d381836b9e0d0145f8901a9e826a329" category="list-text">* PCIe 擴充： * 四個 PCIe Gen4 x16 插槽（每個 NUMA 區域兩個）</block>
   <block id="1e36a3ec484f8d613eabadcfb7010a41" category="paragraph">主機卡介面卡會因檔案節點所使用的伺服器機型而異。驗證檔案節點的建議包括：</block>
   <block id="22d9c94f9f4ead6ee028aeb105c59845" category="list-text">* Lenovo ThinkSystem SR665 V3 伺服器： *</block>
   <block id="6ea32d47808c9a0a8b4ad8ce7c3d46a8" category="list-text">MCX755106AS-Heat ConnectX-7 、 NDR200 、 QSFP112 、 2 埠、 PCIe Gen5 x16 、 InfiniBand 介面卡</block>
-  <block id="2f02d951d56eb9f3451bbc826c3e8750" category="list-text">* Lenovo ThinkSystem SR665 伺服器： *</block>
-  <block id="a6db2cf27367b5061d9dcb3d029e4836" category="list-text">MCX653106A-HDAT ConnectX-6 、 HDR 、 QSFP-56 、 2 埠、 PCIe Gen4 x16 、 InfiniBand 介面卡</block>
   <block id="b74051cf2ad1a189f8a05453712ca47a" category="cell">儲存網路交換器</block>
   <block id="abf33d394022ed774955ca8b4e892340" category="paragraph">儲存網路交換器的 InfiniBand 速度必須達到 200Gb/s 。建議的交換器機型包括：</block>
   <block id="d7405c22a666ad0d0cb249c209ed8a2a" category="list-text">* NVIDIA QM9700 Quantum 2 NDR InfiniBand 交換器 *</block>
@@ -1751,9 +1742,7 @@
   <block id="0f0a45940e8946022b971d4ccdf6154e" category="cell">NVIDIA QM9700</block>
   <block id="a87ff679a2f3e71d9181a67b7542122c" category="cell">4</block>
   <block id="979ceabbdb73904b7beec8a0d58c32b8" category="cell">主動式光纖</block>
-  <block id="270f13016300dfe6e2fe7c681978bef9" category="cell">MFA7U10-H002 （ NVIDIA 主動式光纖纜線、 InfiniBand 400GB / 秒至 2x 200Gb/s 、 OSFP 至 2x QSFP56 ）</block>
   <block id="f629de18a131cfa25b9f36ef4690fc92" category="cell">被動銅</block>
-  <block id="bebb3995ccd5809442d1bb1bc0a25e3a" category="cell">MCP7Y60-H002 （ NVIDIA 被動式銅線、 InfiniBand 400GB / 秒至 2x 200Gb/s 、 OSFP 至 2x QSFP56 ）</block>
   <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700</block>
   <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E （ NVIDIA 主動式光纖纜線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
   <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26 （ NVIDIA 被動式銅線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
@@ -1761,14 +1750,7 @@
   <block id="099646c88bdb63cce0ec389f4c842fed" category="cell">5.14.0-362.24.1.el9_3.x86_64</block>
   <block id="de4e152f23f311bbd0da3bd3cc07390d" category="cell">MLNX_OFED_LINOD-23.10-3.2.0-LTS</block>
   <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCA 韌體</block>
-  <block id="cf135b5c065c2f500279337fc59c78ac" category="paragraph">* ConnectX-7 HCA 韌體 * 韌體： 28.39.1002 + PXE ： 3.7.0201 + UEFI ： 14.32.0012</block>
-  <block id="932d22339e7f2f10a02d7bf453b85501" category="paragraph">* ConnectX-6 HCA 韌體 * 韌體： 20.31.1014 + PXE ： 3.6.0403 + UEFI ： 14.24.0013</block>
-  <block id="41d49156a74390ee5d03e3516c1dca6b" category="cell">11.80.0</block>
-  <block id="36744b059ba2d833befd7109b0ba5167" category="cell">N6000-880834-D08.dp</block>
   <block id="141a8d7da406be785ba26084a46e1c00" category="cell">7.4.4..</block>
-  <block id="92f9c52d96ebf7ac8dc2f41e6e11647a" category="cell">3.1.5-4.</block>
-  <block id="c60a2cf4eb7f8efdd97013c9acb1f45b" category="cell">2.1.4-5.</block>
-  <block id="a1a2ed259d1be22e6373097baea242eb" category="paragraph">OpenSM-5.17.2 （來自 MLNX_OFED_LINOS-23.10-3.2.0-LTS ）</block>
   <block id="5487c77147bdac492714cd2896a16557" category="cell">透過 Pip 安裝 6.x ： Ansable-6.0.0 和 Ansible 核心 &gt;= 2.13.0</block>
   <block id="b1e65a5d34a577630a4fc7840358333f" category="cell">3.9 （或更新版本）</block>
   <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">密碼編譯 -43.0.0 、 netaddr-1.3.0 、 ipaddr-2.2.0</block>
@@ -1799,8 +1781,6 @@
   <block id="cd35a558180e5a60f1da5ebd80b06ed2" category="paragraph">如需其他詳細資料和其他組態選項<block ref="dc7fd2b3ea1b2b4a060b953a1b281371" category="inline-link-macro-rx"></block>、請參閱一節中的設定連線驗證步驟。</block>
   <block id="8d4ce44e7e1f685f22f0480066f6dadc" category="summary">升級 HA 叢集 E-Series 儲存陣列的步驟。</block>
   <block id="fecb4be6b37a9fda6b207eaf97363fed" category="doc">升級 E-Series 儲存陣列</block>
-  <block id="26f796a7ab5fa8e4b49e64f8f8bf2a80" category="paragraph">請依照下列步驟升級 HA 叢集的 E-Series 儲存陣列（區塊節點）。</block>
-  <block id="e134ac69d8641d9208d2cf890fad5275" category="paragraph">使用最新的韌體、讓 HA 叢集的 NetApp E-Series 儲存陣列保持在最新狀態、以確保最佳效能和更高的安全性。儲存陣列的韌體更新是使用 SANtricity OS 、 NVSRAM 和磁碟機韌體檔案來套用。</block>
   <block id="40039e282631364c07ceaedf99c2cf6c" category="admonition">雖然儲存陣列可以在 HA 叢集上線時進行升級、但建議您將叢集置於維護模式、以便進行所有升級。</block>
   <block id="e23311179b5a9fe1039e35e28290b482" category="section-title">區塊節點升級步驟</block>
   <block id="4a77379e9fcc01e35b7933a91b02a2bb" category="inline-link-macro">升級考量</block>
@@ -1816,7 +1796,6 @@
   <block id="bad7f30f1449c1f5ab5e97ce89aee762" category="list-text">* 磁碟機韌體： * 瀏覽<block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>並下載每個儲存陣列磁碟機機型的最新韌體。</block>
   <block id="c26b41b932786e55f3bf481a6938083e" category="list-text">將 SANtricity OS 、 NVSRAM 和磁碟機韌體檔案儲存在 Ansible 控制節點的<block ref="971398284b1e828e40efc6b6630f0369" prefix=" " category="inline-code"></block>目錄中。</block>
   <block id="09a777fce4515aa1a8dcd86346441924" category="list-text">如有必要、請更新叢集的 Ansible 庫存檔案、以納入所有需要更新的儲存陣列（區塊節點）。如需指引、請參閱<block ref="f7bda10e421919e9d8ced89dacaba34f" category="inline-link-macro-rx"></block>一節。</block>
-  <block id="44ab0407eb93bf62fd987a8132e5a912" category="list-text">確保叢集處於最佳狀態、且每個 BeeGFS 服務都位於其偏好的節點上。如 <block ref="1d1f85855f64d7b14ac7c0ae29a52511" category="inline-link-macro-rx"></block> 需詳細資訊、請參閱。</block>
   <block id="f525483091b48c05e08ecf537a6c9e5a" category="list-text">按照中的說明將叢集置於維護模式<block ref="4b8504199df3a0ade85c92603634e18f" category="inline-link-macro-rx"></block>。</block>
   <block id="390c5fa21f5dea398732a7b3b4024304" category="list-text">建立名為的新 Ansible 教<block ref="bdc450c9ffd9674cb7c88bcb24bfedb8" prefix=" " category="inline-code"></block>戰手冊。請將下列內容填入教戰手冊、將 SANtricity OS 、 NVSRAM 和磁碟機韌體版本取代為您想要的升級路徑：</block>
   <block id="13ec6a1291f9e3d303bbc7f6bece60a3" category="list-text">若要啟動更新、請從 Ansible 控制節點執行下列命令：</block>
@@ -1923,4 +1902,95 @@
   <block id="49e794dd3d68025fd6943b67048e4f27" category="paragraph">NetApp 上的第二代 BeeGFS 已經過最佳化、可滿足嚴苛工作負載的效能需求、包括高效能運算（ HPC ）、機器學習（ ML ）、深度學習（ DL ）及其他人工智慧（ AI ）技術。這項設計整合了共享磁碟高可用度（ HA ）架構、可確保資料的耐用性和可用度、是無法承受停機或資料遺失的企業和其他組織的理想選擇。第二代設計包括 PCIe gen5 伺服器等元件、並支援 NVIDIA ® Quantum ™ QM9700 400GB / 秒 InfiniBand 交換器。此解決方案不僅已通過 NetApp 驗證，也已通過外部資格認證，成為 NVIDIA DGX ™ A100 SuperPOD 的儲存選項，並獲得 DGX SuperPOD H100 ， H200 及 B200 系統的延伸認證。</block>
   <block id="7da4cabbb2f4c4e53ccb9660355b7dd1" category="list-text">NVIDIA DGX SuperPOD 系統採用 DGX ，搭配 A100 ， H100 ， H200 和 B200 GPU 。</block>
   <block id="e02a1b9bf28135b2931b63ac814ff7ac" category="sidebar">NVA-1174 - BeeGFS on NetApp EF 系列搭配 NVIDIA DGX SuperPOD 系統</block>
+  <block id="049125cf8ec62098912c4f2c8db9f61b" category="paragraph"><block ref="e6211db0073064ade016ad4558767968" prefix=" " category="inline-code"></block>如果叢集正常運作，則不會顯示內容。如果叢集目前處於維護模式，則內容會報告為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>。若要啟用維護模式執行：</block>
+  <block id="ae7cd547e02c1f67adce822f49e1815f" category="admonition">視叢集大小而定，整個叢集可能需要幾秒鐘或幾分鐘的時間才能停止，或顯示為「已啟動<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>」。如果當機超過五分鐘，則<block ref="88f9ea6da6d01a3e529f8aa41e0e4643" prefix=" " category="inline-code"></block>在執行「 Ctrl+C 」取消命令之前，請先登入叢集的每個節點，然後使用<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>查看叢集服務（電暈器同步 / 節律器）是否仍在該節點上執行。從叢集仍在作用中的任何節點、您都可以檢查封鎖叢集的資源為何。手動解決此問題、命令應已完成或可重新執行、以停止任何剩餘的服務。</block>
+  <block id="5dfbb07786784ecd0c0829f3624766bf" category="summary">在 HA 叢集中升級節律器和電暈器同步套件的步驟。</block>
+  <block id="256ad8b6e95e34f8784f6b80bcf07e62" category="doc">升級 HA 叢集中的 Pacemaker 和 corosync 套件</block>
+  <block id="f9b43d72a27351762f4809a45ab3809e" category="paragraph">請依照下列步驟升級 HA 叢集中的節律器和電暈器同步套件。</block>
+  <block id="93bcc5a6e49472d3ee328b74217072a4" category="paragraph">升級 Pacemaker 和 corosync 可確保叢集從新功能，安全修補程式和效能改善中獲益。</block>
+  <block id="d5870f2e8bb30d5fd8dba0f3bcba2ff2" category="section-title">升級方法</block>
+  <block id="3910bde80db45114f03b57a1cea719d7" category="inline-link-macro">升級 Pacemaker 叢集</block>
+  <block id="fbe527032decd848e5233378716880ef" category="paragraph">升級叢集有兩種建議方法：滾動升級或完全關閉叢集。每種方法都有自己的優缺點。您的升級程序可能會因心律調整器版本而異。請參閱 ClusterLabs 的<block ref="f46eb388ba6d1748ea24c2340bf59c47" category="inline-link-macro-rx"></block>說明文件，以判斷要使用哪種方法。在遵循升級方法之前，請確認：</block>
+  <block id="3875a0129b5e7200d99ab95798b4ca49" category="list-text">NetApp BeeGFS 解決方案支援全新的節律器和電暈器同步套件。</block>
+  <block id="14bc480662de00a882a587d6c753c533" category="list-text">BeeGFS 檔案系統和 Pacemaker 叢集組態有有效的備份。</block>
+  <block id="efd7093d185f1f3506d2f99fa2406088" category="list-text">叢集處於正常狀態。</block>
+  <block id="22e44c8383bdd51e7823eed40de12db4" category="section-title">循環升級</block>
+  <block id="49939651104a8f4bf473311d280796b9" category="paragraph">此方法涉及從叢集中移除每個節點，將其升級，然後將其重新引入叢集，直到所有節點都執行新版本為止。這種方法可讓叢集持續運作，這是較大型 HA 叢集的理想選擇，但在處理過程中會有執行混合版本的風險。在雙節點叢集中，應避免使用此方法。</block>
+  <block id="4fe0553e4bb27a05a3680575a66540a7" category="list-text">確認叢集處於最佳狀態，且每個 BeeGFS 服務都在其偏好的節點上執行。如 <block ref="1d1f85855f64d7b14ac7c0ae29a52511" category="inline-link-macro-rx"></block> 需詳細資訊、請參閱。</block>
+  <block id="afcf7685b4b8a18d898e6c84f2b84166" category="list-text">若要升級節點，請將其置入待命模式，以耗盡（或移動）所有 BeeGFS 服務：</block>
+  <block id="36b48c4e047e7d7107eaa995708914b1" category="list-text">執行下列步驟，確認節點的服務已耗盡：</block>
+  <block id="9c1adfab509ac587de61a03c43cda767" category="paragraph">請確定未將任何服務回報為待命節點上的服務<block ref="8428552d86c0d262a542a528af490afa" prefix=" " category="inline-code"></block>。</block>
+  <block id="2b26b4d53851d442c712564adfb4b445" category="admonition">視叢集大小而定，服務可能需要幾秒鐘或幾分鐘才能移至姊妹節點。如果 BeeGFS 服務無法在姊妹節點上啟動<block ref="c31c76dcbaad8e2836998d58888cb639" category="inline-link-macro-rx"></block>，請參閱。</block>
+  <block id="e2939fee46b1883f2b4fb3fec03f83fb" category="list-text">關閉節點上的叢集：</block>
+  <block id="7a3db5a8197b212244d160de60f682da" category="list-text">升級節點上的 Pacemaker ， corossync 和 PCS 套件：</block>
+  <block id="054ce71db50c3d6b29d6ddfda5264cc9" category="admonition">套件管理員命令會因作業系統而異。下列命令適用於執行 RHEL 8 及後續版本的系統。</block>
+  <block id="0a761ff507fc5bb4859d6d425b2b120a" category="list-text">在節點上啟動 Pacemaker 叢集服務：</block>
+  <block id="7a98d33ee2035dc15b33a6ccaea4753b" category="list-text">如果<block ref="3ecf2642759a04bd3616642bd56bed59" prefix=" " category="inline-code"></block>套件已更新，請使用叢集重新驗證節點：</block>
+  <block id="039f324455c000e0dad7b93f641cd7bf" category="list-text">確認此工具的節律器組態仍然有效<block ref="419527551374e0fe5024d6bb1f3f2814" prefix=" " category="inline-code"></block>。</block>
+  <block id="51c1fa488cc911104720c97dad8ec5eb" category="admonition">只需在叢集升級期間驗證一次即可。</block>
+  <block id="265a35348bf91dcba3e55e3454e3c155" category="list-text">將節點從待機狀態移出：</block>
+  <block id="ea285586c4e419f14cfb8b432dd0d4b6" category="list-text">將所有 BeeGFS 服務重新部署回其偏好的節點：</block>
+  <block id="1fa806fcbe49745af0c2b70e8779b73d" category="list-text">針對叢集中的每個節點重複上述步驟，直到所有節點都執行所需的節律器，電暈器同步和 PCS 版本為止。</block>
+  <block id="d90c1dfacfcfe6034c62dbbf554aa336" category="list-text">最後，請執行<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>並確認叢集狀況良好，並<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>回報所需的節律器版本。</block>
+  <block id="894166f580af39476db30ddf0b39e93c" category="admonition">如果<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>報告為「 ixed 版本」，則叢集中的某個節點仍在使用舊版 Pacemaker 執行，需要升級。如果任何升級的節點無法重新加入叢集，或資源無法啟動，請查看叢集記錄，並參閱 Pacemaker 版本說明或使用者指南，以瞭解已知的升級問題。</block>
+  <block id="2360c7132bb0f703a6af1f784e30721f" category="section-title">完成叢集關機</block>
+  <block id="c56b96ad19ba7ad1a0a28a5dd92fccd7" category="paragraph">在此方法中，所有叢集節點和資源都會關閉，節點會升級，然後重新啟動叢集。如果節律器和電暈器同步版本不支援混合版本的組態，則必須使用此方法。</block>
+  <block id="ada4df9ccfff1547c1f09456386caf07" category="list-text">關閉所有節點上的叢集軟體（ Pacemaker 和 corosync ）。</block>
+  <block id="ec37f5378eeba13984a263685014a655" category="admonition">視叢集大小而定，整個叢集可能需要幾秒鐘或幾分鐘才能停止。</block>
+  <block id="26dce8ee8153faa4816d7468ec720330" category="list-text">當所有節點上的叢集服務都關閉之後，請根據您的需求，升級每個節點上的 Pacemaker ， corosync 和 PCS 套件。</block>
+  <block id="142f756ea3d035f02b974a98db74916c" category="list-text">升級所有節點之後，請在所有節點上啟動叢集軟體：</block>
+  <block id="492e09d8d491f90ea20fad54f615816a" category="list-text">如果<block ref="3ecf2642759a04bd3616642bd56bed59" prefix=" " category="inline-code"></block>套件已更新，請重新驗證叢集中的每個節點：</block>
+  <block id="fe0b373cea492c0574adf218141f90b9" category="list-text">最後，請執行<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>並確認叢集狀況良好，並<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>報告正確的節律器版本。</block>
+  <block id="c07d2f5207c17b96abd3e5c6aa314715" category="admonition">如果<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>報告為「 ixed 版本」，則叢集中的某個節點仍在使用舊版 Pacemaker 執行，需要升級。</block>
+  <block id="6b923a0944f4926d7adb6a03c07c9a69" category="summary">更新檔案節點 ConnectX-7 介面卡韌體的步驟。</block>
+  <block id="8fce27499bf82a3c6907d5382138d466" category="doc">更新檔案節點介面卡韌體</block>
+  <block id="c344aab4fba3911c1af618a881763c15" category="paragraph">請依照下列步驟，將檔案節點的 ConnectX-7 介面卡更新為最新的韌體。</block>
+  <block id="89cdf8293572c88c65745474062df951" category="paragraph">可能需要更新 ConnectX-7 介面卡韌體，才能支援新的 MLNX_OFED 驅動程式，啟用新功能或修正錯誤。本指南將使用 NVIDIA 的<block ref="073f22c545d6312ca19220ec3d6d9547" prefix=" " category="inline-code"></block>公用程式進行介面卡更新，因為它易於使用且效率高。</block>
+  <block id="d41774d5dcaa69f5393d8da7101754ec" category="paragraph">本指南涵蓋兩種更新 ConnectX-7 介面卡韌體的方法：滾動更新和雙節點叢集更新。根據叢集的大小，選擇適當的更新方法。執行韌體更新之前，請確認：</block>
+  <block id="1d79fc0255b694c56bd5dea749c741cd" category="list-text">已安裝支援的 MLNX_OFED 驅動程式，請參閱<block ref="178d97073525b373723b8dda031e8548" category="inline-link-macro-rx"></block>。</block>
+  <block id="e9b1ac80ddb831f90b95b913fae55a9f" category="section-title">韌體更新準備</block>
+  <block id="6b9b7c71638c919ff18548623403c799" category="inline-link-macro">NVIDIA 的支援網站</block>
+  <block id="28adaa75c816b77283bde4522b8cc249" category="paragraph">建議您使用 NVIDIA<block ref="073f22c545d6312ca19220ec3d6d9547" prefix=" " category="inline-code"></block> 公用程式來更新節點的介面卡韌體，此韌體與 NVIDIA 的 MLNx_OFED 驅動程式一起提供。開始更新之前，請先從下載介面卡的韌體映像<block ref="1a2b49373c8b50530166a64f6ed91a90" category="inline-link-macro-rx"></block>，並將其儲存在每個檔案節點上。</block>
+  <block id="415a4f653138a852500ffee84bf5c1b4" category="inline-link-macro">OEM 韌體</block>
+  <block id="4f4c0bb368cf9ad01cdc3ff868ebf17c" category="admonition">對於 Lenovo ConnectX-7 介面卡，請使用<block ref="afeb1af9ee3dad5422ab912ec5ed916d" prefix=" " category="inline-code"></block> NVIDIA 頁面上的工具<block ref="01d7d47a93ae1e4d58f3e91b6cd1d0c0" category="inline-link-macro-rx"></block>。</block>
+  <block id="da3485dbd4b4e5883fb3b1f4e9556949" category="section-title">滾動更新方法</block>
+  <block id="1f97f3d9707d91def548aa8a2e62b91d" category="paragraph">建議任何具有兩個以上節點的 HA 叢集使用此方法。這種方法涉及一次在一個檔案節點上更新介面卡韌體，讓 HA 叢集能夠保留服務要求，不過建議您在此期間避免服務 I/O 。</block>
+  <block id="a6e5bc149cec5a68a62c041d3c6a0b33" category="list-text">選擇要更新的檔案節點，並將其置於待命模式，以從該節點移除（或移動）所有 BeeGFS 服務：</block>
+  <block id="a6f5d5c821201989f4f5f4b1434bbab2" category="list-text">執行下列步驟，確認節點的服務已耗盡：</block>
+  <block id="879176c1b609d9d4155509330b98a7dc" category="paragraph">驗證沒有任何服務報告為待命節點上的服務<block ref="8428552d86c0d262a542a528af490afa" prefix=" " category="inline-code"></block>。</block>
+  <block id="9d2557a9c1e296e086e87e0ea139e32b" category="admonition">視叢集大小而定， BeeGFS 服務可能需要幾秒鐘或幾分鐘才能移至姊妹節點。如果 BeeGFS 服務無法在姊妹節點上啟動<block ref="c31c76dcbaad8e2836998d58888cb639" category="inline-link-macro-rx"></block>，請參閱。</block>
+  <block id="d15de38a9cc8343b26b76e04866effdf" category="list-text">使用更新介面卡韌體<block ref="073f22c545d6312ca19220ec3d6d9547" prefix=" " category="inline-code"></block>。</block>
+  <block id="4d87c4ea16f4cf2adbeefb288c4840e6" category="paragraph">記下<block ref="0e4a508dbc00c0684c2ed58952be4420" prefix=" " category="inline-code"></block>接收韌體更新的每個介面卡的。</block>
+  <block id="69b31d926cd00aa9de80cf7b14eab218" category="list-text">使用公用程式重設每個介面卡<block ref="45e6a20266bfc1fa2c25471ddf52308b" prefix=" " category="inline-code"></block>以套用新韌體。</block>
+  <block id="25eb42c85a64acec04cf19a3ad2b7395" category="inline-link-macro">NVIDIA 的 mlxfwreset 限制</block>
+  <block id="435a7ccec9f9ff6251954e95de4d0077" category="admonition">某些韌體更新可能需要重新開機才能套用更新。請參閱<block ref="ebfc57e157ebe1ff1768e220a8dc329c" category="inline-link-macro-rx"></block>以取得指引。如果需要重新開機，請執行重新開機，而非重設介面卡。</block>
+  <block id="d974fd8f7ae3828a4b95f6e90d4c579a" category="list-text">停止 opensm 服務：</block>
+  <block id="6a878a1cd043169c82c66374f6fec2a5" category="list-text">針對先前註明的每個項目執行下列命令<block ref="0e4a508dbc00c0684c2ed58952be4420" prefix=" " category="inline-code"></block>。</block>
+  <block id="bd1516e27db5d9760920cc6ac65637f7" category="list-text">啟動 opensm 服務：</block>
+  <block id="e8dd47a8d6e5d7d4ce23864009576781" category="list-text">執行<block ref="64284c8d228536994c2b22912d2dfd88" prefix=" " category="inline-code"></block>並驗證所有介面卡是否以所需的韌體版本執行：</block>
+  <block id="afdebfdd553f315294b6e2613a68bac2" category="paragraph">對叢集中的每個檔案節點重複這些步驟，直到所有介面卡都已更新為止。</block>
+  <block id="2e24e5f97c6ecd461030eb1eb884379b" category="section-title">雙節點叢集更新方法</block>
+  <block id="305a0f364da0ff85c6c92c4680866c24" category="paragraph">建議只有兩個節點的 HA 叢集採用此方法。這種方法類似於滾動更新，但包含其他步驟，可在某個節點的叢集服務停止時，避免服務停機。</block>
+  <block id="8daaa6355694edbaba2cb5a9b13ce781" category="list-text">選擇要更新的檔案節點，並將節點置於待命模式，以從該節點移除（或移動）所有 BeeGFS 服務：</block>
+  <block id="370d6736b9730ee3ed471c975dca3040" category="list-text">執行以下步驟，確認節點的資源已耗盡：</block>
+  <block id="04adfc113361937ceba2fcd8d61b3c92" category="admonition">視叢集大小而定， BeeGFS 服務可能需要幾秒鐘或幾分鐘的時間，才能在姊妹節點上報告為<block ref="8428552d86c0d262a542a528af490afa" prefix=" " category="inline-code"></block>。如果 BeeGFS 服務無法啟動，請<block ref="c31c76dcbaad8e2836998d58888cb639" category="inline-link-macro-rx"></block>參閱。</block>
+  <block id="322895ffeb919484b312ccccded9b8ac" category="list-text">將叢集置於維護模式。</block>
+  <block id="936f1016c7b40dcadce05d9585e03c4c" category="list-text">將叢集移出維護模式。</block>
+  <block id="7190ac3ac7ea745d4c9a31ade586f240" category="paragraph">請依照下列步驟升級 HA 叢集的 E 系列儲存陣列元件。</block>
+  <block id="91ba484bdb8dfae4fcf9b5f1cb4c9407" category="paragraph">使用最新的韌體、讓 HA 叢集的 NetApp E-Series 儲存陣列保持在最新狀態、以確保最佳效能和更高的安全性。儲存陣列的韌體更新是透過 SANtricity OS ， NVSRAM 和磁碟機韌體檔案來套用。</block>
+  <block id="f04c5fdc9e10396af2f82ce9565f65a5" category="list-text">確保叢集處於最佳狀態，且其慣用節點上的每個 BeeGFS 服務都處於最佳狀態。如 <block ref="1d1f85855f64d7b14ac7c0ae29a52511" category="inline-link-macro-rx"></block> 需詳細資訊、請參閱。</block>
+  <block id="d5c73bafdf627c28554a39d3e655f1bf" category="cell">主動式光纖（包括收發器）</block>
+  <block id="c44b2ed9fc36044ebe1e8b9057c4a281" category="cell">MMA4Z00-NS （多重模式， IB/ETH ， 800Gb/s 2x400Gb/s 雙埠 OFP ）</block>
+  <block id="53fff94cbca4161cd31d168451033f2e" category="cell">MFP7E20-Nxxx （多重模式， 4 通道對兩條 2 通道分離器光纖纜線）</block>
+  <block id="804e83e6974e7f6076f940326b985a83" category="cell">MMA1Z00-NS400 （多重模式， IB/ETH ， 400GB / 秒單埠 QSFP-112 ）</block>
+  <block id="b2f1f9abf8117b3cde0475d1adf7a64f" category="cell">MCP7Y40-N002 （ NVIDIA 被動銅線分離器纜線， InfiniBand 800Gb/s 至 4x 200Gb/s ， OSFP 至 4x QSFP112 ）</block>
+  <block id="fbe7b2959f641c0a45951417fc744ba8" category="paragraph">* ConnectX-7 HCA 韌體 * 韌體： 28.42.1000 + PXE ： 3.7.0500 + UEFI ： 14.35.0015</block>
+  <block id="63c2d436fc11f0bcdd598c38560aca3f" category="paragraph">* ConnectX-6 HCA 韌體 * 韌體： 20.43.1014 + PXE ： 3.7.0500 + UEFI ： 14.36.0016</block>
+  <block id="0d665a6c7072af8fddd1f64d9c741762" category="cell">11.90R1</block>
+  <block id="6c3a5f2fbe0e1eb20af96ccd813c89b0" category="cell">N6000-890834-D02.dp</block>
+  <block id="2c31ce9dbdba754d30ac4980d7d504df" category="cell">3.1.7-1</block>
+  <block id="fec83cb9bb84cd6342be622a93d94a1b" category="cell">2.1.6-10</block>
+  <block id="088914339db9effda3ac57ec2e9439b6" category="cell">圍欄代理（紅魚 / APC ）</block>
+  <block id="f726fcf5784fc25f630a32e650f8b5a0" category="cell">4.10.0-55</block>
+  <block id="f8b6aa2ae96c25a05a0cc6e26a9236d7" category="sidebar">升級 Pacemaker 和電暈器同步套件</block>
 </blocks>

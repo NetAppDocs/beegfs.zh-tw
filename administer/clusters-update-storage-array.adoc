@@ -14,13 +14,13 @@ summary: 升級 HA 叢集 E-Series 儲存陣列的步驟。
 
 
 [role="lead"]
-請依照下列步驟升級 HA 叢集的 E-Series 儲存陣列（區塊節點）。
+請依照下列步驟升級 HA 叢集的 E 系列儲存陣列元件。
 
 
 
 == 總覽
 
-使用最新的韌體、讓 HA 叢集的 NetApp E-Series 儲存陣列保持在最新狀態、以確保最佳效能和更高的安全性。儲存陣列的韌體更新是使用 SANtricity OS 、 NVSRAM 和磁碟機韌體檔案來套用。
+使用最新的韌體、讓 HA 叢集的 NetApp E-Series 儲存陣列保持在最新狀態、以確保最佳效能和更高的安全性。儲存陣列的韌體更新是透過 SANtricity OS ， NVSRAM 和磁碟機韌體檔案來套用。
 
 
 IMPORTANT: 雖然儲存陣列可以在 HA 叢集上線時進行升級、但建議您將叢集置於維護模式、以便進行所有升級。
@@ -65,7 +65,7 @@ ansible-galaxy collection install netapp_eseries-santricity-<VERSION>.tar.gz --u
 
 
 . 如有必要、請更新叢集的 Ansible 庫存檔案、以納入所有需要更新的儲存陣列（區塊節點）。如需指引、請參閱link:../custom/architectures-inventory-overview.html["Ansible Inventory Overview"^]一節。
-. 確保叢集處於最佳狀態、且每個 BeeGFS 服務都位於其偏好的節點上。如 link:clusters-examine-state.html["檢查叢集的狀態"^] 需詳細資訊、請參閱。
+. 確保叢集處於最佳狀態，且其慣用節點上的每個 BeeGFS 服務都處於最佳狀態。如 link:clusters-examine-state.html["檢查叢集的狀態"^] 需詳細資訊、請參閱。
 . 按照中的說明將叢集置於維護模式link:clusters-maintenance-mode.html["將叢集置於維護模式"^]。
 . 建立名為的新 Ansible 教 `update_block_node_playbook.yml`戰手冊。請將下列內容填入教戰手冊、將 SANtricity OS 、 NVSRAM 和磁碟機韌體版本取代為您想要的升級路徑：
 +

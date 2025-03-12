@@ -1,0 +1,233 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-update-hca-firmware.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, Update, Upgrade, HCA, ConnectX, Firmware, Card, Adapter 
+summary: 更新檔案節點 ConnectX-7 介面卡韌體的步驟。 
+---
+= 更新檔案節點介面卡韌體
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+請依照下列步驟，將檔案節點的 ConnectX-7 介面卡更新為最新的韌體。
+
+
+
+== 總覽
+
+可能需要更新 ConnectX-7 介面卡韌體，才能支援新的 MLNX_OFED 驅動程式，啟用新功能或修正錯誤。本指南將使用 NVIDIA 的 `mlxfwmanager`公用程式進行介面卡更新，因為它易於使用且效率高。
+
+
+
+== 升級考量
+
+本指南涵蓋兩種更新 ConnectX-7 介面卡韌體的方法：滾動更新和雙節點叢集更新。根據叢集的大小，選擇適當的更新方法。執行韌體更新之前，請確認：
+
+* 已安裝支援的 MLNX_OFED 驅動程式，請參閱link:../second-gen/beegfs-technology-requirements.html["技術需求"^]。
+* BeeGFS 檔案系統和 Pacemaker 叢集組態有有效的備份。
+* 叢集處於正常狀態。
+
+
+
+
+== 韌體更新準備
+
+建議您使用 NVIDIA `mlxfwmanager` 公用程式來更新節點的介面卡韌體，此韌體與 NVIDIA 的 MLNx_OFED 驅動程式一起提供。開始更新之前，請先從下載介面卡的韌體映像link:https://network.nvidia.com/support/firmware/firmware-downloads/["NVIDIA 的支援網站"^]，並將其儲存在每個檔案節點上。
+
+
+NOTE: 對於 Lenovo ConnectX-7 介面卡，請使用 `mlxfwmanager_LES` NVIDIA 頁面上的工具link:https://network.nvidia.com/support/firmware/lenovo-intelligent-cluster/["OEM 韌體"^]。
+
+
+
+== 滾動更新方法
+
+建議任何具有兩個以上節點的 HA 叢集使用此方法。這種方法涉及一次在一個檔案節點上更新介面卡韌體，讓 HA 叢集能夠保留服務要求，不過建議您在此期間避免服務 I/O 。
+
+. 確認叢集處於最佳狀態，且每個 BeeGFS 服務都在其偏好的節點上執行。如 link:clusters-examine-state.html["檢查叢集的狀態"^] 需詳細資訊、請參閱。
+. 選擇要更新的檔案節點，並將其置於待命模式，以從該節點移除（或移動）所有 BeeGFS 服務：
++
+[source, console]
+----
+pcs node standby <HOSTNAME>
+----
+. 執行下列步驟，確認節點的服務已耗盡：
++
+[source, console]
+----
+pcs status
+----
++
+驗證沒有任何服務報告為待命節點上的服務 `Started`。
+
++
+
+NOTE: 視叢集大小而定， BeeGFS 服務可能需要幾秒鐘或幾分鐘才能移至姊妹節點。如果 BeeGFS 服務無法在姊妹節點上啟動link:clusters-troubleshoot.html["疑難排解指南"^]，請參閱。
+
+. 使用更新介面卡韌體 `mlxfwmanager`。
++
+[source, console]
+----
+ mlxfwmanager -i <path/to/firmware.bin> -u
+----
++
+記下 `PCI Device Name`接收韌體更新的每個介面卡的。
+
+. 使用公用程式重設每個介面卡 `mlxfwreset`以套用新韌體。
++
+
+NOTE: 某些韌體更新可能需要重新開機才能套用更新。請參閱link:https://docs.nvidia.com/networking/display/mftv4310/mlxfwreset+%E2%80%93+loading+firmware+on+5th+generation+devices+tool#src-3566627427_safe-id-bWx4ZndyZXNldOKAk0xvYWRpbmdGaXJtd2FyZW9uNXRoR2VuZXJhdGlvbkRldmljZXNUb29sLW1seGZ3cmVzZXRMaW1pdGF0aW9ucw["NVIDIA 的 mlxfwreset 限制"^]以取得指引。如果需要重新開機，請執行重新開機，而非重設介面卡。
+
++
+.. 停止 opensm 服務：
++
+[source, console]
+----
+systemctl stop opensm
+----
+.. 針對先前註明的每個項目執行下列命令 `PCI Device Name`。
++
+[source, console]
+----
+mlxfwreset -d <pci_device_name> reset -y
+----
+.. 啟動 opensm 服務：
++
+[source, console]
+----
+systemctl start opensm
+----
+
+
+. 執行 `ibstat`並驗證所有介面卡是否以所需的韌體版本執行：
++
+[source, console]
+----
+ibstat
+----
+. 在節點上啟動 Pacemaker 叢集服務：
++
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+. 將節點從待機狀態移出：
++
+[source, console]
+----
+pcs node unstandby <HOSTNAME>
+----
+. 將所有 BeeGFS 服務重新部署回其偏好的節點：
++
+[source, console]
+----
+pcs resource relocate run
+----
+
+
+對叢集中的每個檔案節點重複這些步驟，直到所有介面卡都已更新為止。
+
+
+
+== 雙節點叢集更新方法
+
+建議只有兩個節點的 HA 叢集採用此方法。這種方法類似於滾動更新，但包含其他步驟，可在某個節點的叢集服務停止時，避免服務停機。
+
+. 確認叢集處於最佳狀態，且每個 BeeGFS 服務都在其偏好的節點上執行。如 link:clusters-examine-state.html["檢查叢集的狀態"^] 需詳細資訊、請參閱。
+. 選擇要更新的檔案節點，並將節點置於待命模式，以從該節點移除（或移動）所有 BeeGFS 服務：
++
+[source, console]
+----
+pcs node standby <HOSTNAME>
+----
+. 執行以下步驟，確認節點的資源已耗盡：
++
+[source, console]
+----
+pcs status
+----
++
+驗證沒有任何服務報告為待命節點上的服務 `Started`。
+
++
+
+TIP: 視叢集大小而定， BeeGFS 服務可能需要幾秒鐘或幾分鐘的時間，才能在姊妹節點上報告為 `Started`。如果 BeeGFS 服務無法啟動，請link:clusters-troubleshoot.html["疑難排解指南"^]參閱。
+
+. 將叢集置於維護模式。
++
+[source, console]
+----
+pcs property set maintenance-mode=true
+----
+. 使用更新介面卡韌體 `mlxfwmanager`。
++
+[source, console]
+----
+ mlxfwmanager -i <path/to/firmware.bin> -u
+----
++
+記下 `PCI Device Name`接收韌體更新的每個介面卡的。
+
+. 使用公用程式重設每個介面卡 `mlxfwreset`以套用新韌體。
++
+
+NOTE: 某些韌體更新可能需要重新開機才能套用更新。請參閱link:https://docs.nvidia.com/networking/display/mftv4310/mlxfwreset+%E2%80%93+loading+firmware+on+5th+generation+devices+tool#src-3566627427_safe-id-bWx4ZndyZXNldOKAk0xvYWRpbmdGaXJtd2FyZW9uNXRoR2VuZXJhdGlvbkRldmljZXNUb29sLW1seGZ3cmVzZXRMaW1pdGF0aW9ucw["NVIDIA 的 mlxfwreset 限制"^]以取得指引。如果需要重新開機，請執行重新開機，而非重設介面卡。
+
++
+.. 停止 opensm 服務：
++
+[source, console]
+----
+systemctl stop opensm
+----
+.. 針對先前註明的每個項目執行下列命令 `PCI Device Name`。
++
+[source, console]
+----
+mlxfwreset -d <pci_device_name> reset -y
+----
+.. 啟動 opensm 服務：
++
+[source, console]
+----
+systemctl start opensm
+----
+
+
+. 執行 `ibstat`並驗證所有介面卡是否以所需的韌體版本執行：
++
+[source, console]
+----
+ibstat
+----
+. 在節點上啟動 Pacemaker 叢集服務：
++
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+. 將節點從待機狀態移出：
++
+[source, console]
+----
+pcs node unstandby <HOSTNAME>
+----
+. 將叢集移出維護模式。
++
+[source, console]
+----
+pcs property set maintenance-mode=false
+----
+. 將所有 BeeGFS 服務重新部署回其偏好的節點：
++
+[source, console]
+----
+pcs resource relocate run
+----
+
+
+對叢集中的每個檔案節點重複這些步驟，直到所有介面卡都已更新為止。
