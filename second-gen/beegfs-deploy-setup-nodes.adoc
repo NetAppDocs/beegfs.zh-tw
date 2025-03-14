@@ -49,10 +49,7 @@ NOTE: 雖然並非嚴格要求、但後續章節假設主機名稱會依序編�
 ....
 subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
-. 將所有 HCA 韌體更新至中建議的版本 link:beegfs-technology-requirements.html["技術需求"]。
-+
-您可以下載並執行已套用建議韌體的mlxup工具版本、以完成此更新。您可以從（）下載此工具 https://network.nvidia.com/support/firmware/mlxup-mft/["mlxup -更新與查詢公用程式"^]link:https://docs.nvidia.com/networking/display/mlxupfwutility["使用指南"^]。
-
+. 將所有 HCA 韌體更新至使用link:..administer/clusters-update-hca-firmware.html["更新檔案節點介面卡韌體"^]指南中建議的版本link:beegfs-technology-requirements.html["技術需求"]。
 
 
 
@@ -63,11 +60,11 @@ subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpm
 
 . 在每個EF600控制器上設定管理連接埠。
 +
-如需設定連接埠的指示、請前往 https://docs.netapp.com/us-en/e-series/maintenance-ef600/hpp-overview-supertask-concept.html["E系列文件中心"^]。
+有關配置端口的說明，請轉至 https://docs.netapp.com/us-en/e-series/install-hw-ef600/complete-setup-task.html#step-2-connect-and-configure-the-management-connection["E系列文件中心"^]。
 
 . （可選）設定每個系統的儲存陣列名稱。
 +
-設定名稱可讓您更容易在後續章節中參考每個系統。如需設定陣列名稱的指示、請前往 https://docs.netapp.com/us-en/e-series/maintenance-ef600/hpp-overview-supertask-concept.html["E系列文件中心"^]。
+設定名稱可讓您更容易在後續章節中參考每個系統。有關設置陣列名稱的說明，請轉至 https://docs.netapp.com/us-en/e-series-santricity/sm-interface/setup-wizard-overview.html#first-time-setup["E系列文件中心"^]。
 
 
 

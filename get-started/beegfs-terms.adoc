@@ -32,6 +32,13 @@ AI
 
 
  a| 
+Ansible Control Node
+ a| 
+用於執行 Ansible CLI 的實體或虛擬機器。
+
+
+
+ a| 
 可Ansible Inventory
  a| 
 目錄結構包含Yaml檔案、可用來描述所需的BeeGFS HA叢集。
@@ -48,7 +55,7 @@ BMC
  a| 
 區塊節點
  a| 
-儲存系統：
+E 系列儲存系統。
 
 
 

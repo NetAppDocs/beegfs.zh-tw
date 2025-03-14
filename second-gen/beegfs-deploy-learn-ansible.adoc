@@ -14,15 +14,15 @@ summary: 開始部署之前、請務必瞭解如何使用Ansible、使用第二�
 
 
 [role="lead"]
-開始部署之前、請務必瞭解如何使用Ansible、使用第二代BeeGFS建置區塊設計、在NetApp上設定及部署BeeGFS解決方案。
+在開始部署之前，請先熟悉 Ansible 的設定方式，以及如何在 NetApp 解決方案上部署 BeeGFS 。
 
-Ansible清單定義檔案和區塊節點的組態、並代表您要部署的BeeGFS檔案系統。清單包括主機、群組和變數、說明所需的BeeGFS檔案系統。您可以從下載範例庫存 https://github.com/netappeseries/beegfs/tree/master/getting_started/["NetApp E系列BeeGFS GitHub"^]。
+Ansible 清單是一個目錄結構，列出要跨部署 BeeGFS 檔案系統的檔案和區塊節點。其中包含主機，群組和變數，說明所需的 BeeGFS 檔案系統。Ansible 庫存必須儲存在 Ansible 控制節點上，而 Ansible 控制節點是可存取檔案的任何機器，以及用來執行 Ansible 教戰手冊的區塊節點。您可以從下載範例庫存 https://github.com/netappeseries/beegfs/tree/master/getting_started/["NetApp E系列BeeGFS GitHub"^]。
 
 
 
 == Ansible模組與角色
 
-若要套用 Ansible 庫存中所述的組態、請使用 NetApp E-Series Ansible 集合中提供的各種 Ansible 模組和角色、尤其是部署端點對端點解決方案的 BeeGFS HA 7.4 角色（可從取得 https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_4["NetApp E系列BeeGFS GitHub"^]）。
+若要套用 Ansible 庫存所述的組態，請使用 NetApp E 系列 Ansible 集合（可從取得）中提供的各種 Ansible 模組和角色 https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_4["NetApp E系列BeeGFS GitHub"^]，以部署端點對端點解決方案。
 
 NetApp E系列Ansible產品組合中的每個角色、都是完整的BeeGFS on NetApp解決方案端點對端部署。這些角色使用NetApp E系列SANtricity 的《Sf2、Host和BeeGFS》集合、可讓您使用HA（高可用度）來設定BeeGFS檔案系統。然後您可以配置及對應儲存設備、並確保叢集儲存設備已準備就緒可供使用。
 
@@ -35,11 +35,11 @@ NOTE: 雖然部署步驟會嘗試提供足夠的詳細資料、以確保事先�
 
 == BeeGFS HA叢集的庫存配置
 
-使用「Ansible」（可執行）庫存結構來定義BeeGFS HA叢集。
+使用 Ansible 庫存結構定義 BeeGFS HA 叢集。
 
-任何具備前述經驗的人都應該知道、BeeGFS HA角色會執行自訂方法、以探索哪些變數（或事實）適用於每個主機。這是為了簡化建立可執行的資源庫存、以說明可在多個伺服器上執行的資源。
+任何具有前一次 Ansible 體驗的人都應該知道 BeeGFS HA 角色會實作自訂方法，以探索哪些變數（或事實）適用於每個主機。這項設計簡化了 Ansible 庫存的結構，以描述可在多部伺服器上執行的資源。
 
-Ansible清單通常包含「host_vars」和「Group_vars」中的檔案、以及指派主機給特定群組（以及可能指派給其他群組的群組）的「inventory.yml」檔案。
+Ansible 庫存通常包含和 `group_vars`中的檔案 `host_vars`，以及 `inventory.yml`將主機指派給特定群組的檔案（以及可能群組至其他群組的檔案）。
 
 
 NOTE: 請勿使用本小節中的內容建立任何檔案、僅供範例使用。
@@ -93,7 +93,7 @@ beegfs_targets:
           - size: 21.25
             owning_controller: A
 ....
-此配置可讓每個資源的BeeGFS服務、網路和儲存組態在單一位置定義。在幕後、BeeGFS角色會根據此庫存結構、針對每個檔案和區塊節點集合必要的組態。如需詳細資訊、請參閱以下部落格文章： https://www.netapp.com/blog/accelerate-deployment-of-ha-for-beegfs-with-ansible/["NetApp利用Ansible加速部署HA for BeeGFS"^]。
+此配置可讓每個資源的BeeGFS服務、網路和儲存組態在單一位置定義。在幕後、BeeGFS角色會根據此庫存結構、針對每個檔案和區塊節點集合必要的組態。
 
 
 NOTE: 每項服務的BeeGFS數字和字串節點ID會根據群組名稱自動設定。因此、除了群組名稱必須是唯一的一般「可獨立」要求之外、代表BeeGFS服務的群組必須以該群組所代表之BeeGFS服務類型的唯一數字結尾。例如、中繼資料_01和stOR_01是允許的、但中繼資料_01和meta_01則不允許。

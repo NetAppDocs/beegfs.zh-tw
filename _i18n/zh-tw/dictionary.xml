@@ -11,8 +11,6 @@
   <block id="c81e728d9d4c2f636f067f89cc14862c" category="paragraph">2.</block>
   <block id="a631c0a4a9b408ccc2559c2a3323af51" category="paragraph">*雜項：*</block>
   <block id="c9f0f895fb98ab9159f51fd0297e236d" category="cell">8.</block>
-  <block id="7ddb33edf227a18eb76201fcb9e2c9db" category="section-title">軟體需求</block>
-  <block id="440907229edb210984831982728c0047" category="paragraph">為了達到可預測的效能與可靠性、NetApp解決方案上的BeeGFS版本會測試採用實作解決方案所需的特定軟體元件版本。</block>
   <block id="5fea6233624bde259c99b82e6d7de3c6" category="section-title">軟體部署需求</block>
   <block id="699b33acca98ab1d3eb0d684f59f1c98" category="paragraph">下表列出在以Ansible為基礎的BeeGFS部署中、自動部署的軟體需求。</block>
   <block id="719d067b229178f03bcfa1da4ac4dede" category="cell">軟體</block>
@@ -30,7 +28,6 @@
   <block id="d35d779fe31977939a0a72c5c962d2af" category="cell">其他Python套件</block>
   <block id="5510cedb08df4208db0688e41cea716f" category="section-title">檔案節點需求</block>
   <block id="eae2868fd17cac4569887ad9ccca42c2" category="paragraph">RedHat Enterprise Linux</block>
-  <block id="1f8b1bc6c0a349e88a3353e347489a9a" category="admonition">檔案節點需要有效的RedHat Enterprise Linux Server訂閱和Red Hat Enterprise Linux高可用度附加元件。</block>
   <block id="2488fead2064d4aeb886afc1a0010ee7" category="cell">Linux核心</block>
   <block id="f6883581bd882ffdf705127738982586" category="cell">InfiniBand / RDMA驅動程式</block>
   <block id="fbc534ed33feffdfe8fc56e7cde13e6e" category="section-title">EF600區塊節點需求</block>
@@ -106,9 +103,6 @@
   <block id="4278d92c9bdf11d430a86f440cffbb06" category="paragraph">目錄結構包含Yaml檔案、可用來描述所需的BeeGFS HA叢集。</block>
   <block id="396262ee936f3d3e26ff0e60bea6cae0" category="paragraph">BMC</block>
   <block id="20e7cb5fddc6ef60deff83e38954fc9c" category="paragraph">基礎板管理控制器。有時稱為服務處理器。</block>
-  <block id="399cda935f5cb9e0b94eaf42309257fb" category="paragraph">區塊節點</block>
-  <block id="56977f2bee9d2716e5224e95ceb72839" category="paragraph">儲存系統：</block>
-  <block id="fac04ca68a48af91f0290001604a2463" category="paragraph">用戶端</block>
   <block id="f5ce9f5cb682a1f863d5a8c51ac28683" category="paragraph">DL</block>
   <block id="3a113e532fcdd400cdf83ef62ac9d9de" category="paragraph">深度學習：</block>
   <block id="c404903bef63acba3e3abe370e09474f" category="paragraph">檔案節點</block>
@@ -143,7 +137,6 @@
   <block id="42f8643eb52a942747937327c72c8361" category="inline-link-macro">部署總覽</block>
   <block id="fefc21957cc1bbb1f6a7704d95ad5e0d" category="summary">您可以使用第二代NetApp BeeGFS建置區塊設計、在NetApp上部署BeeGFS至已驗證的檔案和區塊節點。</block>
   <block id="ef200d7e9d983785df6b4e01fa65bf59" category="section-title">Ansible集合與角色</block>
-  <block id="31f2ceaa03965649e2e37df5634511e7" category="paragraph">您可以使用Ansible（常用的IT自動化引擎）在NetApp上部署BeeGFS解決方案、以自動化應用程式部署。Ansible會使用一系列的檔案、統稱為庫存、用來建立您要部署的BeeGFS檔案系統模型。</block>
   <block id="87d27d52f7fc81e8a134f2e3d2a57ecf" category="inline-link">NetApp E系列BeeGFS系列</block>
   <block id="4aa1cf90ffa01d3b63825bad839d9e29" category="inline-link-macro">瞭解Ansible庫存</block>
   <block id="1325754275d5677e560f21035bc1ac47" category="paragraph">如需其他詳細資料、請參閱 <block ref="dd39ef1fcc2e17fe1fe509b7ac2d5dea" category="inline-link-macro-rx"></block>。</block>
@@ -153,7 +146,6 @@
   <block id="3c1ad21a1c1a2804f8ace80b84822bfe" category="list-text">一個基礎建置區塊、包含管理、中繼資料和儲存服務。</block>
   <block id="416ad52da618754efb3680e957b1a048" category="list-text">第二個建置區塊、包含中繼資料和儲存服務。</block>
   <block id="11047a79bd1eab4d52ba658a48a430e8" category="list-text">僅包含儲存服務的第三個建置區塊。</block>
-  <block id="886066871646e69724c15beede051aa6" category="paragraph">這些設定檔說明NetApp BeeGFS建置區塊的完整建議組態設定檔。對於每個部署、中繼資料和儲存建置區塊或僅儲存服務建置區塊的數量、可能會因程序而異、視容量和效能需求而定。</block>
   <block id="20cf8ff34f34ae23669e586d1092a0f9" category="section-title">部署步驟總覽</block>
   <block id="9d863a0564ad86180bde2b2a6c27a6ed" category="paragraph">部署作業包括下列高層級工作：</block>
   <block id="fd2f8c173ade715231c21c932686e38b" category="list-title">硬體部署</block>
@@ -195,31 +187,22 @@
   <block id="29f7e22c9a0b8d15ea802eee7a5e07cf" category="inline-link">如何限制更新</block>
   <block id="577885e812bad7e4780317a271722339" category="list-text">啟用包含高可用度所需套件的Red Hat儲存庫。</block>
   <block id="3c438be737391744e2fed6f73c418638" category="inline-link-macro">技術需求</block>
-  <block id="de2787072a70ede6b3c4b90ff28fe789" category="inline-link">mlxup -更新與查詢公用程式</block>
   <block id="febfb51b621938c49980eee52ab6a373" category="section-title">設定區塊節點</block>
   <block id="1dab115fdeed11b46ad9a32f690cfc8a" category="paragraph">設定每個控制器上的管理連接埠、以設定EF600區塊節點。</block>
   <block id="0631592349fc286da7627270b9c9b359" category="list-text">在每個EF600控制器上設定管理連接埠。</block>
   <block id="3f7c08d9f511dbd36a44bc681e25e3bf" category="inline-link">E系列文件中心</block>
-  <block id="83398f0ded44dc933df951171f29b604" category="paragraph">如需設定連接埠的指示、請前往<block ref="4719a190e5f3bfbda84ab0e6295af1ef" category="inline-link-rx"></block>。</block>
   <block id="a1cdd0715dd7993c1664eea6d7f39810" category="list-text">（可選）設定每個系統的儲存陣列名稱。</block>
-  <block id="6c8f452018d59ce25e69f9d3f8851b32" category="paragraph">設定名稱可讓您更容易在後續章節中參考每個系統。如需設定陣列名稱的指示、請前往<block ref="4719a190e5f3bfbda84ab0e6295af1ef" category="inline-link-rx"></block>。</block>
   <block id="561abcc4bd5f30a9d5ee1e4c64d9a10d" category="admonition">雖然並非嚴格要求、但後續主題會假設儲存陣列名稱會依序編號（例如C1 - CN）、並提及應該在ODD或偶數系統上完成的步驟。</block>
   <block id="1b6582c92d5f0e47bd102f2e16686662" category="summary">開始部署之前、請務必瞭解如何使用Ansible、使用第二代BeeGFS建置區塊設計、在NetApp上設定及部署BeeGFS解決方案。</block>
   <block id="91177a5a4b0c27f810e6deb9395eef4a" category="inline-link">NetApp E系列BeeGFS GitHub</block>
-  <block id="489a8841f96385c3fca8ff239dc24250" category="paragraph">Ansible清單定義檔案和區塊節點的組態、並代表您要部署的BeeGFS檔案系統。清單包括主機、群組和變數、說明所需的BeeGFS檔案系統。您可以從下載範例庫存<block ref="5f5a4f2bb780d1d47d6a1c5865c757e8" category="inline-link-rx"></block>。</block>
   <block id="2b030b2e370bebb88648070cda0b66eb" category="section-title">Ansible模組與角色</block>
   <block id="27633c2a48532dabf935531ba52193df" category="paragraph">NetApp E系列Ansible產品組合中的每個角色、都是完整的BeeGFS on NetApp解決方案端點對端部署。這些角色使用NetApp E系列SANtricity 的《Sf2、Host和BeeGFS》集合、可讓您使用HA（高可用度）來設定BeeGFS檔案系統。然後您可以配置及對應儲存設備、並確保叢集儲存設備已準備就緒可供使用。</block>
   <block id="ca467fdffa66288bc6eeca1d49467e2e" category="paragraph">雖然角色會提供深入的文件、但部署程序會說明如何使用第二代BeeGFS建置區塊設計來部署NetApp驗證架構。</block>
   <block id="7c1be9d0f9dc743e2a1540004da3eb1d" category="admonition">雖然部署步驟會嘗試提供足夠的詳細資料、以確保事先使用Ansible的經驗並非先決條件、但您應該對Ansible及相關術語有一定的瞭解。</block>
   <block id="e9b6dfb59ebbe3c2a8e47b9bec2ada24" category="section-title">BeeGFS HA叢集的庫存配置</block>
-  <block id="5585bfe6d81b9366f1160e16fcf3464f" category="paragraph">使用「Ansible」（可執行）庫存結構來定義BeeGFS HA叢集。</block>
-  <block id="ea969b9d9b8b0a66432c22ea23412c18" category="paragraph">任何具備前述經驗的人都應該知道、BeeGFS HA角色會執行自訂方法、以探索哪些變數（或事實）適用於每個主機。這是為了簡化建立可執行的資源庫存、以說明可在多個伺服器上執行的資源。</block>
-  <block id="fcf695220ea603b6d461ed9aaa63c323" category="paragraph">Ansible清單通常包含「host_vars」和「Group_vars」中的檔案、以及指派主機給特定群組（以及可能指派給其他群組的群組）的「inventory.yml」檔案。</block>
   <block id="927527f499c87b83ee052f9a293c0293" category="admonition">請勿使用本小節中的內容建立任何檔案、僅供範例使用。</block>
   <block id="a7a48a32496dcd14ea6f94f7d89ab599" category="paragraph">雖然此組態是根據組態設定檔預先決定的、但您應該大致瞭解如何將所有項目設定為「可執行」清單、如下所示：</block>
   <block id="9d92e1d6c46a5db6f99457758b8c71dc" category="paragraph">對於每項服務、會在「group _vars」下建立一個額外的檔案、說明其組態：</block>
-  <block id="7c98bb1c0d887b40b12614cc2cce909e" category="inline-link">NetApp利用Ansible加速部署HA for BeeGFS</block>
-  <block id="2c3ce0f08dbef62630d61052bdd46f20" category="paragraph">此配置可讓每個資源的BeeGFS服務、網路和儲存組態在單一位置定義。在幕後、BeeGFS角色會根據此庫存結構、針對每個檔案和區塊節點集合必要的組態。如需詳細資訊、請參閱以下部落格文章：<block ref="500a149f08c7164c80066a24197a4f46" category="inline-link-rx"></block>。</block>
   <block id="bab8955d49a06dc041f1cf99ae3c65aa" category="admonition">每項服務的BeeGFS數字和字串節點ID會根據群組名稱自動設定。因此、除了群組名稱必須是唯一的一般「可獨立」要求之外、代表BeeGFS服務的群組必須以該群組所代表之BeeGFS服務類型的唯一數字結尾。例如、中繼資料_01和stOR_01是允許的、但中繼資料_01和meta_01則不允許。</block>
   <block id="1d62eb925570a160f6a58cd18984f578" category="summary">BeeGFS解決方案包含根據驗證測試來調整效能和容量規模的建議。</block>
   <block id="137e4d3e0bc5586af6fc7ca9441511e1" category="doc">規模調整準則</block>
@@ -679,17 +662,7 @@
   <block id="57f799feabdc3b75aa704ff51e74f4c1" category="list-text">視需要、依照相同的佈線準則組裝其他建置組塊。</block>
   <block id="6a2ae129e5b77fd39f068e6cdee42d2a" category="admonition">可部署在單一機架中的建置區塊總數、取決於每個站台可用的電力和冷卻。</block>
   <block id="b11764419626b2eff6352f3d8e6022e3" category="summary">若要設定可Ansible控制節點、請識別可透過網路存取所有檔案和區塊節點管理連接埠的虛擬或實體機器、以便用來設定解決方案。</block>
-  <block id="bfcf60c321d0d2cb85402c7a22d208b9" category="paragraph">若要設定Ansible控制節點、您必須識別可透過網路存取所有檔案和區塊節點管理連接埠的虛擬或實體機器、以便用來設定解決方案。</block>
-  <block id="e7a81038c18b15bf5d97b77fb110af03" category="list-text">安裝NetApp BeeGFS集合所需的Python套件。</block>
-  <block id="7f883f5609524995f000fc99b8f5691a" category="admonition">若要確保您安裝的是受支援版本的Ansible和所有必要的Python套件、請參閱BeeGFS集合的讀我檔案。支援的版本也會在中註明 <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>。</block>
-  <block id="a36d9a848f44be3e2b8d092a5861995a" category="list-text">確認已安裝Ansible和Python的正確版本。</block>
-  <block id="4ac0a4015ebef3209a5f3acb61110dd9" category="list-text">將用來描述BeeGFS部署的Ansible庫存儲存在Git或BitBucket等來源控制系統中、然後安裝Git與這些系統互動。</block>
-  <block id="f2f38616eaf6d21846071c00e89109b4" category="list-text">設定無密碼SSH。這是讓Ansible從「Ansible」控制節點存取遠端BeeGFS檔案節點最簡單的方法。</block>
-  <block id="3087af73e5990976755e4c56b6e7c754" category="list-text">如果需要、在Ansible控制節點上、使用「sh-keygen'」產生一對公開金鑰</block>
-  <block id="c5d36867af8fc130f7a6b6bd87d51d23" category="list-text">使用「sh-copy -id &lt;ip_or_hostname&gt;'」設定每個檔案節點的無密碼SSH</block>
   <block id="c4e4fc85a76d5e87beac70d1fa166882" category="paragraph">請*不要*設定區塊節點的無密碼SSH。這既不受支援、也不需要。</block>
-  <block id="03f38aac08b6c6c3e6e3afc965fedbcc" category="list-text">使用Ansible銀河來安裝中所列BeeGFS集合的版本 <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>。</block>
-  <block id="b113449496b52721b53dc04e5120a57b" category="paragraph">此安裝包括其他可相依的相依性、例如NetApp SANtricity 整套軟體和主機收藏。</block>
   <block id="a8bb1258f035db2e1b989badd7504202" category="summary">若要定義檔案和區塊節點的組態、您可以建立可執行的詳細目錄、以代表您要部署的BeeGFS檔案系統。</block>
   <block id="811a6b46c73b2ff846d806c69f166392" category="paragraph">若要定義檔案和區塊節點的組態、您可以建立可執行的詳細目錄、以代表您要部署的BeeGFS檔案系統。清單包括主機、群組和變數、說明所需的BeeGFS檔案系統。</block>
   <block id="f710d81b04cfd57ef65bc4cca28bc3d4" category="section-title">步驟1：定義所有建置區塊的組態</block>
@@ -1532,7 +1505,6 @@
   <block id="fded9f625af9335e3b78e65d6fd6abac" category="list-text">驗證及修正組態飄移。</block>
   <block id="16a4e0aca277107b3401d2d33d4e5c00" category="inline-link-macro">BeeGFS用戶端</block>
   <block id="1c82d73e983ef595a7c60ff4647716a7" category="paragraph">NetApp也為提供Ansible角色 <block ref="b6cde77df9fbd5f549a35216e2ea351f" category="inline-link-macro-rx"></block>（可選）用於安裝BeeGFS並將文件系統掛載到compute（計算）/GPU/Login（計算/ GPU /登錄）節點。</block>
-  <block id="33abf34a1ac99d306f38ad532ed75170" category="inline-link-macro">使用指南</block>
   <block id="55f7d3580cdac035324d4348b9dac05b" category="inline-link-macro">管理BeeGFS叢集</block>
   <block id="3e3cee1fd1e1de5762df25400f62794a" category="paragraph">HPC叢集中執行需要使用檔案系統之應用程式的節點。有時也稱為運算或GPU節點。</block>
   <block id="67d6c06d21e47a4c86e1be15e327370e" category="paragraph">儲存網路/用戶端網路</block>
@@ -1683,16 +1655,9 @@
   <block id="df8ecd3c13ed9e59d88fa90e10bcc47f" category="list-text">使用特定於 InfiniBand 儲存交換器的、將檔案節點上的其餘 InfiniBand 連接埠連接至儲存網路的 InfiniBand 交換 <block ref="661a89e8980e34439324f4cc2c4b1743" category="inline-link-macro-rx"></block> 器。</block>
   <block id="8e4e4dc9d710c035afcec16817c6b5a3" category="paragraph">當使用分離器纜線將儲存交換器連接至檔案節點時、一條纜線應從交換器分支出來、並連接至淡綠色的連接埠。另一條分離器纜線應從交換器分支出來、並連接至暗綠色的連接埠。</block>
   <block id="5059e1c6d859e6d2e881b28d0a939639" category="paragraph">此外、對於具有備援交換器的儲存網路、淡綠色的連接埠應連接至一台交換器、而深綠色的連接埠則應連接至另一台交換器。</block>
-  <block id="2b2607ba10759a35b672629d844a4bfc" category="paragraph">若要套用 Ansible 庫存中所述的組態、請使用 NetApp E-Series Ansible 集合中提供的各種 Ansible 模組和角色、尤其是部署端點對端點解決方案的 BeeGFS HA 7.4 角色（可從取得<block ref="e65da35b507a01fbe5db4a35e8ffaf77" category="inline-link-rx"></block>）。</block>
-  <block id="a3dbff02e88e9e804d80d00706cede6c" category="paragraph">Ansible 允許 NetApp 等公司使用 Ansible Galaxy 上的集合來擴充內建功能（請參閱<block ref="09c3689692686597c3ced866c6122b6c" category="inline-link-rx"></block>）。集合包括執行特定功能或工作的模組（例如建立E系列Volume）、以及可呼叫多個模組和其他角色的角色。此自動化方法可縮短部署BeeGFS檔案系統和基礎HA叢集所需的時間。此外、它還能簡化新增建置區塊的作業、以擴充現有的檔案系統。</block>
-  <block id="8bf028bec7411a5f58e9f6c9cdcb868c" category="paragraph">下列步驟已在 Ubuntu 22.04 上測試。有關首選 Linux 發行套件的特定步驟，請參閱<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>。</block>
-  <block id="6beebf7e29f7e6b87bb0cfa8afb3d664" category="list-text">安裝 Python 3.10 、並確定已安裝正確版本的<block ref="62ad1c2a46c5298f3e2c95d3babf8d0c" prefix=" " category="inline-code"></block> 。</block>
-  <block id="e709eaee39c1c94ce2b784ef354857f3" category="list-text">建立符號連結、確保每當呼叫或呼叫時都會使用 Python 3.10 二進位檔<block ref="6e8efbe3a442748b716644025479aab5" prefix=" " category="inline-code"></block><block ref="23eeeb4347bdd26bfc6b7ee9a3b755dd" prefix=" " category="inline-code"></block> 。</block>
   <block id="0f7c31137702c2d677a474d55058637d" category="paragraph">若要瞭解如何為已驗證的 Lenovo SR665 V3 檔案節點設定網路、請參閱<block ref="05277b4b7d004e546ac1f238e66dd4bf" category="inline-link-rx"></block>。</block>
   <block id="b8d06d76e2eaa67bfafbce3081ab48f5" category="list-text">安裝Red Hat 9.3並設定用於管理作業系統的主機名稱和網路連接埠、包括從Ansible控制節點進行SSH連線。</block>
   <block id="7568449700f7c3e03b4500285c69b82f" category="list-text">使用 RedHat Subscription Manager 註冊並訂閱系統、以便從正式的 Red Hat 儲存庫安裝所需的套件、並將更新限制為支援的 Red Hat 版本：<block ref="085c7e75df5d271759849f369fa065a7" prefix=" " category="inline-code"></block>。有關說明，請參閱<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 和 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
-  <block id="00d3e1c43b2f440233b2874bbe49a236" category="list-text">將所有 HCA 韌體更新至中建議的版本 <block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>。</block>
-  <block id="313520f5b6c2887466092680afb5d057" category="paragraph">您可以下載並執行已套用建議韌體的mlxup工具版本、以完成此更新。您可以從（）下載此工具<block ref="d22fd7ba0031fc3b862dce4cf129cfa5" category="inline-link-rx"></block><block ref="0efbaca172e58edf29b612ba47aac915" category="inline-link-macro-rx"></block>。</block>
   <block id="b52d8b061d9ea3d197fbe8093a3eec3f" category="admonition">當使用分離器纜線將儲存交換器連接至檔案節點時、一條纜線應分出並連接至淡綠色的連接埠。另一條纜線應分出並連接至暗綠色的連接埠。此外、對於具有備援交換器的儲存網路、淡綠色的連接埠應連接至一台交換器、而深綠色的連接埠則應連接至另一台交換器。</block>
   <block id="dcc608d1c76fed74a96f75915bc6561f" category="paragraph">若要充分運用PCIe雙向頻寬、請確定每個InfiniBand介面卡上的一個連接埠連接至儲存架構、另一個連接埠則連接至區塊節點。</block>
   <block id="0a31efbdaa47f7da5564c0e43b03e7ea" category="paragraph">您可以視需要覆寫組態參數的預設設定。如需可針對特定工作負載或使用案例進行調整的參數，請參閱<block ref="986eca0f3f99dd3e8d8640fddbc137d2" category="inline-link-rx"></block>。</block>
@@ -1746,13 +1711,10 @@
   <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700</block>
   <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E （ NVIDIA 主動式光纖纜線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
   <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26 （ NVIDIA 被動式銅線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
-  <block id="0db451285b4ab90f8e6012dfd8f0d190" category="paragraph">RedHat 9.3伺服器實體配備高可用度（2插槽）。</block>
   <block id="099646c88bdb63cce0ec389f4c842fed" category="cell">5.14.0-362.24.1.el9_3.x86_64</block>
   <block id="de4e152f23f311bbd0da3bd3cc07390d" category="cell">MLNX_OFED_LINOD-23.10-3.2.0-LTS</block>
   <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCA 韌體</block>
   <block id="141a8d7da406be785ba26084a46e1c00" category="cell">7.4.4..</block>
-  <block id="5487c77147bdac492714cd2896a16557" category="cell">透過 Pip 安裝 6.x ： Ansable-6.0.0 和 Ansible 核心 &gt;= 2.13.0</block>
-  <block id="b1e65a5d34a577630a4fc7840358333f" category="cell">3.9 （或更新版本）</block>
   <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">密碼編譯 -43.0.0 、 netaddr-1.3.0 、 ipaddr-2.2.0</block>
   <block id="7af6b9890b6c8ce699616c59f48b5248" category="cell">NetApp E-Series BeeGFS Ansible Collection</block>
   <block id="070afde0274dc6039a8a8949d12a15cd" category="cell">3.2.0</block>
@@ -1993,4 +1955,40 @@
   <block id="088914339db9effda3ac57ec2e9439b6" category="cell">圍欄代理（紅魚 / APC ）</block>
   <block id="f726fcf5784fc25f630a32e650f8b5a0" category="cell">4.10.0-55</block>
   <block id="f8b6aa2ae96c25a05a0cc6e26a9236d7" category="sidebar">升級 Pacemaker 和電暈器同步套件</block>
+  <block id="5a2c09ccb6952069726dcfb2e92a5573" category="paragraph">用於執行 Ansible CLI 的實體或虛擬機器。</block>
+  <block id="91587c91e5cdb42cedda71e8eeb8c25b" category="paragraph">區塊節點</block>
+  <block id="795e5fe3e5c761c4087c78270457d3cf" category="paragraph">E 系列儲存系統。</block>
+  <block id="0f558243fbf45f1cd840fff01957f57b" category="paragraph">用戶端</block>
+  <block id="21c9dff2dfe238c697e5559025dfda6b" category="paragraph">在開始部署之前，請先熟悉 Ansible 的設定方式，以及如何在 NetApp 解決方案上部署 BeeGFS 。</block>
+  <block id="f2b1ea87b49c6968457bc3b3b6f33a2c" category="paragraph">Ansible 清單是一個目錄結構，列出要跨部署 BeeGFS 檔案系統的檔案和區塊節點。其中包含主機，群組和變數，說明所需的 BeeGFS 檔案系統。Ansible 庫存必須儲存在 Ansible 控制節點上，而 Ansible 控制節點是可存取檔案的任何機器，以及用來執行 Ansible 教戰手冊的區塊節點。您可以從下載範例庫存<block ref="5f5a4f2bb780d1d47d6a1c5865c757e8" category="inline-link-rx"></block>。</block>
+  <block id="acb5132e1a51a9d194c229e67932a12d" category="paragraph">若要套用 Ansible 庫存所述的組態，請使用 NetApp E 系列 Ansible 集合（可從取得）中提供的各種 Ansible 模組和角色<block ref="e65da35b507a01fbe5db4a35e8ffaf77" category="inline-link-rx"></block>，以部署端點對端點解決方案。</block>
+  <block id="cc6125df0f9b7b5b37d4ffff33715e71" category="paragraph">使用 Ansible 庫存結構定義 BeeGFS HA 叢集。</block>
+  <block id="33aca05a2f51216eef0b90c05b6567b8" category="paragraph">任何具有前一次 Ansible 體驗的人都應該知道 BeeGFS HA 角色會實作自訂方法，以探索哪些變數（或事實）適用於每個主機。這項設計簡化了 Ansible 庫存的結構，以描述可在多部伺服器上執行的資源。</block>
+  <block id="b6e73e778c564bae063904fe87b3b01e" category="paragraph">Ansible 庫存通常包含和<block ref="96fa973cda8809ad84f646e3d8fbbc1c" prefix=" " category="inline-code"></block>中的檔案<block ref="3342582e194d63e4c91b56623752c9c6" prefix=" " category="inline-code"></block>，以及<block ref="d28e452e49fc926f32af1d87afcff3ce" prefix=" " category="inline-code"></block>將主機指派給特定群組的檔案（以及可能群組至其他群組的檔案）。</block>
+  <block id="b9758d9ee0685ff02f04a117857ffdda" category="paragraph">此配置可讓每個資源的BeeGFS服務、網路和儲存組態在單一位置定義。在幕後、BeeGFS角色會根據此庫存結構、針對每個檔案和區塊節點集合必要的組態。</block>
+  <block id="fe99ab31f2d1e99fadb6702978dadabc" category="paragraph">NetApp 上的 BeeGFS 可部署至已驗證的檔案和區塊節點，使用 Ansible 搭配 NetApp 的 BeeGFS 建置區塊設計。</block>
+  <block id="0a3636ada6bc6afc16847b56ea2270c1" category="paragraph">NetApp 上的 BeeGFS 解決方案是使用 Ansible 部署， Ansible 是一款可自動化應用程式部署的熱門 IT 自動化引擎。Ansible 使用一系列的檔案，統稱為庫存，用來建立您要部署的 BeeGFS 檔案系統的模型。</block>
+  <block id="34d48088e2054cea7cef0c603ff25c57" category="paragraph">Ansible 允許 NetApp 等公司使用 Ansible Galaxy 上的可用集合來擴充內建功能（請參閱<block ref="09c3689692686597c3ced866c6122b6c" category="inline-link-rx"></block>）。集合包括執行特定功能或工作（例如建立 E 系列 Volume ）的模組，以及可呼叫多個模組和其他角色的角色。此自動化方法可縮短部署BeeGFS檔案系統和基礎HA叢集所需的時間。此外，它也簡化了叢集和 BeeGFS 檔案系統的維護與擴充。</block>
+  <block id="219dedb226654f3cbb1fcae9a1dbf6f0" category="paragraph">這些設定檔說明NetApp BeeGFS建置區塊的完整建議組態設定檔。對於每個部署，中繼資料和儲存建置區塊或僅儲存服務的建置區塊數量可能會因容量和效能需求而異。</block>
+  <block id="6d8fa04177add6fae81330f784f2ec28" category="paragraph">若要設定 Ansible 控制節點，您必須指定可透過網路存取的虛擬或實體機器，以存取 NetApp 解決方案上 BeeGFS 部署的所有檔案和區塊節點。</block>
+  <block id="95b6926dc09df085df3f516ff202c9b3" category="paragraph">請檢閱<block ref="1048598744d9ad3deb64b0d833d9a48d" category="inline-link-macro-rx"></block>以取得建議套件版本的清單。下列步驟已在 Ubuntu 22.04 上測試。有關首選 Linux 發行套件的特定步驟，請參閱<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>。</block>
+  <block id="ac80ffa19a9be958e8c0594639394b8a" category="list-text">從 Ansible 控制節點安裝下列 Python 和 Python Virtual Environment 套件。</block>
+  <block id="f2d8e2d7eabbfe72bc89df39fa8ede41" category="list-text">建立 Python 虛擬環境</block>
+  <block id="44bf2f842c54b0fad1167e3efd65cf55" category="list-text">啟動虛擬環境。</block>
+  <block id="3f6f2236da97e94c248453e2c9ca404a" category="list-text">在啟動的虛擬環境中安裝所需的 Python 套件。</block>
+  <block id="f866bd2f581df9353b6db613e08d0aaf" category="list-text">使用 Ansible Galaxy 安裝 BeeGFS 集合。</block>
+  <block id="c6222175d36e533518dc3135dd2f14f8" category="list-text">驗證 Ansible ， Python 和 BeeGFS 集合的安裝版本是否與匹配<block ref="1048598744d9ad3deb64b0d833d9a48d" category="inline-link-macro-rx"></block>。</block>
+  <block id="daa4277dc829ecd5acb1f7d3acbfb93e" category="list-text">設定無密碼 SSH ，允許 Ansible 從 Ansible 控制節點存取遠端 BeeGFS 檔案節點。</block>
+  <block id="438d1f86821733d8903d370ff77ab533" category="list-text">如果需要，在 Ansible 控制節點上產生一對公開金鑰。</block>
+  <block id="80bc73f6477a99e95ffb1ccead55050a" category="list-text">為每個檔案節點設定無密碼 SSH 。</block>
+  <block id="e1024b07dc0ac4ec1b8c15255d2b7975" category="list-text">將所有 HCA 韌體更新至使用<block ref="d69ec72bf0ba3250c61993db3810f97e" category="inline-link-macro-rx"></block>指南中建議的版本<block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>。</block>
+  <block id="848b1c364446f81000a150ab3996f166" category="paragraph">有關配置端口的說明，請轉至<block ref="98ec84f5a45223dfc7ed1f4ec5ef436f" category="inline-link-rx"></block>。</block>
+  <block id="4e667bcd22eef3e9620c534781a563ea" category="paragraph">設定名稱可讓您更容易在後續章節中參考每個系統。有關設置陣列名稱的說明，請轉至<block ref="2617f8aa7c55cffc3912e0de8d2af7d2" category="inline-link-rx"></block>。</block>
+  <block id="3c5c0f41bab0c547cd353ca56b505d33" category="section-title">軟體與韌體需求</block>
+  <block id="d72c6977d4f8f0d9276e0483c1e643ab" category="paragraph">為了確保可預測的效能和可靠性， NetApp 解決方案上的 BeeGFS 版本會使用特定版本的軟體和韌體元件進行測試。實作解決方案需要這些版本。</block>
+  <block id="c3b7a5332543327934ec8e70a424791c" category="cell">RedHat 9.3伺服器實體配備高可用度（2插槽）。重要事項：檔案節點需要有效的 RedHat Enterprise Linux Server 訂閱和 Red Hat Enterprise Linux High Availability Add-On 。</block>
+  <block id="6b5b0d6dfb6af2b4c98938bb01cbeea1" category="cell">10.x</block>
+  <block id="f82f58377452476d1d96442db364a64d" category="cell">Ansible 核心</block>
+  <block id="f850f5faa66f6a7ca2ac7f33f7eba944" category="cell">&gt;= 2.13.0</block>
+  <block id="bd03200a597eed96961a6907dc36cfbd" category="cell">3.10</block>
 </blocks>
