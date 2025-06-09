@@ -27,14 +27,12 @@
   <block id="a7f5f35426b927411fc9231b56382173" category="cell">Python</block>
   <block id="d35d779fe31977939a0a72c5c962d2af" category="cell">其他Python套件</block>
   <block id="5510cedb08df4208db0688e41cea716f" category="section-title">檔案節點需求</block>
-  <block id="eae2868fd17cac4569887ad9ccca42c2" category="paragraph">RedHat Enterprise Linux</block>
   <block id="2488fead2064d4aeb886afc1a0010ee7" category="cell">Linux核心</block>
   <block id="f6883581bd882ffdf705127738982586" category="cell">InfiniBand / RDMA驅動程式</block>
   <block id="fbc534ed33feffdfe8fc56e7cde13e6e" category="section-title">EF600區塊節點需求</block>
   <block id="e791d47d690cbc6aa7c7f9434ebd2fa1" category="cell">作業系統SANtricity</block>
   <block id="b384b3cf4ffa3a81a88e8687dd6ca028" category="cell">NVSRAM</block>
   <block id="b89cb5f38b54c6181858af1281dcaeef" category="cell">磁碟機韌體</block>
-  <block id="df4607ba320342072b2dc12271b08d2f" category="cell">最新版本適用於使用中的磁碟機機型。</block>
   <block id="cef5ab698867f39ec4b495cba708da1a" category="summary">BeeGFS on NetApp解決方案結合BeeGFS平行檔案系統與NetApp EF600儲存系統、打造可靠、可擴充且具成本效益的基礎架構、可跟上嚴苛工作負載的腳步。</block>
   <block id="c0c4b60d27032c028c91440e9d3be949" category="doc">解決方案總覽</block>
   <block id="c6ff1c8ffcd7024a30e7240129bf57a8" category="section-title">NVA方案</block>
@@ -170,7 +168,6 @@
   <block id="a8169193bd5718bbe78111b3a1f874d7" category="list-text"><block ref="dffbd1bc941e2f4395de7cba04c6653b" category="inline-link-macro-rx"></block>。</block>
   <block id="096a6674c1f4ef681d88a6eb229299b7" category="inline-link-macro">設定BeeGFS用戶端</block>
   <block id="f159952d71e33cd0a1ffbb2bcc4ce2ad" category="list-text"><block ref="75197807ccb18c9f99e8f2a2a3443aea" category="inline-link-macro-rx"></block>。</block>
-  <block id="d6dd015562e1d088d87d28007ecfa541" category="admonition">部署程序包括幾個需要將文字複製到檔案的範例。請密切注意任何應針對特定部署進行修改或可修改之字元以「#」或「//」表示的即時註解。例如：「beegfs_ha_ntp_server_Pools：#這是註解的範例！-「Pool 0.pool.ntp.org ipburst連串最大資源3」-「Pool 1.pool.ntp.org ipburst最大資源3」</block>
   <block id="d8ca15234a274a841f06a1d429141054" category="summary">在每部伺服器的基礎板管理控制器（BMC）上設定網路、並在每個控制器上設定管理連接埠。</block>
   <block id="1cfd8029b1372ddacb436890446b43fd" category="doc">設定檔案節點和區塊節點</block>
   <block id="d900235d99f416c3bfda0461cbb71f26" category="paragraph">雖然大部分的軟體組態工作都是使用NetApp提供的Ansible集合來自動化、但您必須在每部伺服器的底板管理控制器（BMC）上設定網路、並在每個控制器上設定管理連接埠。</block>
@@ -180,7 +177,6 @@
   <block id="0c112c89dd8c3ce2b92d5e4844ea4641" category="admonition">底板管理控制器（BMC）有時稱為服務處理器、是內建於各種伺服器平台的頻外管理功能的一般名稱、即使作業系統未安裝或無法存取、也能提供遠端存取。廠商通常會以自己的品牌行銷這項功能。例如、在Lenovo SR665上、BMC稱為_Lenovo XClarity Controller（XCC）_。</block>
   <block id="290a84841d7341364c4abf862a74583f" category="list-text">設定系統設定以獲得最大效能。</block>
   <block id="04c7f6322804081c61ca0d88cef85904" category="paragraph">您可以使用UEFI設定（先前稱為BIOS）或使用許多BMC提供的Redfish API來設定系統設定。系統設定會因做為檔案節點的伺服器機型而有所不同。</block>
-  <block id="354f37da23eacae1fc163775964a0a2e" category="paragraph">若要瞭解如何設定已驗證之Lenovo SR665檔案節點的系統設定、請參閱 <block ref="dbe1843153b6696d3dd846d3a25ea7b2" category="inline-link-macro-rx"></block>。</block>
   <block id="63b34e32fcac1724c46edd575672332b" category="paragraph">此時請勿在任何InfiniBand連接埠上設定IP。</block>
   <block id="e9074e57167186919a163cd099187dd0" category="admonition">雖然並非嚴格要求、但後續章節假設主機名稱會依序編號（例如H1-HN）、並提及應該在ODD或偶數主機上完成的工作。</block>
   <block id="0123fb5bcbcd68deb7c43ec913e70705" category="inline-link">如何註冊及訂閱RHEL系統</block>
@@ -198,7 +194,6 @@
   <block id="2b030b2e370bebb88648070cda0b66eb" category="section-title">Ansible模組與角色</block>
   <block id="27633c2a48532dabf935531ba52193df" category="paragraph">NetApp E系列Ansible產品組合中的每個角色、都是完整的BeeGFS on NetApp解決方案端點對端部署。這些角色使用NetApp E系列SANtricity 的《Sf2、Host和BeeGFS》集合、可讓您使用HA（高可用度）來設定BeeGFS檔案系統。然後您可以配置及對應儲存設備、並確保叢集儲存設備已準備就緒可供使用。</block>
   <block id="ca467fdffa66288bc6eeca1d49467e2e" category="paragraph">雖然角色會提供深入的文件、但部署程序會說明如何使用第二代BeeGFS建置區塊設計來部署NetApp驗證架構。</block>
-  <block id="7c1be9d0f9dc743e2a1540004da3eb1d" category="admonition">雖然部署步驟會嘗試提供足夠的詳細資料、以確保事先使用Ansible的經驗並非先決條件、但您應該對Ansible及相關術語有一定的瞭解。</block>
   <block id="e9b6dfb59ebbe3c2a8e47b9bec2ada24" category="section-title">BeeGFS HA叢集的庫存配置</block>
   <block id="927527f499c87b83ee052f9a293c0293" category="admonition">請勿使用本小節中的內容建立任何檔案、僅供範例使用。</block>
   <block id="a7a48a32496dcd14ea6f94f7d89ab599" category="paragraph">雖然此組態是根據組態設定檔預先決定的、但您應該大致瞭解如何將所有項目設定為「可執行」清單、如下所示：</block>
@@ -479,7 +474,6 @@
   <block id="7ed4e287a78a4cc348d1e60d143ceda8" category="paragraph">您可以設定的可用調校參數包括：</block>
   <block id="d8eb1bf5eeddb34869fa0aee2c5c3be0" category="list-text">*檔案節點的UEFI/BIOS中的系統設定。*若要發揮最大效能、建議您在做為檔案節點的伺服器機型上設定系統設定。您可以使用系統設定程式（UEFI/BIOS）或底板管理控制器（BMC）提供的Redfish API來設定檔案節點時的系統設定。</block>
   <block id="bb2fcb1abe8d0829558e398d9acb4589" category="inline-link-macro">調整檔案節點系統設定以獲得效能</block>
-  <block id="adecdfd501fe0c9f7674b95abecb661b" category="paragraph">系統設定會因您用來做為檔案節點的伺服器機型而有所不同。這些設定必須根據使用中的伺服器機型手動設定。若要瞭解如何設定已驗證之Lenovo SR665檔案節點的系統設定、請參閱 <block ref="891cfd1f8dbb99c09432be0144a5be81" category="inline-link-macro-rx"></block>。</block>
   <block id="6721128d9ea380f9965cc220f28619e1" category="list-text">*必要組態參數的預設設定。*必要的組態參數會影響BeeGFS服務的設定方式、以及E系列磁碟區（區塊裝置）如何由心臟起搏器設定格式及掛載。這些必要的組態參數包括：</block>
   <block id="93de4dab2e303d649f94f0880095e6ef" category="list-text">BeeGFS服務組態參數</block>
   <block id="c5b3473e89672cc155d0436c6e60bd52" category="inline-link">BeeGFS服務組態參數</block>
@@ -560,7 +554,6 @@
   <block id="5011bf6d8a37692913fce3a15a51f070" category="cell">8085</block>
   <block id="89f0938aa83de82ca99f8b06297ed69c" category="list-text">在「Group_vars/」下、使用下列範本建立資源群組「shor_01」到「shor_08」的檔案、然後填入每個服務的預留位置值、以參照範例：</block>
   <block id="9b62ac6b206ab6cafe8dafa0990559c7" category="inline-link-macro">建議的儲存資源池過度資源配置百分比</block>
-  <block id="ab2ec57b0e9afdc73bcc69a962ee35c4" category="admonition">如需正確使用尺寸、請參閱 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>。</block>
   <block id="b627976db3394ccf24342632cef6f4f1" category="cell">STOR_01.yml</block>
   <block id="40f4da34bbe180214c23b9e55da4f772" category="cell">8013</block>
   <block id="5ef33d06ff783e8453c10b95db8c1253" category="cell">beegfs_s1_s2</block>
@@ -597,7 +590,6 @@
   <block id="d4d36ef3d915a0d2eaac8c62f1d8eff6" category="cell">meta_15.yml</block>
   <block id="b465a4b4c591a6f2e44fedac80e726d0" category="cell">meta_16.myl</block>
   <block id="91e38d134a7ca4a23006b0cf023d9011" category="list-text">在「Group_vars/」下、使用下列範本建立資源群組「shor_09」到「shor_16」的檔案、然後填入每個服務的預留位置值、以參照範例：</block>
-  <block id="ca61951791cd6f4d50294a908b9eee76" category="admonition">如需正確使用尺寸、請參閱 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>...</block>
   <block id="71c1385fcc844d118e8b2688b0cfd2d6" category="cell">STOR_09.yml</block>
   <block id="9282f3f43896f146dcbcc2d03d530b59" category="cell">beegfs_s9_s10</block>
   <block id="8f72ae1bf7ca7b8218a4bf9e719f5e7d" category="cell">STOR_10.yml</block>
@@ -613,7 +605,6 @@
   <block id="dea1f079dcd8c8280e07dcd96ea8c075" category="section-title">步驟4：設定僅儲存建置區塊的庫存</block>
   <block id="711be1acedea341e1f5455f007cdb22b" category="paragraph">這些步驟說明如何設定BeeGFS純儲存區塊的可執行庫存。設定中繼資料+儲存設備的組態與純儲存設備建置區塊之間的主要差異、在於所有中繼資料資源群組都不存在、而且每個儲存資源池的「Criteria _DRIVE _count」也會從10變更為12。</block>
   <block id="5b6fe069463b7f5581a1864de036e765" category="list-text">在「Group_vars/」下、使用下列範本建立資源群組「shor_17」到「shor_24」的檔案、然後填寫每個服務的預留位置值、以參照範例：</block>
-  <block id="80f4c22d8a78e5d96cdf5bef28444426" category="admonition">如需正確使用尺寸、請參閱 <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>。</block>
   <block id="f9838993bed3d0e550ae346ed2e4355e" category="cell">STOR_17.yml</block>
   <block id="8cf4aacf94a115dfc0190ee6782190d3" category="cell">Beegfs_S17_s18</block>
   <block id="7876b49b042d07da9a565db780a9b186" category="cell">STOR_18.yml</block>
@@ -727,7 +718,6 @@
   <block id="e95c3b26aabb0242b0a38d72568b125a" category="paragraph">若要發揮最大效能、建議您在您做為檔案節點的伺服器機型上設定系統設定。</block>
   <block id="291e90fb83bca326d06b5479d0ae7197" category="paragraph">系統設定會因您用來做為檔案節點的伺服器機型而有所不同。本主題說明如何設定已驗證之Lenovo ThinkSystem SR665伺服器檔案節點的系統設定。</block>
   <block id="cfa9d7ef51eae23751a0ea54765b99fd" category="section-title">使用UEFI介面調整系統設定</block>
-  <block id="7afe745e5e5ded0e0cf311f6ab05ce41" category="paragraph">Lenovo SR665伺服器的系統韌體包含許多可透過UEFI介面設定的調校參數。這些調校參數可能會影響伺服器運作方式的所有層面、以及伺服器的效能表現。</block>
   <block id="01d5e77f89697d310442aa744d5c4068" category="paragraph">在* UEFI Setup &gt; System Settings*下、調整下列系統設定：</block>
   <block id="6e2e169ab41f56781f3cd65629914fc6" category="section-title">操作模式功能表</block>
   <block id="f7adfd4c98207b1161c7b693c16fa9ea" category="cell">*系統設定*</block>
@@ -1090,7 +1080,6 @@
   <block id="99f83169540f1c3e08a1e696707dcbee" category="list-text">若要判斷隔離（stonith）是否已全域啟用或停用、請執行：<block ref="f9bc36eebaadfbe3971849dbb1a7a291" prefix=" " category="inline-code"></block></block>
   <block id="88653da28715cbac123466935349c7b2" category="list-text">若要停用隔離執行：<block ref="d3749d5705f2a9af97f05b0c5c91b235" prefix=" " category="inline-code"></block></block>
   <block id="79c811c32be072ba96828f7eaf67e191" category="list-text">若要啟用隔離執行：<block ref="65795833f6c4653caabc1cbacafe84d8" prefix=" " category="inline-code"></block></block>
-  <block id="54dfcc160f4c7fc21df07ee9c7df6f86" category="paragraph">附註：下次執行Ansible教戰手冊時、此設定將會被覆寫。</block>
   <block id="d60c67e58f8b774cb2aa20f043f8db60" category="summary">使用Ansible更新BeeGFS和HA叢集。</block>
   <block id="51e0180a7b3c2158984fbbe6e8f869a0" category="paragraph">Ansible應用於所有BeeGFS升級、包括在BeeGFS的主要、次要和修補版本之間移動。若要更新BeeGFS、您必須先更新BeeGFS Ansible集合、這也會為部署/管理自動化和基礎HA叢集提供最新的修正與增強功能。即使更新至最新版本的收藏、BeeGFS也不會升級至<block ref="6afa1ad605a4192ba2e50e8be9966e68" prefix=" " category="inline-code"></block> 與一起執行<block ref="1c5a0082b7b70fba66dc89c5dcadda70" prefix=" " category="inline-code"></block> 設定。</block>
   <block id="c647c561b083b3d7395174f66f8631ea" category="inline-link-macro">BeeGFS升級文件</block>
@@ -1151,7 +1140,6 @@
   <block id="8744d71fb56c3e75f875de0a416ea912" category="list-text">在檔案節點上安裝/設定軟體。</block>
   <block id="dcc4901f1f1938989ed2264f42fd1104" category="list-text">建立HA叢集並設定BeeGFS資源和檔案系統服務。</block>
   <block id="077a8397a5f4ba0711faf87b91f8906c" category="paragraph">Ansible的BeeGFS支援已於發表 <block ref="e5bec9f043c86b9afcbef28a688a4cdd" category="inline-link-macro-rx"></block> 這是一套角色與模組的集合、可將BeeGFS HA叢集的端點對端點部署與管理自動化。</block>
-  <block id="5207de659c47ed66a8f04540f2cf7d28" category="paragraph">BeeGFS本身的版本是根據&lt;major&gt; 一份《Section.Section.》&lt;minor&gt; 版本管理方案進行版本管理&lt;patch&gt; 、而該集合則負責維護&lt;major&gt; 每個支援的BeeGFS版本（&lt;minor&gt; 例如BeeGFS 7.2或BeeGFS 7.3）的角色。隨著集合更新發行、每個角色的修補程式版本將會更新、以指出該版本分支的最新可用BeeGFS版本（例如：7.2.8）。每個版本的集合也會針對特定的Linux發行版本和版本進行測試和支援、目前適用於檔案節點的Red Hat、以及適用於用戶端的RedHat和Ubuntu。不支援執行其他發佈版本、不建議執行其他版本（尤其是其他主要版本）。</block>
   <block id="ff58765d6c48f433685b2f9354c057ed" category="section-title">Ansible Control Node</block>
   <block id="267dc210028d3a563bde0eb07ca563a0" category="paragraph">此節點將包含用於管理BeeGFS的目錄和方針。它需要：</block>
   <block id="fa364b2fe46e5e06529d637ca126add1" category="list-text">Ansible 6.x（Ansible核心2.13）</block>
@@ -1160,7 +1148,6 @@
   <block id="8486bce50d4152772da3c4531a015ab8" category="paragraph">此外、建議您從控制節點設定無密碼SSH、以連接所有BeeGFS檔案節點和用戶端。</block>
   <block id="5bca534f5a45c18ffc0306e63b306c62" category="section-title">BeeGFS檔案節點</block>
   <block id="676b08aacbe937f16d558f23d90b29da" category="section-title">BeeGFS用戶端節點</block>
-  <block id="dc203cff346fc33ab19584264833d533" category="paragraph">BeeGFS用戶端Ansible角色可用於安裝BeeGFS用戶端套件、以及管理BeeGFS掛載。此角色已通過RedHat 8.4和Ubuntu 22.04測試。</block>
   <block id="2e0da5c1c3cbd1cda1312f57209c96e4" category="inline-link-macro">BeeGFS支援Linux發佈與核心</block>
   <block id="b44b294130612c32e5f179fb81f347ec" category="paragraph">如果您不使用Ansible來設定BeeGFS用戶端和BeeGFS、則可以選擇任何 <block ref="ed8f85054917a214583881f0e58e2825" category="inline-link-macro-rx"></block> 可以使用。</block>
   <block id="03a96e493f11c9bdee76520257a1462d" category="summary">使用主機變數（host_vars）指定個別檔案節點的組態。</block>
@@ -1230,7 +1217,6 @@
   <block id="8cb3e998c7b1e4cbe36289f2177363b5" category="list-text">接下來選取並設定隔離代理程式：</block>
   <block id="bc6b3ed04c45895c341d99b6765c1caa" category="list-text">選項1：若要使用APC電力分配單元（PDU）啟用隔離功能：</block>
   <block id="94ebb967d1a890978b9758e3f2aac3bb" category="list-text">選項2：若要使用Lenovo XCC（及其他BMC）提供的RedfISH API來啟用屏障：</block>
-  <block id="7f2e85da597afbbb84c30c58c72fc4a2" category="inline-link-macro">RedHat文件</block>
   <block id="1242eea64a7ebfd7464359e597a4ec62" category="inline-link-macro">效能調校參數</block>
   <block id="e535abe8b416a666cd34177ff6bbe395" category="list-text">為了確保BeeGFS服務所使用的浮動IP位址（有時稱為邏輯介面）可在檔案節點之間容錯移轉、所有網路介面必須一致命名。根據預設、網路介面名稱是由核心產生、因此無法保證產生一致的名稱、即使是安裝在相同PCIe插槽中的網路介面卡、也能在相同的伺服器機型上產生一致的名稱。在部署設備之前建立庫存並已知產生介面名稱時、這也很有用。根據伺服器或的區塊圖、確保裝置名稱一致<block ref="6efa276570b668a53eaf7bf29c69d544" prefix=" " category="inline-code"></block> 輸出時、請指定所需的PCIe位址對邏輯介面對應、如下所示：</block>
   <block id="b577b9bc7da15f148c6521018b1c26f7" category="list-text">對於InfiniBand（IPoIB）網路介面：</block>
@@ -1409,8 +1395,6 @@
   <block id="f9fa015b01242f44a7319213f0a01ff2" category="section-title">調校系統設定</block>
   <block id="93f3e5d94e30643aac7f8755a6dcfeb4" category="inline-link-macro">已驗證檔案節點機型</block>
   <block id="b9a7b8c50025e62b9e91f9baf3ba2304" category="section-title">安裝作業系統</block>
-  <block id="a82007c47b25723539a00ff94e8b3d27" category="section-title">RedHat</block>
-  <block id="5ab261ccc77c613b4430d72688133ef7" category="paragraph">使用RedHat訂購管理程式來註冊及訂閱系統、以便從正式的Red Hat儲存庫安裝所需的套件、並將更新限制在支援的Red Hat版本：<block ref="77a4421cc9f01b777ceaeda595865c3c" prefix=" " category="inline-code"></block>。如需相關指示、請參閱<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 和 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
   <block id="9a7877d2d6f43233661b52c31362cb32" category="paragraph">啟用包含高可用度所需套件的Red Hat儲存庫：</block>
   <block id="5ea84babe2cd259121a70aff2652769b" category="section-title">設定管理網路</block>
   <block id="45f7cb03ff15b64d9405b68be6bdcc97" category="paragraph">設定所需的任何網路介面、以允許在頻內管理作業系統。具體步驟取決於所使用的特定Linux發佈版本。</block>
@@ -1547,9 +1531,7 @@
   <block id="e8c7ab07a88c53743d909983583625f9" category="paragraph">例如、在此範例檔案中<block ref="d28e452e49fc926f32af1d87afcff3ce" prefix=" " category="inline-code"></block> 、 beegfs_01 是執行 BeeGFS 管理服務的慣用檔案節點：</block>
   <block id="cb7c9e260fba17d2ffcc93361a0eab2e" category="paragraph">反轉訂單會使beegfs_02上的管理服務更受歡迎：</block>
   <block id="958b8a27f957bef8700299f8cafb9b9a" category="admonition">請勿指定個別資源或資源群組。請務必指定您要重新部署BeeGFS服務的監視器名稱。例如，要將 BeeGFS 管理服務移至 beegfs_02 ，請執行<block ref="ad6bdcc4dd95b7dbe9e00b9894a08e42" prefix=" " category="inline-code"></block>：。您可以重複此程序、將一或多個服務移出偏好的節點。確認<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 新節點上的服務已重新定位 / 啟動。</block>
-  <block id="de752721186f0ef334b71ac4b3fe9cb5" category="paragraph">檔案節點必須執行RedHat 9.3、並可存取含有必要套件（心律調整器、電暈器同步、Fence代理程式、資源代理程式）的HA儲存庫。例如、您可以執行下列命令、在RedHat 9上啟用適當的儲存庫：</block>
   <block id="aaf17f2a8cba647c8702de94c1bef112" category="list-text">附註如有需要、也可在此處指定任何支援 <block ref="f4efc844d4401fa0cd59f82e6a720d5a" category="inline-link-macro-rx"></block> 的項目。由於 BeeGFS HA 角色隨附許多經過測試的功能，因此通常不需要調整這些 <block ref="62cb44c0555eaba8953c22f475d751a4" category="inline-link-macro-rx"></block>功能。</block>
-  <block id="064f7cc76dc5afb2fb3aa165873ba871" category="list-text">如需設定其他隔離代理程式的詳細資訊，請參閱 <block ref="1e76955e0560eaf6ce328d55fb062eeb" category="inline-link-macro-rx"></block>。</block>
   <block id="b611c6838bc0b80a5b542ae4d720301f" category="list-text">BeeGFS HA角色可套用許多不同的調校參數、以協助進一步最佳化效能。其中包括最佳化核心記憶體使用率和區塊裝置I/O、以及其他參數。根據 NetApp E-Series 區塊節點的測試、角色隨附一組合理的 <block ref="e3e5af180e2cd561ad9b935d8101ce4e" category="inline-link-macro-rx"></block> 、但預設不會套用這些功能、除非您指定：</block>
   <block id="7353e78ee2c3bb2136aa1b29915ccf4b" category="list-text">如有需要、也可在此處指定預設效能調校的任何變更。如需其他詳細資料、請參閱完整 <block ref="df0e33f301a426939663a0f2db36079c" category="inline-link-macro-rx"></block> 文件。</block>
   <block id="37fa384fbce35691f87f5108b23924df" category="list-text">（可選）指定應套用至叢集中所有BeeGFS服務的組態。可以找到預設組態值 <block ref="cb8aac20b4c821ca121d5c55cc4298ed" category="inline-link-macro-rx"></block>、並在其他地方指定個別服務組態：</block>
@@ -1656,8 +1638,6 @@
   <block id="8e4e4dc9d710c035afcec16817c6b5a3" category="paragraph">當使用分離器纜線將儲存交換器連接至檔案節點時、一條纜線應從交換器分支出來、並連接至淡綠色的連接埠。另一條分離器纜線應從交換器分支出來、並連接至暗綠色的連接埠。</block>
   <block id="5059e1c6d859e6d2e881b28d0a939639" category="paragraph">此外、對於具有備援交換器的儲存網路、淡綠色的連接埠應連接至一台交換器、而深綠色的連接埠則應連接至另一台交換器。</block>
   <block id="0f7c31137702c2d677a474d55058637d" category="paragraph">若要瞭解如何為已驗證的 Lenovo SR665 V3 檔案節點設定網路、請參閱<block ref="05277b4b7d004e546ac1f238e66dd4bf" category="inline-link-rx"></block>。</block>
-  <block id="b8d06d76e2eaa67bfafbce3081ab48f5" category="list-text">安裝Red Hat 9.3並設定用於管理作業系統的主機名稱和網路連接埠、包括從Ansible控制節點進行SSH連線。</block>
-  <block id="7568449700f7c3e03b4500285c69b82f" category="list-text">使用 RedHat Subscription Manager 註冊並訂閱系統、以便從正式的 Red Hat 儲存庫安裝所需的套件、並將更新限制為支援的 Red Hat 版本：<block ref="085c7e75df5d271759849f369fa065a7" prefix=" " category="inline-code"></block>。有關說明，請參閱<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 和 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
   <block id="b52d8b061d9ea3d197fbe8093a3eec3f" category="admonition">當使用分離器纜線將儲存交換器連接至檔案節點時、一條纜線應分出並連接至淡綠色的連接埠。另一條纜線應分出並連接至暗綠色的連接埠。此外、對於具有備援交換器的儲存網路、淡綠色的連接埠應連接至一台交換器、而深綠色的連接埠則應連接至另一台交換器。</block>
   <block id="dcc608d1c76fed74a96f75915bc6561f" category="paragraph">若要充分運用PCIe雙向頻寬、請確定每個InfiniBand介面卡上的一個連接埠連接至儲存架構、另一個連接埠則連接至區塊節點。</block>
   <block id="0a31efbdaa47f7da5564c0e43b03e7ea" category="paragraph">您可以視需要覆寫組態參數的預設設定。如需可針對特定工作負載或使用案例進行調整的參數，請參閱<block ref="986eca0f3f99dd3e8d8640fddbc137d2" category="inline-link-rx"></block>。</block>
@@ -1690,7 +1670,6 @@
   <block id="c618fd1e9213f6ba6e4961e3d1165110" category="list-text">1GbE 連接埠、用於頻內 OS 管理</block>
   <block id="db812d54d604d8c71ffd5e4be563e3e5" category="list-text">1GbE BMC 搭配 Redfish API 、用於頻外伺服器管理</block>
   <block id="15cf8b6d2674b1d9c9b0383ecfee8929" category="list-text">雙熱交換電源供應器和效能風扇</block>
-  <block id="1e36a3ec484f8d613eabadcfb7010a41" category="paragraph">主機卡介面卡會因檔案節點所使用的伺服器機型而異。驗證檔案節點的建議包括：</block>
   <block id="22d9c94f9f4ead6ee028aeb105c59845" category="list-text">* Lenovo ThinkSystem SR665 V3 伺服器： *</block>
   <block id="6ea32d47808c9a0a8b4ad8ce7c3d46a8" category="list-text">MCX755106AS-Heat ConnectX-7 、 NDR200 、 QSFP112 、 2 埠、 PCIe Gen5 x16 、 InfiniBand 介面卡</block>
   <block id="b74051cf2ad1a189f8a05453712ca47a" category="cell">儲存網路交換器</block>
@@ -1711,10 +1690,7 @@
   <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700</block>
   <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E （ NVIDIA 主動式光纖纜線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
   <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26 （ NVIDIA 被動式銅線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
-  <block id="099646c88bdb63cce0ec389f4c842fed" category="cell">5.14.0-362.24.1.el9_3.x86_64</block>
-  <block id="de4e152f23f311bbd0da3bd3cc07390d" category="cell">MLNX_OFED_LINOD-23.10-3.2.0-LTS</block>
   <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCA 韌體</block>
-  <block id="141a8d7da406be785ba26084a46e1c00" category="cell">7.4.4..</block>
   <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">密碼編譯 -43.0.0 、 netaddr-1.3.0 、 ipaddr-2.2.0</block>
   <block id="7af6b9890b6c8ce699616c59f48b5248" category="cell">NetApp E-Series BeeGFS Ansible Collection</block>
   <block id="070afde0274dc6039a8a8949d12a15cd" category="cell">3.2.0</block>
@@ -1946,14 +1922,9 @@
   <block id="53fff94cbca4161cd31d168451033f2e" category="cell">MFP7E20-Nxxx （多重模式， 4 通道對兩條 2 通道分離器光纖纜線）</block>
   <block id="804e83e6974e7f6076f940326b985a83" category="cell">MMA1Z00-NS400 （多重模式， IB/ETH ， 400GB / 秒單埠 QSFP-112 ）</block>
   <block id="b2f1f9abf8117b3cde0475d1adf7a64f" category="cell">MCP7Y40-N002 （ NVIDIA 被動銅線分離器纜線， InfiniBand 800Gb/s 至 4x 200Gb/s ， OSFP 至 4x QSFP112 ）</block>
-  <block id="fbe7b2959f641c0a45951417fc744ba8" category="paragraph">* ConnectX-7 HCA 韌體 * 韌體： 28.42.1000 + PXE ： 3.7.0500 + UEFI ： 14.35.0015</block>
-  <block id="63c2d436fc11f0bcdd598c38560aca3f" category="paragraph">* ConnectX-6 HCA 韌體 * 韌體： 20.43.1014 + PXE ： 3.7.0500 + UEFI ： 14.36.0016</block>
   <block id="0d665a6c7072af8fddd1f64d9c741762" category="cell">11.90R1</block>
   <block id="6c3a5f2fbe0e1eb20af96ccd813c89b0" category="cell">N6000-890834-D02.dp</block>
-  <block id="2c31ce9dbdba754d30ac4980d7d504df" category="cell">3.1.7-1</block>
-  <block id="fec83cb9bb84cd6342be622a93d94a1b" category="cell">2.1.6-10</block>
   <block id="088914339db9effda3ac57ec2e9439b6" category="cell">圍欄代理（紅魚 / APC ）</block>
-  <block id="f726fcf5784fc25f630a32e650f8b5a0" category="cell">4.10.0-55</block>
   <block id="f8b6aa2ae96c25a05a0cc6e26a9236d7" category="sidebar">升級 Pacemaker 和電暈器同步套件</block>
   <block id="5a2c09ccb6952069726dcfb2e92a5573" category="paragraph">用於執行 Ansible CLI 的實體或虛擬機器。</block>
   <block id="91587c91e5cdb42cedda71e8eeb8c25b" category="paragraph">區塊節點</block>
@@ -1973,7 +1944,6 @@
   <block id="6d8fa04177add6fae81330f784f2ec28" category="paragraph">若要設定 Ansible 控制節點，您必須指定可透過網路存取的虛擬或實體機器，以存取 NetApp 解決方案上 BeeGFS 部署的所有檔案和區塊節點。</block>
   <block id="95b6926dc09df085df3f516ff202c9b3" category="paragraph">請檢閱<block ref="1048598744d9ad3deb64b0d833d9a48d" category="inline-link-macro-rx"></block>以取得建議套件版本的清單。下列步驟已在 Ubuntu 22.04 上測試。有關首選 Linux 發行套件的特定步驟，請參閱<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>。</block>
   <block id="ac80ffa19a9be958e8c0594639394b8a" category="list-text">從 Ansible 控制節點安裝下列 Python 和 Python Virtual Environment 套件。</block>
-  <block id="f2d8e2d7eabbfe72bc89df39fa8ede41" category="list-text">建立 Python 虛擬環境</block>
   <block id="44bf2f842c54b0fad1167e3efd65cf55" category="list-text">啟動虛擬環境。</block>
   <block id="3f6f2236da97e94c248453e2c9ca404a" category="list-text">在啟動的虛擬環境中安裝所需的 Python 套件。</block>
   <block id="f866bd2f581df9353b6db613e08d0aaf" category="list-text">使用 Ansible Galaxy 安裝 BeeGFS 集合。</block>
@@ -1986,9 +1956,42 @@
   <block id="4e667bcd22eef3e9620c534781a563ea" category="paragraph">設定名稱可讓您更容易在後續章節中參考每個系統。有關設置陣列名稱的說明，請轉至<block ref="2617f8aa7c55cffc3912e0de8d2af7d2" category="inline-link-rx"></block>。</block>
   <block id="3c5c0f41bab0c547cd353ca56b505d33" category="section-title">軟體與韌體需求</block>
   <block id="d72c6977d4f8f0d9276e0483c1e643ab" category="paragraph">為了確保可預測的效能和可靠性， NetApp 解決方案上的 BeeGFS 版本會使用特定版本的軟體和韌體元件進行測試。實作解決方案需要這些版本。</block>
-  <block id="c3b7a5332543327934ec8e70a424791c" category="cell">RedHat 9.3伺服器實體配備高可用度（2插槽）。重要事項：檔案節點需要有效的 RedHat Enterprise Linux Server 訂閱和 Red Hat Enterprise Linux High Availability Add-On 。</block>
   <block id="6b5b0d6dfb6af2b4c98938bb01cbeea1" category="cell">10.x</block>
   <block id="f82f58377452476d1d96442db364a64d" category="cell">Ansible 核心</block>
   <block id="f850f5faa66f6a7ca2ac7f33f7eba944" category="cell">&gt;= 2.13.0</block>
   <block id="bd03200a597eed96961a6907dc36cfbd" category="cell">3.10</block>
+  <block id="48858ce4570016a1f8e1d1a8b871d328" category="admonition">下次執行 Ansible 劇本時，此設定將被覆蓋。</block>
+  <block id="49b54ab3b1445f79ca94c7085cad41ef" category="list-text">重新啟動<block ref="00e28a828e75d362a33f4cdabec833b1" prefix=" " category="inline-code"></block> 。</block>
+  <block id="08386a651a8ef93e4bc0df7cf35d9b70" category="list-text">驗證 E 系列儲存陣列的磁碟區是否存在。</block>
+  <block id="5f6ac3389caa4915b5df5ea4e23cdf3b" category="inline-link-macro">Red Hat 文檔</block>
+  <block id="e23b89b2436ee8628b20e83d26aee328" category="list-text">如需設定其他隔離代理程式的詳細資訊，請參閱 <block ref="b5a65513b4cf0cb857e9a978ad85d6c7" category="inline-link-macro-rx"></block>。</block>
+  <block id="12480c55a74bca08cc08d5569c8ad1f6" category="paragraph">BeeGFS本身的版本是根據&lt;major&gt; 一份《Section.Section.》&lt;minor&gt; 版本管理方案進行版本管理&lt;patch&gt; 、而該集合則負責維護&lt;major&gt; 每個支援的BeeGFS版本（&lt;minor&gt; 例如BeeGFS 7.2或BeeGFS 7.3）的角色。隨著集合更新發行、每個角色的修補程式版本將會更新、以指出該版本分支的最新可用BeeGFS版本（例如：7.2.8）。該集合的每個版本也都經過測試並支援特定的 Linux 發行版和版本，目前檔案節點使用 Red Hat，客戶端使用 Red Hat 和 Ubuntu。不支援執行其他發佈版本、不建議執行其他版本（尤其是其他主要版本）。</block>
+  <block id="e94491cd11fe554e65f37c3f4814481e" category="paragraph">檔案節點必須執行 Red Hat Enterprise Linux (RHEL) 9.4，並有權存取包含所需軟體包（pacemaker、corosync、fence-agents-all、resource-agents）的 HA 儲存庫。例如，可以執行下列命令在 RHEL 9 上啟用對應的儲存庫：</block>
+  <block id="5bf759a5edebb5bbc68e8d351c1c554b" category="paragraph">BeeGFS用戶端Ansible角色可用於安裝BeeGFS用戶端套件、以及管理BeeGFS掛載。此角色已使用 RHEL 9.4 和 Ubuntu 22.04 進行測試。</block>
+  <block id="1d9fc183665bd1e195391190be506894" category="section-title">Red Hat</block>
+  <block id="855d885c7444df898005dfe2db0e40e1" category="paragraph">使用 Red Hat Subscription Manager 註冊並訂閱系統，以允許從官方 Red Hat 儲存庫安裝所需的軟體包，並將更新限制在支援的 Red Hat 版本上： <block ref="77a4421cc9f01b777ceaeda595865c3c" prefix=" " category="inline-code"></block> 。有關說明，請參閱<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block>和<block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block> 。</block>
+  <block id="1ae0775acb1129f4f759e0e1e7b114a1" category="admonition">要了解正確的尺寸，請參閱<block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block> ..</block>
+  <block id="cd4dceecb80c781af21386aee259b338" category="admonition">要了解正確的尺寸，請參閱<block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block> 。</block>
+  <block id="6020c636b1383570fbebcb5aab51f557" category="paragraph">Lenovo SR665 V3 伺服器的系統韌體包含許多可透過 UEFI 介面設定的調整參數。這些調校參數可能會影響伺服器運作方式的所有層面、以及伺服器的效能表現。</block>
+  <block id="5b8e3679ad73d51db58f86f62a85eb54" category="admonition">雖然部署步驟會嘗試提供足夠的詳細資料、以確保事先使用Ansible的經驗並非先決條件、但您應該對Ansible及相關術語有一定的瞭解。</block>
+  <block id="7ca16c43fa8e0a0d0effb1d7cbf40f48" category="paragraph">部署程序包括幾個需要將文字複製到檔案的範例。密切注意任何以“#”或“//”字元表示的內聯註釋，其中的內容應該或可以針對特定部署進行修改。例如：</block>
+  <block id="1151df05b81541e1eed601453364e0b7" category="list-text">建立 Python 虛擬環境。</block>
+  <block id="dc234f020e97683d09b699c70e009f30" category="paragraph">若要了解如何配置已驗證的 Lenovo SR665 V3 檔案節點的系統設置，請參閱<block ref="dbe1843153b6696d3dd846d3a25ea7b2" category="inline-link-macro-rx"></block> 。</block>
+  <block id="fc891ddcf642031b14500d5761030e91" category="list-text">安裝 Red Hat Enterprise Linux (RHEL) 9.4 並設定用於管理作業系統的主機名稱和網路端口，包括來自 Ansible 控制節點的 SSH 連線。</block>
+  <block id="a0db142b527f78501de6b4acdba9d576" category="list-text">使用 Red Hat Subscription Manager 註冊並訂閱系統，以允許從官方 Red Hat 儲存庫安裝所需的軟體包，並將更新限制在支援的 Red Hat 版本上： <block ref="cb1f5d026a59f18bc71d16899248bf06" prefix=" " category="inline-code"></block> 。有關說明，請參閱<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 和 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
+  <block id="7efcb442cda3c6a9d2e39278301df6f2" category="paragraph">系統設定會因您用來做為檔案節點的伺服器機型而有所不同。這些設定必須根據使用中的伺服器機型手動設定。若要了解如何配置已驗證的 Lenovo SR665 V3 檔案節點的系統設置，請參閱<block ref="891cfd1f8dbb99c09432be0144a5be81" category="inline-link-macro-rx"></block> 。</block>
+  <block id="8e22d5f83cc5d97bd5e5cfcebeca5f15" category="paragraph">主機卡適配器可能會根據檔案節點的伺服器型號而有所不同。驗證檔案節點的建議包括：</block>
+  <block id="eb13ea1edb52f2f7cdf4b15544892c06" category="cell">Red Hat Enterprise Linux（RHEL）</block>
+  <block id="33b7125f0da71f5f4c0d1adb2490c32d" category="cell">RHEL 9.4 高可用性實體伺服器（雙插槽）。*附註：*檔案節點需要有效的 Red Hat Enterprise Linux Server 訂閱和 Red Hat Enterprise Linux 高可用性附加元件。</block>
+  <block id="6e2ccf2574232a4db553354b8bf2b912" category="cell">5.14.0-427.42.1.el9_4.x86_64</block>
+  <block id="1e921a460cdb78aac6c0658f56a63429" category="paragraph">* ConnectX-7 HCA 韌體 * 韌體： 28.43.1014 + PXE ： 3.7.0500 + UEFI ： 14.36.0016</block>
+  <block id="564eb0bfa4895a5fed3372708aea6e59" category="paragraph">* ConnectX-6 HCA 韌體 * 韌體： 20.43.2566 + PXE ： 3.7.0500 + UEFI ： 14.37.0013</block>
+  <block id="7670b29ec4dc7aed23b236d72df9dc4e" category="cell">最新版本適用於使用中的磁碟機機型。請參閱<block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>。</block>
+  <block id="90a84b80b2ae4bb2a14bb18a1c790012" category="cell">7.4.6</block>
+  <block id="06ee37e4e06f2a68feca0b0922e9af9e" category="cell">3.1.8-1</block>
+  <block id="3bbfa6ddcf5f2fb724a35ef7dc4b370a" category="cell">2.1.7-5.2</block>
+  <block id="ffa9c6553bd093c43628899a2b5008b0" category="cell">件</block>
+  <block id="23df4986c6f31aaed7db4752a96b620b" category="cell">0.11.7-2</block>
+  <block id="ddf60efdd8bc8468bc0a5502f1b51c47" category="cell">4.10.0-62</block>
+  <block id="c83be155e8adea701991eeba59a9d048" category="cell">MLNX_OFED_LINUX-23.10-3.2.2.1-LTS</block>
 </blocks>

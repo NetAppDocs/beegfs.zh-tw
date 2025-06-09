@@ -40,7 +40,7 @@ summary: 更新檔案節點 ConnectX-7 介面卡韌體的步驟。
 建議您使用 NVIDIA `mlxfwmanager` 公用程式來更新節點的介面卡韌體，此韌體與 NVIDIA 的 MLNx_OFED 驅動程式一起提供。開始更新之前，請先從下載介面卡的韌體映像link:https://network.nvidia.com/support/firmware/firmware-downloads/["NVIDIA 的支援網站"^]，並將其儲存在每個檔案節點上。
 
 
-NOTE: 對於 Lenovo ConnectX-7 介面卡，請使用 `mlxfwmanager_LES` NVIDIA 頁面上的工具link:https://network.nvidia.com/support/firmware/lenovo-intelligent-cluster/["OEM 韌體"^]。
+TIP: 對於 Lenovo ConnectX-7 介面卡，請使用 `mlxfwmanager_LES` NVIDIA 頁面上的工具link:https://network.nvidia.com/support/firmware/lenovo-intelligent-cluster/["OEM 韌體"^]。
 
 
 
@@ -101,8 +101,21 @@ mlxfwreset -d <pci_device_name> reset -y
 ----
 systemctl start opensm
 ----
+.. 重新啟動 `eseries_nvme_ib.service` 。
++
+[source, console]
+----
+systemctl restart eseries_nvme_ib.service
+----
+.. 驗證 E 系列儲存陣列的磁碟區是否存在。
 
 
+
+
+[listing]
+----
+multipath -ll
+----
 . 執行 `ibstat`並驗證所有介面卡是否以所需的韌體版本執行：
 +
 [source, console]

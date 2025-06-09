@@ -24,7 +24,7 @@ summary: 若要設定可Ansible控制節點、請識別可透過網路存取所�
 ----
 sudo apt-get install python3 python3-pip python3-setuptools python3.10-venv
 ----
-. 建立 Python 虛擬環境
+. 建立 Python 虛擬環境。
 +
 [source, console]
 ----
@@ -74,4 +74,4 @@ ssh-copy-id <ip_or_hostname>
 
 
 
-IMPORTANT: 請*不要*設定區塊節點的無密碼SSH。這既不受支援、也不需要。
+CAUTION: 請*不要*設定區塊節點的無密碼SSH。這既不受支援、也不需要。

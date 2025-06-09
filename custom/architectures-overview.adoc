@@ -67,7 +67,7 @@ Ansible負責所有的軟體資源配置與組態工作、包括：
 
 Ansible的BeeGFS支援已於發表 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"] 這是一套角色與模組的集合、可將BeeGFS HA叢集的端點對端點部署與管理自動化。
 
-BeeGFS本身的版本是根據<major> 一份《Section.Section.》<minor> 版本管理方案進行版本管理<patch> 、而該集合則負責維護<major> 每個支援的BeeGFS版本（<minor> 例如BeeGFS 7.2或BeeGFS 7.3）的角色。隨著集合更新發行、每個角色的修補程式版本將會更新、以指出該版本分支的最新可用BeeGFS版本（例如：7.2.8）。每個版本的集合也會針對特定的Linux發行版本和版本進行測試和支援、目前適用於檔案節點的Red Hat、以及適用於用戶端的RedHat和Ubuntu。不支援執行其他發佈版本、不建議執行其他版本（尤其是其他主要版本）。
+BeeGFS本身的版本是根據<major> 一份《Section.Section.》<minor> 版本管理方案進行版本管理<patch> 、而該集合則負責維護<major> 每個支援的BeeGFS版本（<minor> 例如BeeGFS 7.2或BeeGFS 7.3）的角色。隨著集合更新發行、每個角色的修補程式版本將會更新、以指出該版本分支的最新可用BeeGFS版本（例如：7.2.8）。該集合的每個版本也都經過測試並支援特定的 Linux 發行版和版本，目前檔案節點使用 Red Hat，客戶端使用 Red Hat 和 Ubuntu。不支援執行其他發佈版本、不建議執行其他版本（尤其是其他主要版本）。
 
 
 
@@ -86,7 +86,7 @@ BeeGFS本身的版本是根據<major> 一份《Section.Section.》<minor> 版本
 
 === BeeGFS檔案節點
 
-檔案節點必須執行RedHat 9.3、並可存取含有必要套件（心律調整器、電暈器同步、Fence代理程式、資源代理程式）的HA儲存庫。例如、您可以執行下列命令、在RedHat 9上啟用適當的儲存庫：
+檔案節點必須執行 Red Hat Enterprise Linux (RHEL) 9.4，並有權存取包含所需軟體包（pacemaker、corosync、fence-agents-all、resource-agents）的 HA 儲存庫。例如，可以執行下列命令在 RHEL 9 上啟用對應的儲存庫：
 
 [source, bash]
 ----
@@ -96,6 +96,6 @@ subscription-manager repo-override repo=rhel-9-for-x86_64-highavailability-rpms 
 
 === BeeGFS用戶端節點
 
-BeeGFS用戶端Ansible角色可用於安裝BeeGFS用戶端套件、以及管理BeeGFS掛載。此角色已通過RedHat 8.4和Ubuntu 22.04測試。
+BeeGFS用戶端Ansible角色可用於安裝BeeGFS用戶端套件、以及管理BeeGFS掛載。此角色已使用 RHEL 9.4 和 Ubuntu 22.04 進行測試。
 
 如果您不使用Ansible來設定BeeGFS用戶端和BeeGFS、則可以選擇任何 link:https://doc.beegfs.io/latest/release_notes.html#supported-linux-distributions-and-kernels["BeeGFS支援Linux發佈與核心"] 可以使用。

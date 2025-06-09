@@ -33,9 +33,9 @@ NOTE: 底板管理控制器（BMC）有時稱為服務處理器、是內建於�
 您可以使用UEFI設定（先前稱為BIOS）或使用許多BMC提供的Redfish API來設定系統設定。系統設定會因做為檔案節點的伺服器機型而有所不同。
 
 +
-若要瞭解如何設定已驗證之Lenovo SR665檔案節點的系統設定、請參閱 link:beegfs-deploy-file-node-tuning.html["調整系統設定以獲得效能"]。
+若要了解如何配置已驗證的 Lenovo SR665 V3 檔案節點的系統設置，請參閱link:beegfs-deploy-file-node-tuning.html["調整系統設定以獲得效能"] 。
 
-. 安裝Red Hat 9.3並設定用於管理作業系統的主機名稱和網路連接埠、包括從Ansible控制節點進行SSH連線。
+. 安裝 Red Hat Enterprise Linux (RHEL) 9.4 並設定用於管理作業系統的主機名稱和網路端口，包括來自 Ansible 控制節點的 SSH 連線。
 +
 此時請勿在任何InfiniBand連接埠上設定IP。
 
@@ -43,7 +43,7 @@ NOTE: 底板管理控制器（BMC）有時稱為服務處理器、是內建於�
 
 NOTE: 雖然並非嚴格要求、但後續章節假設主機名稱會依序編號（例如H1-HN）、並提及應該在ODD或偶數主機上完成的工作。
 
-. 使用 RedHat Subscription Manager 註冊並訂閱系統、以便從正式的 Red Hat 儲存庫安裝所需的套件、並將更新限制為支援的 Red Hat 版本： `subscription-manager release --set=9.3`。有關說明，請參閱 https://access.redhat.com/solutions/253273["如何註冊及訂閱RHEL系統"^] 和  https://access.redhat.com/solutions/2761031["如何限制更新"^]。
+. 使用 Red Hat Subscription Manager 註冊並訂閱系統，以允許從官方 Red Hat 儲存庫安裝所需的軟體包，並將更新限制在支援的 Red Hat 版本上：  `subscription-manager release --set=9.4` 。有關說明，請參閱 https://access.redhat.com/solutions/253273["如何註冊及訂閱RHEL系統"^] 和  https://access.redhat.com/solutions/2761031["如何限制更新"^]。
 . 啟用包含高可用度所需套件的Red Hat儲存庫。
 +
 ....

@@ -50,7 +50,7 @@ all:
 . 從叢集中的其他節點之一移除舊節點： `pcs cluster node remove <HOSTNAME>`。
 +
 
-IMPORTANT: 執行此步驟之前、請勿繼續。
+CAUTION: 執行此步驟之前、請勿繼續。
 
 . 在Ansible控制節點上：
 +

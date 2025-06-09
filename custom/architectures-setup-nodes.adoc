@@ -45,9 +45,9 @@ NOTE: 如果需要使用RedfISH的BMC型屏障、請確認已啟用RedfISH、而
 
 
 
-==== RedHat
+==== Red Hat
 
-使用RedHat訂購管理程式來註冊及訂閱系統、以便從正式的Red Hat儲存庫安裝所需的套件、並將更新限制在支援的Red Hat版本： `subscription-manager release --set=<MAJOR_VERSION>.<MINOR_VERSION>`。如需相關指示、請參閱 https://access.redhat.com/solutions/253273["如何註冊及訂閱RHEL系統"^] 和  https://access.redhat.com/solutions/2761031["如何限制更新"^]。
+使用 Red Hat Subscription Manager 註冊並訂閱系統，以允許從官方 Red Hat 儲存庫安裝所需的軟體包，並將更新限制在支援的 Red Hat 版本上：  `subscription-manager release --set=<MAJOR_VERSION>.<MINOR_VERSION>` 。有關說明，請參閱 https://access.redhat.com/solutions/253273["如何註冊及訂閱RHEL系統"^]和 https://access.redhat.com/solutions/2761031["如何限制更新"^] 。
 
 啟用包含高可用度所需套件的Red Hat儲存庫：
 

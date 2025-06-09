@@ -62,4 +62,5 @@ WARNING: 在此組態中、如果BeeGFS監視器偵測到故障、叢集將嘗�
 . 若要啟用隔離執行： `pcs property set stonith-enabled=true`
 
 
-附註：下次執行Ansible教戰手冊時、此設定將會被覆寫。
+
+CAUTION: 下次執行 Ansible 劇本時，此設定將被覆蓋。

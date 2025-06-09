@@ -89,7 +89,7 @@ all:
 ----
 +
 
-IMPORTANT: 請勿以純文字儲存密碼。請改用Ansible Vault（請參閱 link:https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansible文件"^] 使用Ansible Vault加密內容）或使用 `--ask-become-pass` 執行教戰手冊時的選項。
+NOTE: 請勿以純文字儲存密碼。請改用Ansible Vault（請參閱 link:https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansible文件"^] 使用Ansible Vault加密內容）或使用 `--ask-become-pass` 執行教戰手冊時的選項。
 
 . 在中 `client_inventory.yml` 檔案中、列出應在中設定為BeeGFS用戶端的所有主機 `beegfs_clients` 然後參閱內嵌註解、取消註釋在系統上建置BeeGFS用戶端核心模組所需的任何其他組態：
 +

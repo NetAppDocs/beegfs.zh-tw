@@ -165,7 +165,7 @@ beegfs_ha_fencing_agents:
       ip: <BMC_IP>
       <<: *redfish
 ----
-... 如需設定其他隔離代理程式的詳細資訊，請參閱 link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHat文件"^]。
+... 如需設定其他隔離代理程式的詳細資訊，請參閱 link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["Red Hat 文檔"^]。
 
 
 
@@ -198,7 +198,7 @@ eseries_ip_udev_rules:
 ----
 +
 
-IMPORTANT: 為了避免在重新命名介面時發生衝突（避免重新命名）、您不應使用任何可能的預設名稱、例如eth0、ens9f0、ib0或ibs4f0。一般的命名慣例是使用「e」或「i」作為乙太網路或InfiniBand、接著是PCIe插槽編號、以及字母來表示連接埠。例如、安裝在插槽3的InfiniBand介面卡的第二個連接埠為：i3b。
+CAUTION: 為了避免在重新命名介面時發生衝突（避免重新命名）、您不應使用任何可能的預設名稱、例如eth0、ens9f0、ib0或ibs4f0。一般的命名慣例是使用「e」或「i」作為乙太網路或InfiniBand、接著是PCIe插槽編號、以及字母來表示連接埠。例如、安裝在插槽3的InfiniBand介面卡的第二個連接埠為：i3b。
 
 +
 
@@ -271,9 +271,8 @@ beegfs_ha_conn_auth_enabled: false
 +
 [source, bash]
 ----
-curl -o packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
-
-curl -o packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+curl -o packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.4/x86_64/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+curl -o packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.4/x86_64/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 ----
 . 低於 `group_vars/ha_cluster.yml` 定義下列組態：
 +
@@ -287,8 +286,8 @@ eseries_ib_opensm_custom_packages:
   install:
     - files:
         add:
-          "packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
           "packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
+          "packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
     - packages:
         add:
           - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm

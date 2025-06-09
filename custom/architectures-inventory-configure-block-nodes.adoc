@@ -54,7 +54,7 @@ eseries_initiator_protocol: <PROTOCOL>
 . 視使用中的傳輸協定而定、HIC連接埠可能需要額外的組態。必要時、應定義HIC連接埠組態、使每個控制器組態的頂端項目對應於每個控制器上的實體最左側連接埠、而底部連接埠則對應最右側的連接埠。所有連接埠都需要有效的組態、即使目前未使用。
 +
 
-IMPORTANT: 如果您使用的是具有EF600區塊節點的HDR（200GB）InfiniBand或200GB RoCE、請參閱以下章節。
+NOTE: 如果您使用的是具有EF600區塊節點的HDR（200GB）InfiniBand或200GB RoCE、請參閱以下章節。
 
 +
 .. 對於iSCSI：

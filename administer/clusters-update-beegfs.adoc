@@ -25,7 +25,7 @@ BeeGFS 遵循 `major.minor.patch`版本管理方案。BeeGFS HA Ansible 角色�
 Ansible應用於所有BeeGFS升級、包括在BeeGFS的主要、次要和修補版本之間移動。若要更新BeeGFS、您必須先更新BeeGFS Ansible集合、這也會為部署/管理自動化和基礎HA叢集提供最新的修正與增強功能。即使更新至最新版本的收藏、BeeGFS也不會升級至 `ansible-playbook` 與一起執行 `-e "beegfs_ha_force_upgrade=true"` 設定。
 
 
-NOTE: 如需BeeGFS版本的詳細資訊、請參閱 link:https://doc.beegfs.io/latest/advanced_topics/upgrade.html["BeeGFS升級文件"^]。
+TIP: 如需BeeGFS版本的詳細資訊、請參閱 link:https://doc.beegfs.io/latest/advanced_topics/upgrade.html["BeeGFS升級文件"^]。
 
 
 

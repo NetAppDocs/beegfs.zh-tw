@@ -61,7 +61,7 @@ BeeGFS 檔案節點
 
 
 | 8. | InfiniBand 主機卡介面卡（適用於檔案節點）。  a| 
-主機卡介面卡會因檔案節點所使用的伺服器機型而異。驗證檔案節點的建議包括：
+主機卡適配器可能會根據檔案節點的伺服器型號而有所不同。驗證檔案節點的建議包括：
 
 * * Lenovo ThinkSystem SR665 V3 伺服器： *
 +
@@ -132,18 +132,18 @@ BeeGFS 檔案節點
 | 軟體 | 版本 
 
 
-| RedHat Enterprise Linux | RedHat 9.3伺服器實體配備高可用度（2插槽）。重要事項：檔案節點需要有效的 RedHat Enterprise Linux Server 訂閱和 Red Hat Enterprise Linux High Availability Add-On 。 
+| Red Hat Enterprise Linux（RHEL） | RHEL 9.4 高可用性實體伺服器（雙插槽）。*附註：*檔案節點需要有效的 Red Hat Enterprise Linux Server 訂閱和 Red Hat Enterprise Linux 高可用性附加元件。 
 
 
-| Linux核心 | 5.14.0-362.24.1.el9_3.x86_64 
+| Linux核心 | 5.14.0-427.42.1.el9_4.x86_64 
 
 
  a| 
 HCA 韌體
  a| 
-* ConnectX-7 HCA 韌體 * 韌體： 28.42.1000 + PXE ： 3.7.0500 + UEFI ： 14.35.0015
+* ConnectX-7 HCA 韌體 * 韌體： 28.43.1014 + PXE ： 3.7.0500 + UEFI ： 14.36.0016
 
-* ConnectX-6 HCA 韌體 * 韌體： 20.43.1014 + PXE ： 3.7.0500 + UEFI ： 14.36.0016
+* ConnectX-6 HCA 韌體 * 韌體： 20.43.2566 + PXE ： 3.7.0500 + UEFI ： 14.37.0013
 
 |===
 
@@ -161,7 +161,7 @@ HCA 韌體
 | NVSRAM | N6000-890834-D02.dp 
 
 
-| 磁碟機韌體 | 最新版本適用於使用中的磁碟機機型。 
+| 磁碟機韌體 | 最新版本適用於使用中的磁碟機機型。請參閱link:https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["E-Series 磁碟韌體站台"^]。 
 |===
 
 
@@ -174,19 +174,22 @@ HCA 韌體
 | 軟體 | 版本 
 
 
-| BeeGFS | 7.4.4.. 
+| BeeGFS | 7.4.6 
 
 
-| 電暈器同步 | 3.1.7-1 
+| 電暈器同步 | 3.1.8-1 
 
 
-| 起搏器 | 2.1.6-10 
+| 起搏器 | 2.1.7-5.2 
 
 
-| 圍欄代理（紅魚 / APC ） | 4.10.0-55 
+| 件 | 0.11.7-2 
 
 
-| InfiniBand / RDMA驅動程式 | MLNX_OFED_LINOD-23.10-3.2.0-LTS 
+| 圍欄代理（紅魚 / APC ） | 4.10.0-62 
+
+
+| InfiniBand / RDMA驅動程式 | MLNX_OFED_LINUX-23.10-3.2.2.1-LTS 
 |===
 
 
