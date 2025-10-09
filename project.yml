@@ -23,8 +23,6 @@ sidebar:
       entries:
       - title: 解決方案總覽
         url: "/second-gen/beegfs-solution-overview.html"
-      - title: 設計世代
-        url: "/second-gen/beegfs-gens.html"
       - title: 架構總覽
         url: "/second-gen/beegfs-architecture-overview.html"
       - title: 技術需求

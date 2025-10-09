@@ -141,7 +141,7 @@ BeeGFS 檔案節點
  a| 
 HCA 韌體
  a| 
-* ConnectX-7 HCA 韌體 * 韌體： 28.43.1014 + PXE ： 3.7.0500 + UEFI ： 14.36.0016
+*ConnectX-7 HCA 韌體* FW：28.45.1200 + PXE：3.7.0500 + UEFI：14.38.0016
 
 * ConnectX-6 HCA 韌體 * 韌體： 20.43.2566 + PXE ： 3.7.0500 + UEFI ： 14.37.0013
 
@@ -155,7 +155,7 @@ HCA 韌體
 | 軟體 | 版本 
 
 
-| 作業系統SANtricity | 11.90R1 
+| 作業系統SANtricity | 11.90R3 
 
 
 | NVSRAM | N6000-890834-D02.dp 
