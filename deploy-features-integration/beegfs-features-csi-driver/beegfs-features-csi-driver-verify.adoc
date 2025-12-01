@@ -1,0 +1,97 @@
+---
+sidebar: sidebar 
+permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-verify.html 
+keywords: BeeGFS Features, CSI, Driver 
+summary: BeeGFS CSI 驅動程式部署驗證。 
+---
+= BeeGFS CSI 驅動程式部署驗證
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+若要驗證 BeeGFS CSI 驅動程式是否已成功部署，請檢查 CSI 驅動程式 pod 的狀態，並確認它們是否如預期運作。
+
+若要檢查 BeeGFS-CSI 命名空間中所有資源的狀態，請執行：
+
+[source, console]
+----
+kubectl get all -n beegfs-csi
+----
+**預期輸出：**
+
+[listing]
+----
+NAME                          READY    STATUS      RESTARTS    AGE
+pod/csi-beegfs-controller-0   3/3      Running     0           5d11h
+pod/csi-beegfs-node-8f917     3/3      Running     0           5d11h
+----
+
+
+== 檢查控制器艙
+
+要診斷問題或收集有關 BeeGFS CSI 控制器 pod 的更多詳細信息，請使用以下命令描述該 pod 並查看其事件、狀態和最近活動：
+
+[source, console]
+----
+kubectl describe pod csi-beegfs-controller-0 -n beegfs-csi
+----
+**預期輸出：**
+
+[listing]
+----
+Events:
+
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  117s                 default-scheduler  Successfully assigned beegfs-csi/csi-beegfs-controller-0 to node01
+  Normal   Pulled     117s                 kubelet            Container image "registry.k8s.io/sig-storage/csi-provisioner:v3.5.0" already present on machine
+  Normal   Created    117s                 kubelet            Created container: csi-provisioner
+  Normal   Started    117s                 kubelet            Started container csi-provisioner
+  Normal   Started    101s (x3 over 117s)  kubelet            Started container beegfs
+  Normal   Pulled     86s (x2 over 117s)   kubelet            Container image "registry.k8s.io/sig-storage/csi-resizer:v1.11.1" already present on machine
+  Normal   Created    86s (x2 over 117s)   kubelet            Created container: csi-resizer
+  Normal   Started    86s (x2 over 117s)   kubelet            Started container csi-resizer
+  Warning  BackOff    85s (x5 over 115s)   kubelet            Back-off restarting failed container beegfs in pod csi-beegfs-controller-0_beegfs-csi(47016fd3-3a2a-41ed-bc4c-5a716c377b1e)
+  Normal   Pulled     73s (x4 over 117s)   kubelet            Container image "ghcr.io/thinkparq/beegfs-csi-driver:v1.7.0" already present on machine
+  Normal   Created    73s (x4 over 117s)   kubelet            Created container: beegfs
+----
+
+
+== 驗證儲存類別
+
+. 驗證 StorageClass 是否建立成功：
++
+[source, console]
+----
+kubectl get sc
+----
++
+**預期輸出：**
+
++
+[listing]
+----
+root@node01:/home/user_id/beegfs-csi-driver# kubectl get sc
+NAME                PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+csi-beegfs-dyn-sc   beegfs.csi.org.com   Delete          Immediate           true                   17s
+----
+. 確認 BeeGFS 卷已按預期掛載。
++
+驗證指定的目錄 `volDirBasePath`在 `examples/k8s/dyn/dyn-sc.yaml`顯示在 `/mnt/beegfs`。
+
++
+例如，如果 `volDirBasePath`設定為 `user_id_k8s`你應該可以看到這個目錄：
+
++
+[source, console]
+----
+root@node01:/# ls -ltr /mnt/beegfs/
+total 1
+drwxrwxrwx 4 root root 2 Oct 15 10:16 user_id_k8s
+----
+

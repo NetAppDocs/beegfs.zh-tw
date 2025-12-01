@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-overview.html 
+keywords: BeeGFS Features, CSI, Driver 
+summary: BeeGFS CSI 驅動程式概述和配置。 
+---
+= BeeGFS CSI 驅動程式的配置
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+BeeGFS CSI 驅動程式使 Kubernetes 叢集能夠動態地配置和管理 BeeGFS 卷，將高效能 BeeGFS 儲存與容器化工作負載整合在一起。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"]確保所有先決條件均已滿足
+[role="quick-margin-para"]
+檢查先決條件，確保您擁有正在執行的 Kubernetes 叢集、與 BeeGFS 叢集的連線以及安裝叢集範圍資源所需的權限。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["二"]部署 BeeGFS CSI 驅動程式
+[role="quick-margin-para"]
+複製 BeeGFS CSI 驅動程式儲存庫，並使用提供的 Kubernetes 清單或覆蓋層部署驅動程式。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["三"]驗證部署
+[role="quick-margin-para"]
+透過檢查相關的 Kubernetes pod，確認所有 BeeGFS CSI 驅動程式元件均已安裝並正常運作。排查任何問題，例如節點調度衝突或節點上啟用交換分區等。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["四"]部署和驗證範例應用程式
+[role="quick-margin-para"]
+應用範例 Kubernetes 清單並確認工作負載可以按預期存取 BeeGFS 支援的儲存。

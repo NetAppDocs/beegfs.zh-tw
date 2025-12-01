@@ -1977,4 +1977,159 @@
   <block id="c83be155e8adea701991eeba59a9d048" category="cell">MLNX_OFED_LINUX-23.10-3.2.2.1-LTS</block>
   <block id="7cd5ec19f90bf866b287afecf9a8cce0" category="paragraph">*ConnectX-7 HCA 韌體* FW：28.45.1200 + PXE：3.7.0500 + UEFI：14.38.0016</block>
   <block id="f86fe0da10c1b039adc0c656c6fe10a1" category="cell">11.90R3</block>
+  <block id="62c1c24659da4c1307a1aec4e9fa9dd7" category="summary">BeeGFS CSI 驅動程式的部署說明。</block>
+  <block id="affb21f82a5248780841be74507689d4" category="doc">BeeGFS CSI 驅動程式的部署</block>
+  <block id="bd415b54a1a35e3fb2eec195775a2f4f" category="paragraph">在 Kubernetes 環境中部署 BeeGFS CSI 驅動程式的說明。</block>
+  <block id="49f6a7048ccf8bb4de69bc72a5ef7a6f" category="section-title">氣隙部署</block>
+  <block id="6d01a1481ac6dd659168c4aa2803fca9" category="paragraph">若要執行離線部署，必須事先在可存取網際網路的系統上下載 Kubernetes YAML 設定檔和所需的容器映像。然後需要將這些檔案傳輸到將要安裝 CSI 驅動程式的目標節點。</block>
+  <block id="409591c74705bed8cf42ce30118d7e3a" category="section-title">取得驅動程式和影像</block>
+  <block id="f77b0ee0f127843f3462f044be6047b5" category="paragraph">若要在實體隔離環境中部署 BeeGFS CSI 驅動程序，請執行下列步驟。</block>
+  <block id="26d13d74f86ba4f7444392151dbcc4cb" category="list-text">將 BeeGFS CSI 驅動程式 GitHub 儲存庫複製到可存取網際網路的系統：</block>
+  <block id="bf1c46788436014c9796833265061b93" category="list-text">取得並記錄下列影像的最新影像版本標籤。您可以造訪每個鏡像的官方註冊表或 GitHub 發布頁面，以確定最新版本標籤：</block>
+  <block id="4285de0ff00a5fc5cf4f756a444f62d7" category="cell">圖片名稱</block>
+  <block id="664a83be959d109b0a249ce2163380da" category="cell">註冊中心 URL/參考</block>
+  <block id="603a45c52d8386fb685a3863bbcb30c9" category="cell">beegfs-csi-driver</block>
+  <block id="a686f5e30845e3f70729f33cd22bdc15" category="cell"><block ref="a686f5e30845e3f70729f33cd22bdc15" category="inline-link-rx"></block></block>
+  <block id="e85c0c0696d91d903e147e3c8b19ff12" category="cell">CSI配置器</block>
+  <block id="8b290a238d0233fc53f10b721a2e0133" category="cell"><block ref="8b290a238d0233fc53f10b721a2e0133" category="inline-link-rx"></block></block>
+  <block id="e481146938fc2bc465c78a7361e40602" category="cell">csi-resizer</block>
+  <block id="0ca797786536ce26a124f24459719a5b" category="cell"><block ref="0ca797786536ce26a124f24459719a5b" category="inline-link-rx"></block></block>
+  <block id="c0316766d145aaefd85f41ca9386c477" category="cell">活體探測</block>
+  <block id="fe27019dc608c0087953d639a8ad0b8a" category="cell"><block ref="fe27019dc608c0087953d639a8ad0b8a" category="inline-link-rx"></block></block>
+  <block id="46b701fc0aa62f484f2e07e207594448" category="cell">csi-node-driver-registrar</block>
+  <block id="415d195e38180071f74a988ffc60c45f" category="cell"><block ref="415d195e38180071f74a988ffc60c45f" category="inline-link-rx"></block></block>
+  <block id="043d5e887513ab35c6e80616cc605869" category="list-text">使用 containerd 將每個鏡像拉取到您的系統中，並確保替換<block ref="22b0607250cb0c53df9a2bcc780e1cac" prefix=" " category="inline-code"></block>每張圖片都帶有最新的實際標籤：</block>
+  <block id="72d8ab21c0846404c9fa1d2c0ed6de3b" category="list-text">每張擷取的影像都必須匯出為單獨的檔案。<block ref="58963a595c988dc6f693cb3238dc907a" prefix=" " category="inline-code"></block>文件。這是將鏡像傳輸到您的隔離環境並將其匯入目標系統上的 containerd 所必需的。例如：</block>
+  <block id="458f7d5f35bdf0f6043130445d1cfc71" category="paragraph">對每個需要的圖像重複此導出命令，並根據需要替換圖像名稱和標籤。</block>
+  <block id="2217140bc2c23612307761f7cb282334" category="list-text">複製 BeeGFS CSI 驅動程式儲存庫和所有匯出內容<block ref="58963a595c988dc6f693cb3238dc907a" prefix=" " category="inline-code"></block>使用您喜歡的方式將檔案傳輸到您的實體隔離環境。對於這種設置，請儲存<block ref="603a45c52d8386fb685a3863bbcb30c9" prefix=" " category="inline-code"></block>文件到<block ref="5fd37a234d3f6a9bc0a21cc07731ffd7" prefix=" " category="inline-code"></block>以及影像<block ref="c8227798f49cbb50b8d04754d8f45ee9" prefix=" " category="inline-code"></block>。</block>
+  <block id="7f68beba0dd9ab1053879c73e95e722b" category="section-title">導入所需影像</block>
+  <block id="50a0462e171c50558a3a13dae699c03e" category="list-text">導航至<block ref="c8227798f49cbb50b8d04754d8f45ee9" prefix=" " category="inline-code"></block>儲存映像的目錄，並使用 containerd 匯入每個映像。例如：</block>
+  <block id="98aafa5870a2b9f5d25c1574ae58b469" category="list-text">執行以下命令以驗證鏡像是否已載入到 containerd 中：</block>
+  <block id="465b5810a892336db44b0c769a0eb60b" category="section-title">配置和部署 CSI 驅動程式覆蓋層</block>
+  <block id="50867adc3a7cabd5d8fe87fc742e12c0" category="list-text">導航至<block ref="5fd37a234d3f6a9bc0a21cc07731ffd7" prefix=" " category="inline-code"></block>目錄。</block>
+  <block id="422df0ed85c408f270129542d56b8810" category="list-text">預設情況下，覆蓋層配置適用於線上部署。若要執行實體隔離部署，需要修改覆蓋層配置。將「default」疊加層資料夾複製到一個新的疊加層，例如：<block ref="16e4da293eeeaf27c6ba3949f0356e80" prefix=" " category="inline-code"></block> ：</block>
+  <block id="49a2f8c2310ba7a1752847c399b17158" category="list-text">編輯<block ref="25b82f571149598ee47d12d5d61194aa" prefix=" " category="inline-code"></block>文件。取消註解並更新<block ref="59b514174bffe4ae402b3d63aad79fe0" prefix=" " category="inline-code"></block>包含您下載的確切標籤的部分：</block>
+  <block id="91786c07b0a4a2a2c3536eed93cfaae2" category="list-text">透過變更鏡像拉取策略，將 Kubernetes 設定為使用 containerd 中本機載入的鏡像。<block ref="68eec46437c384d8dad18d5464ebc35c" prefix=" " category="inline-code"></block>到<block ref="6e7b34fa59e1bd229b207892956dc41c" prefix=" " category="inline-code"></block>。建立一個名為的文件<block ref="853fc0d13ffa93cd975ed24609b8343a" prefix=" " category="inline-code"></block>你的<block ref="a2d4bbdbe440ac49ed78fc74d6dacb1c" prefix=" " category="inline-code"></block>包含以下內容的目錄：</block>
+  <block id="5eb7c9d936dbe748b520bff1630b629f" category="admonition">環境<block ref="3a228a751d4e9e04c19ca2752a11d160" prefix=" " category="inline-code"></block>確保 Kubernetes 使用載入到 containerd 中的鏡像，而不嘗試從外部鏡像倉庫拉取鏡像。</block>
+  <block id="bc275aa722815ec77f72d817c7b54bd1" category="list-text">打開<block ref="25b82f571149598ee47d12d5d61194aa" prefix=" " category="inline-code"></block>並添加以下部分：</block>
+  <block id="8c5d2c16e12f5275bc2fa336e913cb91" category="admonition">這<block ref="c2934aa84321b97e14787e2aec99d2f5" prefix=" " category="inline-code"></block>該部分允許您應用自訂補丁——例如更改<block ref="2b8b5018006a800ae06485c3aacfa08d" prefix=" " category="inline-code"></block>在基礎 Kubernetes 清單之上。驗證路徑<block ref="853fc0d13ffa93cd975ed24609b8343a" prefix=" " category="inline-code"></block>相對於你而言是正確的<block ref="67b2cc1cd5b1570014463995fb2ada61" prefix=" " category="inline-code"></block>文件。</block>
+  <block id="f1ef26ccc46f1f686316ca27b5857d58" category="section-title">安裝 BeeGFS CSI 驅動程式</block>
+  <block id="df5c81289dd355ad8959bf8aa77b5fcf" category="list-text">使用自訂覆蓋層安裝 BeeGFS CSI 驅動程式。此步驟將套用所有設定更改，包括使用本機匯入的映像和更新的映像拉取策略。</block>
+  <block id="f71f0c923d11fceafd8703af31e867d2" category="paragraph">在複製的 BeeGFS CSI 驅動程式倉庫的根目錄下，執行以下命令：</block>
+  <block id="2c24299170fb70d00b03247bccfcb7a1" category="list-text">繼續前往<block ref="754835206590e06e47d1caf7bd547848" category="inline-xref-macro-rx"></block>本節用於部署和驗證您的 BeeGFS CSI 驅動程式設定。</block>
+  <block id="13b2e855597fd8f22487fccbe4a80eae" category="section-title">線上部署</block>
+  <block id="e4b86b9875f74bf62b17ea80083b70a4" category="paragraph">如果您的 Kubernetes 節點可以存取互聯網，您可以直接部署 BeeGFS CSI 驅動程序，而無需手動下載或傳輸容器鏡像。當 pod 部署完成後，它們會自動從鏡像中心下載鏡像並啟動所需的服務。</block>
+  <block id="5f11f71bbfdebcf4ad264dc61816a734" category="section-title">取得驅動程式庫</block>
+  <block id="54daa05290ed0877f9265db9ae57e3fc" category="list-text">將 BeeGFS CSI 驅動程式 GitHub 儲存庫複製到本機系統：</block>
+  <block id="d21a5501cb10accfdf04229c8558fc56" category="section-title">配置驅動程式</block>
+  <block id="90bc50386df0e270e499eebdee173bc8" category="list-text">導航至克隆的儲存庫目錄，如有必要，更新預設覆蓋目錄中的設定檔：</block>
+  <block id="94b4fb70ee11240a3a52e7a02eabb573" category="paragraph">您應該會看到類似這樣的文件：</block>
+  <block id="f25f8d8829b3707a808a58abb4de8757" category="list-text">如果您的 BeeGFS 用戶端設定檔未命名<block ref="0e2e0e04197278e759d18ad910b66065" prefix=" " category="inline-code"></block>建立一個與此名稱完全相同的符號鏈接，指向您的設定檔：</block>
+  <block id="9e7874ce377884e3527280e8bb415a45" category="admonition">CSI驅動程式要求設定檔位於下列位置：<block ref="0e2e0e04197278e759d18ad910b66065" prefix=" " category="inline-code"></block>並且要用這個名字。</block>
+  <block id="dbf1a5b63c74a74a2e3fb0a120101c7f" category="list-text">如果您需要自訂任何設置，例如儲存類別、金鑰或連接身份驗證，請編輯相關文件。<block ref="4e59bd10e78320bf511400f519b7f63b" prefix=" " category="inline-code"></block>部署前。</block>
+  <block id="ffa68119a4261c6c6f991574f3e13cb9" category="list-text">使用以下命令安裝預設覆蓋層<block ref="0f12ee5c9f1dd90158580f1c292b0d37" prefix=" " category="inline-code"></block>。這將自動從各自的鏡像倉庫拉取所需的鏡像，並建立所有必要的 Kubernetes 資源：</block>
+  <block id="12a7f9470cdc13eee1ab84d6d332d348" category="list-text">確認資源已建立且 Pod 正在運作：</block>
+  <block id="8637d6c1f3e0436f7f2ec935b829bd22" category="list-text">範例輸出：</block>
+  <block id="e978b168b4d9799f573a467a7e55f53f" category="admonition">使用<block ref="65a45a241a9c54cd8c4592713f1750bb" prefix=" " category="inline-code"></block>對於覆蓋層（包含目錄）<block ref="67b2cc1cd5b1570014463995fb2ada61" prefix=" " category="inline-code"></block>文件）。使用<block ref="abef5e1865ed355db68990ddefd152e3" prefix=" " category="inline-code"></block>適用於純 YAML 清單或清單目錄。</block>
+  <block id="cb128f50baa7598675416d0ff2e14267" category="list-text">繼續前往<block ref="754835206590e06e47d1caf7bd547848" category="inline-xref-macro-rx"></block>用於驗證 BeeGFS CSI 驅動程式設定的部分。</block>
+  <block id="40462a3d159ac4f4e4f34952d3a65463" category="section-title">部署範例應用程式</block>
+  <block id="d668cf8d9ef769defd503b4241077202" category="paragraph">安裝 BeeGFS CSI 驅動程式（無論是實體隔離還是線上）後，您可以部署範例應用程式來驗證您的設定。此範例包含 StorageClass、PersistentVolumeClaim (PVC) 和使用 BeeGFS CSI 驅動程式的 pod。</block>
+  <block id="72d214918d58d6a6894e25a754f675f9" category="section-title">部署前：</block>
+  <block id="ac7b7057ee700cf2643e737a19884559" category="list-text">取得 BeeGFS 管理節點的 IP 位址：</block>
+  <block id="c8dcea75adc3e609de5d39a447933c33" category="paragraph">BeeGFS 7.4</block>
+  <block id="eb96b76c0ccb44c7de66c9e3f9c879e8" category="paragraph">**BeeGFS 8**</block>
+  <block id="9d3a5f8790393047a3908cbc0ee51420" category="paragraph">**預期輸出：**</block>
+  <block id="af8f06e731d7616c000ebe03fa476e5f" category="list-text">更新管理節點 IP<block ref="dc34d2dc8fcddfd1ee45eb519a8f6a9c" prefix=" " category="inline-code"></block> 。</block>
+  <block id="9ccb0f3b017f98c1272fadb2d6a617e7" category="list-text">更新值<block ref="d0353404142971776db78f4531dd2920" prefix=" " category="inline-code"></block>。將其設定為唯一值（例如您的 k8s 叢集名稱），以防止多個叢集在相同 BeeGFS 路徑上動態配置磁碟區。</block>
+  <block id="86bbb8f6d180e61d3ccb17135c77a505" category="listing-title">StorageClass 範例程式碼片段：</block>
+  <block id="507a3a88cebc46603ce2be8eaa924eee" category="section-title">部署</block>
+  <block id="b5c5d64e0816d7ee03e86e799e6c7ef6" category="list-text">部署範例應用程式檔案：</block>
+  <block id="842d962ed645a298d85dca6023ab75ce" category="list-text">驗證範例 pod 和 PVC 是否正在運作並已綁定：</block>
+  <block id="48f14000b6a7abc3c947c38345bda15f" category="admonition">對於實體隔離部署和線上部署，範例應用程式部署步驟完全相同。請確保您已更新管理節點 IP 位址和<block ref="d0353404142971776db78f4531dd2920" prefix=" " category="inline-code"></block>部署前，在 StorageClass 清單中。</block>
+  <block id="55ec134e0d67db67c58275cc5dbab8c9" category="summary">BeeGFS CSI 驅動程式概述和配置。</block>
+  <block id="88e5cc66bcc4a5e334c90758d3c0b282" category="doc">BeeGFS CSI 驅動程式的配置</block>
+  <block id="2e940d7b092eed69be59f873663e4fcf" category="paragraph">BeeGFS CSI 驅動程式使 Kubernetes 叢集能夠動態地配置和管理 BeeGFS 卷，將高效能 BeeGFS 儲存與容器化工作負載整合在一起。</block>
+  <block id="06c2cea18679d64399783748fa367bdd" category="inline-image-macro">一</block>
+  <block id="8ad4bd3c6599e6f179dde3df62a3b1bd" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block>確保所有先決條件均已滿足</block>
+  <block id="74553e70a4b772df56cfb1a597955b1c" category="paragraph">檢查先決條件，確保您擁有正在執行的 Kubernetes 叢集、與 BeeGFS 叢集的連線以及安裝叢集範圍資源所需的權限。</block>
+  <block id="aada29daee1d64ed0fe907043855cb7e" category="inline-image-macro">二</block>
+  <block id="952c3a2d65c211d4733271165f539995" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block>部署 BeeGFS CSI 驅動程式</block>
+  <block id="afd9415aa01025fcc4ffd0174f760665" category="paragraph">複製 BeeGFS CSI 驅動程式儲存庫，並使用提供的 Kubernetes 清單或覆蓋層部署驅動程式。</block>
+  <block id="ca8a2087e5557e317599344687a57391" category="inline-image-macro">三</block>
+  <block id="4f6945dd585cd0da29fce8b6936d0f0b" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block>驗證部署</block>
+  <block id="ba5bead71d6bd3866e17944925461bc6" category="paragraph">透過檢查相關的 Kubernetes pod，確認所有 BeeGFS CSI 驅動程式元件均已安裝並正常運作。排查任何問題，例如節點調度衝突或節點上啟用交換分區等。</block>
+  <block id="981b8fcee42e1e726a67a2b9a98ea6e9" category="inline-image-macro">四</block>
+  <block id="4a1dc59c2958190ddf06e8e83de02c70" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block>部署和驗證範例應用程式</block>
+  <block id="56992f17034a256bf311aae4a4b055a6" category="paragraph">應用範例 Kubernetes 清單並確認工作負載可以按預期存取 BeeGFS 支援的儲存。</block>
+  <block id="603ef41eb6cd17d863e4f467dcd8cfb4" category="summary">部署 BeeGFS CSI 驅動程式的前提條件</block>
+  <block id="f9d8a648f7c6721d3f15d8f3a7d3e7e0" category="paragraph">在部署和設定 BeeGFS CSI 驅動程式之前，請確保您有一個正在執行的 Kubernetes 叢集、可以存取您的 BeeGFS 集群，以及安裝叢集範圍資源的適當權限。</block>
+  <block id="e12672f2dc5733b4e3a9787d47568750" category="section-title">驗證 Kubernetes 設定</block>
+  <block id="254db9997d3d74e42d791bca5cab05ae" category="paragraph">執行以下命令檢查 Kubernetes 叢集中 Pod 的狀態：</block>
+  <block id="dcfaf14ae15c960ad26b7c5926755051" category="paragraph">**預期輸出：**</block>
+  <block id="e8b73f849c9424fbf30a1495f9647ddc" category="paragraph">如果沒有 pod 正在運行，則清單為空。否則，pod 應該能夠正常列出。</block>
+  <block id="39af16c3663078c0d25dacf20f5c32f4" category="section-title">驗證 BeeGFS 用戶端和服務</block>
+  <block id="586353ad9196702917d4dd6b15a6c079" category="paragraph">執行以下命令驗證 BeeGFS 叢集是否運作正常且所有服務均可存取：</block>
+  <block id="24f31e15d816c01d4984671c5289aeb6" category="admonition">CSI驅動程式可與兩者搭配使用<block ref="0af6b87fa08012299b34064ba959cf4e" prefix=" " category="inline-code"></block>和<block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block>必須將其安裝在每個 Kubernetes 節點上。有關安裝步驟，請參閱 BeeGFS 用戶端 DKMS 文件：<block ref="4dd12024bd6894a04e0c022171f8f14e" category="inline-link-rx"></block></block>
+  <block id="e25be8e7a17930576238e77bf9177506" category="paragraph">BeeGFS 7.4 預期輸出：</block>
+  <block id="d7f6fe5c2d3c17bd2364508996328d89" category="paragraph">如果任何服務無法存取，請確保 BeeGFS 用戶端配置正確，並且與 BeeGFS 伺服器的網路連接正常。</block>
+  <block id="75c14dd603e19d9d33db73ba234b5c7f" category="summary">BeeGFS CSI 驅動程式部署故障排除。</block>
+  <block id="208322d5c9ec44ddbbd85cf49e17df6e" category="doc">BeeGFS CSI 驅動程式部署故障排除</block>
+  <block id="56bad221ec5807f76a20617ae9da412b" category="paragraph">在排查 BeeGFS CSI 驅動程式部署問題時，請確保：</block>
+  <block id="e976ce4f9fe3247fcf6ce92edfe04bae" category="list-text">所有先決條件均已滿足，包括 BeeGFS 用戶端的安裝和設定。</block>
+  <block id="bdba2285ab9f40b4639ccafbc4797d01" category="list-text">BeeGFS CSI 驅動程式已使用正確的覆蓋層進行部署。</block>
+  <block id="4745ccbc322a33be8729ec78931a3a66" category="list-text">部署已驗證，任何錯誤（例如節點污點或啟用交換分區）均已解決。</block>
+  <block id="886bf328722bc8f20eb92f5fbd0a74b3" category="list-text">已部署並驗證範例應用程序，以確認其功能正常。</block>
+  <block id="b3b8c965d6d37607fec4fb4867cece2e" category="inline-link-macro">BeeGFS CSI 驅動程式 GitHub</block>
+  <block id="9657e0a9e6e65b93d5ae0427b27abf8f" category="paragraph">如需深入排除故障，請參閱<block ref="9d24771a1bfa218970e74f53ae447160" category="inline-link-macro-rx"></block>。</block>
+  <block id="c2c6e7a3ecf8ed632c275146ba1d2a64" category="section-title">Kubernetes 設定 - 常見錯誤場景</block>
+  <block id="c10f08d79df6a85e98a20bc5cb4134cb" category="paragraph">嘗試檢索節點上所有目前正在運行的 Pod 時出現的範例錯誤：</block>
+  <block id="384679146a5bc15e9b5bc504a8d2c024" category="paragraph">錯誤輸出範例：</block>
+  <block id="94b36e4d62375a86e2bd62bad09ad470" category="paragraph">解決這類問題時，有幾個關鍵領域需要調查。建議先檢查以下列出的各個方面。</block>
+  <block id="1b8edc52f33fe39f7087c5e81309dcfb" category="section-title">containerd 出錯</block>
+  <block id="3fedd102645ec75ab2434b28b2ec0693" category="paragraph">檢查 containerd 守護程式的狀態：</block>
+  <block id="86defa5bf9e807700d4cccd688f99e8e" category="paragraph">如果守護程式未執行<block ref="a8404d648f2511ea5f08f9eca4839117" prefix="(" category="inline-code"></block>），重新啟動它。如果重新啟動後仍然無法執行，請檢查系統日誌是否有錯誤：</block>
+  <block id="5072df87bb825b2cdfea041593dd98ac" category="section-title">kubelet 出錯</block>
+  <block id="232c36a71579df7b86e347acd7ce3a60" category="paragraph">檢查 kubelet 服務的狀態：</block>
+  <block id="58a21ff850536cc55e4672b372f8d7cb" category="paragraph">如果服務未運行，請重新啟動它：</block>
+  <block id="38e7d36bda123c394540d5a7e42dd766" category="paragraph">如果問題仍然存在，請檢查系統日誌中的錯誤：</block>
+  <block id="fed519e0ddb1a8b183c1c987b9e7d3d3" category="section-title">互換發行</block>
+  <block id="f9adc615b843c7d1fc88a7133c9753c0" category="paragraph">如果遇到與「swap」相關的錯誤，請停用 swap 並重新啟動 kubelet。</block>
+  <block id="c2c011c8c283a6fd50efe130a9d4e481" category="admonition">交換分區通常在作業系統安裝過程中預設啟用，並列在以下位置：<block ref="816a3ef77b62ade41c3f936c958aa555" prefix=" " category="inline-code"></block> Kubernetes 不支援啟用交換分割區運作。為防止重新啟動後重新啟用交換分割區，請註解掉所有交換分割區條目。<block ref="816a3ef77b62ade41c3f936c958aa555" prefix=" " category="inline-code"></block> 。</block>
+  <block id="8504b71b5661fc7252208f63cc784f4a" category="section-title">BeeGFS客戶端和輔助組態故障排除</block>
+  <block id="db9d9ed8f960a5d3a3249aba43a8c1ed" category="list-text">查看配置<block ref="0e2e0e04197278e759d18ad910b66065" prefix=" " category="inline-code"></block>。</block>
+  <block id="d804d68c0e802de24545563b4f391e9f" category="paragraph">預設情況下，對於安全環境，BeeGFS 連線身份驗證應**啟用**。確保<block ref="1c285a92de2348d33dd1fc333fb66c45" prefix=" " category="inline-code"></block>標誌位已設定為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>以及正確的路徑<block ref="6097b6e95af2579f2147a330c21f7b59" prefix=" " category="inline-code"></block>已指定：</block>
+  <block id="63635c1d07ff5dcb5b4603720dfa1169" category="admonition">如果您有意允許 BeeGFS 檔案系統在**無需身份驗證**的情況下連接，請進行以下設定<block ref="c69429e5c5c7d58d10a00d1658f74de1" prefix=" " category="inline-code"></block>並刪除或註解掉<block ref="6097b6e95af2579f2147a330c21f7b59" prefix=" " category="inline-code"></block>範圍。</block>
+  <block id="af14bbdf6eb7c92aa161d2a31f8ba4df" category="list-text">驗證管理服務的 IP 位址。<block ref="6ea5464abdaaa0243bf0db8481a9a52b" prefix=" " category="inline-code"></block>參數設定正確。</block>
+  <block id="5d0683df890e48533023fab6377845ff" category="list-text">更新路徑<block ref="813dc23e54b6d145f44c2c4bc7dade8c" prefix=" " category="inline-code"></block>和<block ref="7f8e8358da4bb8d8e7f6f717ad9eb0e9" prefix=" " category="inline-code"></block>。這些檔案指定用於儲存或節點間通訊的網路介面。例如：</block>
+  <block id="292fc81e058013795feae73d29ff095d" category="list-text">更新路徑<block ref="6097b6e95af2579f2147a330c21f7b59" prefix=" " category="inline-code"></block>參數（如果啟用身份驗證）。</block>
+  <block id="5ef116818fffd81fdeaff10c5c809a45" category="paragraph">**設定範例：**</block>
+  <block id="e7f19f57f91378c152e9da5ba65546f4" category="list-text">查看配置<block ref="debd4c97a4d385fe7993e6103307943b" prefix=" " category="inline-code"></block>。</block>
+  <block id="317d34215f4ca6c1677201dca4276668" category="paragraph">與客戶端配置一樣，連接身份驗證預設情況下應該**啟用**。確保<block ref="1c285a92de2348d33dd1fc333fb66c45" prefix=" " category="inline-code"></block>標誌位已設定為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>以及正確的路徑<block ref="6097b6e95af2579f2147a330c21f7b59" prefix=" " category="inline-code"></block>已指定：</block>
+  <block id="6ef6bcb47a028dd3d882c38dfc320c80" category="paragraph">**輔助設定範例：**</block>
+  <block id="8b3015b51b9088a08eac05bb296a4505" category="section-title">BeeGFS 控制器問題檢查</block>
+  <block id="b33847b1940c739029febbf7cf1eeeae" category="paragraph">部署覆蓋層後，您可能會在 kubectl get all 的輸出中看到一些資源處於 PENDING 狀態。</block>
+  <block id="140781a98dce4a770e71d321a8f8e611" category="paragraph">豆莢<block ref="2d13df6f8b5e4c5af9f87e0dc39df69d" prefix=" " category="inline-code"></block>狀態異常可能是由節點污點、資源限制、鏡像缺失或調度需求未滿足所引起的。查看 pod 事件和日誌以取得更多詳細資訊。如果狀態如上所示，請使用 describe 指令檢查已建立的 pod。</block>
+  <block id="8b09a755212b5cca1f1d7d9a1e997e47" category="paragraph">如果您看到鏡像拉取錯誤或 pod 卡住，<block ref="afee797a1930cb975abc264ca69d32f3" prefix=" " category="inline-code"></block>驗證所有必需的鏡像是否都存在於 containerd 中（離線）或可從登錄機碼存取（線上）。請與以下人員聯絡：</block>
+  <block id="582cbc0a0d0b768b731ad000cabe5151" category="section-title">檢查 Pod 日誌</block>
+  <block id="a46f16ede9c31ebdf5ab0299691aa4f7" category="paragraph">如果一個 pod 無法啟動或處於下列狀態<block ref="9457e58b926d8b2d0da3eb31f3ad636e" prefix=" " category="inline-code"></block>狀態，請查看其日誌以了解更多詳情：</block>
+  <block id="496d0c1dd803c59e593044d8c5366870" category="paragraph">如果您遇到與「無法容忍的污點」相關的錯誤（可在 kubectl describe 的輸出中看到），如下所示：</block>
+  <block id="29201c8949211ed5669e84f70f66edd3" category="paragraph">使用以下命令從節點中移除污點：</block>
+  <block id="9951f77a7e9a382a385903b2c91dbd5b" category="paragraph">清除污點後，重新套用疊加層。這樣應該可以解決問題：</block>
+  <block id="dd812878805193824385408c5fd1225f" category="summary">BeeGFS CSI 驅動程式部署驗證。</block>
+  <block id="2504618a50d6cfe174ffb859c662a397" category="doc">BeeGFS CSI 驅動程式部署驗證</block>
+  <block id="fc73979248109f69ab34551b358492fc" category="paragraph">若要驗證 BeeGFS CSI 驅動程式是否已成功部署，請檢查 CSI 驅動程式 pod 的狀態，並確認它們是否如預期運作。</block>
+  <block id="ac613bcb5c71c67fca0637a5e52f9444" category="paragraph">若要檢查 BeeGFS-CSI 命名空間中所有資源的狀態，請執行：</block>
+  <block id="6fc82c24a6a193b67f54717ad788f4d5" category="section-title">檢查控制器艙</block>
+  <block id="76eb94c4020b607bf5bb0f8ee7a6c9e6" category="paragraph">要診斷問題或收集有關 BeeGFS CSI 控制器 pod 的更多詳細信息，請使用以下命令描述該 pod 並查看其事件、狀態和最近活動：</block>
+  <block id="d93bbac66e89b657b4ffd789b32672bb" category="section-title">驗證儲存類別</block>
+  <block id="4388b94df80adf5a29867f1e565a04df" category="list-text">驗證 StorageClass 是否建立成功：</block>
+  <block id="cbc9efaa280e1bbc441dd3fe29c2bc95" category="list-text">確認 BeeGFS 卷已按預期掛載。</block>
+  <block id="d1427b4ccfc3361e3a4469e3e4b845c7" category="paragraph">驗證指定的目錄<block ref="d0353404142971776db78f4531dd2920" prefix=" " category="inline-code"></block>在<block ref="dc34d2dc8fcddfd1ee45eb519a8f6a9c" prefix=" " category="inline-code"></block>顯示在<block ref="d960002b1832abbbb111ea314b0bb6c0" prefix=" " category="inline-code"></block>。</block>
+  <block id="e92bdde19fe0a0cf76c7af170c492a5f" category="paragraph">例如，如果<block ref="d0353404142971776db78f4531dd2920" prefix=" " category="inline-code"></block>設定為<block ref="8e191b49bbc9aad656bf0228dd928cc7" prefix=" " category="inline-code"></block>你應該可以看到這個目錄：</block>
+  <block id="186a96557e62566dbb3a7afc406cb710" category="sidebar">部署功能和集成</block>
+  <block id="bcb997ab063bc1a29baf053859f1f080" category="sidebar">BeeGFS CSI 驅動程式</block>
+  <block id="ee68e5b99222bbc29a480fcb0d1d6ee2" category="sidebar">先決條件</block>
+  <block id="ea355214fd4bc7c57f471bd92918879b" category="sidebar">部署</block>
+  <block id="52b8ffce119fe77b28034f2fdd35eb5f" category="sidebar">確認</block>
+  <block id="231cf4c70d866b616c21baddaeed0696" category="sidebar">故障排除</block>
 </blocks>

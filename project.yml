@@ -123,6 +123,20 @@ sidebar:
         url: "/custom/architectures-deploy-beegfs-clients.html"
       - title: 驗證BeeGFS部署
         url: "/custom/architectures-deploy-verify.html"
+  - title: 部署功能和集成
+    entries:
+    - title: BeeGFS CSI 驅動程式
+      entries:
+      - title: 總覽
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-overview.html"
+      - title: 先決條件
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-prereqs.html"
+      - title: 部署
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-deploy.html"
+      - title: 確認
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-verify.html"
+      - title: 故障排除
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-tshoot.html"
   - title: 管理BeeGFS叢集
     entries:
     - title: 概述、主要概念和術語
