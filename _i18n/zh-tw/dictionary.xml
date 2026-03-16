@@ -5,11 +5,9 @@
   <block id="e95081b0e85f690a9bdcb41ea940c186" category="summary">若要在NetApp上實作BeeGFS解決方案、請確定您的環境符合技術需求。</block>
   <block id="de65efa2c0698ededf4229cafcca2d08" category="doc">技術需求</block>
   <block id="47dee50ad0138b8f5ca70e40e86e6c04" category="section-title">硬體需求</block>
-  <block id="16cc6ce48a597aebb8ab5132cb3523dc" category="cell">硬體元件</block>
   <block id="5a2ebfb8baa378cfcfcba58bbb1380c2" category="cell">需求</block>
   <block id="d41d8cd98f00b204e9800998ecf8427e" category="doc"></block>
   <block id="c81e728d9d4c2f636f067f89cc14862c" category="paragraph">2.</block>
-  <block id="a631c0a4a9b408ccc2559c2a3323af51" category="paragraph">*雜項：*</block>
   <block id="c9f0f895fb98ab9159f51fd0297e236d" category="cell">8.</block>
   <block id="5fea6233624bde259c99b82e6d7de3c6" category="section-title">軟體部署需求</block>
   <block id="699b33acca98ab1d3eb0d684f59f1c98" category="paragraph">下表列出在以Ansible為基礎的BeeGFS部署中、自動部署的軟體需求。</block>
@@ -27,12 +25,7 @@
   <block id="a7f5f35426b927411fc9231b56382173" category="cell">Python</block>
   <block id="d35d779fe31977939a0a72c5c962d2af" category="cell">其他Python套件</block>
   <block id="5510cedb08df4208db0688e41cea716f" category="section-title">檔案節點需求</block>
-  <block id="2488fead2064d4aeb886afc1a0010ee7" category="cell">Linux核心</block>
   <block id="f6883581bd882ffdf705127738982586" category="cell">InfiniBand / RDMA驅動程式</block>
-  <block id="fbc534ed33feffdfe8fc56e7cde13e6e" category="section-title">EF600區塊節點需求</block>
-  <block id="e791d47d690cbc6aa7c7f9434ebd2fa1" category="cell">作業系統SANtricity</block>
-  <block id="b384b3cf4ffa3a81a88e8687dd6ca028" category="cell">NVSRAM</block>
-  <block id="b89cb5f38b54c6181858af1281dcaeef" category="cell">磁碟機韌體</block>
   <block id="cef5ab698867f39ec4b495cba708da1a" category="summary">BeeGFS on NetApp解決方案結合BeeGFS平行檔案系統與NetApp EF600儲存系統、打造可靠、可擴充且具成本效益的基礎架構、可跟上嚴苛工作負載的腳步。</block>
   <block id="c0c4b60d27032c028c91440e9d3be949" category="doc">解決方案總覽</block>
   <block id="c6ff1c8ffcd7024a30e7240129bf57a8" category="section-title">NVA方案</block>
@@ -1635,42 +1628,20 @@
   <block id="a1d7af56cbcfca285cd257ae3430a2d3" category="inline-link-macro">架構總覽</block>
   <block id="61dd8d13bec6e1ac3455eb2e13d61261" category="paragraph">NetApp 上的 BeeGFS 解決方案是一種可擴充的建置區塊架構、可針對各種嚴苛的工作負載進行設定。無論是處理許多小型檔案、管理大量檔案作業、或是混合式工作負載、都能自訂檔案系統以滿足這些需求。高可用度的設計採用兩層硬體結構、可在多個硬體層進行自動容錯移轉、確保效能一致、即使在部分系統降級期間也是如此。BeeGFS 檔案系統可在不同的 Linux 套裝作業系統中提供高效能且可擴充的環境、並為用戶端提供單一易存取的儲存命名空間。如需詳細資訊，請參閱 <block ref="45037eea1e64b480408f051dfe424a3c" category="inline-link-macro-rx"></block>。</block>
   <block id="bcaa6be52b9fd12687892056d441d7e4" category="paragraph">若要在 NetApp 上實作 BeeGFS 解決方案、請確保您的環境符合本文件所述的技術需求。</block>
-  <block id="7bf6b11b50ef88e180323b13813659d7" category="paragraph">開始之前、請先確認您的硬體符合下列規格、以便在 NetApp 解決方案上進行 BeeGFS 的單一第二代建置區塊設計。特定部署的確切元件可能會因客戶需求而異。</block>
   <block id="694e8d1f2ee056f98ee488bdc4982d73" category="cell">數量</block>
-  <block id="d065c203a4b9103e8896c456d35cceea" category="paragraph">每個檔案節點都應符合或超過建議檔案節點的規格、以達到預期的效能。</block>
-  <block id="fbb1fad3a6f7d3538a8a1f8e9b6f1f08" category="paragraph">* 建議的檔案節點選項： *</block>
   <block id="5be994ecb912a7fb7448cc05f90afcf7" category="list-text">* Lenovo ThinkSystem SR665 V*</block>
-  <block id="c0c1df1f325217c6fa04ce4c03ba875a" category="list-text">* 處理器： * 2 個 AMD EPYC 9124 16C 3.0 GHz （設定為兩個 NUMA 區域）。</block>
   <block id="e679361e60a219fe470d3ddb1f34a7d7" category="list-text">* 記憶體： * 256GB （ 16x 16GB TruDDR5 4800MHz RDIMM ）</block>
   <block id="9946d99f0bd7932556af9646233dd2e8" category="list-text">* PCIe 擴充： * 四個 PCIe Gen5 x16 插槽（每個 NUMA 區域兩個）</block>
-  <block id="accd99f82c9ad3f026edd29ae4aaa9d8" category="list-text">適用於作業系統的 RAID 1 中有兩個磁碟機（ 1TB 7.2K SATA 或更高）</block>
-  <block id="c618fd1e9213f6ba6e4961e3d1165110" category="list-text">1GbE 連接埠、用於頻內 OS 管理</block>
-  <block id="db812d54d604d8c71ffd5e4be563e3e5" category="list-text">1GbE BMC 搭配 Redfish API 、用於頻外伺服器管理</block>
-  <block id="15cf8b6d2674b1d9c9b0383ecfee8929" category="list-text">雙熱交換電源供應器和效能風扇</block>
-  <block id="22d9c94f9f4ead6ee028aeb105c59845" category="list-text">* Lenovo ThinkSystem SR665 V3 伺服器： *</block>
-  <block id="6ea32d47808c9a0a8b4ad8ce7c3d46a8" category="list-text">MCX755106AS-Heat ConnectX-7 、 NDR200 、 QSFP112 、 2 埠、 PCIe Gen5 x16 、 InfiniBand 介面卡</block>
-  <block id="b74051cf2ad1a189f8a05453712ca47a" category="cell">儲存網路交換器</block>
-  <block id="abf33d394022ed774955ca8b4e892340" category="paragraph">儲存網路交換器的 InfiniBand 速度必須達到 200Gb/s 。建議的交換器機型包括：</block>
-  <block id="d7405c22a666ad0d0cb249c209ed8a2a" category="list-text">* NVIDIA QM9700 Quantum 2 NDR InfiniBand 交換器 *</block>
-  <block id="8371ac7bb43cddb78635bb02c4ecf477" category="list-text">* NVIDIA MQM8700 Quantum HDR InfiniBand 交換器 *</block>
   <block id="118d935cca54466f59122caecfde09ad" category="section-title">纜線需求</block>
   <block id="1fe3c9d0657c143dd35fa09974da425b" category="cell">產品編號</block>
   <block id="ba2a9c6c8c77e03f83ef8bf543612275" category="cell">長度</block>
-  <block id="c3fc989bc0ee89bd4f833252b93ae9fc" category="cell">MCP1650-H001E30 （ NVIDIA 被動銅線、 QSFP56 、 200Gb/s ）</block>
   <block id="9859011cc78b3687689e719ce0d111a5" category="cell">1M</block>
   <block id="e71a6bc9da9d285c521501e596936972" category="cell">交換器模式</block>
   <block id="6fd115591b61cfe21f37443a0afb71e0" category="cell">纜線類型</block>
   <block id="0f0a45940e8946022b971d4ccdf6154e" category="cell">NVIDIA QM9700</block>
   <block id="a87ff679a2f3e71d9181a67b7542122c" category="cell">4</block>
-  <block id="979ceabbdb73904b7beec8a0d58c32b8" category="cell">主動式光纖</block>
   <block id="f629de18a131cfa25b9f36ef4690fc92" category="cell">被動銅</block>
-  <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700</block>
-  <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E （ NVIDIA 主動式光纖纜線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
-  <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26 （ NVIDIA 被動式銅線、 InfiniBand 200Gb/s 、 QSFP56 ）</block>
-  <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCA 韌體</block>
-  <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">密碼編譯 -43.0.0 、 netaddr-1.3.0 、 ipaddr-2.2.0</block>
   <block id="7af6b9890b6c8ce699616c59f48b5248" category="cell">NetApp E-Series BeeGFS Ansible Collection</block>
-  <block id="070afde0274dc6039a8a8949d12a15cd" category="cell">3.2.0</block>
   <block id="ddc7c5e85c28111eae39eef12269daf4" category="inline-link-macro">使用自訂架構</block>
   <block id="a33f0af0b0b4566b693084a9b90c220b" category="paragraph">將建置區塊新增至叢集時、您需要<block ref="3342582e194d63e4c91b56623752c9c6" prefix=" " category="inline-code"></block>為每個新的檔案節點和區塊節點（ E-Series 陣列）建立檔案。這些主機的名稱需要新增至庫存、以及要建立的新資源。<block ref="96fa973cda8809ad84f646e3d8fbbc1c" prefix=" " category="inline-code"></block>需要為每個新資源建立對應的檔案。如<block ref="46924488f50abe82484adb9bfcdcde3b" category="inline-link-macro-rx"></block>需詳細資訊、請參閱一節。</block>
   <block id="a9e2fb24cfaef729e583ffb43f910760" category="paragraph">如果某個節點發生硬體或其他故障、HA叢集應自動回應並將其服務移至正常節點、讓系統管理員有時間採取修正行動。在繼續之前、<block ref="9f376b3ee66d4a4a484e850809b96601" category="inline-link-macro-rx"></block>請先參閱一節、以判斷容錯移轉的原因、並解決任何未解決的問題。節點重新開機且正常運作後、您就可以繼續進行容錯回復。</block>
@@ -1797,12 +1768,6 @@
   <block id="9a0ca14324a0c9493b33cc5efdcf3460" category="paragraph"><block ref="9a0ca14324a0c9493b33cc5efdcf3460" category="inline-image-macro-rx" type="image"></block></block>
   <block id="362973e7a4fa534a7db69e8dfa0877a8" category="inline-image-macro">兩個 BeeGFS 中繼資料和儲存建置區塊 MDTest 結果</block>
   <block id="070cfbe37786e49518755132f73ded2c" category="paragraph"><block ref="070cfbe37786e49518755132f73ded2c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="e40e4e443af5090e1039aebba0a6cd24" category="paragraph">BeeGFS 檔案節點</block>
-  <block id="05323ece1df24d4488db57fd326597c0" category="cell">E-Series 區塊節點（ EF600 陣列）</block>
-  <block id="06fc3bd2748fbbf8f16ce893ede22214" category="paragraph">* 記憶體： * 256GB （每個控制器 128GB ）。* 介面卡： * 2 埠 200GB/HDR （ NVMe / IB ）。* 磁碟機： * 設定為符合所需的中繼資料和儲存容量。</block>
-  <block id="1e3cea12222d4b63badbe998ef00b55d" category="cell">InfiniBand 主機卡介面卡（適用於檔案節點）。</block>
-  <block id="0594ef398f6882c7d1d98994e3906850" category="paragraph">* 從區塊節點直接連線至檔案節點。 *</block>
-  <block id="b38917fef1efbb1471841f7a026c98c3" category="paragraph">* 從檔案節點到儲存網路交換器的連線。 *根據您的 InfiniBand 儲存交換器、從下表中選取適當的纜線選項。+ 建議的纜線長度為 2 公尺；不過、這可能會因客戶的環境而異。</block>
   <block id="a00d274d551f6b74718d44ea2bb6e6c3" category="sidebar">更新 HA 叢集元件</block>
   <block id="67f62a9c37bde591abc850b5a2b22b02" category="list-text">建立叢集密碼的子目錄，並使用 Ansible Vault 加密檔案以保護檔案安全（請參閱<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>）：</block>
   <block id="8e7f7bdc10cb596910cce6b79c2e2ed6" category="list-text">創建子目錄<block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>。</block>
@@ -1894,7 +1859,6 @@
   <block id="53fff94cbca4161cd31d168451033f2e" category="cell">MFP7E20-Nxxx （多重模式， 4 通道對兩條 2 通道分離器光纖纜線）</block>
   <block id="804e83e6974e7f6076f940326b985a83" category="cell">MMA1Z00-NS400 （多重模式， IB/ETH ， 400GB / 秒單埠 QSFP-112 ）</block>
   <block id="b2f1f9abf8117b3cde0475d1adf7a64f" category="cell">MCP7Y40-N002 （ NVIDIA 被動銅線分離器纜線， InfiniBand 800Gb/s 至 4x 200Gb/s ， OSFP 至 4x QSFP112 ）</block>
-  <block id="6c3a5f2fbe0e1eb20af96ccd813c89b0" category="cell">N6000-890834-D02.dp</block>
   <block id="088914339db9effda3ac57ec2e9439b6" category="cell">圍欄代理（紅魚 / APC ）</block>
   <block id="f8b6aa2ae96c25a05a0cc6e26a9236d7" category="sidebar">升級 Pacemaker 和電暈器同步套件</block>
   <block id="5a2c09ccb6952069726dcfb2e92a5573" category="paragraph">用於執行 Ansible CLI 的實體或虛擬機器。</block>
@@ -1925,12 +1889,7 @@
   <block id="e1024b07dc0ac4ec1b8c15255d2b7975" category="list-text">將所有 HCA 韌體更新至使用<block ref="d69ec72bf0ba3250c61993db3810f97e" category="inline-link-macro-rx"></block>指南中建議的版本<block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>。</block>
   <block id="848b1c364446f81000a150ab3996f166" category="paragraph">有關配置端口的說明，請轉至<block ref="98ec84f5a45223dfc7ed1f4ec5ef436f" category="inline-link-rx"></block>。</block>
   <block id="4e667bcd22eef3e9620c534781a563ea" category="paragraph">設定名稱可讓您更容易在後續章節中參考每個系統。有關設置陣列名稱的說明，請轉至<block ref="2617f8aa7c55cffc3912e0de8d2af7d2" category="inline-link-rx"></block>。</block>
-  <block id="3c5c0f41bab0c547cd353ca56b505d33" category="section-title">軟體與韌體需求</block>
-  <block id="d72c6977d4f8f0d9276e0483c1e643ab" category="paragraph">為了確保可預測的效能和可靠性， NetApp 解決方案上的 BeeGFS 版本會使用特定版本的軟體和韌體元件進行測試。實作解決方案需要這些版本。</block>
-  <block id="6b5b0d6dfb6af2b4c98938bb01cbeea1" category="cell">10.x</block>
   <block id="f82f58377452476d1d96442db364a64d" category="cell">Ansible 核心</block>
-  <block id="f850f5faa66f6a7ca2ac7f33f7eba944" category="cell">&gt;= 2.13.0</block>
-  <block id="bd03200a597eed96961a6907dc36cfbd" category="cell">3.10</block>
   <block id="48858ce4570016a1f8e1d1a8b871d328" category="admonition">下次執行 Ansible 劇本時，此設定將被覆蓋。</block>
   <block id="49b54ab3b1445f79ca94c7085cad41ef" category="list-text">重新啟動<block ref="00e28a828e75d362a33f4cdabec833b1" prefix=" " category="inline-code"></block> 。</block>
   <block id="08386a651a8ef93e4bc0df7cf35d9b70" category="list-text">驗證 E 系列儲存陣列的磁碟區是否存在。</block>
@@ -1951,21 +1910,10 @@
   <block id="fc891ddcf642031b14500d5761030e91" category="list-text">安裝 Red Hat Enterprise Linux (RHEL) 9.4 並設定用於管理作業系統的主機名稱和網路端口，包括來自 Ansible 控制節點的 SSH 連線。</block>
   <block id="a0db142b527f78501de6b4acdba9d576" category="list-text">使用 Red Hat Subscription Manager 註冊並訂閱系統，以允許從官方 Red Hat 儲存庫安裝所需的軟體包，並將更新限制在支援的 Red Hat 版本上： <block ref="cb1f5d026a59f18bc71d16899248bf06" prefix=" " category="inline-code"></block> 。有關說明，請參閱<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> 和 <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
   <block id="7efcb442cda3c6a9d2e39278301df6f2" category="paragraph">系統設定會因您用來做為檔案節點的伺服器機型而有所不同。這些設定必須根據使用中的伺服器機型手動設定。若要了解如何配置已驗證的 Lenovo SR665 V3 檔案節點的系統設置，請參閱<block ref="891cfd1f8dbb99c09432be0144a5be81" category="inline-link-macro-rx"></block> 。</block>
-  <block id="8e22d5f83cc5d97bd5e5cfcebeca5f15" category="paragraph">主機卡適配器可能會根據檔案節點的伺服器型號而有所不同。驗證檔案節點的建議包括：</block>
-  <block id="eb13ea1edb52f2f7cdf4b15544892c06" category="cell">Red Hat Enterprise Linux（RHEL）</block>
-  <block id="33b7125f0da71f5f4c0d1adb2490c32d" category="cell">RHEL 9.4 高可用性實體伺服器（雙插槽）。*附註：*檔案節點需要有效的 Red Hat Enterprise Linux Server 訂閱和 Red Hat Enterprise Linux 高可用性附加元件。</block>
-  <block id="6e2ccf2574232a4db553354b8bf2b912" category="cell">5.14.0-427.42.1.el9_4.x86_64</block>
-  <block id="564eb0bfa4895a5fed3372708aea6e59" category="paragraph">* ConnectX-6 HCA 韌體 * 韌體： 20.43.2566 + PXE ： 3.7.0500 + UEFI ： 14.37.0013</block>
-  <block id="7670b29ec4dc7aed23b236d72df9dc4e" category="cell">最新版本適用於使用中的磁碟機機型。請參閱<block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>。</block>
   <block id="90a84b80b2ae4bb2a14bb18a1c790012" category="cell">7.4.6</block>
   <block id="06ee37e4e06f2a68feca0b0922e9af9e" category="cell">3.1.8-1</block>
   <block id="3bbfa6ddcf5f2fb724a35ef7dc4b370a" category="cell">2.1.7-5.2</block>
-  <block id="ffa9c6553bd093c43628899a2b5008b0" category="cell">件</block>
-  <block id="23df4986c6f31aaed7db4752a96b620b" category="cell">0.11.7-2</block>
   <block id="ddf60efdd8bc8468bc0a5502f1b51c47" category="cell">4.10.0-62</block>
-  <block id="c83be155e8adea701991eeba59a9d048" category="cell">MLNX_OFED_LINUX-23.10-3.2.2.1-LTS</block>
-  <block id="7cd5ec19f90bf866b287afecf9a8cce0" category="paragraph">*ConnectX-7 HCA 韌體* FW：28.45.1200 + PXE：3.7.0500 + UEFI：14.38.0016</block>
-  <block id="f86fe0da10c1b039adc0c656c6fe10a1" category="cell">11.90R3</block>
   <block id="62c1c24659da4c1307a1aec4e9fa9dd7" category="summary">BeeGFS CSI 驅動程式的部署說明。</block>
   <block id="affb21f82a5248780841be74507689d4" category="doc">BeeGFS CSI 驅動程式的部署</block>
   <block id="bd415b54a1a35e3fb2eec195775a2f4f" category="paragraph">在 Kubernetes 環境中部署 BeeGFS CSI 驅動程式的說明。</block>
@@ -2121,72 +2069,27 @@
   <block id="ea355214fd4bc7c57f471bd92918879b" category="sidebar">部署</block>
   <block id="52b8ffce119fe77b28034f2fdd35eb5f" category="sidebar">確認</block>
   <block id="231cf4c70d866b616c21baddaeed0696" category="sidebar">故障排除</block>
-  <block id="720bac136ee5fe87e8258350874bf889" category="summary">從 BeeGFS v7.4.6 更新到 BeeGFS v8。</block>
-  <block id="255484f83e6b352461aab996293af037" category="doc">升級至 BeeGFS v8</block>
-  <block id="e9d543718892f9e943f9b0ec1e0b26dd" category="paragraph">請依照以下步驟將您的 BeeGFS HA 叢集從版本 7.4.6 升級到 BeeGFS v8。</block>
-  <block id="56eaaf7e94c66b6b87b9a706020a46fc" category="paragraph">BeeGFS v8 引入了多項重大變更，從 BeeGFS v7 升級之前需要額外的設定。本文檔將指導您如何為 BeeGFS v8 的新要求準備叢集，然後升級到 BeeGFS v8。</block>
-  <block id="a356d762be0fd360b305904483df7926" category="inline-link-macro">升級至 7.4.6 版本</block>
-  <block id="0060d53c43069b79f60e877c28653e93" category="admonition">在升級到 BeeGFS v8 之前，請確保您的系統至少運行 BeeGFS 7.4.6。任何執行 BeeGFS 7.4.6 之前版本的叢集都必須先<block ref="b76ae852ce0983e72cb97bd11b461ddd" category="inline-link-macro-rx"></block>，然後再繼續執行此 BeeGFS v8 升級程序。</block>
-  <block id="2fb9aed2a7234a39d149a09c6958b5b2" category="section-title">BeeGFS v8 的主要變化</block>
-  <block id="76854d554aa050f31068bc61d41a84a8" category="paragraph">BeeGFS v8 引入了以下主要變化：</block>
   <block id="7aa24acc38e7f72925e21c2a645ddcc2" category="inline-link-macro">BeeGFS 授權入口網站</block>
-  <block id="0fb13041d480c6bcf0851c0147562634" category="list-text">**授權強制執行：** BeeGFS v8 需要授權才能使用進階功能，例如儲存池、遠端儲存目標、BeeOND 等。在升級之前，請為您的 BeeGFS 叢集取得有效的授權。如有需要，您可以從 <block ref="45463b3c38760d5d45ce59919bf1b841" category="inline-link-macro-rx"></block> 取得臨時 BeeGFS v8 評估授權。</block>
-  <block id="61f3294d545224292f24d20e5784b1b8" category="list-text">**管理服務資料庫遷移：** 若要啟用 BeeGFS v8 中基於 TOML 的新格式的配置，您必須手動將 BeeGFS v7 管理服務資料庫遷移到更新的 BeeGFS v8 格式。</block>
-  <block id="ae3515b57277c8fe0f00cea1adda0d4d" category="list-text">**TLS 加密：** BeeGFS v8 引入了 TLS 加密，用於服務間的安全通訊。升級過程中，您需要為 BeeGFS 管理服務和 <block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block> 命令列公用程式產生並分發 TLS 憑證。</block>
-  <block id="0c9877c90f0d9079a4d989e2e4566397" category="inline-link-macro">BeeGFS v8.0.0 升級指南</block>
-  <block id="0344b455523b3a852f61e590039ac8f4" category="paragraph">有關 BeeGFS 8 的更多詳細資訊和其他更改，請參閱 <block ref="12fcc9d746625edc76d466d9accca102" category="inline-link-macro-rx"></block>。</block>
-  <block id="193037230a4888af56b46ce1e6f2c26a" category="paragraph">升級到 BeeGFS v8 需要叢集停機維護。此外，BeeGFS v7 用戶端無法連線到 BeeGFS v8 叢集。請仔細協調叢集和用戶端的升級時間，以最大程度地減少對運作的影響。</block>
   <block id="123c241e1aed4b253defe16fb1bc8d13" category="section-title">準備好 BeeGFS 叢集以進行升級</block>
   <block id="b24218c9c302301fecde7134486fbc07" category="paragraph">在開始升級之前，請仔細準備您的環境，以確保平穩過渡並最大限度地減少停機時間。</block>
   <block id="9fd91481b38272f5b26649ad0cf8a76b" category="list-text">確保叢集處於健康狀態,所有 BeeGFS 服務都在其首選節點上運行。從執行 BeeGFS 服務的檔案節點,驗證所有 Pacemaker 資源是否都在其首選節點上執行:</block>
-  <block id="c4f85ea7f20d79515f9ac7f21bf86dae" category="list-text">記錄並備份您的叢集組態。</block>
-  <block id="04b2ead37075b79030dc1155347d4308" category="inline-link-macro">BeeGFS 備份文檔</block>
-  <block id="c20c9d8c0ab82be10b7d6e1990c6b250" category="list-text">請參閱 <block ref="40fce5bd2b72a748d9d52a6e6616bc38" category="inline-link-macro-rx"></block> 以取得備份叢集組態的相關說明。</block>
-  <block id="6308b60ed0c6b505ccdfdbb7163957ab" category="list-text">備份現有管理資料目錄：</block>
-  <block id="fc4859fea776a05e57ac1eb61fdf28fc" category="list-text">從 beegfs 用戶端執行以下命令，並儲存其輸出以供參考：</block>
-  <block id="0ad9f882415b7d38e0f0e8b48b7c3f3f" category="list-text">如果使用鏡像，請收集詳細的狀態資訊：</block>
-  <block id="d43c35dc5b6adda146324cc71f0c9db3" category="list-text">讓客戶做好服務中斷的準備並停止<block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block>服務。對每個客戶執行：</block>
-  <block id="eccb96f67f72fcd43d30cdce198bd874" category="list-text">對於每個 Pacemaker 叢集，停用 STONITH。這樣可以在升級後驗證叢集的完整性，而不會觸發不必要的節點重新啟動。</block>
-  <block id="f66bef6d792fa5f9b2aee434ba3064d2" category="list-text">對於 BeeGFS 命名空間中的所有 Pacemaker 叢集，請使用 PCS 停止叢集：</block>
-  <block id="e3c30ceb207010fe07a97763b954522a" category="section-title">升級 BeeGFS 套件</block>
   <block id="f25f967cb4e420dcfa1a8c13c8c44083" category="inline-link-macro">BeeGFS 下載頁面</block>
-  <block id="21a87c1ae9c445f37c63ae4efbcf34cd" category="paragraph">在叢集中的所有檔案節點上，新增適用於您 Linux 發行版的 BeeGFS v8 軟體包倉庫。有關使用官方 BeeGFS 倉庫的說明，請造訪 <block ref="8e84e2db8ba21bb6829cde407c9405a0" category="inline-link-macro-rx"></block>。或者，請相應地配置您的本地 BeeGFS 鏡像倉庫。</block>
-  <block id="1bf865e6e0e73c3367cf143dcd9302cb" category="paragraph">以下步驟示範如何在 RHEL 9 檔案節點上使用官方 BeeGFS 8.2 儲存庫。請在叢集中的所有檔案節點上執行下列步驟：</block>
-  <block id="cf403b9b34d74b4641e47669b5f5d1c4" category="list-text">匯入 BeeGFS GPG 金鑰：</block>
-  <block id="8316925af8bab1614333a81520c1dd23" category="list-text">匯入 BeeGFS 儲存庫：</block>
-  <block id="c4bb0b2009d20e23efdcc9e5a4ad8646" category="paragraph">刪除先前配置的所有 BeeGFS 儲存庫，以避免與新的 BeeGFS v8 儲存庫發生衝突。</block>
-  <block id="bc87d0eec71d40385410e9ab1190255d" category="list-text">清除套件管理器快取：</block>
-  <block id="489af5ddd3507c44ba6eafcec2580475" category="list-text">在所有檔案節點上，將 BeeGFS 套件更新至 BeeGFS 8.2。</block>
-  <block id="f61d3e6e81cf34ad788fa14a2e7193da" category="paragraph">在標準叢集中，<block ref="973c8e6117483c73f2930aa71593d20e" prefix=" " category="inline-code"></block> 軟體包只會更新前兩個檔案節點。</block>
   <block id="f43cac02da4e3b2af3270e6d8ccfaeec" category="section-title">升級管理資料庫</block>
-  <block id="3d91e54c4f115edfb28c67283863962b" category="paragraph">在執行 BeeGFS 管理服務的檔案節點之一上，執行下列步驟將管理資料庫從 BeeGFS v7 遷移到 v8。</block>
-  <block id="596b726e82df1bc90236c98468274cf5" category="list-text">列出所有 NVMe 裝置並篩選管理目標：</block>
-  <block id="29cd4568a3c842134f8c9de90c8ae282" category="list-text">請注意輸出中的裝置路徑。</block>
   <block id="b7f4c9a8e0f59df867027f931cb8a370" category="list-text">將管理目標裝置掛載到現有的管理目標掛載點（將 <block ref="bfa5022fa2a135155356c86af66dcec1" prefix=" " category="inline-code"></block> 替換為您的裝置路徑）：</block>
   <block id="4dd4665d38ff7543df522205725e8092" category="list-text">執行以下命令，將您的 BeeGFS 7 管理資料匯入新的資料庫格式：</block>
   <block id="d15e02bf0c54e008af2e8212aa7c7d4f" category="paragraph">預期輸出：</block>
-  <block id="2786413795c911d46dba56f322a5e6ce" category="paragraph">由於 BeeGFS v8 中更嚴格的驗證要求，自動導入可能無法在所有情況下成功。例如，如果目標被指派到不存在的儲存池，則導入將失敗。若遷移失敗，請勿繼續升級。請聯絡 NetApp 支援以取得資料庫遷移問題的協助。作為臨時解決方案，您可以降級 BeeGFS v8 軟體包，並在問題解決期間繼續運行 BeeGFS v7。</block>
   <block id="5ac1acae53013849794bb1c2ea31d0df" category="list-text">將產生的 SQLite 檔案移到管理服務掛載點：</block>
   <block id="674d3e01b788f36f1bbd61782d03f44f" category="list-text">將產生的<block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block>移至管理服務掛載點：</block>
-  <block id="127878bd1bf3c9908d96669e49751f73" category="paragraph">準備<block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block>設定檔將在完成下一節中的授權和 TLS 設定步驟之後進行。</block>
   <block id="accb4b9a5edced3379ca15730edf8658" category="section-title">設定授權</block>
-  <block id="673dca42c0c1e8d361f54553accc026b" category="list-text">在所有執行 beegfs 管理服務的節點上安裝 beegfs 授權套件。通常情況下，這是叢集的前兩個節點：</block>
-  <block id="50a2a878befa19d7880da026b6926523" category="list-text">將您的 BeeGFS v8 授權檔案下載到管理節點並放置在：</block>
   <block id="cc274b40044167bc2c2fb90468ab9a1c" category="section-title">設定 TLS 加密</block>
-  <block id="131e7dfcb171b5922ee5475e43a765f5" category="paragraph">BeeGFS v8 要求管理服務和用戶端之間使用 TLS 加密以確保通訊安全。配置管理服務和用戶端服務之間網路通訊的 TLS 加密有三種方法。推薦且最安全的方法是使用受信任的憑證授權單位（CA）簽署的憑證。或者，您可以建立自己的本機 CA 來為 BeeGFS 叢集簽署憑證。對於不需要加密的環境或故障排除，可以完全停用 TLS，但不建議這樣做，因為它會將敏感資訊暴露在網路中。</block>
   <block id="c2f552ec417373dd1a03d2614f6d8b1f" category="inline-link-macro">為 BeeGFS 8 設定 TLS 加密</block>
-  <block id="feff32ab4e011bc4f21c8c85082a986a" category="paragraph">在繼續操作之前，請按照 <block ref="e3c7ea953a175f52b03d1d2c1e8cb9ae" category="inline-link-macro-rx"></block> 指南中的說明為您的環境設定 TLS 加密。</block>
   <block id="31495a019abcd4b64758fd124e775743" category="section-title">更新管理服務配置</block>
-  <block id="a91413ba5a90016a17313e720ff2d787" category="paragraph">將設定從 BeeGFS v7 設定檔手動轉移到<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>檔案中，以準備 BeeGFS v8 管理服務設定檔。</block>
-  <block id="81285c64189efa321022b98f01702e3b" category="list-text">在已掛載管理目標的管理節點上，引用 <block ref="eaa3ac0f6fad8fb99f543716d1ae91f4" prefix=" " category="inline-code"></block> BeeGFS 7 的管理服務文件，然後將所有設定複製到該 <block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block> 文件中。對於基本設置，您的 <block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block> 配置可能如下所示：</block>
   <block id="d64fe64bd4c112966dc3694117efadd9" category="paragraph">根據您的環境和 TLS 配置調整所有路徑。</block>
   <block id="287433f8c4fab6dd5bc60fad2f460a15" category="list-text">在每個執行管理服務的檔案節點上，修改 systemd 服務檔案，使其指向新的組態檔位置。</block>
   <block id="760227a7004e496325b2f514c87bac85" category="list-text">重新載入 systemd：</block>
   <block id="646e4bd8a5a1e652f70a596665ff0bb6" category="list-text">對於執行管理服務的每個檔案節點，開啟連接埠 8010 以進行管理服務的 gRPC 通訊。</block>
-  <block id="41f3c09bab0f85c94d11644c293642a3" category="list-text">將連接埠 8010/tcp 新增至 beegfs 區域：</block>
   <block id="ec2670f7d6113bbfe60f842eeab5c05f" category="list-text">重新載入防火牆以套用變更：</block>
   <block id="64bb116e2e1b9499ef38ffc848a01cf0" category="section-title">更新 BeeGFS 監控腳本</block>
-  <block id="d455873557f60c6cf58e02cd25da85af" category="paragraph">Pacemaker<block ref="2aa0098b2c775ff5e1bd67c26714b0dd" prefix=" " category="inline-code"></block> OCF 腳本需要更新以支援新的 TOML 設定格式和 systemd 服務管理。請在叢集中的一個節點上更新腳本，然後將更新後的腳本複製到所有其他節點。</block>
   <block id="ac00f8115d590b3190d3952574454348" category="list-text">建立目前腳本的備份：</block>
   <block id="cb7f1e2621a8924bc83c17974a2fe605" category="list-text">將管理設定檔路徑從<block ref="a2b11a8323f2bacebd54851aea409219" prefix=" " category="inline-code"></block>更新為<block ref="86431a16259f2b9f3e0c7768bba1815e" prefix=" " category="inline-code"></block>：</block>
   <block id="738b30b0ea984e1171e42cc34529c94a" category="paragraph">或者，手動在腳本中找到以下程式碼區塊：</block>
@@ -2197,39 +2100,22 @@
   <block id="1582f7bd6a974d5b9680a0fc3528a717" category="list-text">刪除這兩個完整函數，從 <block ref="ff1fb61ee10ea25a52900ed05c17849f" prefix=" " category="inline-code"></block> 開始到 <block ref="636aed53699178358bbb8d148298dcb8" prefix=" " category="inline-code"></block> 結尾。</block>
   <block id="41a24f00bb79b71db9b44b2efc455643" category="list-text">請將以下更新的函數複製並貼上到對應位置：</block>
   <block id="80bba508098aacc750ddaa8172a65343" category="list-text">儲存並退出文字編輯器。</block>
-  <block id="d8aa91bc96dc8186d9a6d75f337a2afc" category="list-text">執行以下命令以在繼續之前檢查腳本的語法錯誤。沒有輸出表示腳本語法正確。</block>
-  <block id="2fbb5e6ece83043935263a0d8b2686ad" category="list-text">將更新後的 <block ref="2aa0098b2c775ff5e1bd67c26714b0dd" prefix=" " category="inline-code"></block> OCF 腳本複製到叢集中的所有其他節點，以確保一致性：</block>
   <block id="273e9623e44e84dba0a057ef5ea26468" category="section-title">使叢集恢復上線</block>
-  <block id="e16aadf99e427f29bd70c469ce4f4888" category="list-text">完成之前的所有升級步驟後，透過在所有節點上啟動 BeeGFS 服務，使叢集重新上線。</block>
   <block id="d72f640684af03f7ffab3c61a2c12e4a" category="list-text">驗證 <block ref="973c8e6117483c73f2930aa71593d20e" prefix=" " category="inline-code"></block> 服務是否成功啟動：</block>
   <block id="be9cee3096dadc2de039a245f83d09b6" category="paragraph">預期輸出包含如下行：</block>
-  <block id="53f6f7d21d71044bd2a6b988acf192a4" category="paragraph">如果日誌中出現錯誤，請檢查管理設定檔路徑，並確保所有值已從 BeeGFS 7 設定檔正確傳輸。</block>
   <block id="e00e840efc23d41d6ef10d9a2b7eda68" category="list-text">執行 <block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 並驗證叢集是否運作正常，以及各項服務是否已在首選節點上啟動。</block>
   <block id="93e1fb6324daa48368310bc44c4bdb40" category="list-text">確認叢集運作狀況正常後，重新啟用 STONITH：</block>
-  <block id="9d61344b9327fac9664d92d10ec0e2ed" category="list-text">接下來進入下一節，升級叢集中的 BeeGFS 用戶端，並檢查 BeeGFS 叢集的運作狀況。</block>
   <block id="a32dbb23626ff6e462a56006c1c24e69" category="section-title">升級 BeeGFS 用戶端</block>
-  <block id="9d78f8c4b2d3fbdb574d3b9ee5760b8a" category="paragraph">成功將叢集升級至 BeeGFS v8 後，您還必須升級所有 BeeGFS 用戶端。</block>
-  <block id="c04a695b8ad5bd22a3885bbf63315acb" category="paragraph">以下步驟概述了在基於 Ubuntu 的系統上升級 BeeGFS 用戶端的過程。</block>
-  <block id="54f2b22e4c99c0380f12fd41fb0d32ab" category="list-text">如果尚未停止，請停止 BeeGFS 用戶端服務：</block>
-  <block id="0ff7f525a25c19f71e75f4fe013e6803" category="inline-link-macro">^BeeGFS 下載頁面</block>
-  <block id="f64e8e78e5b1233ad13f02d61407dad4" category="list-text">為您的 Linux 發行版新增 BeeGFS v8 軟體包倉庫。有關使用官方 BeeGFS 倉庫的說明，請造訪<block ref="7f199dac39af63df53ff837e50409d64" category="inline-link-macro-rx"></block>。或者，請相應地配置您的本地 BeeGFS 鏡像倉庫。</block>
-  <block id="760a15dae0d80dcb7a99cb5d5a1e6273" category="paragraph">以下步驟在基於 Ubuntu 的系統上使用官方 BeeGFS 8.2 軟體倉庫：</block>
-  <block id="f0505292a1882adade77b3183f3cd65f" category="list-text">下載儲存庫檔案：</block>
   <block id="9c836ceb608a4bcb8873f8f3d258baa9" category="list-text">升級 BeeGFS 用戶端套件：</block>
-  <block id="b50b5520bd361f399321c6f8d9150d1d" category="list-text">為客戶端配置 TLS。使用 BeeGFS CLI 需要 TLS。請參考 <block ref="8bc1b693654da46b4eca0c41a6289247" category="inline-link-macro-rx"></block> 步驟在客戶端設定 TLS。</block>
   <block id="10aac1aa74c5ccff3f536bca41b37a72" category="list-text">啟動 BeeGFS 用戶端服務：</block>
   <block id="814374feea0e9220b1cc03515aff046f" category="section-title">驗證升級</block>
-  <block id="0764a11d9a8006e930e299cd1f32908b" category="paragraph">完成升級至 BeeGFS v8 後，執行以下命令以驗證升級是否成功。</block>
   <block id="8c1b5d38a2fdb9976b52271dd7bafcfb" category="list-text">驗證根 inode 是否仍由先前的相同元資料節點擁有。如果您使用了管理服務中的 <block ref="053892c553ba90a8f8e6f6c5c5fa6bda" prefix=" " category="inline-code"></block> 功能，則此過程應該會自動完成：</block>
-  <block id="525503125442ab6ea3c885ff56ded67f" category="list-text">確認所有節點和目標均在線上且狀態良好：</block>
   <block id="57f7fb5574ece7538f5300530b750eba" category="paragraph">如果「可用容量」檢查警告目標可用空間不足，您可以調整 <block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block> 檔案中定義的「容量池」閾值，使其更適合您的環境。</block>
   <block id="154e9d0e8841f77bbfae34e380ea800e" category="doc">升級 BeeGFS 服務</block>
   <block id="01fc91c8305e212c539f48bdf3273343" category="paragraph">使用 Ansible 更新 HA 叢集上執行的 BeeGFS 版本。</block>
   <block id="8a90adccef7e4be8404c3ce2b6a81f2e" category="paragraph">所有 BeeGFS 升級，包括 BeeGFS 主版本、次版本和補丁版本之間的遷移，都應該使用 Ansible。要更新 BeeGFS，您首先需要更新 BeeGFS Ansible 集合，這也會引入部署/管理自動化和底層高可用性叢集的最新修復和增強功能。即使更新到最新版本的集合，在執行<block ref="6afa1ad605a4192ba2e50e8be9966e68" prefix=" " category="inline-code"></block>並設定<block ref="1c5a0082b7b70fba66dc89c5dcadda70" prefix=" " category="inline-code"></block>之前，BeeGFS 不會升級。有關每次升級的更多詳細資訊，請參閱<block ref="8574fc3a2a061b998ddd0369208f121a" category="inline-link-macro-rx"></block>您當前版本的文件。</block>
-  <block id="d98fd4c1aba10a753c44be5f3d61c861" category="admonition">如果您要升級到 BeeGFS v8，請參閱 <block ref="a7db7e2d74c4b50caf08bcd6139f45fb" category="inline-link-macro-rx"></block> 相關步驟。</block>
   <block id="df5b59dd5d3368fecd78324de057e2d1" category="paragraph">以下升級路徑已通過測試和驗證：</block>
   <block id="585375c1448bfa3494298bdd79408081" category="cell">8.0</block>
-  <block id="09afc55dc9f238ad88da176b5d6a4311" category="cell">請按照 <block ref="a7db7e2d74c4b50caf08bcd6139f45fb" category="inline-link-macro-rx"></block> 操作步驟中的說明進行升級。</block>
   <block id="d6422a625045167156b3c0d85ca23ebf" category="cell">8.1</block>
   <block id="2a568439f8e6ff92daa9925ce8a03adf" category="cell">8.2</block>
   <block id="596d14e0a94e096fde31c3366ba09817" category="paragraph">對叢集的 Ansible 清單檔案進行任何必要或所需的更新。有關具體升級要求的詳細資訊，請參閱以下 <block ref="0be8127854ff2098fdbb2033e853b823" category="inline-xref-macro-rx"></block> 部分。有關配置 BeeGFS HA 清單的一般資訊，請參閱 <block ref="f7bda10e421919e9d8ced89dacaba34f" category="inline-link-macro-rx"></block> 部分。</block>
@@ -2244,30 +2130,13 @@
   <block id="95712f9054006b049af0552764f21b2c" category="admonition">如果您未使用 <block ref="84f7933b4ff9fefcfc60fd5fff4b3b54" prefix=" " category="inline-code"></block> 角色設定用戶端，則必須手動將身份驗證檔案分發給每個用戶端，並在 <block ref="1b33ed41c854e3144951352c24ab4653" prefix=" " category="inline-code"></block> 檔案中設定 <block ref="6097b6e95af2579f2147a330c21f7b59" prefix=" " category="inline-code"></block> 設定。從不支援基於連線的身份驗證的 BeeGFS 版本升級時，除非您在升級過程中透過在 <block ref="4003590e6e5408f8e5272e50f909dfac" prefix=" " category="inline-code"></block> 中設定 <block ref="2ff6bdfeb6b3a41d28029b9ff7bdb93c" prefix=" " category="inline-code"></block> 來停用基於連線的身份驗證（不建議這樣做），否則用戶端將失去存取權限。</block>
   <block id="d8d8fb7a9efc68485c1ad2cda7b256df" category="paragraph">如需更多詳細資訊和替代設定選項，請參閱 <block ref="dc7fd2b3ea1b2b4a060b953a1b281371" category="inline-link-macro-rx"></block> 部分中的連線驗證設定步驟。</block>
   <block id="5e830405a8a4b99931749f47bce6b884" category="summary">配置 TLS 加密，以確保 BeeGFS 服務與客戶端之間的安全通訊。</block>
-  <block id="7e9af7bb9a905e218e0b4c18e6f4bba3" category="doc">為 BeeGFS v8 配置 TLS 加密</block>
-  <block id="0b080bc1eddf74111ec1399e1da75a61" category="paragraph">配置 TLS 加密以保護 BeeGFS v8 管理服務和用戶端之間的通訊。</block>
-  <block id="f7c03076ecc1b9d63be8a044cea808b6" category="paragraph">BeeGFS v8 引入了 TLS 支援，用於加密管理工具（例如 <block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block> 命令列實用程式）與 BeeGFS 伺服器服務（例如 Management 或 Remote）之間的網路通訊。本指南介紹如何使用三種 TLS 設定方法在 BeeGFS 叢集中設定 TLS 加密：</block>
-  <block id="0983a151653aa2ddcf26a1193b213e5e" category="list-text">**使用受信任的憑證授權單位：**在您的 BeeGFS 叢集上使用現有的 CA 簽署憑證。</block>
-  <block id="a26c922e2bbf8053362c1f6d2b697eb0" category="list-text">**建立本地憑證授權單位：** 建立本地憑證授權單位並使用它來簽署 BeeGFS 服務的憑證。這種方法適用於您希望管理自己的信任鏈而不依賴外部 CA 的環境。</block>
-  <block id="96dbe913665e5975ca1331a5139eddfc" category="list-text">**TLS 已停用：** 在不需要加密的環境或進行故障排除時，可以完全停用 TLS。不建議這樣做，因為它會將內部檔案系統結構和配置等潛在敏感資訊以明文形式暴露出來。</block>
   <block id="cf6b910ca739d55b95e514c4bc34bf30" category="inline-link-macro">BeeGFS TLS</block>
   <block id="13fe86fc8186dca1068e89bfe1e1787e" category="paragraph">選擇最適合您環境和組織政策的方法。請參閱 <block ref="48ecd83e15b4ebe67cc1ae0ffc0d7d9a" category="inline-link-macro-rx"></block> 文件以獲取更多詳細資訊。</block>
-  <block id="222d9cfd1fb6407d8b79705cdfd1323b" category="paragraph">運行<block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block>服務的機器無需 TLS 即可掛載 BeeGFS 檔案系統。必須設定 TLS 才能使用 BeeGFS CLI 和其他 beegfs 服務，例如 remote 和 sync。</block>
   <block id="3c7e30930d5d380b05de397eaf8d2414" category="section-title">使用受信任的憑證授權單位</block>
-  <block id="6d40e36ff6b83793db2e082cb19a5145" category="paragraph">如果您可以存取受信任的憑證授權單位 (CA) 所頒發的憑證（無論是來自企業內部 CA 還是第三方提供者），您可以設定 BeeGFS v8 使用這些 CA 簽署的憑證，而不是產生自簽名憑證。</block>
-  <block id="46898ba1e2ae09d92111277bc80b4fc9" category="section-title">部署新的 BeeGFS v8 叢集</block>
-  <block id="c7a4b0f78b3429d7391701776b295f1d" category="paragraph">對於新的 BeeGFS v8 叢集部署，請設定 Ansible 清單的 <block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block> 檔案以引用您的 CA 簽署憑證：</block>
   <block id="57f218bf1d9272c392ff8de89601aa7c" category="paragraph">如果<block ref="3fba26881c129c7a61c1355ee283e007" prefix=" " category="inline-code"></block>不為空，Ansible 會自動產生自簽名 TLS 憑證和金鑰，並使用提供的 alt_names 作為憑證中的主題備用名稱（SAN）。若要使用您自己的自訂 TLS 憑證和金鑰（如<block ref="8c63fee4ff0266eda34ba71cc0137dbb" prefix=" " category="inline-code"></block>和<block ref="cdc68b3e3f2fb7764759f777a63b2c58" prefix=" " category="inline-code"></block>所指定），您必須註解掉或刪除整個<block ref="d17aaec84437019fc2fc4d8542822c21" prefix=" " category="inline-code"></block>部分。否則，自簽名憑證的產生將優先，您的自訂憑證和金鑰將不會被使用。</block>
-  <block id="bc46d344cb17649a24c28a55096101ec" category="section-title">配置現有的 BeeGFS v8 叢集</block>
-  <block id="7221232e564dd67df3114fb900fc7473" category="paragraph">對於現有的 BeeGFS v8 集群，請將 BeeGFS 管理服務的設定檔中的路徑設定為檔案節點的 CA 簽章憑證：</block>
-  <block id="8c30ce25b82a79e3e34b56b48b2091b3" category="section-title">使用 CA 簽署憑證設定 BeeGFS v8 用戶端</block>
-  <block id="e0fb1f001c3b49be06450c70ccaa0531" category="paragraph">若要設定 BeeGFS v8 用戶端以信任使用系統憑證池的 CA 簽章證書，請在每個用戶端的設定中設定 tls-cert-file = ""。如果未使用系統憑證池，請透過設定 tls-cert-file = &lt;local cert&gt; 來提供本機憑證的路徑。此設定允許用戶端驗證 BeeGFS 管理服務提供的憑證。</block>
   <block id="c8ee2c6fdd4785c4e97bcd5d41f9a648" category="section-title">建立本地憑證授權單位</block>
-  <block id="58c0329017216fbff4d9ca37b5c1ac86" category="paragraph">如果您的組織希望為 BeeGFS 叢集建立自己的憑證基礎架構，您可以建立一個本機憑證授權單位（CA）來頒發和簽署 BeeGFS 叢集的憑證。此方法涉及建立一個 CA，該 CA 為 BeeGFS 管理服務簽署憑證，然後將這些憑證分發給客戶端以建立信任鏈。請依照下列說明設定本機 CA 並在現有或新的 BeeGFS v8 叢集上部署憑證。</block>
-  <block id="ca8128c267d1f68ccc95bf0b06eadea1" category="paragraph">對於新的 BeeGFS v8 部署，<block ref="ec892555a981d412f5bdffa7fba2b850" prefix=" " category="inline-code"></block> Ansible 角色將負責在控制節點上建立本機 CA，並為管理服務產生必要的憑證。可以透過在 Ansible 清單的<block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block>檔案中設定以下參數來啟用此功能：</block>
   <block id="2e070f2245424e2c92740fdea81fccb5" category="paragraph">如果未提供<block ref="3fba26881c129c7a61c1355ee283e007" prefix=" " category="inline-code"></block>，則 Ansible 將嘗試使用指定憑證/金鑰路徑中的現有憑證。</block>
   <block id="b1c3f1eef9e5337689500b8f6dd1a137" category="paragraph">對於現有的 BeeGFS 集群，您可以透過建立本機憑證授權單位並為管理服務產生必要的憑證來整合 TLS。更新 BeeGFS 管理服務設定檔中的路徑，使其指向新建立的憑證。</block>
-  <block id="054548cd00d0e25b7cf0d74b2262672a" category="paragraph">本節的說明僅供參考。處理私鑰和憑證時，應採取適當的安全預防措施。</block>
   <block id="5c1fb02f00efe137a3625f359ffb0696" category="section-title">建立憑證授權單位</block>
   <block id="620ea7c3489e9142406af99086204787" category="paragraph">在受信任的電腦上，建立一個本機憑證授權單位 (CA)，用於簽署 BeeGFS 管理服務的憑證。CA 憑證將分發給用戶端，以建立信任並實現與 BeeGFS 服務的安全通訊。</block>
   <block id="7541f8c8863f08c95773067864d52dd9" category="paragraph">以下說明是在基於 RHEL 的系統上建立本機憑證授權單位的參考。</block>
@@ -2275,14 +2144,12 @@
   <block id="e192af73f76222565af30fe3b9e294d3" category="list-text">建立用於儲存憑證檔案的工作目錄：</block>
   <block id="54fff92d24feb15755beaac9e2822488" category="list-text">產生 CA 私鑰：</block>
   <block id="404ee651d3818333d1eba62af4f325fa" category="list-text">建立一個名為<block ref="408a8c53c3c88f2197b1a8998e2ea742" prefix=" " category="inline-code"></block>的 CA 設定檔，並調整專有名稱欄位以符合您的組織：</block>
-  <block id="fd3d00f7fdab63a01ec90d0de5d79f31" category="list-text">產生 CA 憑證。此憑證的有效期限應與系統生命週期相同，否則您需要在憑證過期前規劃重新產生憑證。憑證過期後，某些元件之間的通訊將無法進行，更新 TLS 憑證通常需要重新啟動服務才能完成。</block>
   <block id="48eee0bfce30bf8015335f6def531efb" category="paragraph">以下指令產生有效期限為 1 年的 CA 憑證：</block>
   <block id="32566669ae66a44b6cc80a04d7168f54" category="admonition">雖然為了簡單起見，本範例使用了 1 年的有效期，但您應該根據貴組織的安全要求調整<block ref="4087869cd68f54510d4827e54488a4dc" prefix=" " category="inline-code"></block>參數，並建立憑證續約流程。</block>
   <block id="f4e3903d8bf4731fec22ce51123ad389" category="section-title">建立管理服務憑證</block>
   <block id="390143f21beb27194badab58238eb471" category="paragraph">為您的 BeeGFS 管理服務產生證書，並使用您建立的 CA 對其進行簽署。這些證書將安裝在執行 BeeGFS 管理服務的檔案節點上。</block>
   <block id="e46e12d5c75d7b2dfbff51cff876cdcc" category="list-text">產生管理服務私鑰：</block>
   <block id="9a640017cb4f5d6a79f4689650ba7bfa" category="list-text">建立一個名為 <block ref="76235dd3c42097e32f5c158ec7080f5b" prefix=" " category="inline-code"></block> 的憑證設定檔，其中包含所有管理服務 IP 位址的主體別名（SAN）：</block>
-  <block id="2d514407c5add21e2d757972ab6d2ed4" category="paragraph">更新專有名稱欄位以符合您的 CA 配置，並將<block ref="5cb62dfdaa16bd51f4f1b7a738a0f210" prefix=" " category="inline-code"></block>和<block ref="4eb2ee17c10e6b738537e69e439e9bf6" prefix=" " category="inline-code"></block>值更新為您的管理服務 IP 位址。</block>
   <block id="3b94b40b121cb65329db7bfd2370b11e" category="list-text">產生憑證簽章請求 (CSR)：</block>
   <block id="10a743991d2e5ff63353d0575b2d404e" category="list-text">使用您的 CA 簽署憑證（有效期為 1 年）：</block>
   <block id="b33c9f683103e39f04d0b38a1c011d9f" category="admonition">根據貴組織的安全策略調整證書有效期限 <block ref="ceb6ef24743816071de4a908ace84143" prefix="(" category="inline-code"></block>。許多組織要求每 1-2 年輪換一次證書。</block>
@@ -2294,18 +2161,152 @@
   <block id="e24baf1eae9e037ef707fe54ef7f821b" category="section-title">將管理服務指向 TLS 憑證</block>
   <block id="fe059abb6aa5084fa032d24415009679" category="paragraph">更新 BeeGFS 管理服務設定以啟用 TLS 並引用已建立的 TLS 憑證。</block>
   <block id="e0ad10deb7d112ce2d0fd225743c4a78" category="list-text">在執行 BeeGFS 管理服務的檔案節點上，編輯管理服務設定檔，例如位於<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>。新增或更新以下與 TLS 相關的參數：</block>
-  <block id="1d073d3a4e0489b82cade621b6f667b8" category="list-text">請採取適當措施，安全地重新啟動 BeeGFS 管理服務，以使變更生效：</block>
   <block id="daa0ecf1b3b5ad49a3db9e49064ef338" category="list-text">驗證管理服務是否已成功啟動：</block>
   <block id="14ac4331b033636a7b6591335549c611" category="paragraph">查看日誌條目，確認 TLS 初始化和憑證載入是否成功。</block>
-  <block id="8689a08f1beea73bd145fed7d7109beb" category="section-title">為 BeeGFS v8 用戶端設定 TLS</block>
-  <block id="7ad16729d3544a2421669dd740d85bac" category="paragraph">建立並向所有需要與 BeeGFS 管理服務通訊的 BeeGFS 用戶端分發由本機 CA 簽署的憑證。</block>
-  <block id="588299d2800c3308acbd2e9beb760d1d" category="list-text">使用與上述管理服務證書相同的流程為用戶端產生證書，但在 Subject Alternative Name (SAN) 欄位中使用用戶端的 IP 位址或主機名稱。</block>
-  <block id="7e149778506ad674e9167e6a9ede4c50" category="list-text">將客戶端憑證安全地遠端複製到客戶端，並在客戶端上將該憑證重新命名為 <block ref="691869bca85baab2f31b7f268617f791" prefix=" " category="inline-code"></block>：</block>
   <block id="9a8f498ef2f8533780a49bdb44bb0454" category="list-text">在所有客戶端上重新啟動 BeeGFS 用戶端服務：</block>
-  <block id="fa1d20e2b4fca12fce86d5372a0621e2" category="list-text">透過執行 <block ref="75d0bc4c4ec9c5f71d6f1455a6f8e277" prefix=" " category="inline-code"></block> 命令驗證客戶端連線，例如：</block>
   <block id="44a2fcbbf437fc6826e6360bc761605f" category="section-title">停用 TLS</block>
-  <block id="a243eee09ea504b9a1b1e0e8b93843e5" category="paragraph">TLS 可以停用，用於故障排除或使用者本身需要。但不建議這樣做，因為它會以明文形式暴露內部檔案系統結構和配置等潛在敏感資訊。請依照以下說明在現有或新建的 BeeGFS v8 叢集上停用 TLS。</block>
-  <block id="75fcac7cefc40e8fed5deeae5aabf145" category="paragraph">對於新的 BeeGFS 叢集部署，可以透過在 Ansible 清單的 <block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block> 檔案中設定以下參數來停用 TLS 進行叢集部署：</block>
-  <block id="4878cc75036d357f750a8f351d09c5bb" category="paragraph">對於現有的 BeeGFS v8 集群，請編輯管理服務設定檔。例如，編輯位於<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>的檔案並設定：</block>
-  <block id="4db72f0968cf45cd9184a3db764f16e1" category="paragraph">採取適當措施安全地重新啟動管理服務，以使變更生效。</block>
+  <block id="72253fa321ba87c867bef62316da9c27" category="summary">從 BeeGFS 7.4 更新到 BeeGFS 8。</block>
+  <block id="8e96631d30847a878d1fd0c115dc2648" category="doc">升級至 BeeGFS 8</block>
+  <block id="487ba15adaaba126338aaa7dbcd5f2db" category="paragraph">請依照以下步驟將您的 BeeGFS HA 叢集從 BeeGFS 7.4 升級到 BeeGFS 8。</block>
+  <block id="7b50f0fcc5d414b350635116192b1637" category="paragraph">BeeGFS 8 引入了一些重大變化，從 BeeGFS 7 升級之前需要額外的設定。本文檔將指導您如何為 BeeGFS 8 的新要求準備叢集，以及如何升級到 BeeGFS 8。</block>
+  <block id="8e50e2820ee60dbe7a5700b68534623b" category="inline-link-macro">升級至 BeeGFS 7.4</block>
+  <block id="f3e3e62a255a3c2e763f6ca630077a08" category="admonition">在升級到 BeeGFS 8 之前，請確保您的系統至少運作的是 BeeGFS 7.4。任何運行 BeeGFS 7.4 之前版本的叢集都必須先 <block ref="91a6f7fdd1bd61acca223807d3b77638" category="inline-link-macro-rx"></block> 再升級到 BeeGFS 8。</block>
+  <block id="bc45e6a4accbe1005ca99695d3b703ff" category="section-title">BeeGFS 8 的主要變化</block>
+  <block id="7f1a2167b15e6b93fd9a5189bad4a53f" category="paragraph">BeeGFS 8 引入了以下主要變化：</block>
+  <block id="0293a1414ea4be36f3890e608e258076" category="list-text">**授權強制執行：** BeeGFS 8 需要授權才能使用進階功能，例如儲存資源池、遠端儲存目標、BeeOND 等。在升級之前，請為您的 BeeGFS 叢集取得有效的授權。如有需要，您可以從 <block ref="45463b3c38760d5d45ce59919bf1b841" category="inline-link-macro-rx"></block> 取得臨時 BeeGFS 8 評估授權。</block>
+  <block id="aecd925640dac505f71763cdbaca5a7d" category="list-text">**管理服務資料庫遷移：** 若要啟用 BeeGFS 8 中基於 TOML 的新格式的配置，您必須手動將 BeeGFS 7 管理服務資料庫遷移到更新的 BeeGFS 8 格式。</block>
+  <block id="dfe55ffdf5dd132f14e527cc47412cee" category="list-text">**TLS 加密：** BeeGFS 8 引入了 TLS 加密，用於服務之間的安全通訊。升級過程中，您需要為 BeeGFS 管理服務和 <block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block> 命令列公用程式產生並分發 TLS 憑證。</block>
+  <block id="973bf53b2e146c728409e109a7e8c6ea" category="inline-link-macro">BeeGFS 8.0.0 升級指南</block>
+  <block id="2ff73e03792971e750c326cb9bd1a8ba" category="paragraph">有關 BeeGFS 8 的更多詳細資訊和其他更改，請參閱 <block ref="5a86e8ec6681433abb7812184707bc7f" category="inline-link-macro-rx"></block>。</block>
+  <block id="d347bb229366d2cd39d8268b7979c440" category="paragraph">升級到 BeeGFS 8 需要叢集停機維護，且 BeeGFS 7 用戶端無法連線到 BeeGFS 8 叢集。請仔細協調升級時間，以最大程度地減少對運作的影響。</block>
+  <block id="e70cdaccb10a5ae6b1e9e3819990c388" category="inline-link-macro">支援的 Linux 發行版本和核心版本</block>
+  <block id="03c709b2357165dd01344d247dfff304" category="list-text">確認所有伺服器和客戶端都使用 <block ref="90e5931eb52b4a894ab726deaac9e6c3" category="inline-link-macro-rx"></block> 用於 BeeGFS 8。</block>
+  <block id="619c5c28e4d8acedcbb630b98da47455" category="list-text">請記錄並備份您的叢集配置。BeeGFS 管理服務資料將在稍後作為管理資料庫升級過程的一部分進行備份。</block>
+  <block id="3dc6d3cb4d8ab68ff293bf6c6bb25ccb" category="list-text">在 BeeGFS 用戶端上執行以下命令、並儲存輸出結果以供參考：</block>
+  <block id="8921161ba5183711ee64033dc857fbe1" category="list-text">如果使用鏡像、請收集詳細的狀態資訊、以便在兩個鏡像成員都進入「需要重新同步」狀態時、能夠識別原始主要目標：</block>
+  <block id="76d4c0df335a6e6c36c38392b0ea1d0e" category="list-text">如果使用鏡像，請在升級之前驗證所有夥伴群組是否處於<block ref="45802158e78dd9584161629098018fe8" prefix=" " category="inline-code"></block>狀態。</block>
+  <block id="68a0d3efc72114ee4f244894d95f383a" category="list-text">請依以下順序停止 BeeGFS 系統：</block>
+  <block id="3deddcac68f3d763246b32b6548c4362" category="list-text">在每台客戶端上，卸載 BeeGFS 檔案系統並停止 <block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block> 服務。對每台客戶端執行以下命令：</block>
+  <block id="60e4d9dc6105a05d39d2c268e7cefd68" category="list-text">對於每個 Pacemaker 叢集，停用 STONITH，以便在升級後驗證叢集完整性，而不會觸發不必要的節點重新啟動：</block>
+  <block id="7e79adae590f71b278e4eb8ef314e346" category="list-text">在所有 Pacemaker 叢集上，停止叢集：</block>
+  <block id="17eafe0d1cb91108ed6d807530b492e8" category="section-title">升級 BeeGFS 管理套件</block>
+  <block id="61280aa1ae3b91eeea817a5957fbd463" category="paragraph">在叢集中的所有檔案節點上，新增適用於您 Linux 發行版的 BeeGFS 8 軟體包倉庫。有關如何新增適用於您 Linux 發行版的官方 BeeGFS 倉庫的說明，請造訪 <block ref="8e84e2db8ba21bb6829cde407c9405a0" category="inline-link-macro-rx"></block>。或者，請相應地配置您的本地 BeeGFS 鏡像倉庫。</block>
+  <block id="05344b8c4b6a7c32c9cd1626e8181e01" category="list-text">在叢集的前兩個檔案節點上，僅將 BeeGFS 管理常駐程式套件更新至 BeeGFS 8：</block>
+  <block id="ae4947080edc0d293d37b0648c83a267" category="paragraph">對於 RHEL 系統，配置 BeeGFS 儲存庫後，執行以下命令：</block>
+  <block id="91ab38a502484bc59e054a71e469c62a" category="paragraph">在執行 BeeGFS 管理服務的檔案節點之一上，請依照下列步驟將管理資料庫從 BeeGFS 7 遷移到 BeeGFS 8。</block>
+  <block id="a60d64a20c659165cf4e992505615a93" category="list-text">列出所有 NVMe 裝置並識別管理目標：</block>
+  <block id="60d9acf76d55f05b287ee9f15d9cf6eb" category="paragraph">注意輸出中的設備路徑（例如，<block ref="bfa5022fa2a135155356c86af66dcec1" prefix=" " category="inline-code"></block>）。</block>
+  <block id="a46e3e4e2ebf534395d2f9672e9b878a" category="list-text">執行管理資料目錄的備份：</block>
+  <block id="3c987359ca72b9c0e08c87935c635064" category="paragraph">由於 BeeGFS 8 中更嚴格的驗證要求，自動導入可能無法在所有情況下成功。例如，如果目標被指派到不存在的儲存池，則匯入會失敗。若遷移失敗，請勿繼續升級。請聯絡 NetApp 支援以取得資料庫遷移問題的協助。在問題解決期間，您可以降級 BeeGFS 8 管理包並繼續運行 BeeGFS 7。</block>
+  <block id="603d83581d54d474792b0477e4f3d6ea" category="paragraph">完成以下各節中的授權和 TLS 設定步驟後，您將準備<block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block>設定檔。</block>
+  <block id="b33b3524c7d5f9f7273201fa2f379e0d" category="section-title">升級剩餘的 BeeGFS 套件</block>
+  <block id="7caf087ac23fad2c3d1329943412ac95" category="paragraph">完成管理資料庫遷移後，升級叢集中所有檔案節點上的剩餘 BeeGFS 軟體包。對於 RHEL，配置 BeeGFS 儲存庫後，執行以下命令：</block>
+  <block id="8f7ccc70867bdcb06bb8acbaf7cb0ca8" category="list-text">在所有執行 BeeGFS 管理服務的節點上安裝 BeeGFS 授權套件。這通常是叢集的前兩個檔案節點：</block>
+  <block id="8d8cec241b3edacf096ebaa37339f828" category="list-text">將您的 BeeGFS 8 授權檔案下載到管理節點並放置在以下位置：</block>
+  <block id="9799d69d7fb5e11e638f64935f27974b" category="paragraph">BeeGFS 8 需要 TLS 加密才能在管理服務和 BeeGFS CLI 工具之間進行安全通訊<block ref="fc175616be221be5011002280876bbd0" prefix="(" category="inline-code"></block>）。您可以選擇以下三種設定方法之一：使用受信任的憑證授權單位簽署的憑證、建立您自己的本機 CA 來為您的 BeeGFS 叢集簽署憑證，或完全停用 TLS 以進行故障排除（不建議在生產環境中使用）。</block>
+  <block id="414c4d2cf650dac4794db6f1cce9f4e6" category="paragraph">依照 <block ref="e3c7ea953a175f52b03d1d2c1e8cb9ae" category="inline-link-macro-rx"></block> 指南為檔案節點上的管理服務設定 TLS 加密。</block>
+  <block id="9ebd0e647c42510b28d125669b844857" category="paragraph">BeeGFS 客戶端升級完成後，客戶端 TLS 設定將稍後完成。目前，只需在檔案節點上為管理服務和 beegfs-tool 配置 TLS 即可。</block>
+  <block id="ce499b67cd2459e0ee3565b552f21436" category="paragraph">手動將 BeeGFS 7 設定檔中的設定轉移到<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>檔案中，從而準備 BeeGFS 8 管理服務設定檔。</block>
+  <block id="ef94f29e33889f2fcf9fa365d6d12729" category="list-text">在已掛載管理目標的管理節點上，參考 <block ref="eaa3ac0f6fad8fb99f543716d1ae91f4" prefix=" " category="inline-code"></block> BeeGFS 7 的管理服務檔案，並將所有設定傳輸至 <block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block> 檔案。對於基本設定，您的 <block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block> 可能如下所示：</block>
+  <block id="b799b9cba47e213306792774b923941f" category="list-text">將 TCP 連接埠 8010 新增至 beegfs 區域：</block>
+  <block id="32f19259d232262285179ae72e6587b3" category="paragraph">Pacemaker<block ref="2aa0098b2c775ff5e1bd67c26714b0dd" prefix=" " category="inline-code"></block> Open Cluster Framework (OCF) 腳本需要更新以支援新的 TOML 設定格式和 systemd 服務管理。請在叢集中的一個節點上更新腳本，然後將更新後的腳本複製到所有其他節點。</block>
+  <block id="ea388b4ca424bcbc3897bc1825c1cb04" category="list-text">執行以下命令以在繼續之前檢查腳本的語法錯誤。如果沒有輸出出現，則腳本語法正確。</block>
+  <block id="698f27c1e497d30737c19616610810f5" category="list-text">將更新後的 <block ref="2aa0098b2c775ff5e1bd67c26714b0dd" prefix=" " category="inline-code"></block> OCF 腳本複製到叢集中的所有其他節點：</block>
+  <block id="ecfec930ef8f44608329e77872f9b9d7" category="list-text">完成之前的所有升級步驟後，透過在所有節點上啟動 BeeGFS 服務，使叢集重新上線。</block>
+  <block id="382e1191fe70f75ab56fe71ed6cd44b1" category="paragraph">如果日誌中出現錯誤，請檢查管理組態檔路徑，並驗證是否已從 BeeGFS 7 組態檔正確傳輸所有值。</block>
+  <block id="f0881e86a89427ef3c69efc3a7dd7424" category="list-text">進入下一節，升級 BeeGFS 用戶端並驗證叢集的健康狀況。</block>
+  <block id="62a0d88b5dfd4415e5aa2db6cb3ebc6b" category="paragraph">將叢集升級至 BeeGFS 8 後，您還必須升級所有 BeeGFS 用戶端。</block>
+  <block id="dee3defe9fbfb48125695f924fa113c7" category="list-text">如果您尚未停止 BeeGFS 用戶端服務、請立即停止：</block>
+  <block id="b9d6ce4eced944cff6cda0825445eb27" category="list-text">為您的 Linux 發行版添加 BeeGFS 8 軟體包倉庫。有關新增官方 BeeGFS 倉庫的說明，請參閱 <block ref="8e84e2db8ba21bb6829cde407c9405a0" category="inline-link-macro-rx"></block>。或者，請相應地配置您的本地 BeeGFS 鏡像倉庫。</block>
+  <block id="15c708dae6016499ca8bb40defa88de0" category="paragraph">適用於 Ubuntu/Debian：</block>
+  <block id="cdf7e1686dc1f1a54dbd96f243f13e04" category="inline-link-macro">為 BeeGFS 8 用戶端設定 TLS</block>
+  <block id="7eccc333ed2b2a63b6ef04af78507bb3" category="list-text">為客戶端配置 TLS。從客戶端節點使用 BeeGFS CLI 需要 TLS。請參閱 TLS 部署指南中的 <block ref="ff98af96113fffbeab7c963b2f698c8b" category="inline-link-macro-rx"></block> 章節。</block>
+  <block id="f76d790b691c2b5909c5fb2375c02430" category="paragraph"><block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block> 服務掛載 BeeGFS 檔案系統不需要 TLS。TLS 僅在使用 BeeGFS CLI 工具和其他管理服務時才需要。</block>
+  <block id="793b08502db5ac83374b9c9f149e4bf8" category="paragraph">如果 BeeGFS 掛載失敗，請檢查系統日誌以尋找錯誤。如果您看到類似「沒有可用的根元資料節點，無法繼續」或「遠端 I/O 錯誤」之類的訊息，則表示 BeeGFS 7 匯入可能未成功完成。請聯絡 NetApp 支援以獲取協助。</block>
+  <block id="c346e24b2fd9ba14619c772ed8c19676" category="list-text">（可選）在客戶端節點或其他需要執行 BeeGFS 管理命令的系統上安裝並設定新的<block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block> CLI 工具：</block>
+  <block id="07d530180bfae42a4e9f934dcd407b50" category="list-text">安裝 <block ref="115fa7c26bd8ea199e43b9f59792679b" prefix=" " category="inline-code"></block> 套件：</block>
+  <block id="f97aee806483e960f62084493a6d95a4" category="list-text">為 <block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block> 工具配置 TLS。從客戶端節點使用 BeeGFS CLI 需要 TLS。請參閱 TLS 部署指南中的 <block ref="ff98af96113fffbeab7c963b2f698c8b" category="inline-link-macro-rx"></block> 章節。</block>
+  <block id="f410ef6363be732849ed5e3dbd027b17" category="paragraph">完成升級至 BeeGFS 8 後，執行以下命令以驗證升級是否成功。</block>
+  <block id="8b42a518a5292afc8e0145ee5294bf23" category="list-text">確認所有節點和目標均在線上且處於正常狀態：</block>
+  <block id="1167fcb1143e77c4f2ea67e9f5a674e3" category="admonition">如果您要升級到 BeeGFS 8 ，請參閱 <block ref="554c069750f22866df129b110bbafec1" category="inline-link-macro-rx"></block> 程序。</block>
+  <block id="373eee0000ce2875462c27810b26b166" category="cell">請按照 <block ref="554c069750f22866df129b110bbafec1" category="inline-link-macro-rx"></block> 操作步驟中的說明進行升級。</block>
+  <block id="2b6f6409e949b4de2a4d8346be522b48" category="paragraph">配置 TLS 加密以保護 BeeGFS 8 管理服務和用戶端之間的通訊。</block>
+  <block id="954750d4740ace3318d7adb7b79dbcca" category="paragraph">BeeGFS 8 引入了 TLS 支援，用於加密管理工具（例如 <block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block> 命令列公用程式）與 BeeGFS 伺服器服務（例如 Management 或 Remote）之間的網路通訊。使用以下三種方法之一在 BeeGFS 叢集中設定 TLS 加密：</block>
+  <block id="673eb205082d0eb91b1b5786b274211c" category="list-text">*使用受信任的憑證授權單位：* 在您的 BeeGFS 叢集上使用現有的 CA 簽署憑證。</block>
+  <block id="ed34b503bbe2a3eee3232d65d05c25fe" category="list-text">*建立本地 Certificate Authority：* 建立本地 Certificate Authority 並使用它來簽署 BeeGFS 服務的憑證。這種方法適用於您希望管理自己的信任鏈而不依賴外部 CA 的環境。</block>
+  <block id="737927a6e6034067fd15a2021053c565" category="list-text">*TLS 已停用：* 在不需要加密的環境或進行疑難排解時，完全停用 TLS。請避免在正式作業環境中使用此選項，因為它會將檔案系統結構和組態等潛在敏感資訊以明文形式暴露出來。</block>
+  <block id="862f711cf6d5d20d52d0627a1e10dcda" category="paragraph">執行<block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block>服務的用戶端無需 TLS 即可掛載 BeeGFS 檔案系統。使用 BeeGFS CLI 和其他 BeeGFS 服務（例如 Remote 和 Sync）則需要 TLS。</block>
+  <block id="aa2a5b840fe0c679fe38202f937b3107" category="paragraph">如果您擁有由受信任的憑證授權中心（CA）簽發的憑證——無論是來自內部企業 CA 還是第三方供應商——您都可以將 BeeGFS 8 配置為使用這些 CA 簽發的憑證，而不是產生自簽憑證。</block>
+  <block id="61e951d08f0a05993867e0bf9a2f1322" category="section-title">部署新的 BeeGFS 8 叢集</block>
+  <block id="3fb2817111189db4a8e6ee85190a07cb" category="paragraph">對於新的 BeeGFS 8 叢集部署，請設定 Ansible 清單的<block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block>檔案以引用您的 CA 簽署憑證：</block>
+  <block id="f9ce69a9dd4eedff93db8898166a5f54" category="section-title">配置現有的 BeeGFS 8 叢集</block>
+  <block id="84387864bc1fc6ab2e4935c32924d6a2" category="paragraph">對於現有的 BeeGFS 8 叢集，請將 BeeGFS 管理服務的組態檔中的路徑設定為檔案節點的 CA 簽署憑證：</block>
+  <block id="4e1df9b78a0f5614be074aecc19d6433" category="section-title">設定 BeeGFS 8 用戶端使用 CA 簽署憑證</block>
+  <block id="f1b9839a9365e95cb687403cb8d37044" category="paragraph">如果您要將現有的 BeeGFS 7 叢集升級到 BeeGFS 8，請依照<block ref="76d184c6fdb20afaf15fe2ab8037ab93" category="inline-link-macro-rx"></block>程序操作。在升級程序中指示之前，請勿設定用戶端 TLS。</block>
+  <block id="f8de778bc9cbc5b8095e2fe165c8d2f9" category="paragraph">若要設定 BeeGFS 8 用戶端以信任使用系統憑證池的 CA 簽章證書，請在每個用戶端的設定中設定 tls-cert-file = ""。如果未使用系統憑證池，請透過設定 tls-cert-file = &lt;local cert&gt; 來提供本機憑證的路徑。此設定允許用戶端驗證 BeeGFS 管理服務提供的憑證。</block>
+  <block id="6f96126337b5fc563fd3b0362bb62f4f" category="paragraph">如果您的組織希望為 BeeGFS 叢集建立自己的憑證基礎架構，您可以建立一個本機憑證授權單位（CA）來頒發和簽署 BeeGFS 叢集的憑證。此方法涉及建立一個 CA，該 CA 為 BeeGFS 管理服務簽署憑證，然後將這些憑證分發給客戶端以建立信任鏈。</block>
+  <block id="bf80a924574ce14834987121182cfb36" category="paragraph">對於新的 BeeGFS 8 部署，<block ref="ec892555a981d412f5bdffa7fba2b850" prefix=" " category="inline-code"></block> Ansible 角色（包含在 BeeGFS HA 集合中）會在控制節點上建立本機 CA，並為管理服務產生必要的憑證。若要啟用此功能，請在 Ansible 清單的 <block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block> 檔案中設定以下參數：</block>
+  <block id="a384a46ebf47985236c178f873078aba" category="paragraph">請參考這些說明。處理私鑰和憑證時，請務必採取適當的安全預防措施。</block>
+  <block id="89f77c68f3de67e825c22d30f26ce860" category="list-text">產生 CA 憑證。此憑證的有效期限應與系統的生命週期相同。請計劃在憑證過期前重新產生憑證。憑證過期後，某些元件之間的通訊將會失敗。更新 TLS 憑證通常需要重新啟動服務。</block>
+  <block id="e4397441a347f06497cfe052ec878197" category="paragraph">更新專有名稱欄位以符合您的 CA 配置，並將 <block ref="5cb62dfdaa16bd51f4f1b7a738a0f210" prefix=" " category="inline-code"></block> 和 <block ref="4eb2ee17c10e6b738537e69e439e9bf6" prefix=" " category="inline-code"></block> 值替換為您的管理服務 IP 位址。</block>
+  <block id="c4581ee7a54bd38e5809c49fb22426ae" category="list-text">重新啟動 BeeGFS 管理服務：</block>
+  <block id="41b869a664d853be32188b055da18994" category="paragraph">建立並向所有需要與 BeeGFS 管理服務通訊的 BeeGFS 用戶端分發由本機 CA 簽署的憑證。</block>
+  <block id="40faa4e394e25939a84f7a4af84e210e" category="list-text">使用與<block ref="122ac6d6f39e0a068dca0c04a36892a7" category="inline-xref-macro-rx"></block>中所述的相同程序產生用戶端證書，將用戶端的 IP 位址或主機名稱替換為「使用者備用名稱（SAN）」欄位。</block>
+  <block id="03036b756bd8bf1285fbe7cf5d593a4c" category="list-text">將用戶端憑證複製到用戶端節點並將其重新命名為 <block ref="691869bca85baab2f31b7f268617f791" prefix=" " category="inline-code"></block>：</block>
+  <block id="d58f14aa5a632979dea0fe80d7f21d75" category="list-text">透過執行 BeeGFS CLI 命令來驗證用戶端連線能力，例如：</block>
+  <block id="aa5666a197918e61cf83bf2ec2bbc4dd" category="paragraph">停用 TLS 以進行故障排除，或者如果您的環境不需要加密。在生產環境中應避免使用此選項，因為它會將檔案系統結構和配置等潛在敏感資訊以明文形式暴露出來。</block>
+  <block id="6ba6045a6a127818d1a8a2cc4425c72b" category="paragraph">對於新的 BeeGFS 叢集部署，請在 Ansible 清單的 <block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block> 檔案中設定以下參數以停用 TLS：</block>
+  <block id="0c9adf6b0565c1d4304a5a5a88a44780" category="paragraph">對於現有的 BeeGFS 8 叢集，請編輯管理服務組態檔。例如，編輯位於 <block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block> 的檔案並設定：</block>
+  <block id="972c9c876288f75240fbe7504363d427" category="paragraph">重新啟動管理服務以使變更生效。</block>
+  <block id="e67619627e47cd216196235b1a0f2669" category="section-title">需求概述</block>
+  <block id="b0bd6012e99dc036bc7b9a7733b52448" category="paragraph">本頁面詳細介紹了在 NetApp 建置模組上實現 BeeGFS 的硬體、軟體和韌體要求。這些要求分為以下幾個部分：</block>
+  <block id="2e4750ad5b034d585cf9cda6ab0274fc" category="list-text"><block ref="9ff533a308c0ff498b54a0f37e1b561b" category="inline-xref-macro-rx"></block> - 檔案節點（硬體 / 軟體 / 韌體）、區塊節點（硬體 / 韌體）、網路和佈線</block>
+  <block id="17fef7322c7d63e44bec1b8d162a71ed" category="list-text"><block ref="1d6d93c917cd7c598919c2db6fbe9c43" category="inline-xref-macro-rx"></block> - Ansible 部署的元件</block>
+  <block id="ca5e93c0d1c69cb3e012459b9816be56" category="list-text"><block ref="be0065c7761ef2b223096998be6ad266" category="inline-xref-macro-rx"></block> - 控制節點軟體版本</block>
+  <block id="64213f806dbb3535ceada7e44b199e6d" category="paragraph">在開始之前，請確保您的硬體符合以下針對 BeeGFS on NetApp 解決方案的單一建置區塊設計的規格。特定部署的確切元件可能會因客戶需求而有所不同。每個檔案節點都應符合或超過這些規格，以達到預期效能。</block>
+  <block id="b36d2184563e1bcc51472085da9e4a72" category="cell">規格</block>
+  <block id="2af805027d0e366bdf84789ed4597621" category="paragraph">*硬體：*</block>
+  <block id="940cc4b439cc0d7c479f5b63c6ba0193" category="list-text">*處理器：* 2x AMD EPYC 9124 16C 3.0 GHz （配置為兩個 NUMA 區域）</block>
+  <block id="5f17ba443899aeb352517da2953b3a9e" category="list-text">*HCA 卡：* 4x MCX755106AS-HEAT ConnectX-7、NDR200、QSFP112、2 埠、PCIe Gen5 x16、InfiniBand 轉接器</block>
+  <block id="4eb8a12cb113dbaf2c64b7c7c3200cbd" category="list-text">*儲存：* 作業系統使用兩個磁碟機組成 RAID 1（1TB 7.2K SATA 或更高規格）</block>
+  <block id="f9056d8c14964eb81b45438cf782d034" category="list-text">*管理：* 1GbE 連接埠，用於頻內作業系統管理</block>
+  <block id="c7f88301e585c9464204935159e7ddd9" category="list-text">*BMC：* 1GbE BMC 搭配 Redfish API，用於頻外伺服器管理</block>
+  <block id="e5ee8dc94acd119da3076f38a47eec81" category="list-text">*電源：*雙熱插拔電源和高性能風扇</block>
+  <block id="62a335d848ecec1fb772b590af02bbdd" category="paragraph">*軟體和韌體：*</block>
+  <block id="e07fd8d767f1c119203e0faf12a8c506" category="list-text">*作業系統：* Red Hat 9.4 Server Physical with High Availability （2 個插槽）</block>
+  <block id="db535ed6f35edd0ef13295f8de092004" category="list-text">*Linux Kernel：* 5.14.0-427.42.1.el9_4.x86_64</block>
+  <block id="000cdd92b9cd009a3caac741716dbb2a" category="list-text">*HCA 韌體：* FW：28.46.1006、PXE：3.8.0100、UEFI：14.39.0013</block>
+  <block id="359b85bdaa40813abfcf68136e436422" category="admonition">檔案節點需要有效的 Red Hat Enterprise Linux Server 訂閱和 Red Hat Enterprise Linux High Availability Add-On。</block>
+  <block id="aa8884b6bbe0d714ded5b1498defb4d6" category="section-title">區塊節點要求</block>
+  <block id="868087ec71be4b3eadc720c493a93a63" category="paragraph">每個建置區塊需要兩個相同型號的 E-Series 陣列。請勿在同一個建置區塊中混用不同型號的陣列。</block>
+  <block id="a559b87068921eec05086ce5485e9784" category="cell">模型</block>
+  <block id="8c2572494cd8e2b146b24821b42e7fbe" category="cell">EF80</block>
+  <block id="47afcbee406934178b3a46d7784f3c8e" category="list-text">*Memory：* 128GB（每個控制器 64GB）</block>
+  <block id="67b11734faa34133649bc65b7e11c281" category="list-text">*適配器：* 2x 2 連接埠 200Gb/NDR（NVMe/IB）</block>
+  <block id="5aedf4de6b8ec88d24c739d67bef73c2" category="list-text">*磁碟機：* 設定為符合所需的中繼資料和儲存容量</block>
+  <block id="ac256a0dbe7e552ca052ec7fb099aa33" category="paragraph">*韌體：*</block>
+  <block id="b9eef6b8a532e155dc104f96f4ad1c86" category="list-text">*SANtricity OS：* 12.00</block>
+  <block id="d9b7e1de7caa03957dbc662965b2ff88" category="list-text">*NVSRAM：* NEF80-200834-D00</block>
+  <block id="35b6e7d8c6d4e6c3921f12c7d3c5a66a" category="list-text">*Drive Firmware：*適用於您驅動器型號的最新版本（請參閱 <block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>）</block>
+  <block id="ae149e14affd7d147aaaac4e778a78b9" category="cell">EF600</block>
+  <block id="93b110f46914a05daac9aea23fc3d2ed" category="list-text">*記憶體：* 256GB （每個控制器 128GB）</block>
+  <block id="8db28be59a9d835b543adcfbc5bff0c1" category="list-text">*適配器：* 2 埠 200Gb/HDR（NVMe/IB）</block>
+  <block id="eee833cef48ecf29f71b13b60f696a30" category="list-text">*SANtricity OS：* 11.90R5</block>
+  <block id="4630012110960ebde581b84f69d6bdff" category="list-text">*NVSRAM：* N6000-890834-D02</block>
+  <block id="2618dac0ed09460ae4b3991e9cf26f4b" category="section-title">儲存網路交換器要求</block>
+  <block id="be220d8fe159330d95cef788d5a315b2" category="paragraph">*NVIDIA QM9700 Quantum 2 NDR InfiniBand 交換器*</block>
+  <block id="757b798ba877c3623266d13b08a44ec0" category="paragraph">儲存網路交換器必須能夠達到 200Gb/s InfiniBand 速度。NVIDIA QM9700 是此叢集建議使用的交換器。</block>
+  <block id="8deaae22d76453b17a29b5833b362b40" category="admonition">也可以使用 NVIDIA MQM8700 Quantum 等其他交換機，但需要不同的線纜。</block>
+  <block id="15c648a5d5dbf82c158e6c48e82994d7" category="section-title">區塊節點到檔案節點纜線</block>
+  <block id="c57532676b04d14214d3d2a89b1e90d4" category="paragraph">從區塊節點到檔案節點的直接連線需要下列纜線：</block>
+  <block id="5c8883d2963443d7244bd81a1e110519" category="cell">電纜規格</block>
+  <block id="74c47af9384006b279a923b5d7a78d53" category="cell">MCP1650-H001E30 - NVIDIA 被動銅纜、QSFP56、200Gb/s</block>
+  <block id="d3402f558c2f4a0c522c4374c40173dd" category="section-title">檔案節點至儲存交換器纜線</block>
+  <block id="b6d7c30a41e805e17ff0ce4bde483c55" category="paragraph">建議 NVIDIA QM9700 Quantum 2 交換器使用以下線纜類型。根據您的需求選擇有源光纖或無源銅纜。數量為每個構建模組。</block>
+  <block id="c1ca36cf48f6569dac617b418f94f9da" category="cell">8.2.2</block>
+  <block id="d1d90da11d99e32fc537b57f80cbcf54" category="cell">DOCA-OFED-25.04-0.6.1</block>
+  <block id="7faeec3d272571635e8c36c41572e3bd" category="cell">&gt;= 2.19.0</block>
+  <block id="a2bf67683e2950dfa2205ae8f12469f9" category="cell">3.12</block>
+  <block id="a723d09c4a79d2251b5f988c605243d1" category="cell">Cryptography-46.0.3 、 netaddr-1.3.0 、 ipaddr-2.2.0</block>
+  <block id="495063beeac89309a2247ce9c13ed292" category="cell">4.0.0</block>
 </blocks>

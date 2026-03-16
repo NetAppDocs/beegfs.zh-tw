@@ -153,7 +153,7 @@ sidebar:
       entries:
       - title: 升級 BeeGFS 服務
         url: "/administer/clusters-upgrade-beegfs.html"
-      - title: 升級至 BeeGFS v8
+      - title: 升級至 BeeGFS 8
         url: "/administer/clusters-upgrade-beegfs-v8.html"
       - title: 升級 Pacemaker 和電暈器同步套件
         url: "/administer/clusters-update-ha-services.html"
