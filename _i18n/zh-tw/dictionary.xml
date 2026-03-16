@@ -2280,19 +2280,13 @@
   <block id="aa8884b6bbe0d714ded5b1498defb4d6" category="section-title">區塊節點要求</block>
   <block id="868087ec71be4b3eadc720c493a93a63" category="paragraph">每個建置區塊需要兩個相同型號的 E-Series 陣列。請勿在同一個建置區塊中混用不同型號的陣列。</block>
   <block id="a559b87068921eec05086ce5485e9784" category="cell">模型</block>
-  <block id="8c2572494cd8e2b146b24821b42e7fbe" category="cell">EF80</block>
-  <block id="47afcbee406934178b3a46d7784f3c8e" category="list-text">*Memory：* 128GB（每個控制器 64GB）</block>
-  <block id="67b11734faa34133649bc65b7e11c281" category="list-text">*適配器：* 2x 2 連接埠 200Gb/NDR（NVMe/IB）</block>
   <block id="5aedf4de6b8ec88d24c739d67bef73c2" category="list-text">*磁碟機：* 設定為符合所需的中繼資料和儲存容量</block>
   <block id="ac256a0dbe7e552ca052ec7fb099aa33" category="paragraph">*韌體：*</block>
-  <block id="b9eef6b8a532e155dc104f96f4ad1c86" category="list-text">*SANtricity OS：* 12.00</block>
-  <block id="d9b7e1de7caa03957dbc662965b2ff88" category="list-text">*NVSRAM：* NEF80-200834-D00</block>
   <block id="35b6e7d8c6d4e6c3921f12c7d3c5a66a" category="list-text">*Drive Firmware：*適用於您驅動器型號的最新版本（請參閱 <block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>）</block>
   <block id="ae149e14affd7d147aaaac4e778a78b9" category="cell">EF600</block>
   <block id="93b110f46914a05daac9aea23fc3d2ed" category="list-text">*記憶體：* 256GB （每個控制器 128GB）</block>
   <block id="8db28be59a9d835b543adcfbc5bff0c1" category="list-text">*適配器：* 2 埠 200Gb/HDR（NVMe/IB）</block>
   <block id="eee833cef48ecf29f71b13b60f696a30" category="list-text">*SANtricity OS：* 11.90R5</block>
-  <block id="4630012110960ebde581b84f69d6bdff" category="list-text">*NVSRAM：* N6000-890834-D02</block>
   <block id="2618dac0ed09460ae4b3991e9cf26f4b" category="section-title">儲存網路交換器要求</block>
   <block id="be220d8fe159330d95cef788d5a315b2" category="paragraph">*NVIDIA QM9700 Quantum 2 NDR InfiniBand 交換器*</block>
   <block id="757b798ba877c3623266d13b08a44ec0" category="paragraph">儲存網路交換器必須能夠達到 200Gb/s InfiniBand 速度。NVIDIA QM9700 是此叢集建議使用的交換器。</block>
@@ -2309,4 +2303,5 @@
   <block id="a2bf67683e2950dfa2205ae8f12469f9" category="cell">3.12</block>
   <block id="a723d09c4a79d2251b5f988c605243d1" category="cell">Cryptography-46.0.3 、 netaddr-1.3.0 、 ipaddr-2.2.0</block>
   <block id="495063beeac89309a2247ce9c13ed292" category="cell">4.0.0</block>
+  <block id="145c032d77618038902ed599537efb2e" category="list-text">*NVSRAM：* N6000-890834-D03</block>
 </blocks>
