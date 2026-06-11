@@ -137,7 +137,7 @@ eseries_nvme_roce_interfaces:
 
 
 
-按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/host_vars/ictad22h01.yml["請按這裡"^] 例如、代表單一檔案節點的完整庫存檔案。
+點擊 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/host_vars/beegfs_01.yml["請按這裡"^] 查看代表單一檔案節點的完整庫存檔案範例。
 
 
 

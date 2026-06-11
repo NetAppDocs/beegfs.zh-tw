@@ -67,4 +67,4 @@ all:
 ----
 
 
-按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/inventory.yml["請按這裡"^] 以取得完整庫存檔案的範例。
+點擊 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/beegfs_ha_inventory.yml["請按這裡"^] 查看完整庫存檔案的範例。

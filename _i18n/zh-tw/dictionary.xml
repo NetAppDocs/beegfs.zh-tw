@@ -1156,7 +1156,6 @@
   <block id="59153461462a6c82d6207480cde38687" category="list-text">使用FCP或SAS不需要安裝或設定其他軟體。如果使用FCP、請確定交換器已正確分區如下 <block ref="6839ca80f3cddcad48af8ac7c3fe1eba" category="inline-link-macro-rx"></block> 以及交換器廠商的最佳實務做法。</block>
   <block id="31887cc493f03e51b901bf0def837d66" category="list-text">目前不建議使用IB SRP。視E系列區塊節點支援的項目而定、請使用NVMe/IB或iSER。</block>
   <block id="6c92285fa6d3e827b198d120ea3ac674" category="inline-link-macro">請按這裡</block>
-  <block id="02613a7c8b7a72805b5196cbf7ed0def" category="paragraph">按一下 <block ref="6ff86e054594e10fe2118d48eb3fbd14" category="inline-link-macro-rx"></block> 例如、代表單一檔案節點的完整庫存檔案。</block>
   <block id="310ccb00662c7e9dcc32789c0d9b1b7a" category="section-title">進階：在乙太網路與InfiniBand模式之間切換NVIDIA ConnectX VPI介面卡</block>
   <block id="2b4c9bc157bda4a68fe7b673b411f9cd" category="paragraph">例如、將InfiniBand模式中的介面電流變更為乙太網路、以便用於RoCE：</block>
   <block id="f352db79870cb8a06a0551761aba6955" category="list-text">針對您要設定的每個介面指定<block ref="366fe119442ebda85ac564541700d0b5" prefix=" " category="inline-code"></block> 做為指定的對應（或字典）<block ref="ced82128b540acaf7a5a55ad007dc9fc" prefix=" " category="inline-code"></block> 其中<block ref="ecb5fc74e9cd1f249d43a2bdbf2f239d" prefix=" " category="inline-code"></block> 由HCA的介面連接埠號碼決定。。<block ref="ecb5fc74e9cd1f249d43a2bdbf2f239d" prefix=" " category="inline-code"></block> 值可透過執行來決定<block ref="2ea620f2a9b9bed90c46047fef7e151b" prefix=" " category="inline-code"></block> 並從PCI插槽名稱新增1至最後一個數字、然後轉換為十進位。</block>
@@ -1195,7 +1194,6 @@
   <block id="b577b9bc7da15f148c6521018b1c26f7" category="list-text">對於InfiniBand（IPoIB）網路介面：</block>
   <block id="10b951f140b750e6d3b9a61a2aa51fc1" category="list-text">對於乙太網路介面：</block>
   <block id="e71729643558be7be36227d3edb537a5" category="admonition">為了避免在重新命名介面時發生衝突（避免重新命名）、您不應使用任何可能的預設名稱、例如eth0、ens9f0、ib0或ibs4f0。一般的命名慣例是使用「e」或「i」作為乙太網路或InfiniBand、接著是PCIe插槽編號、以及字母來表示連接埠。例如、安裝在插槽3的InfiniBand介面卡的第二個連接埠為：i3b。</block>
-  <block id="62e75ccd7f725aa6905f33580950953f" category="admonition">如果您使用已驗證的檔案節點模型、請按一下 <block ref="3d76a23cff20eb55b7795ee99a64cc43" category="inline-link-macro-rx"></block> PCIe位址對邏輯連接埠對應範例。</block>
   <block id="1644ff30bfdd323dac0e52e1620614b2" category="list-text">BeeGFS管理服務：</block>
   <block id="c9c23b537bdcdcf7e82ad149d3e28ab1" category="list-text">BeeGFS中繼資料服務：</block>
   <block id="b292484ec320b2afcb3a63fdbff30bd3" category="list-text">BeeGFS儲存服務：</block>
@@ -1206,7 +1204,6 @@
   <block id="4d93b986f0992f2770f494a3ced4bd11" category="inline-link-macro">BeeGFS HA角色</block>
   <block id="ca03fa9d55c2bc9aa4bb21f10949f48a" category="list-text">您可以在中定義下列項目、以使用自訂密碼<block ref="3cd295e6aaa39e2510aff65b801cc5ab" prefix=" " category="inline-code"></block>：</block>
   <block id="00d80f50123e52756def9093de1ba2aa" category="list-text">連線驗證可完全停用（不建議）：</block>
-  <block id="b8a5eb74062e4ce8ebe0914712be3ae2" category="paragraph">按一下 <block ref="632283d8f4d8d92337070d81c0b8ed5f" category="inline-link-macro-rx"></block> 例如、代表通用檔案節點組態的完整庫存檔案。</block>
   <block id="74acf7796c51f1f58661f8cf66f5b969" category="section-title">使用具有NetApp EF600區塊節點的HDR（200GB）InfiniBand：</block>
   <block id="9e152ebb462ebe95f96d2711a934ec01" category="paragraph">若要將HDR(200Gb) InfiniBand搭配EF600使用、子網路管理程式必須支援虛擬化。如果使用交換器連接檔案和區塊節點、則必須在整個Fabric的子網路管理程式上啟用此功能。</block>
   <block id="11f007a0a372dd0901653de91029d3d8" category="inline-link-macro">設定檔案節點儲存介面</block>
@@ -1232,7 +1229,6 @@
   <block id="4b9c9e1cc0a87604a342176becdb9d29" category="list-text">FC和SAS傳輸協定不需要額外的組態。不正確建議使用SRP。</block>
   <block id="55876228853abf632dec9346a4f372ec" category="inline-link-macro">文件</block>
   <block id="d487c72028a8f41291fa35df82cfe348" category="paragraph">如需設定HIC連接埠和主機傳輸協定的其他選項、包括設定iSCSI CHAP的能力、請參閱 <block ref="03b4e8c5a2a4120cb0ea20ad53010d79" category="inline-link-macro-rx"></block> 隨附SANtricity 於此系列產品。注意：部署BeeGFS時、儲存資源池、磁碟區組態及其他資源配置方面將會設定在其他位置、不應在此檔案中定義。</block>
-  <block id="ca752ddde33be986f431e89edb589ac1" category="paragraph">按一下 <block ref="4b43b7669fad4b5b712c0fa73fdf7e2c" category="inline-link-macro-rx"></block> 例如、代表單一區塊節點的完整庫存檔案。</block>
   <block id="bb3b75abe4dc6581c40f5061474bb17f" category="section-title">在NetApp EF600區塊節點上使用HDR(200Gb) InfiniBand或200GB RoCE：</block>
   <block id="2636cdb2e4c8c163e637fb4b1be7ef57" category="summary">使用群組變數（群組_vars）指定通用區塊節點組態。</block>
   <block id="42379f3693325579ec45c17436f3fa30" category="doc">指定通用區塊節點組態</block>
@@ -1252,7 +1248,6 @@
   <block id="36aa3776a01484babb7b935f0790e38d" category="list-text">如有需要、請依照下列最佳實務做法、調整Ansible選擇儲存資源池和磁碟區群組磁碟機的順序：</block>
   <block id="9ddcb68f677516aceffc3293429a25e8" category="list-text">請先列出應用於管理和（或）中繼資料磁碟區的任何（可能較小的）磁碟機、然後列出儲存磁碟區。</block>
   <block id="6857ed48db753853948c52afd2297877" category="list-text">根據磁碟櫃/磁碟機機箱機型、確保在可用磁碟機通道之間平衡磁碟機選擇順序。例如、在EF600不擴充的情況下、磁碟機0-11位於磁碟機通道1、而磁碟機12-23位於磁碟機通道。因此、平衡磁碟機選擇的策略是選擇<block ref="22527cd74d7cc7f48375817974dc1712" prefix=" " category="inline-code"></block> 99：0、99：23、99：1、99：22等如果有多個機箱、第一個數字代表磁碟機櫃ID。</block>
-  <block id="1f28da07b9b1480e254e0e0fe280f3a2" category="paragraph">按一下 <block ref="85c5b5287ec04e7c836b5655b59fd26c" category="inline-link-macro-rx"></block> 例如、代表通用區塊節點組態的完整庫存檔案。</block>
   <block id="e20d89701cb46cf38953e6dc25a2dc3d" category="summary">使用inventory.yml檔案指定可以執行每個BeeGFS服務的檔案節點。</block>
   <block id="02e4c76e0e6e5414c70765451a79b37c" category="doc">將BeeGFS服務對應至檔案節點</block>
   <block id="3e99717578ba1478873bc5c3269e4086" category="paragraph">使用指定可以執行每個BeeGFS服務的檔案節點<block ref="d28e452e49fc926f32af1d87afcff3ce" prefix=" " category="inline-code"></block> 檔案：</block>
@@ -1262,7 +1257,6 @@
   <block id="5923f18af043b9957bf5541e595cc0f5" category="list-text">建立一個群組、其中包含參與此HA叢集的所有區塊節點：</block>
   <block id="b084d86d2b539345bcda62aaa5bceb0f" category="list-text">建立一個群組、其中包含叢集中的所有BeeGFS服務、以及執行這些服務的檔案節點：</block>
   <block id="eec391bff48a7ed3bbf30e3280fbe9e3" category="list-text">針對叢集中的每個BeeGFS服務、定義應該執行該服務的慣用和任何次要檔案節點：</block>
-  <block id="e26a68a8ce5809998083f351bf56677e" category="paragraph">按一下 <block ref="00544a89e642f3f5a354362c58d52f2e" category="inline-link-macro-rx"></block> 以取得完整庫存檔案的範例。</block>
   <block id="9df40d55a663f7c179e328bf937587fe" category="summary">BeeGFS服務是使用群組變數（群組_vars）進行設定。</block>
   <block id="29ee3861e1e5ac6fa4281c3c3fddd958" category="doc">定義BeeGFS中繼資料服務</block>
   <block id="60513084f53d0d484c55e212d6a9248e" category="paragraph">本節將逐步說明如何定義BeeGFS中繼資料服務。對於特定檔案系統、HA叢集中至少應有一項此類型的服務。設定此服務包括定義：</block>
@@ -1277,7 +1271,6 @@
   <block id="d3de182528701519a47cbe276590393a" category="list-text">指定BeeGFS中繼資料目標、此服務會根據下列準則來儲存資料（這也會自動設定<block ref="dbca95678907e2f2bf827d44042c16c5" prefix=" " category="inline-code"></block> 選項）：</block>
   <block id="e0f52cfdc30da3e272257c8783119a56" category="list-text">相同的儲存資源池或磁碟區群組名稱可用於多個BeeGFS服務/目標、只要確保使用相同名稱即可<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>、<block ref="2d0e37110968341728e47095df64a19c" prefix=" " category="inline-code"></block>、<block ref="48658e2ad8eaaf7daff452601ea618db" prefix=" " category="inline-code"></block>和<block ref="e241a8daa5b8e1af3b82b1e1a8ec24a9" prefix=" " category="inline-code"></block> 每個服務的組態（每個服務所列的磁碟區應該不同）。</block>
   <block id="339c4b049c3a7e5cdf355daceda6f43a" category="list-text">按一下 <block ref="0a71609ed00bd9652e70cd5b106f9ae3" category="inline-link-macro-rx"></block> 以取得可用的完整組態選項清單<block ref="8ca968d07b3817015da8919c700152f5" prefix=" " category="inline-code"></block>。請注意一些選項、例如<block ref="9ed39e2ea931586b6a985a6942ef573e" prefix=" " category="inline-code"></block>、<block ref="67b3dba8bc6778101892eb77249db32e" prefix=" " category="inline-code"></block>、<block ref="99bd6603c88a46584bf9b94ffab3d6c9" prefix=" " category="inline-code"></block>、<block ref="db137bf87e9c1a766b82885236ac8b87" prefix=" " category="inline-code"></block>和<block ref="7951c85f8306dda4792beb0e6a356282" prefix=" " category="inline-code"></block> 而且磁碟區名稱會自動產生、不應在此處指定。</block>
-  <block id="df5fc0ef6e9aaec0f45d18fdd7ee8f12" category="paragraph">按一下 <block ref="c59646481b474fffe5bc2a736ab8653d" category="inline-link-macro-rx"></block> 例如、代表BeeGFS中繼資料服務的完整庫存檔案。</block>
   <block id="0badcf73673abd8a3f15cc4e386caafa" category="doc">定義BeeGFS儲存服務</block>
   <block id="624bf455f36c44a126036391cd39a75c" category="paragraph">本節將逐步說明如何定義BeeGFS儲存服務。對於特定檔案系統、HA叢集中至少應有一項此類型的服務。設定此服務包括定義：</block>
   <block id="e03fff2a92d72a09b4f9f5d0e895d1fd" category="list-text">服務類型（儲存設備）。</block>
@@ -1285,7 +1278,6 @@
   <block id="204caa9915a25307074d637daed7faba" category="list-text">指出此檔案代表BeeGFS儲存服務的組態：</block>
   <block id="d03efed3ebed6860068fb8a5123ef4c6" category="list-text">定義任何僅應套用至此BeeGFS服務的組態。您至少必須指定所需的TCP和udp連接埠、無論是否支援任何的組態參數<block ref="8a87bdd1964512794d560f1af3699fa1" prefix=" " category="inline-code"></block> 也可隨附。請注意、下列參數會自動/在其他地方設定、不應在此處指定：<block ref="6ea5464abdaaa0243bf0db8481a9a52b" prefix=" " category="inline-code"></block>、<block ref="facec0675a87a8e14bef255e83e40f1e" prefix=" " category="inline-code"></block>、<block ref="6097b6e95af2579f2147a330c21f7b59" prefix=" " category="inline-code"></block>、<block ref="1c285a92de2348d33dd1fc333fb66c45" prefix=" " category="inline-code"></block>、<block ref="7f8e8358da4bb8d8e7f6f717ad9eb0e9" prefix=" " category="inline-code"></block>和<block ref="b61a9cecccc8e8db252dd5200883c7cc" prefix=" " category="inline-code"></block>。</block>
   <block id="b0e2ab52d86028182775498a8ba8dcc3" category="list-text">指定此服務將根據下列準則儲存資料的BeeGFS儲存目標（這也會自動設定）<block ref="facec0675a87a8e14bef255e83e40f1e" prefix=" " category="inline-code"></block> 選項）：</block>
-  <block id="b18c6fe32d4f2f076f7c708ea5be89c1" category="paragraph">按一下 <block ref="7bc3fba5853c696254cf4264774b5d50" category="inline-link-macro-rx"></block> 例如、代表BeeGFS儲存服務的完整庫存檔案。</block>
   <block id="973cf6ca298b6ecfb5f2f3290ca4cd2f" category="doc">定義BeeGFS管理服務</block>
   <block id="a461b810f49c26d9dc6d92a1e3a344bc" category="paragraph">本節將逐步說明如何定義BeeGFS管理服務。對於特定檔案系統、HA叢集中只應有一項此類型的服務。設定此服務包括定義：</block>
   <block id="a9da9d90de8c8b13991c884b03f76658" category="list-text">服務類型（管理）。</block>
@@ -1293,7 +1285,6 @@
   <block id="66969fa0d9af9f38ebaa31ea1c4b7051" category="list-text">指出此檔案代表BeeGFS管理服務的組態：</block>
   <block id="968fc19eb9be6283a0d5f79c8536f855" category="list-text">定義任何僅應套用至此BeeGFS服務的組態。除非您需要啟用配額、否則管理服務通常不需要此項功能、無論是否支援任何的組態參數<block ref="025b9ec9690bfeefef6aedbac6e66c87" prefix=" " category="inline-code"></block> 可隨附。請注意、下列參數會自動/在其他地方設定、不應在此處指定：<block ref="02a09b36e77ebbfe1d499e597daef0d5" prefix=" " category="inline-code"></block>、<block ref="6097b6e95af2579f2147a330c21f7b59" prefix=" " category="inline-code"></block>、<block ref="1c285a92de2348d33dd1fc333fb66c45" prefix=" " category="inline-code"></block>、<block ref="7f8e8358da4bb8d8e7f6f717ad9eb0e9" prefix=" " category="inline-code"></block>和<block ref="b61a9cecccc8e8db252dd5200883c7cc" prefix=" " category="inline-code"></block>。</block>
   <block id="8e19ae7e081dee60d1c86f207028684b" category="list-text">指定BeeGFS管理目標、此服務將根據下列準則儲存資料：</block>
-  <block id="1511cb861f1160e48d8e9c07e416cd1a" category="paragraph">按一下 <block ref="ffb907e2c03168946e1e4d8df77e6e36" category="inline-link-macro-rx"></block> 例如、代表BeeGFS管理服務的完整庫存檔案。</block>
   <block id="234c05131256028f5ab7ea9b87261ff3" category="summary">Ansible清單是一組組組態檔、可定義所需的BeeGFS HA叢集。</block>
   <block id="e520383c76f5e72226ebb572b987380c" category="doc">Ansible Inventory Overview</block>
   <block id="7a1eabc3deb7fd02ceb1e16eafc41073" category="inline-link-macro">庫存</block>
@@ -1395,7 +1386,6 @@
   <block id="f4c29fbb6bcbcc6c55ae76c0a5254687" category="list-text">如果您選擇使用來指定自訂密碼<block ref="8b76cf2fb65e09dad03ca686be5cd464" prefix=" " category="inline-code"></block> 在中指定<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 檔案也包括：</block>
   <block id="2f01d79351dcc30d05b4a5a46dee42df" category="list-text">如果您選擇完全停用以連線為基礎的驗證<block ref="6c8dd8672ca377e74101ad236282225a" prefix=" " category="inline-code"></block>、在中指定<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 檔案也包括：</block>
   <block id="4debabcfd87e8aaf710a4ef0b5fc0fbc" category="inline-link-macro">完整的BeeGFS用戶端文件</block>
-  <block id="be564dd8130b7faafb95d140037162bb" category="paragraph">如需支援參數的完整清單及其他詳細資料、請參閱 <block ref="28ce7a1eece2b507c973d3cca2a82121" category="inline-link-macro-rx"></block>。如需用戶端庫存的完整範例、請按一下 <block ref="b0d51f66522ad4d9697fdf435a95c97a" category="inline-link-macro-rx"></block>。</block>
   <block id="da7e04a55b40629ae3a62baa9635b36d" category="section-title">建立BeeGFS用戶端教戰手冊檔案</block>
   <block id="964a26fa475bbef370601a9a9fb613cb" category="list-text">建立新檔案<block ref="34bd6e27c43e6508a64d0a1bf093c7d2" prefix=" " category="inline-code"></block></block>
   <block id="ac25f4ce0e4e52459d58c2db4ebda280" category="list-text">選用：如果您想要使用NetApp E系列主機集合的角色來設定介面、讓用戶端連線至BeeGFS檔案系統、請匯入與您所設定介面類型對應的角色：</block>
@@ -1403,7 +1393,6 @@
   <block id="54b431528476178eb45a6c2570eff415" category="list-text">如果您使用的是透過整合式乙太網路（RoCE）的RDMA：</block>
   <block id="ea7cb942473ffddb52c2661da2f3b951" category="list-text">如果您使用的是乙太網路（僅TCP、無RDMA）：</block>
   <block id="975fc05779caaf583c3a8ab6b5c5adf1" category="list-text">最後匯入BeeGFS用戶端角色、以安裝用戶端軟體並設定檔案系統掛載：</block>
-  <block id="02870b17064b23fcbf2e080b9624fd6d" category="paragraph">如需用戶端方針的完整範例、請按一下 <block ref="dee50bfc7f141fd7ad52d525c94ac7f5" category="inline-link-macro-rx"></block>。</block>
   <block id="354895762186e608f5675b1498c26501" category="section-title">執行BeeGFS用戶端教戰手冊</block>
   <block id="831a82eacd2203b1049bc6c01826fbef" category="paragraph">若要安裝/建置用戶端及Mount BeeGFS、請執行下列命令：</block>
   <block id="31a21a1e42c30056168ee5a4cca695a9" category="summary">使用方針來指定部署BeeGFS HA叢集時應執行哪些工作。</block>
@@ -1417,7 +1406,6 @@
   <block id="adcd434b091e5725531891ba91d50193" category="list-text">最後、這場活動會將BeeGFS HA角色匯入您要部署的BeeGFS版本：</block>
   <block id="d1b15e5b42308e0128908c431c40f477" category="inline-link-macro">升級指南</block>
   <block id="cf0e39575a3cd74789827d1f8d28bcb0" category="list-text">選用：如果您想要定義其他工作、請記住是否應將工作導向<block ref="a181a603769c1f98ad927e7367c7aa51" prefix=" " category="inline-code"></block> 主機（包括E系列儲存系統）或僅檔案節點。如有需要、請使用定義專為檔案節點而設計的新遊戲<block ref="0c748da7ba6880eb7537e471415afd58" prefix=" " category="inline-code"></block>。</block>
-  <block id="abd8b7e36cb7499818727f42837b0025" category="paragraph">按一下 <block ref="01ba4d718d4b882a06a17b3dab000fe7" category="inline-link-macro-rx"></block> 例如完整的教戰手冊檔案。</block>
   <block id="c6def9892d45d8f594a1141d759cff35" category="section-title">安裝NetApp Ansible Collection</block>
   <block id="f996e211f2d82b62da74abbaa175d7bc" category="paragraph">BeeGFS的Ansible及所有相依項目集合均保留在上 <block ref="d8617fd1dfbd628e2360b843d6070e54" category="inline-link-macro-rx"></block>。在Ansible控制節點上執行下列命令、以安裝最新版本：</block>
   <block id="9a603171be277ec1f9319dc83b272723" category="paragraph">雖然通常不建議使用、但也可以安裝特定版本的集合：</block>
@@ -1886,7 +1874,6 @@
   <block id="daa4277dc829ecd5acb1f7d3acbfb93e" category="list-text">設定無密碼 SSH ，允許 Ansible 從 Ansible 控制節點存取遠端 BeeGFS 檔案節點。</block>
   <block id="438d1f86821733d8903d370ff77ab533" category="list-text">如果需要，在 Ansible 控制節點上產生一對公開金鑰。</block>
   <block id="80bc73f6477a99e95ffb1ccead55050a" category="list-text">為每個檔案節點設定無密碼 SSH 。</block>
-  <block id="e1024b07dc0ac4ec1b8c15255d2b7975" category="list-text">將所有 HCA 韌體更新至使用<block ref="d69ec72bf0ba3250c61993db3810f97e" category="inline-link-macro-rx"></block>指南中建議的版本<block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>。</block>
   <block id="848b1c364446f81000a150ab3996f166" category="paragraph">有關配置端口的說明，請轉至<block ref="98ec84f5a45223dfc7ed1f4ec5ef436f" category="inline-link-rx"></block>。</block>
   <block id="4e667bcd22eef3e9620c534781a563ea" category="paragraph">設定名稱可讓您更容易在後續章節中參考每個系統。有關設置陣列名稱的說明，請轉至<block ref="2617f8aa7c55cffc3912e0de8d2af7d2" category="inline-link-rx"></block>。</block>
   <block id="f82f58377452476d1d96442db364a64d" category="cell">Ansible 核心</block>
@@ -2304,4 +2291,17 @@
   <block id="a723d09c4a79d2251b5f988c605243d1" category="cell">Cryptography-46.0.3 、 netaddr-1.3.0 、 ipaddr-2.2.0</block>
   <block id="495063beeac89309a2247ce9c13ed292" category="cell">4.0.0</block>
   <block id="145c032d77618038902ed599537efb2e" category="list-text">*NVSRAM：* N6000-890834-D03</block>
+  <block id="b2eeca284db1a49e635596c987fe882a" category="paragraph">有關支援的參數的完整列表和其他詳細資訊，請參閱 <block ref="d3b1aa34fa2b4e531152a5bd02282bb6" category="inline-link-macro-rx"></block>。有關客戶端庫存的完整範例，請按一下 <block ref="541ec13876adc87f790b8ffdf4919270" category="inline-link-macro-rx"></block>。</block>
+  <block id="4a79c7df8230b29604868f22b98485ce" category="paragraph">如需完整的用戶端 playbook 範例，請按一下<block ref="2fac5c043266feb7c504d3b0a97b63ad" category="inline-link-macro-rx"></block>。</block>
+  <block id="d9d7c35b7d8d2895e58cebb336936164" category="paragraph">點擊 <block ref="6c2e10ed6c5e5e2a4146d3497e6ba0cd" category="inline-link-macro-rx"></block> 查看完整劇本檔案的範例。</block>
+  <block id="02aa16422a28849350630f0b59f23249" category="paragraph">點擊 <block ref="02ffedb079fdd120d9e31ef2feb830f7" category="inline-link-macro-rx"></block> 查看代表 BeeGFS 管理服務的完整庫存檔案範例。</block>
+  <block id="43278348cb4d4b077391cf79043488c7" category="paragraph">點擊 <block ref="96379dab4a373144e66869d7dc4882c1" category="inline-link-macro-rx"></block> 查看代表 BeeGFS 元資料服務的完整清單檔案範例。</block>
+  <block id="99507f5595894faa9aca0c53ef6d08fd" category="paragraph">點擊 <block ref="2b6d92d5f6582705c8b9e7296de4d3c4" category="inline-link-macro-rx"></block> 查看代表 BeeGFS 儲存服務的完整庫存檔案範例。</block>
+  <block id="6a36198e27c32edeb073cdbd110f222a" category="paragraph">點擊 <block ref="c839b8af6f1b170f614c09e3af48452e" category="inline-link-macro-rx"></block> 查看代表常見區塊節點配置的完整清單檔案範例。</block>
+  <block id="c0e9d0079786786a37750404b7cec0b1" category="admonition">如果您使用的是經過驗證的檔案節點模型，請按一下 <block ref="e013e1ae19c968929c828b911b95648d" category="inline-link-macro-rx"></block> 以查看 PCIe 位址到邏輯連接埠對映範例。</block>
+  <block id="4fdfcdf7cbbea73ceea168555ea32cf6" category="paragraph">點擊 <block ref="03b0f19734ce80c590317157664e0a1b" category="inline-link-macro-rx"></block> 查看代表常見檔案節點配置的完整清單檔案範例。</block>
+  <block id="7d6208f203a88e1c7ba76b4444715baf" category="paragraph">點擊 <block ref="2c71e0869ed42750c157b99af4b05c72" category="inline-link-macro-rx"></block> 查看代表單一區塊節點的完整庫存檔案範例。</block>
+  <block id="17c18dec192467c4d029cf82e1849e68" category="paragraph">點擊 <block ref="1362479e181ea9a79c94bf6e62c9989b" category="inline-link-macro-rx"></block> 查看代表單一檔案節點的完整庫存檔案範例。</block>
+  <block id="47e816052a42a1d6517f52bf3ace4238" category="paragraph">點擊 <block ref="452c9e89e85a73dc4fbabc4b96034c83" category="inline-link-macro-rx"></block> 查看完整庫存檔案的範例。</block>
+  <block id="19a968e962172b9e54ac2ee93b286fef" category="list-text">請依照 <block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block> 中建議的版本，使用 <block ref="b86e3f2d91aaf90c40586c2fea49c8a0" category="inline-link-macro-rx"></block> 指南更新所有 HCA 韌體。</block>
 </blocks>

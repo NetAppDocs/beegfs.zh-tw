@@ -87,4 +87,4 @@ beegfs_targets:
           - size: <PERCENT> # Percent of the pool or volume group to allocate to this volume. Ex. 1
             owning_controller: <CONTROLLER> # One of: A, B
 ----
-按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/meta_01.yml["請按這裡"^] 例如、代表BeeGFS中繼資料服務的完整庫存檔案。
+點擊 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/group_vars/meta_01.yml["請按這裡"^] 查看代表 BeeGFS 元資料服務的完整清單檔案範例。

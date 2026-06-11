@@ -120,7 +120,7 @@ NOTE: 每個支援的主要.次要 版本BeeGFS均維持BeeGFS HA角色。這可
 . 選用：如果您想要定義其他工作、請記住是否應將工作導向 `all` 主機（包括E系列儲存系統）或僅檔案節點。如有需要、請使用定義專為檔案節點而設計的新遊戲 `- hosts: ha_cluster`。
 
 
-按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/playbook.yml["請按這裡"^] 例如完整的教戰手冊檔案。
+點擊 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_playbook.yml["請按這裡"^] 查看完整劇本檔案的範例。
 
 
 

@@ -165,7 +165,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
-如需支援參數的完整清單及其他詳細資料、請參閱 link:https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_client["完整的BeeGFS用戶端文件"^]。如需用戶端庫存的完整範例、請按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/client_inventory.yml["請按這裡"^]。
+有關支援的參數的完整列表和其他詳細資訊，請參閱 link:https://github.com/NetApp/beegfs/tree/master/roles/beegfs_client["完整的BeeGFS用戶端文件"^]。有關客戶端庫存的完整範例，請按一下 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_client/beegfs_client_inventory.yml["請按這裡"^]。
 
 
 
@@ -223,7 +223,7 @@ beegfs_ha_conn_auth_enabled: false
 ----
 
 
-如需用戶端方針的完整範例、請按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/client_playbook.yml["請按這裡"^]。
+如需完整的用戶端 playbook 範例，請按一下link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_client/beegfs_client_playbook.yml["請按這裡"^]。
 
 
 

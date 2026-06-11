@@ -202,7 +202,7 @@ CAUTION: 為了避免在重新命名介面時發生衝突（避免重新命名�
 
 +
 
-NOTE: 如果您使用已驗證的檔案節點模型、請按一下 link:https://docs.netapp.com/us-en/beegfs/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes["請按這裡"^] PCIe位址對邏輯連接埠對應範例。
+NOTE: 如果您使用的是經過驗證的檔案節點模型，請按一下 link:https://docs.netapp.com/us-en/beegfs/second-gen/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes["請按這裡"^] 以查看 PCIe 位址到邏輯連接埠對映範例。
 
 
 
@@ -255,7 +255,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
-按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/ha_cluster.yml["請按這裡"^] 例如、代表通用檔案節點組態的完整庫存檔案。
+點擊 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/group_vars/ha_cluster.yml["請按這裡"^] 查看代表常見檔案節點配置的完整清單檔案範例。
 
 
 

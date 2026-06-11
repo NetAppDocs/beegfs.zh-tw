@@ -49,7 +49,7 @@ NOTE: 雖然並非嚴格要求、但後續章節假設主機名稱會依序編�
 ....
 subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
-. 將所有 HCA 韌體更新至使用link:..administer/clusters-update-hca-firmware.html["更新檔案節點介面卡韌體"^]指南中建議的版本link:beegfs-technology-requirements.html["技術需求"]。
+. 請依照 link:beegfs-technology-requirements.html["技術需求"] 中建議的版本，使用 link:../administer/clusters-update-hca-firmware.html["更新檔案節點介面卡韌體"^] 指南更新所有 HCA 韌體。
 
 
 

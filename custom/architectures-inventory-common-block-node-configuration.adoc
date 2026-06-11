@@ -105,4 +105,4 @@ eseries_storage_pool_usable_drives: "99:0,99:23,99:1,99:22,99:2,99:21,99:3,99:20
 
 
 
-按一下 link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/eseries_storage_systems.yml["請按這裡"^] 例如、代表通用區塊節點組態的完整庫存檔案。
+點擊 link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/group_vars/eseries_storage_systems.yml["請按這裡"^] 查看代表常見區塊節點配置的完整清單檔案範例。
