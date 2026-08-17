@@ -18,6 +18,7 @@ summary: 在NetApp解決方案上部署BeeGFS時、請遵循最佳實務準則�
 
 
 
+[[standard-conventions]]
 == 標準慣例
 
 實際組裝及建立Ansible庫存檔案時、請遵循下列標準慣例（如需詳細資訊、請參閱） link:beegfs-deploy-create-inventory.html["建立可Ansible庫存"]）。
@@ -45,12 +46,14 @@ summary: 在NetApp解決方案上部署BeeGFS時、請遵循最佳實務準則�
 
 
 
+[[infiniband-storage-network-configuration]]
 == InfiniBand儲存網路組態
 
 每個檔案節點上的一半InfiniBand連接埠、用於直接連線至區塊節點。另一半連接至InfiniBand交換器、用於BeeGFS用戶端與伺服器的連線。在判斷用於BeeGFS用戶端和伺服器的IPoIB子網路大小時、您必須考量運算/GPU叢集和BeeGFS檔案系統的預期成長。如果您必須偏離建議的IP範圍、請記住、單一建置區塊中的每個直接連線都有獨特的子網路、而且不會與用於用戶端與伺服器連線的子網路重疊。
 
 
 
+[[direct-connects]]
 === 直接連線
 
 每個建置區塊內的檔案和區塊節點、一律使用下表中的IP進行直接連線。
@@ -87,6 +90,7 @@ NOTE: 此定址方案遵循下列規則：第三個八位元組永遠是不規�
 |===
 
 
+[[beegfs-client-server-ipoib-addressing-schemes]]
 === BeeGFS 用戶端伺服器 IPoIB 定址方案
 
 每個檔案節點都會執行多個BeeGFS伺服器服務（管理、中繼資料或儲存設備）。為了讓每項服務獨立容錯移轉至其他檔案節點、每項服務都會設定獨特的IP位址、以便在兩個節點之間浮動（有時稱為邏輯介面或LIF）。

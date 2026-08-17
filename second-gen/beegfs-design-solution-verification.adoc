@@ -31,6 +31,7 @@ image:beegfs-design-image12.png["BeeGFS 驗證組態"]
 
 
 
+[[beegfs-file-striping]]
 == BeeGFS檔案分段
 
 平行檔案系統的一項優點是能夠跨越多個儲存目標、將個別檔案等量磁碟區、這可能代表相同或不同基礎儲存系統上的磁碟區。
@@ -41,6 +42,7 @@ image:beegfs-design-image12.png["BeeGFS 驗證組態"]
 
 
 
+[[ior-bandwidth-tests-multiple-clients]]
 == IOR頻寬測試：多個用戶端
 
 IOR頻寬測試使用OpenMPI來執行綜合I/O產生器工具IOR的平行工作（可從以下網站取得 https://github.com/hpc/ior["HPC GitHub"^]）跨所有10個用戶端節點、移至一或多個BeeGFS建置區塊。除非另有說明：
@@ -78,6 +80,7 @@ image:beegfs-design-image16.png["三個 BeeGFS 建置區塊的 IOR 結果"]
 
 
 
+[[ior-bandwidth-tests-single-client]]
 == IOR頻寬測試：單一用戶端
 
 IOR頻寬測試使用OpenMPI、使用單一高效能GPU伺服器執行多個IOR程序、以探索單一用戶端所能達到的效能。
@@ -97,6 +100,7 @@ NOTE: 這些測試的BeeGFS分段設定為1MB chunksize、每個檔案有八個�
 
 
 
+[[metadata-performance-test]]
 == 中繼資料效能測試
 
 中繼資料效能測試使用MDTest工具（包含在IOR中）來測量BeeGFS的中繼資料效能。測試使用OpenMPI在所有十個用戶端節點上執行平行工作。
@@ -120,6 +124,7 @@ image:beegfs-design-image19.png["兩個 BeeGFS 中繼資料和儲存建置區塊
 
 
 
+[[functional-validation]]
 == 功能驗證
 
 在驗證此架構時、NetApp執行了數項功能測試、包括：
@@ -137,6 +142,7 @@ NOTE: 有已知問題（請參閱 https://github.com/netappeseries/beegfs/blob/m
 
 
 
+[[nvidia-dgx-superpod-and-basepod-validation]]
 == NVIDIA DGX SuperPOD 和 BasePOD 驗證
 
 NetApp已使用類似的BeeGFS檔案系統（由三個建置區塊組成、並套用中繼資料加上儲存組態設定檔）、驗證NVIDIAs DGX A100 SupermPOD的儲存解決方案。此NVA所描述的解決方案、需要測試資格、測試20部DGX A100 GPU伺服器、執行各種儲存設備、機器學習和深度學習基準測試。以 NVIDIA DGX A100 SuperPOD 所建立的驗證為基礎、 NetApp 上的 BeeGFS 解決方案已獲得 DGX SuperPOD H100 、 H200 及 B200 系統的核准。這項延伸是根據 NVIDIA DGX A100 所驗證的先前基準測試和系統需求而定。

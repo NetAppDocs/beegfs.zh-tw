@@ -21,6 +21,7 @@ TIP: 本節中使用的術語定義可在link:../get-started/beegfs-terms.html["
 
 
 
+[[introduction]]
 == 簡介
 
 雖然link:../second-gen/beegfs-solution-overview.html["NetApp認證的架構"]提供預先定義的參考組態和規模指南、但有些客戶和合作夥伴可能偏好設計更適合特定需求或硬體偏好的自訂架構。在NetApp上選擇BeeGFS的主要優點之一、就是能夠使用Ansible部署BeeGFS共享磁碟HA叢集、藉由NetApp著作的HA元件來簡化叢集管理並提升可靠性。在NetApp上部署客製化BeeGFS架構仍是使用Ansible、在靈活的硬體範圍內維持類似應用裝置的方法。
@@ -29,6 +30,7 @@ TIP: 本節中使用的術語定義可在link:../get-started/beegfs-terms.html["
 
 
 
+[[deployment-overview]]
 == 部署總覽
 
 部署BeeGFS檔案系統通常需要執行下列步驟：
@@ -63,6 +65,7 @@ Ansible負責所有的軟體資源配置與組態工作、包括：
 ====
 
 
+[[requirements]]
 == 需求
 
 Ansible的BeeGFS支援已於發表 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"] 這是一套角色與模組的集合、可將BeeGFS HA叢集的端點對端點部署與管理自動化。
@@ -71,6 +74,7 @@ BeeGFS本身的版本是根據<major> 一份《Section.Section.》<minor> 版本
 
 
 
+[[ansible-control-node]]
 === Ansible Control Node
 
 此節點將包含用於管理BeeGFS的目錄和方針。它需要：
@@ -84,6 +88,7 @@ BeeGFS本身的版本是根據<major> 一份《Section.Section.》<minor> 版本
 
 
 
+[[beegfs-file-nodes]]
 === BeeGFS檔案節點
 
 檔案節點必須執行 Red Hat Enterprise Linux (RHEL) 9.4，並有權存取包含所需軟體包（pacemaker、corosync、fence-agents-all、resource-agents）的 HA 儲存庫。例如，可以執行下列命令在 RHEL 9 上啟用對應的儲存庫：
@@ -94,6 +99,7 @@ subscription-manager repo-override repo=rhel-9-for-x86_64-highavailability-rpms 
 ----
 
 
+[[beegfs-client-nodes]]
 === BeeGFS用戶端節點
 
 BeeGFS用戶端Ansible角色可用於安裝BeeGFS用戶端套件、以及管理BeeGFS掛載。此角色已使用 RHEL 9.4 和 Ubuntu 22.04 進行測試。

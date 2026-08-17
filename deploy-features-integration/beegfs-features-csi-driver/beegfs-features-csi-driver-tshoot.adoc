@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-tshoot.html 
+permalink: deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-tshoot.html 
 keywords: BeeGFS Features, CSI, Driver, Troubleshoot, Troubleshooting 
 summary: BeeGFS CSI 驅動程式部署故障排除。 
 ---
@@ -26,6 +26,7 @@ summary: BeeGFS CSI 驅動程式部署故障排除。
 
 
 
+[[kubernetes-setup-common-error-scenarios]]
 == Kubernetes 設定 - 常見錯誤場景
 
 嘗試檢索節點上所有目前正在運行的 Pod 時出現的範例錯誤：
@@ -48,6 +49,7 @@ E0829 14:30:28.644318 5617 memcache.go:265)] "Unhandled Error" err="couldn't get
 
 
 
+[[error-in-containerd]]
 == containerd 出錯
 
 檢查 containerd 守護程式的狀態：
@@ -75,6 +77,7 @@ journalctl -u containerd
 ----
 
 
+[[error-in-kubelet]]
 == kubelet 出錯
 
 檢查 kubelet 服務的狀態：
@@ -112,6 +115,7 @@ tail -f /var/log/syslog | grep kubelet
 ----
 
 
+[[swap-issue]]
 == 互換發行
 
 如果遇到與「swap」相關的錯誤，請停用 swap 並重新啟動 kubelet。
@@ -146,6 +150,7 @@ NOTE: 交換分區通常在作業系統安裝過程中預設啟用，並列在�
 
 
 
+[[troubleshooting-beegfs-client-and-helperd-configuration]]
 == BeeGFS客戶端和輔助組態故障排除
 
 . 查看配置 `/etc/beegfs/beegfs-client.conf`。
@@ -232,6 +237,7 @@ tuneNumWorkers                = 2
 
 
 
+[[troubleshooting-beegfs-controller-issues]]
 == BeeGFS 控制器問題檢查
 
 部署覆蓋層後，您可能會在 kubectl get all 的輸出中看到一些資源處於 PENDING 狀態。
@@ -256,6 +262,7 @@ kubectl describe pod <pod-name> -n beegfs-csi | grep -i image
 ----
 
 
+[[checking-pod-logs]]
 === 檢查 Pod 日誌
 
 如果一個 pod 無法啟動或處於下列狀態 `CrashLoopBackOff`狀態，請查看其日誌以了解更多詳情：

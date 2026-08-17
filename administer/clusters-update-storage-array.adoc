@@ -18,6 +18,7 @@ summary: 升級 HA 叢集 E-Series 儲存陣列的步驟。
 
 
 
+[[overview]]
 == 總覽
 
 使用最新的韌體、讓 HA 叢集的 NetApp E-Series 儲存陣列保持在最新狀態、以確保最佳效能和更高的安全性。儲存陣列的韌體更新是透過 SANtricity OS ， NVSRAM 和磁碟機韌體檔案來套用。
@@ -27,6 +28,7 @@ NOTE: 雖然儲存陣列可以在 HA 叢集上線時進行升級、但建議您�
 
 
 
+[[block-node-upgrade-steps]]
 == 區塊節點升級步驟
 
 下列步驟概述如何使用 `Netapp_Eseries.Santricity` Ansible 集合更新儲存陣列的韌體。在繼續之前、請檢閱link:https://docs.netapp.com/us-en/e-series/upgrade-santricity/overview-upgrade-consider-task.html["升級考量"^]以更新 E-Series 系統。

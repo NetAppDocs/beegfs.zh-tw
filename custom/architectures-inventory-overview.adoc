@@ -18,6 +18,7 @@ Ansible清單是一組組組態檔、可定義所需的BeeGFS HA叢集。
 
 
 
+[[overview]]
 == 總覽
 
 建議您遵循標準的可管理實務做法來組織您的 link:https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html["庫存"]、包括的使用 link:https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#organizing-host-and-group-variables["子目錄/檔案"] 而非將整個庫存儲存在單一檔案中。
@@ -31,6 +32,7 @@ NOTE: 由於單一BeeGFS檔案系統可橫跨多個HA叢集、因此大型安裝
 
 
 
+[[steps]]
 == 步驟
 
 . 在「Ansible」控制節點上、建立一個空白目錄、其中包含您要部署之BeeGFS叢集的「Ansible」清單。

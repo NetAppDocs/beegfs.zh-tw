@@ -48,7 +48,7 @@ image:driveslots.png["EF600 磁碟機插槽"]
 
 
 
-. 使用連接區塊和檔案節點 link:beegfs-technology-requirements.html#block-file-cables["1M InfiniBand HDR 200GB 直接連接銅線"]、使它們符合下圖所示的拓撲。
+. 使用 link:beegfs-technology-requirements.html#file-node-requirements["1M InfiniBand HDR 200GB 直接連接銅線"] 連接區塊和檔案節點，使它們與下圖所示的拓撲相符。
 +
 image:directattachcable-sr665v3.png["SR665V3 直接連接纜線"]
 
@@ -56,7 +56,7 @@ image:directattachcable-sr665v3.png["SR665V3 直接連接纜線"]
 
 NOTE: 橫跨多個建置區塊的節點永遠不會直接連線。每個建置區塊都應視為獨立式單元、而建置區塊之間的所有通訊都是透過網路交換器進行。
 
-. 使用特定於 InfiniBand 儲存交換器的、將檔案節點上的其餘 InfiniBand 連接埠連接至儲存網路的 InfiniBand 交換 link:beegfs-technology-requirements.html#file-switch-cables["2 公尺 InfiniBand 纜線"] 器。
+. 使用適用於您的 InfiniBand 儲存交換器的 link:beegfs-technology-requirements.html#storage-network-switch-requirements["2 公尺 InfiniBand 纜線"]，將檔案節點上的剩餘 InfiniBand 連接埠連接到儲存網路的 InfiniBand 交換器。
 +
 當使用分離器纜線將儲存交換器連接至檔案節點時、一條纜線應從交換器分支出來、並連接至淡綠色的連接埠。另一條分離器纜線應從交換器分支出來、並連接至暗綠色的連接埠。
 

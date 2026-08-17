@@ -18,6 +18,7 @@ summary: 在每部伺服器的基礎板管理控制器（BMC）上設定網路�
 
 
 
+[[set-up-file-nodes]]
 == 設定檔案節點
 
 . 在每部伺服器的基礎板管理控制器（BMC）上設定網路。
@@ -54,6 +55,7 @@ subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpm
 
 
 
+[[set-up-block-nodes]]
 == 設定區塊節點
 
 設定每個控制器上的管理連接埠、以設定EF600區塊節點。

@@ -18,6 +18,7 @@ summary: 使用群組變數（群組_vars）指定通用檔案節點組態。
 
 
 
+[[overview]]
 == 總覽
 
 所有檔案節點的組態均應定義於 `group_vars/ha_cluster.yml`。通常包括：
@@ -36,6 +37,7 @@ NOTE: 此檔案中設定的選項也可在個別檔案節點上定義、例如�
 
 
 
+[[steps]]
 == 步驟
 
 建立檔案 `group_vars/ha_cluster.yml` 並填入如下內容：
@@ -259,6 +261,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
+[[using-hdr-200gb-infiniband-with-netapp-ef600-block-nodes]]
 === 使用具有NetApp EF600區塊節點的HDR（200GB）InfiniBand：
 
 若要將HDR(200Gb) InfiniBand搭配EF600使用、子網路管理程式必須支援虛擬化。如果使用交換器連接檔案和區塊節點、則必須在整個Fabric的子網路管理程式上啟用此功能。

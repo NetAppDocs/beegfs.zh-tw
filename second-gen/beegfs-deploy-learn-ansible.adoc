@@ -20,6 +20,7 @@ Ansible 清單是一個目錄結構，列出要跨部署 BeeGFS 檔案系統的�
 
 
 
+[[ansible-modules-and-roles]]
 == Ansible模組與角色
 
 若要套用 Ansible 庫存所述的組態，請使用 NetApp E 系列 Ansible 集合（可從取得）中提供的各種 Ansible 模組和角色 https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_4["NetApp E系列BeeGFS GitHub"^]，以部署端點對端點解決方案。
@@ -33,6 +34,7 @@ NOTE: 雖然部署步驟會嘗試提供足夠的詳細資料、以確保事先�
 
 
 
+[[inventory-layout-for-a-beegfs-ha-cluster]]
 == BeeGFS HA叢集的庫存配置
 
 使用 Ansible 庫存結構定義 BeeGFS HA 叢集。

@@ -18,16 +18,19 @@ summary: 在叢集節點之間移動BeeGFS服務。
 
 
 
+[[overview]]
 == 總覽
 
 BeeGFS服務可在叢集中的節點之間進行容錯移轉、以確保當節點發生故障或需要執行計畫性維護時、用戶端能夠繼續存取檔案系統。本節說明系統管理員在從故障中恢復後、或在節點之間手動移動服務時、如何修復叢集。
 
 
 
+[[steps]]
 == 步驟
 
 
 
+[[failover-and-failback]]
 === 容錯移轉與容錯回復
 
 
@@ -89,6 +92,7 @@ pcs resource relocate run
 ----
 
 
+[[moving-individual-beegfs-services-to-alternate-file-nodes]]
 === 將個別BeeGFS服務移至替代檔案節點
 
 

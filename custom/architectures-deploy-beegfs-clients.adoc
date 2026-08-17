@@ -18,16 +18,19 @@ summary: （可選）Ansible可用於配置BeeGFS客戶端並掛載文件系統�
 
 
 
+[[overview]]
 == 總覽
 
 存取BeeGFS檔案系統時、必須在需要掛載檔案系統的每個節點上安裝及設定BeeGFS用戶端。本節說明如何使用可用的執行這些工作 link:https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_client["Ansible角色"^]。
 
 
 
+[[steps]]
 == 步驟
 
 
 
+[[create-the-client-inventory-file]]
 === 建立用戶端庫存檔案
 
 . 如有需要、請從Ansible控制節點設定無密碼SSH、並將其設定為BeeGFS用戶端的每個主機：
@@ -169,6 +172,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
+[[create-the-beegfs-client-playbook-file]]
 === 建立BeeGFS用戶端教戰手冊檔案
 
 . 建立新檔案 `client_playbook.yml`
@@ -227,6 +231,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
+[[run-the-beegfs-client-playbook]]
 === 執行BeeGFS用戶端教戰手冊
 
 若要安裝/建置用戶端及Mount BeeGFS、請執行下列命令：

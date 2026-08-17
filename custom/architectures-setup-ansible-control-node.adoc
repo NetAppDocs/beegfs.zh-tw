@@ -18,6 +18,7 @@ summary: 設定Ansible控制節點以部署及管理檔案系統。
 
 
 
+[[overview]]
 == 總覽
 
 Ansible控制節點是用於管理叢集的實體或虛擬Linux機器。它必須符合下列要求：

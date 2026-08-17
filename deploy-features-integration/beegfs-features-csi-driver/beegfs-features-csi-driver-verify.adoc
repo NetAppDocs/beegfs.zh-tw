@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-verify.html 
+permalink: deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-verify.html 
 keywords: BeeGFS Features, CSI, Driver 
 summary: BeeGFS CSI 驅動程式部署驗證。 
 ---
@@ -32,6 +32,7 @@ pod/csi-beegfs-node-8f917     3/3      Running     0           5d11h
 ----
 
 
+[[inspect-controller-pod]]
 == 檢查控制器艙
 
 要診斷問題或收集有關 BeeGFS CSI 控制器 pod 的更多詳細信息，請使用以下命令描述該 pod 並查看其事件、狀態和最近活動：
@@ -62,6 +63,7 @@ Events:
 ----
 
 
+[[verify-storageclass]]
 == 驗證儲存類別
 
 . 驗證 StorageClass 是否建立成功：

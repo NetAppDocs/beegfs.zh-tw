@@ -18,6 +18,7 @@ BeeGFS服務是使用群組變數（群組_vars）進行設定。
 
 
 
+[[overview]]
 == 總覽
 
 本節將逐步說明如何定義BeeGFS中繼資料服務。對於特定檔案系統、HA叢集中至少應有一項此類型的服務。設定此服務包括定義：
@@ -30,6 +31,7 @@ BeeGFS服務是使用群組變數（群組_vars）進行設定。
 
 
 
+[[steps]]
 == 步驟
 
 參照link:architectures-plan-file-system.html["規劃檔案系統"^]區段、 `group_vars/meta_<ID>.yml`為叢集中的每個中繼資料服務建立位於的檔案、並填入這些檔案、如下所示：

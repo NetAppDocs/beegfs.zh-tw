@@ -18,6 +18,7 @@ BeeGFS服務是使用群組變數（群組_vars）進行設定。
 
 
 
+[[overview]]
 == 總覽
 
 本節將逐步說明如何定義BeeGFS儲存服務。對於特定檔案系統、HA叢集中至少應有一項此類型的服務。設定此服務包括定義：
@@ -30,6 +31,7 @@ BeeGFS服務是使用群組變數（群組_vars）進行設定。
 
 
 
+[[steps]]
 == 步驟
 
 請參考本link:architectures-plan-file-system.html["規劃檔案系統"^]節、 `group_vars/stor_<ID>.yml`為叢集中的每個儲存服務建立位於的檔案、並依照下列步驟填入：

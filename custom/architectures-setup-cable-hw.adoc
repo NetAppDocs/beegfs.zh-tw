@@ -18,6 +18,7 @@ summary: 在NetApp上安裝和連接硬體以執行BeeGFS所需的步驟。
 
 
 
+[[plan-the-installation]]
 == 規劃安裝
 
 每個BeeGFS檔案系統都會包含一些使用某些區塊節點所提供的後端儲存設備執行BeeGFS服務的檔案節點。檔案節點已設定為一個或多個高可用度叢集、以提供BeeGFS服務的容錯能力。每個區塊節點都已是作用中/作用中的HA配對。每個HA叢集中支援的檔案節點數目下限為三個、每個叢集中支援的檔案節點數目上限為十個。BeeGFS檔案系統可透過部署多個獨立的HA叢集來搭配運作、以提供單一檔案系統命名空間、擴充至超過十個節點。
@@ -31,6 +32,7 @@ CAUTION: 在繼續安裝之前、請先確認您已充分瞭解特定BeeGFS部�
 
 
 
+[[rack-hardware]]
 == 機架硬體
 
 規劃安裝時、每個建置區塊中的所有設備都必須安裝在鄰近的機架單元中。最佳實務做法是將檔案節點直接機架在每個建置區塊的區塊節點上方。遵循檔案和模型的文件說明文件 link:https://docs.netapp.com/us-en/e-series/getting-started/getup-run-concept.html["區塊"^] 將滑軌和硬體安裝到機架時所使用的節點。
@@ -45,6 +47,7 @@ image:beegfs-design-image3-small.png["BeeGFS 部署範例"]
 
 
 
+[[cable-file-and-block-nodes]]
 == 纜線檔案和區塊節點
 
 一般而言、您會將E系列區塊節點的HIC連接埠直接連接至檔案節點的指定主機通道介面卡（適用於InfiniBand傳輸協定）或主機匯流排介面卡（適用於光纖通道和其他傳輸協定）連接埠。建立這些連線的確切方法取決於所需的檔案系統架構、以下是範例link:../second-gen/beegfs-design-hardware-architecture.html["以NetApp認證架構上的第二代BeeGFS為基礎"^]：
@@ -53,6 +56,7 @@ image:buildingblock-sr665v3.png["BeeGFS 檔案範例、用於封鎖節點纜線"
 
 
 
+[[cable-file-nodes-to-the-client-network]]
 == 將檔案節點纜線連接至用戶端網路
 
 每個檔案節點都會有一些InfiniBand或乙太網路連接埠、指定用於BeeGFS用戶端流量。視架構而定、每個檔案節點都會有一或多個高效能用戶端/儲存網路連線、可能會連到多個交換器以提供備援和增加頻寬。以下是使用備援網路交換器進行用戶端佈線的範例、其中以深綠色和淺綠色強調顯示的連接埠連接至不同的交換器：
@@ -61,6 +65,7 @@ image:networkcable-sr665v3.png["BeeGFS 用戶端纜線範例"]
 
 
 
+[[connect-management-networking-and-power]]
 == 連線管理網路與電源
 
 建立頻內和頻外網路所需的任何網路連線。

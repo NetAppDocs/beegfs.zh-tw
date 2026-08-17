@@ -18,12 +18,14 @@ summary: 瞭解如何在部署BeeGFS HA叢集之後管理這些叢集。
 
 
 
+[[overview]]
 == 總覽
 
 本節適用於部署BeeGFS HA叢集之後、需要管理的叢集管理員。即使是熟悉Linux HA叢集的使用者、也應該徹底閱讀本指南、因為管理叢集的方式有許多差異、尤其是使用Ansible進行重新設定。
 
 
 
+[[key-concepts]]
 == 重要概念
 
 雖然在主link:../get-started/beegfs-terms.html["詞彙與概念"]頁上介紹了其中一些概念、但在 BeeGFS HA 叢集的背景下重新介紹這些概念是很有幫助的：
@@ -50,6 +52,7 @@ summary: 瞭解如何在部署BeeGFS HA叢集之後管理這些叢集。
 
 
 
+[[common-terminology]]
 == 通用術語
 
 **容錯移轉：*每個BeeGFS服務都有一個優先要執行的檔案節點、除非該節點故障。當BeeGFS服務在非慣用/次要檔案節點上執行時、就表示該服務正在進行容錯移轉。

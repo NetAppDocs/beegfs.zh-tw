@@ -18,6 +18,7 @@ summary: 使用主機變數（host_vars）指定個別檔案節點的組態。
 
 
 
+[[overview]]
 == 總覽
 
 本節將逐步介紹填入的內容 `host_vars/<FILE_NODE_HOSTNAME>.yml` 叢集中每個檔案節點的檔案。這些檔案應僅包含特定檔案節點專屬的組態。這通常包括：
@@ -33,6 +34,7 @@ summary: 使用主機變數（host_vars）指定個別檔案節點的組態。
 
 
 
+[[steps]]
 == 步驟
 
 link:architectures-plan-file-system.html["規劃檔案系統"]針對叢集中的每個檔案節點、參考一節中定義的 IP 定址方案會建立檔案 `host_vars/<FILE_NODE_HOSTNAME>/yml`、並填入檔案、如下所示：
@@ -141,9 +143,10 @@ eseries_nvme_roce_interfaces:
 
 
 
+[[advanced-toggling-nvidia-connectx-vpi-adapters-between-ethernet-and-infiniband-mode]]
 === 進階：在乙太網路與InfiniBand模式之間切換NVIDIA ConnectX VPI介面卡
 
-NVIDIA ConnectX-Virtual Protocol Interconnect（VPI）介面卡支援InfiniBand和乙太網路作為傳輸層。在模式之間切換不會自動協商，而且必須使用中隨附的工具進行設定 `mstconfig` `mstflint`，這是屬於的開放原始碼套件 link:https://docs.nvidia.com/networking/display/mftv4270/mft+supported+configurations+and+parameters["NVIDIA Firmare 工具（ MFT ）"^]。只需變更一次介面卡模式即可。這可以手動完成、也可以納入 Ansible 庫存、做為任何使用庫存區段設定的介面一部分 `eseries-[ib|ib_iser|ipoib|nvme_ib|nvme_roce|roce]_interfaces:` 、以自動檢查 / 套用。
+NVIDIA ConnectX-Virtual Protocol Interconnect&reg; （VPI） 介面卡支援將 InfiniBand 和乙太網路作為傳輸階層。模式之間的切換並非自動交涉，必須使用  `mstflint` 中包含的  `mstconfig` 工具進行設定，這是一個屬於 link:https://network.nvidia.com/products/adapter-software/firmware-tools/["NVIDIA Firmare 工具（ MFT ）"^] 的開放原始碼套件。變更介面卡的模式只需要執行一次。這可以手動完成，也可以作為使用清單中  `eseries-[ib|ib_iser|ipoib|nvme_ib|nvme_roce|roce]_interfaces:` 區段設定之任何介面的一部分包含在 Ansible 清單中，以便自動進行檢查/套用。
 
 例如、將InfiniBand模式中的介面電流變更為乙太網路、以便用於RoCE：
 

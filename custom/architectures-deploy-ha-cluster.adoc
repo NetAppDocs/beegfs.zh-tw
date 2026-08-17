@@ -18,16 +18,19 @@ summary: 使用方針來指定部署BeeGFS HA叢集時應執行哪些工作。
 
 
 
+[[overview]]
 == 總覽
 
 本節說明如何組裝標準方針、以在NetApp上部署/管理BeeGFS。
 
 
 
+[[steps]]
 == 步驟
 
 
 
+[[create-the-ansible-playbook]]
 === 建立可執行的教戰手冊
 
 建立檔案 `playbook.yml` 並填入如下內容：
@@ -124,6 +127,7 @@ NOTE: 每個支援的主要.次要 版本BeeGFS均維持BeeGFS HA角色。這可
 
 
 
+[[install-the-netapp-ansible-collections]]
 === 安裝NetApp Ansible Collection
 
 BeeGFS的Ansible及所有相依項目集合均保留在上 link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^]。在Ansible控制節點上執行下列命令、以安裝最新版本：
@@ -140,6 +144,7 @@ ansible-galaxy collection install netapp_eseries.beegfs:==<MAJOR>.<MINOR>.<PATCH
 ----
 
 
+[[run-the-playbook]]
 === 執行教戰手冊
 
 從包含的Ansible控制節點上的目錄 `inventory.yml` 和 `playbook.yml` 檔案、請依照下列步驟執行方針：

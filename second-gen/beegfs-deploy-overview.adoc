@@ -18,6 +18,7 @@ NetApp 上的 BeeGFS 可部署至已驗證的檔案和區塊節點，使用 Ansi
 
 
 
+[[ansible-collections-and-roles]]
 == Ansible集合與角色
 
 NetApp 上的 BeeGFS 解決方案是使用 Ansible 部署， Ansible 是一款可自動化應用程式部署的熱門 IT 自動化引擎。Ansible 使用一系列的檔案，統稱為庫存，用來建立您要部署的 BeeGFS 檔案系統的模型。
@@ -31,6 +32,7 @@ NOTE: 由於在NetApp解決方案上部署BeeGFS涉及許多步驟、因此NetAp
 
 
 
+[[configuration-profiles-for-beegfs-building-blocks]]
 == BeeGFS建置區塊的組態設定檔
 
 部署程序涵蓋下列組態設定檔：
@@ -44,6 +46,7 @@ NOTE: 由於在NetApp解決方案上部署BeeGFS涉及許多步驟、因此NetAp
 
 
 
+[[overview-of-deployment-steps]]
 == 部署步驟總覽
 
 部署作業包括下列高層級工作：

@@ -22,6 +22,7 @@ BeeGFS解決方案包含根據驗證測試來調整效能和容量規模的建�
 
 
 
+[[performance-sizing]]
 == 效能規模調整
 
 下表提供建議的效能規模調整。
@@ -41,6 +42,7 @@ BeeGFS解決方案包含根據驗證測試來調整效能和容量規模的建�
 
 
 
+[[capacity-sizing-for-metadata-storage-building-blocks]]
 == 中繼資料+儲存建置區塊的容量規模
 
 下表提供中繼資料與儲存建置區塊的建議容量規模調整。
@@ -65,6 +67,7 @@ NOTE: 調整中繼資料加上儲存建置區塊規模時、您可以使用較�
 
 
 
+[[capacity-sizing-for-storage-only-building-blocks]]
 == 專為儲存設備建置區塊調整容量
 
 下表針對純儲存建置區塊提供經驗法則容量規模調整。

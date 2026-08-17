@@ -18,12 +18,14 @@ summary: 在 HA 叢集中升級節律器和電暈器同步套件的步驟。
 
 
 
+[[overview]]
 == 總覽
 
 升級 Pacemaker 和 corosync 可確保叢集從新功能，安全修補程式和效能改善中獲益。
 
 
 
+[[upgrade-approach]]
 == 升級方法
 
 升級叢集有兩種建議方法：滾動升級或完全關閉叢集。每種方法都有自己的優缺點。您的升級程序可能會因心律調整器版本而異。請參閱 ClusterLabs 的link:https://clusterlabs.org/projects/pacemaker/doc/3.0/Pacemaker_Administration/html/upgrading.html["升級 Pacemaker 叢集"^]說明文件，以判斷要使用哪種方法。在遵循升級方法之前，請確認：
@@ -35,6 +37,7 @@ summary: 在 HA 叢集中升級節律器和電暈器同步套件的步驟。
 
 
 
+[[rolling-upgrade]]
 === 循環升級
 
 此方法涉及從叢集中移除每個節點，將其升級，然後將其重新引入叢集，直到所有節點都執行新版本為止。這種方法可讓叢集持續運作，這是較大型 HA 叢集的理想選擇，但在處理過程中會有執行混合版本的風險。在雙節點叢集中，應避免使用此方法。
@@ -129,6 +132,7 @@ NOTE: 如果 `Current DC`報告為「 ixed 版本」，則叢集中的某個節�
 
 
 
+[[complete-cluster-shutdown]]
 === 完成叢集關機
 
 在此方法中，所有叢集節點和資源都會關閉，節點會升級，然後重新啟動叢集。如果節律器和電暈器同步版本不支援混合版本的組態，則必須使用此方法。

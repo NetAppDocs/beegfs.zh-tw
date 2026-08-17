@@ -18,18 +18,21 @@ BeeGFS on NetApp解決方案結合BeeGFS平行檔案系統與NetApp EF600儲存�
 
 
 
+[[nva-program]]
 == NVA方案
 
 NetApp上的BeeGFS解決方案是NetApp驗證架構（NVA）方案的一部分、可為客戶提供特定工作負載和使用案例的參考組態和規模調整指導。NVA解決方案經過徹底測試與設計、可將部署風險降至最低、並加速上市時間。
 
 
 
+[[design-overview]]
 == 設計總覽
 
 NetApp 上的 BeeGFS 解決方案是一種可擴充的建置區塊架構、可針對各種嚴苛的工作負載進行設定。無論是處理許多小型檔案、管理大量檔案作業、或是混合式工作負載、都能自訂檔案系統以滿足這些需求。高可用度的設計採用兩層硬體結構、可在多個硬體層進行自動容錯移轉、確保效能一致、即使在部分系統降級期間也是如此。BeeGFS 檔案系統可在不同的 Linux 套裝作業系統中提供高效能且可擴充的環境、並為用戶端提供單一易存取的儲存命名空間。如需詳細資訊，請參閱 link:beegfs-architecture-overview.html["架構總覽"]。
 
 
 
+[[use-cases]]
 == 使用案例
 
 下列使用案例適用於NetApp上的BeeGFS解決方案：
@@ -49,6 +52,7 @@ NetApp 上的 BeeGFS 解決方案是一種可擴充的建置區塊架構、可�
 
 
 
+[[benefits]]
 == 效益
 
 在NetApp上使用BeeGFS的主要優點包括：

@@ -20,6 +20,7 @@ summary: 為了發揮最大效能、我們建議您在您做為檔案節點的�
 
 
 
+[[use-the-uefi-interface-to-tune-system-settings]]
 == 使用UEFI介面調整系統設定
 
 Lenovo SR665 V3 伺服器的系統韌體包含許多可透過 UEFI 介面設定的調整參數。這些調校參數可能會影響伺服器運作方式的所有層面、以及伺服器的效能表現。
@@ -28,6 +29,7 @@ Lenovo SR665 V3 伺服器的系統韌體包含許多可透過 UEFI 介面設定�
 
 
 
+[[operating-mode-menu]]
 === 操作模式功能表
 
 [cols=","]
@@ -113,6 +115,7 @@ NPS1
 |===
 
 
+[[devices-and-io-ports-menu]]
 === 裝置和I/O連接埠功能表
 
 [cols=","]
@@ -128,6 +131,7 @@ IOMMU
 |===
 
 
+[[power-menu]]
 === 電源選單
 
 [cols=","]
@@ -143,6 +147,7 @@ PCIe Power Brake
 |===
 
 
+[[processors-menu]]
 === 處理器功能表
 
 [cols=","]
@@ -179,6 +184,7 @@ CPPC
 |===
 
 
+[[use-redfish-api-to-tune-system-settings]]
 == 使用Redfish API調整系統設定
 
 除了使用UEFI設定、您也可以使用Redfish API來變更系統設定。

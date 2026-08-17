@@ -18,16 +18,19 @@ BeeGFS HA叢集疑難排解。
 
 
 
+[[overview]]
 == 總覽
 
 本節將說明如何調查及疑難排解在操作BeeGFS HA叢集時可能發生的各種故障和其他情況。
 
 
 
+[[troubleshooting-guides]]
 == 疑難排解指南
 
 
 
+[[investigating-unexpected-failovers]]
 === 正在調查意外的容錯移轉
 
 當節點被意外隔離、其服務移至另一個節點時、第一步應該是查看叢集是否在底部顯示任何資源故障 `pcs status`。通常、如果成功完成隔離並在另一個節點上重新啟動資源、則不會出現任何情況。
@@ -135,6 +138,7 @@ Jul 01 16:18:14 beegfs_01 pacemaker-controld[9247]:  notice: Peer beegfs_02 was 
 
 
 
+[[address-failed-resource-actions-found-at-the-bottom-of-pcs-status]]
 === 處理失敗的資源動作（可在PCS狀態的底部找到）
 
 如果執行BeeGFS服務所需的資源失敗、BeeGFS監視器會觸發容錯移轉。如果發生這種情況，則可能在底部沒有列出“故障資源操作” `pcs status`，您應該參考有關如何操作的步驟link:clusters-failover-failback.html["非計畫性容錯移轉之後的容錯回復"^]。
@@ -211,10 +215,12 @@ Jul 01 16:18:14 beegfs_01 pacemaker-controld[9247]:  notice: Peer beegfs_02 was 
 
 
 
+[[common-issues]]
 == 常見問題
 
 
 
+[[beegfs-services-dont-failover-or-failback-when-requested]]
 === BeeGFS服務不會在要求時進行容錯移轉或容錯回復
 
 *可能的問題：* The `pcs resource relocate` 執行命令已執行、但從未成功完成。
@@ -225,6 +231,7 @@ Jul 01 16:18:14 beegfs_01 pacemaker-controld[9247]:  notice: Peer beegfs_02 was 
 
 
 
+[[one-node-in-pcs-status-shows-standby-on-fail-when-fencing-is-disabled]]
 === 當隔離功能停用時、PC狀態中的一個節點會顯示「待命（故障時）」
 
 *可能的問題：*起搏器無法成功確認故障節點上的所有資源均已停止。
@@ -237,6 +244,7 @@ Jul 01 16:18:14 beegfs_01 pacemaker-controld[9247]:  notice: Peer beegfs_02 was 
 
 
 
+[[after-an-unexpected-failover-resources-show-started-on-fail-in-pcs-status-when-fencing-is-enabled]]
 === 在發生非預期的容錯移轉之後、啟用隔離功能時、資源會在PCS狀態中顯示「已啟動（故障時）」
 
 *可能的問題：*發生觸發容錯移轉的問題、但心臟起搏器無法驗證節點是否已被隔離。這可能是因為屏障設定錯誤、或屏障代理程式發生問題（例如：PDU已從網路中斷連線）。
@@ -255,10 +263,12 @@ CAUTION: 如果您指定的節點實際上並未關閉、而是執行叢集服�
 
 
 
+[[common-troubleshooting-tasks]]
 == 常見疑難排解工作
 
 
 
+[[restart-individual-beegfs-services]]
 === 重新啟動個別BeeGFS服務
 
 通常、如果需要重新啟動BeeGFS服務（例如為了協助變更組態）、則應更新「Ansible」（可存取）清單並重新執行播放手冊。在某些情況下、可能需要重新啟動個別服務、以加快疑難排解的速度、例如變更記錄層級、而不需要等待整個方針執行。

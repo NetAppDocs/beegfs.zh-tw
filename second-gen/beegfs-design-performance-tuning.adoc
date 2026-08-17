@@ -20,6 +20,7 @@ BeeGFS解決方案包含根據驗證測試進行效能調校的建議。
 
 
 
+[[performance-tuning-for-file-nodes]]
 == 檔案節點的效能調校
 
 您可以設定的可用調校參數包括：
@@ -79,6 +80,7 @@ BeeGFS解決方案包含根據驗證測試進行效能調校的建議。
 
 
 
+[[performance-tuning-for-block-nodes]]
 == 區塊節點的效能調校
 
 根據套用至特定BeeGFS建置區塊的組態設定檔、區塊節點上設定的Volume群組會稍微變更。例如、使用24個磁碟機EF600區塊節點：

@@ -18,6 +18,7 @@ summary: 配置 TLS 加密，以確保 BeeGFS 服務與客戶端之間的安全�
 
 
 
+[[overview]]
 == 總覽
 
 BeeGFS 8 引入了 TLS 支援，用於加密管理工具（例如  `beegfs` 命令列公用程式）與 BeeGFS 伺服器服務（例如 Management 或 Remote）之間的網路通訊。使用以下三種方法之一在 BeeGFS 叢集中設定 TLS 加密：
@@ -36,12 +37,15 @@ BeeGFS 8 引入了 TLS 支援，用於加密管理工具（例如  `beegfs` 命�
 ====
 
 
+[[using-a-trusted-certificate-authority]]
+[[using-trusted-ca]]
 == 使用受信任的憑證授權單位
 
 如果您擁有由受信任的憑證授權中心（CA）簽發的憑證——無論是來自內部企業 CA 還是第三方供應商——您都可以將 BeeGFS 8 配置為使用這些 CA 簽發的憑證，而不是產生自簽憑證。
 
 
 
+[[deploying-a-new-beegfs-8-cluster]]
 === 部署新的 BeeGFS 8 叢集
 
 對於新的 BeeGFS 8 叢集部署，請設定 Ansible 清單的 `user_defined_params.yml`檔案以引用您的 CA 簽署憑證：
@@ -63,6 +67,7 @@ beegfs_ha_tls_key_src_path: files/beegfs/cert/mgmtd_tls_key.pem
 ====
 
 
+[[configuring-an-existing-beegfs-8-cluster]]
 === 配置現有的 BeeGFS 8 叢集
 
 對於現有的 BeeGFS 8 叢集，請將 BeeGFS 管理服務的組態檔中的路徑設定為檔案節點的 CA 簽署憑證：
@@ -74,6 +79,7 @@ tls-key-file = /path/to/key.pem
 ----
 
 
+[[configuring-beegfs-8-clients-with-ca-signed-certificates]]
 === 設定 BeeGFS 8 用戶端使用 CA 簽署憑證
 
 [IMPORTANT]
@@ -85,12 +91,15 @@ tls-key-file = /path/to/key.pem
 
 
 
+[[creating-a-local-certificate-authority]]
+[[creating-local-ca]]
 == 建立本地憑證授權單位
 
 如果您的組織希望為 BeeGFS 叢集建立自己的憑證基礎架構，您可以建立一個本機憑證授權單位（CA）來頒發和簽署 BeeGFS 叢集的憑證。此方法涉及建立一個 CA，該 CA 為 BeeGFS 管理服務簽署憑證，然後將這些憑證分發給客戶端以建立信任鏈。
 
 
 
+[[deploying-a-new-beegfs-8-cluster]]
 === 部署新的 BeeGFS 8 叢集
 
 對於新的 BeeGFS 8 部署， `beegfs_8` Ansible 角色（包含在 BeeGFS HA 集合中）會在控制節點上建立本機 CA，並為管理服務產生必要的憑證。若要啟用此功能，請在 Ansible 清單的  `user_defined_params.yml` 檔案中設定以下參數：
@@ -115,6 +124,7 @@ beegfs_ha_tls_config_options:
 ====
 
 
+[[configuring-an-existing-beegfs-8-cluster]]
 === 配置現有的 BeeGFS 8 叢集
 
 對於現有的 BeeGFS 集群，您可以透過建立本機憑證授權單位並為管理服務產生必要的憑證來整合 TLS。更新 BeeGFS 管理服務設定檔中的路徑，使其指向新建立的憑證。
@@ -190,6 +200,7 @@ NOTE: 雖然為了簡單起見，本範例使用了 1 年的有效期，但您�
 
 
 
+[[create-management-service-certificates]]
 ==== 建立管理服務憑證
 
 為您的 BeeGFS 管理服務產生證書，並使用您建立的 CA 對其進行簽署。這些證書將安裝在執行 BeeGFS 管理服務的檔案節點上。
@@ -316,6 +327,7 @@ Successfully loaded license certificate: TMP-XXXXXXXXXX
 
 
 
+[[configure-tls-for-beegfs-8-clients]]
 === 為 BeeGFS 8 用戶端設定 TLS
 
 [IMPORTANT]
@@ -348,12 +360,14 @@ beegfs health check
 
 
 
+[[disabling-tls]]
 == 停用 TLS
 
 停用 TLS 以進行故障排除，或者如果您的環境不需要加密。在生產環境中應避免使用此選項，因為它會將檔案系統結構和配置等潛在敏感資訊以明文形式暴露出來。
 
 
 
+[[deploying-a-new-beegfs-8-cluster]]
 === 部署新的 BeeGFS 8 叢集
 
 對於新的 BeeGFS 叢集部署，請在 Ansible 清單的  `user_defined_params.yml` 檔案中設定以下參數以停用 TLS：
@@ -364,6 +378,7 @@ beegfs_ha_tls_enabled: false
 ----
 
 
+[[configuring-an-existing-beegfs-8-cluster]]
 === 配置現有的 BeeGFS 8 叢集
 
 對於現有的 BeeGFS 8 叢集，請編輯管理服務組態檔。例如，編輯位於  `/mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.toml` 的檔案並設定：

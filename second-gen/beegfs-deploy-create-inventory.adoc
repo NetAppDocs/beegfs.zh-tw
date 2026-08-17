@@ -18,6 +18,7 @@ summary: 若要定義檔案和區塊節點的組態、您可以建立可執行�
 
 
 
+[[step-1-define-configuration-for-all-building-blocks]]
 == 步驟1：定義所有建置區塊的組態
 
 定義套用至所有建置區塊的組態、無論您個別套用至哪些組態設定檔。
@@ -78,6 +79,7 @@ bmc_password: <PASSWORD>
 
 
 
+[[step-2-define-configuration-for-individual-file-and-block-nodes]]
 == 步驟2：定義個別檔案和區塊節點的組態
 
 定義適用於個別檔案節點和個別建置區塊節點的組態。
@@ -174,6 +176,7 @@ eseries_controller_nvme_ib_port:
 
 
 
+[[step-3-define-configuration-that-should-apply-to-all-file-and-block-nodes]]
 == 步驟3：定義應套用至所有檔案和區塊節點的組態
 
 您可以在與群組對應的檔案名稱中、定義「group _vars」下一組主機的通用組態。如此可避免在多個位置重複執行共用組態。
@@ -194,6 +197,7 @@ beegfs_ha_ntp_server_pools:  # Modify the NTP server addressess if desired.
 ....
 
 
+[[step-4-define-configuration-that-should-apply-to-all-file-nodes]]
 == 步驟4：定義應套用至所有檔案節點的組態
 
 檔案節點的共用組態是在稱為「ha_cluster」的群組中定義。本節中的步驟會建置應包含在「group vars/ha_cluster．yml」檔案中的組態。
@@ -366,6 +370,7 @@ NOTE: 在驗證測試中、「隨機配置資源」通常用於確保測試檔�
 
 
 
+[[step-5-define-the-configuration-for-the-common-block-node]]
 == 步驟5：定義通用區塊節點的組態
 
 區塊節點的共用組態是在稱為「Eseria_storage系統」的群組中定義。本節中的步驟會建置應包含在「group _vars/ Eseries _storage系統.yml」檔案中的組態。

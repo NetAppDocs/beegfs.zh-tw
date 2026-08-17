@@ -18,6 +18,7 @@ summary: 使用群組變數（群組_vars）指定通用區塊節點組態。
 
 
 
+[[overview]]
 == 總覽
 
 所有區塊節點的組態均定義於 `group_vars/eseries_storage_systems.yml`。通常包括：
@@ -32,6 +33,7 @@ NOTE: 此檔案中設定的選項也可在個別區塊節點上定義、例如�
 
 
 
+[[steps]]
 == 步驟
 
 建立檔案 `group_vars/eseries_storage_systems.yml` 並填入如下內容：

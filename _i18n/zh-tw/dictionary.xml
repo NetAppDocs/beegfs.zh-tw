@@ -507,7 +507,6 @@
   <block id="fd84d0d4501e2eca409dc18043cf1492" category="list-text">建立「group vars/mgmt.ml」檔案、並包含下列項目：</block>
   <block id="bcc9cdaf60435f4d091a1bfdac879201" category="list-text">在「Group_vars/」下、使用下列範本建立資源群組「meta_01」到「meta_08」的檔案、然後填寫下表中每個服務的預留位置值：</block>
   <block id="3df790a0a0a3be54d9cbac91d4bc35e1" category="inline-link">NetApp EF600陣列簡介</block>
-  <block id="4ada98602970473e524def1d48723bd6" category="admonition">磁碟區大小是以整體儲存資源池（也稱為Volume群組）的百分比來指定。NetApp強烈建議您在每個資源池中保留一些可用容量、以便有空間進行SSD過度資源配置（如需詳細資訊、請參閱<block ref="dfc1025f9a756c10e6b0cbe0f4bc500a" category="inline-link-rx"></block>）。儲存資源池「beegfs_m1_m2_m5_m6'」也會將1%的資源池容量配置給管理服務。因此、對於儲存資源池中的中繼資料磁碟區、當使用1.92TB或3.844TB磁碟機時、請將此值設為「21.25」；如果使用7.65TB磁碟機、請將此值設為「22.25」；如果使用15.3TB磁碟機、請將此值設為「23.75」。</block>
   <block id="34082694d21dbdcfc31e6e32d9fb2b9f" category="cell">檔案名稱</block>
   <block id="60aaf44d4b562252c04db7f98497e9aa" category="cell">連接埠</block>
   <block id="b1cddc6c78e92a26b8976dc97327d412" category="cell">浮動IP</block>
@@ -1500,7 +1499,6 @@
   <block id="5452bc376e228dbfc0b465054f2483c7" category="paragraph">目前支援的 Linux 套裝作業系統隨附的收件匣版本<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> 不支援虛擬化。而是必須從 NVIDIA OpenFabrics Enterprise Distribution （ OFED ）安裝和設定的版本<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> 。雖然仍支援使用Ansible進行部署、但仍需執行幾個額外步驟：</block>
   <block id="a7d969bead9b9df7cbb19855a88e29f0" category="list-text">任何用於叢集通訊的網路效能、對檔案系統效能並不重要。使用預設叢集組態時、通常至少有 1 Gb/s 網路可為叢集作業提供足夠的效能、例如同步節點狀態和協調叢集資源狀態變更。緩慢/忙碌的網路可能會導致資源狀態變更的時間比平常長、而且在極端的情況下、如果無法在合理的時間範圍內傳送訊號、則可能會導致節點從叢集中被逐出。</block>
   <block id="b1c24e06350be92498850e67cc8d9f5b" category="inline-link-macro">NVIDIA Firmare 工具（ MFT ）</block>
-  <block id="042d56fca47b68c93d438d4b1275b212" category="paragraph">NVIDIA ConnectX-Virtual Protocol Interconnect（VPI）介面卡支援InfiniBand和乙太網路作為傳輸層。在模式之間切換不會自動協商，而且必須使用中隨附的工具進行設定<block ref="366fe119442ebda85ac564541700d0b5" prefix=" " category="inline-code"></block><block ref="a55706c70f646ff289a7f6fb8ddc1353" prefix=" " category="inline-code"></block>，這是屬於的開放原始碼套件 <block ref="feedb9cf3a554ef170c48364196566a1" category="inline-link-macro-rx"></block>。只需變更一次介面卡模式即可。這可以手動完成、也可以納入 Ansible 庫存、做為任何使用庫存區段設定的介面一部分<block ref="d6ca1855b29b160948694322764a86cb" prefix=" " category="inline-code"></block> 、以自動檢查 / 套用。</block>
   <block id="815feebb5e4cc6a260b0689a8647ef51" category="admonition">使用 NVIDIA OFED 驅動程式時、請確定 beegfs_client_of_ofed_include_path 指向 Linux 安裝的正確「 header include path 」。如需詳細資訊，請參閱的 BeeGFS 文件 <block ref="a36a0245ff208157cbdf93cd51fc1311" category="inline-link-macro-rx"></block>。</block>
   <block id="fbe2ee36e5e515b0ea11d513d4edd60d" category="paragraph">NetApp 解決方案上的 BeeGFS 已驗證下列節點。</block>
   <block id="6c3a6944a808a7c0bbb6788dbec54a9f" category="cell">節點</block>
@@ -1593,9 +1591,7 @@
   <block id="79d10643d6c05fba16a1207303e6a6c0" category="list-text">* Lenovo ThinkSystem SR665 伺服器： * 使用 PCIe 插槽 2 、 3 、 5 和 6 。</block>
   <block id="32bf9d61588971ac8df90b5b33ea1a67" category="paragraph">將建置區塊架起、使兩個BeeGFS檔案節點在BeeGFS區塊節點上方。下圖顯示 BeeGFS 建置區塊的正確硬體組態、使用 Lenovo ThinkSystem SR665 V3 伺服器做為檔案節點（後視圖）。</block>
   <block id="43c3123c89f5e279387f5f5375ace233" category="inline-link-macro">1M InfiniBand HDR 200GB 直接連接銅線</block>
-  <block id="3c75c93f121f7b2c649fd946b1a935cf" category="list-text">使用連接區塊和檔案節點 <block ref="c748126fd5b6f4c3728762b1ce9f2698" category="inline-link-macro-rx"></block>、使它們符合下圖所示的拓撲。</block>
   <block id="be01bbade44d01019fcef77af9fc26e5" category="inline-link-macro">2 公尺 InfiniBand 纜線</block>
-  <block id="df8ecd3c13ed9e59d88fa90e10bcc47f" category="list-text">使用特定於 InfiniBand 儲存交換器的、將檔案節點上的其餘 InfiniBand 連接埠連接至儲存網路的 InfiniBand 交換 <block ref="661a89e8980e34439324f4cc2c4b1743" category="inline-link-macro-rx"></block> 器。</block>
   <block id="8e4e4dc9d710c035afcec16817c6b5a3" category="paragraph">當使用分離器纜線將儲存交換器連接至檔案節點時、一條纜線應從交換器分支出來、並連接至淡綠色的連接埠。另一條分離器纜線應從交換器分支出來、並連接至暗綠色的連接埠。</block>
   <block id="5059e1c6d859e6d2e881b28d0a939639" category="paragraph">此外、對於具有備援交換器的儲存網路、淡綠色的連接埠應連接至一台交換器、而深綠色的連接埠則應連接至另一台交換器。</block>
   <block id="0f7c31137702c2d677a474d55058637d" category="paragraph">若要瞭解如何為已驗證的 Lenovo SR665 V3 檔案節點設定網路、請參閱<block ref="05277b4b7d004e546ac1f238e66dd4bf" category="inline-link-rx"></block>。</block>
@@ -1826,7 +1822,6 @@
   <block id="4d87c4ea16f4cf2adbeefb288c4840e6" category="paragraph">記下<block ref="0e4a508dbc00c0684c2ed58952be4420" prefix=" " category="inline-code"></block>接收韌體更新的每個介面卡的。</block>
   <block id="69b31d926cd00aa9de80cf7b14eab218" category="list-text">使用公用程式重設每個介面卡<block ref="45e6a20266bfc1fa2c25471ddf52308b" prefix=" " category="inline-code"></block>以套用新韌體。</block>
   <block id="25eb42c85a64acec04cf19a3ad2b7395" category="inline-link-macro">NVIDIA 的 mlxfwreset 限制</block>
-  <block id="435a7ccec9f9ff6251954e95de4d0077" category="admonition">某些韌體更新可能需要重新開機才能套用更新。請參閱<block ref="ebfc57e157ebe1ff1768e220a8dc329c" category="inline-link-macro-rx"></block>以取得指引。如果需要重新開機，請執行重新開機，而非重設介面卡。</block>
   <block id="d974fd8f7ae3828a4b95f6e90d4c579a" category="list-text">停止 opensm 服務：</block>
   <block id="6a878a1cd043169c82c66374f6fec2a5" category="list-text">針對先前註明的每個項目執行下列命令<block ref="0e4a508dbc00c0684c2ed58952be4420" prefix=" " category="inline-code"></block>。</block>
   <block id="bd1516e27db5d9760920cc6ac65637f7" category="list-text">啟動 opensm 服務：</block>
@@ -2304,4 +2299,9 @@
   <block id="17c18dec192467c4d029cf82e1849e68" category="paragraph">點擊 <block ref="1362479e181ea9a79c94bf6e62c9989b" category="inline-link-macro-rx"></block> 查看代表單一檔案節點的完整庫存檔案範例。</block>
   <block id="47e816052a42a1d6517f52bf3ace4238" category="paragraph">點擊 <block ref="452c9e89e85a73dc4fbabc4b96034c83" category="inline-link-macro-rx"></block> 查看完整庫存檔案的範例。</block>
   <block id="19a968e962172b9e54ac2ee93b286fef" category="list-text">請依照 <block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block> 中建議的版本，使用 <block ref="b86e3f2d91aaf90c40586c2fea49c8a0" category="inline-link-macro-rx"></block> 指南更新所有 HCA 韌體。</block>
+  <block id="ce56986f4f6460905cbc27ff1346f2b2" category="admonition">某些韌體更新可能需要重新開機才能套用更新。請參閱 <block ref="b5302e0a42e8c11d76260b50e682efb2" category="inline-link-macro-rx"></block> 相關指南。如果需要重新開機，請執行重新開機，而非重設介面卡。</block>
+  <block id="fa1d1cb86841ae41938d868de9925ff4" category="paragraph">NVIDIA ConnectX-Virtual Protocol Interconnect&amp;reg; （VPI） 介面卡支援將 InfiniBand 和乙太網路作為傳輸階層。模式之間的切換並非自動交涉，必須使用 <block ref="a55706c70f646ff289a7f6fb8ddc1353" prefix=" " category="inline-code"></block> 中包含的 <block ref="366fe119442ebda85ac564541700d0b5" prefix=" " category="inline-code"></block> 工具進行設定，這是一個屬於 <block ref="ddec960fb499443cc451c3f94e3875b2" category="inline-link-macro-rx"></block> 的開放原始碼套件。變更介面卡的模式只需要執行一次。這可以手動完成，也可以作為使用清單中 <block ref="d6ca1855b29b160948694322764a86cb" prefix=" " category="inline-code"></block> 區段設定之任何介面的一部分包含在 Ansible 清單中，以便自動進行檢查/套用。</block>
+  <block id="39e82490f86540625468057a5c9e178f" category="admonition">Volume 大小以整個儲存資源池（也稱為 Volume 群組）的百分比指定。NetApp 強烈建議您在每個資源池預留一些可用容量，以便為 SSD 過度資源配置留出空間（如需詳細資訊，請參閱<block ref="b9c1bd6e1c1f792f57ed93348fcb8733" category="inline-link-rx"></block>）。儲存資源池<block ref="7ef878b8d47cf2658a8b7e4c1b8f133d" prefix=" " category="inline-code"></block>也會為管理服務分配資源池容量的 1%。因此，對於儲存資源池<block ref="7ef878b8d47cf2658a8b7e4c1b8f133d" prefix=" " category="inline-code"></block>中的中繼資料 Volume，當使用 1.92TB 或 3.84TB 磁碟機時，請將此值設為<block ref="6950471ad34ba84d94045961d34ad16b" prefix=" " category="inline-code"></block>；對於 7.65TB 磁碟機，請將此值設為<block ref="6d61e9b2e679326dd5a7a5a155cce414" prefix=" " category="inline-code"></block>；對於 15.3TB 磁碟機，請將此值設為<block ref="c350ffebb2160c4726034bf20ba7520f" prefix=" " category="inline-code"></block>。</block>
+  <block id="898b73a1917e274962eb06b63e1f1a15" category="list-text">使用 <block ref="472d38a98c7fba32714d0269e6ad819a" category="inline-link-macro-rx"></block> 連接區塊和檔案節點，使它們與下圖所示的拓撲相符。</block>
+  <block id="c6c1a150fe2c0ea553b51e7aa7980236" category="list-text">使用適用於您的 InfiniBand 儲存交換器的 <block ref="6641f55c02ab74028026a655dbf4927b" category="inline-link-macro-rx"></block>，將檔案節點上的剩餘 InfiniBand 連接埠連接到儲存網路的 InfiniBand 交換器。</block>
 </blocks>

@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-deploy.html 
+permalink: deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-deploy.html 
 keywords: BeeGFS Features, CSI, Driver 
 summary: BeeGFS CSI 驅動程式的部署說明。 
 ---
@@ -18,12 +18,14 @@ summary: BeeGFS CSI 驅動程式的部署說明。
 
 
 
+[[air-gapped-deployment]]
 == 氣隙部署
 
 若要執行離線部署，必須事先在可存取網際網路的系統上下載 Kubernetes YAML 設定檔和所需的容器映像。然後需要將這些檔案傳輸到將要安裝 CSI 驅動程式的目標節點。
 
 
 
+[[retrieve-the-driver-and-images]]
 === 取得驅動程式和影像
 
 若要在實體隔離環境中部署 BeeGFS CSI 驅動程序，請執行下列步驟。
@@ -83,6 +85,7 @@ ctr -n k8s.io images export csi-node-driver-registrar_<latest-tag>.tar registry.
 
 
 
+[[import-the-required-images]]
 === 導入所需影像
 
 . 導航至 `/home/<User>/beegfs-csi-images`儲存映像的目錄，並使用 containerd 匯入每個映像。例如：
@@ -105,6 +108,7 @@ crictl images
 
 
 
+[[configure-and-deploy-the-csi-driver-overlays]]
 === 配置和部署 CSI 驅動程式覆蓋層
 
 . 導航至 `/home/<User>/beegfs-csi-driver`目錄。
@@ -189,6 +193,7 @@ NOTE: 這 `patchesStrategicMerge`該部分允許您應用自訂補丁——例�
 
 
 
+[[install-the-beegfs-csi-driver]]
 === 安裝 BeeGFS CSI 驅動程式
 
 . 使用自訂覆蓋層安裝 BeeGFS CSI 驅動程式。此步驟將套用所有設定更改，包括使用本機匯入的映像和更新的映像拉取策略。
@@ -205,12 +210,14 @@ kubectl apply -k deploy/k8s/overlays/beegfs-overlay
 
 
 
+[[online-deployment]]
 == 線上部署
 
 如果您的 Kubernetes 節點可以存取互聯網，您可以直接部署 BeeGFS CSI 驅動程序，而無需手動下載或傳輸容器鏡像。當 pod 部署完成後，它們會自動從鏡像中心下載鏡像並啟動所需的服務。
 
 
 
+[[retrieve-the-driver-repository]]
 === 取得驅動程式庫
 
 . 將 BeeGFS CSI 驅動程式 GitHub 儲存庫複製到本機系統：
@@ -223,6 +230,7 @@ git clone https://github.com/ThinkParQ/beegfs-csi-driver.git
 
 
 
+[[configure-the-driver]]
 === 配置驅動程式
 
 . 導航至克隆的儲存庫目錄，如有必要，更新預設覆蓋目錄中的設定檔：
@@ -258,6 +266,7 @@ NOTE: CSI驅動程式要求設定檔位於下列位置： `/etc/beegfs/beegfs-cl
 
 
 
+[[install-the-beegfs-csi-driver]]
 === 安裝 BeeGFS CSI 驅動程式
 
 . 使用以下命令安裝預設覆蓋層 `kubectl`。這將自動從各自的鏡像倉庫拉取所需的鏡像，並建立所有必要的 Kubernetes 資源：
@@ -298,12 +307,14 @@ NOTE: 使用 `kubectl apply -k`對於覆蓋層（包含目錄） `kustomization.
 
 
 
+[[deploy-example-application]]
 == 部署範例應用程式
 
 安裝 BeeGFS CSI 驅動程式（無論是實體隔離還是線上）後，您可以部署範例應用程式來驗證您的設定。此範例包含 StorageClass、PersistentVolumeClaim (PVC) 和使用 BeeGFS CSI 驅動程式的 pod。
 
 
 
+[[before-deploying]]
 === 部署前：
 
 . 取得 BeeGFS 管理節點的 IP 位址：
@@ -355,6 +366,7 @@ allowVolumeExpansion: true
 
 
 
+[[deploy]]
 === 部署
 
 . 部署範例應用程式檔案：

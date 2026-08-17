@@ -18,6 +18,7 @@ NetApp上BeeGFS的軟體組態包括BeeGFS網路元件、EF600區塊節點、Bee
 
 
 
+[[beegfs-network-configuration]]
 == BeeGFS網路組態
 
 BeeGFS網路組態包含下列元件。
@@ -68,6 +69,7 @@ Stripe pattern details:
 ....
 
 
+[[ef600-block-node-configuration]]
 == EF600區塊節點組態
 
 區塊節點由兩個主動/主動式RAID控制器組成、可共用存取同一組磁碟機。一般而言、每個控制器擁有系統上設定的一半磁碟區、但可視需要接管其他控制器。
@@ -86,6 +88,7 @@ image:beegfs-design-image10.png["BeeGFS 服務 Volume 擁有權"]
 
 
 
+[[beegfs-file-node-configuration]]
 == BeeGFS檔案節點組態
 
 BeeGFS檔案節點已設定為高可用度（HA）叢集、以便在多個檔案節點之間進行BeeGFS服務的容錯移轉。
@@ -96,6 +99,7 @@ NetApp撰寫並擴充數個開放式叢集架構（OCF）資源代理程式、�
 
 
 
+[[beegfs-ha-clusters]]
 == BeeGFS HA叢集
 
 一般而言、當您啟動BeeGFS服務（無論是否有HA）時、必須有幾個資源：

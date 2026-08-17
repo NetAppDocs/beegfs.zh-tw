@@ -18,6 +18,7 @@ NetApp上BeeGFS的硬體組態包括檔案節點和網路纜線。
 
 
 
+[[file-node-configuration]]
 == 檔案節點組態
 
 檔案節點有兩個CPU插槽、設定為獨立的NUMA區域、包括本機存取相同數量的PCIe插槽和記憶體。
@@ -32,6 +33,7 @@ BeeGFS程序會固定在特定的NUMA區域、以確保所使用的介面位於�
 
 
 
+[[network-cabling-configuration]]
 == 網路纜線組態
 
 在建置區塊中、每個檔案節點都會使用總共四個備援InfiniBand連線、連接至兩個區塊節點。此外、每個檔案節點都有四個與InfiniBand儲存網路的備援連線。

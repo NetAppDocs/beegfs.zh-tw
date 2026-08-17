@@ -25,6 +25,7 @@ NOTE: 在本節及後續章節中、視需要進行調整、以建立代表您�
 
 
 
+[[step-1-create-the-ansible-inventory-file]]
 == 步驟1：建立Ansible庫存檔案
 
 .步驟
@@ -54,6 +55,7 @@ all:
 
 
 
+[[step-2-configure-the-inventory-for-a-management-metadata-and-storage-building-block]]
 == 步驟2：設定管理、中繼資料和儲存建置區塊的庫存
 
 叢集或基礎建置區塊中的第一個建置區塊必須包含BeeGFS管理服務、以及中繼資料和儲存服務：
@@ -181,7 +183,7 @@ beegfs_targets:
 ....
 +
 
-NOTE: 磁碟區大小是以整體儲存資源池（也稱為Volume群組）的百分比來指定。NetApp強烈建議您在每個資源池中保留一些可用容量、以便有空間進行SSD過度資源配置（如需詳細資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/17009-tr4800pdf.pdf["NetApp EF600陣列簡介"^]）。儲存資源池「beegfs_m1_m2_m5_m6'」也會將1%的資源池容量配置給管理服務。因此、對於儲存資源池中的中繼資料磁碟區、當使用1.92TB或3.844TB磁碟機時、請將此值設為「21.25」；如果使用7.65TB磁碟機、請將此值設為「22.25」；如果使用15.3TB磁碟機、請將此值設為「23.75」。
+NOTE: Volume 大小以整個儲存資源池（也稱為 Volume 群組）的百分比指定。NetApp 強烈建議您在每個資源池預留一些可用容量，以便為 SSD 過度資源配置留出空間（如需詳細資訊，請參閱 https://www.netapp.com/pdf.html?item=/media/17009-tr4800.pdf["NetApp EF600陣列簡介"^]）。儲存資源池 `beegfs_m1_m2_m5_m6`也會為管理服務分配資源池容量的 1%。因此，對於儲存資源池 `beegfs_m1_m2_m5_m6`中的中繼資料 Volume，當使用 1.92TB 或 3.84TB 磁碟機時，請將此值設為 `21.25`；對於 7.65TB 磁碟機，請將此值設為 `22.25`；對於 15.3TB 磁碟機，請將此值設為 `23.75`。
 
 +
 |===
@@ -269,6 +271,7 @@ NOTE: 如需正確使用尺寸、請參閱 link:beegfs-deploy-recommended-volume
 
 
 
+[[step-3-configure-the-inventory-for-a-metadata-storage-building-block]]
 == 步驟3：設定中繼資料+儲存建置區塊的詳細目錄
 
 這些步驟說明如何設定BeeGFS中繼資料+儲存建置區塊的可執行庫存。
@@ -458,6 +461,7 @@ NOTE: 要了解正確的尺寸，請參閱link:beegfs-deploy-recommended-volume-
 
 
 
+[[step-4-configure-the-inventory-for-a-storage-only-building-block]]
 == 步驟4：設定僅儲存建置區塊的庫存
 
 這些步驟說明如何設定BeeGFS純儲存區塊的可執行庫存。設定中繼資料+儲存設備的組態與純儲存設備建置區塊之間的主要差異、在於所有中繼資料資源群組都不存在、而且每個儲存資源池的「Criteria _DRIVE _count」也會從10變更為12。

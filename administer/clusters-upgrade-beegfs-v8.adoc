@@ -18,6 +18,7 @@ summary: 從 BeeGFS 7.4 更新到 BeeGFS 8。
 
 
 
+[[overview]]
 == 總覽
 
 BeeGFS 8 引入了一些重大變化，從 BeeGFS 7 升級之前需要額外的設定。本文檔將指導您如何為 BeeGFS 8 的新要求準備叢集，以及如何升級到 BeeGFS 8。
@@ -27,6 +28,7 @@ IMPORTANT: 在升級到 BeeGFS 8 之前，請確保您的系統至少運作的�
 
 
 
+[[key-changes-in-beegfs-8]]
 == BeeGFS 8 的主要變化
 
 BeeGFS 8 引入了以下主要變化：
@@ -45,6 +47,7 @@ BeeGFS 8 引入了以下主要變化：
 ====
 
 
+[[prepare-your-beegfs-cluster-for-the-upgrade]]
 == 準備好 BeeGFS 叢集以進行升級
 
 在開始升級之前，請仔細準備您的環境，以確保平穩過渡並最大限度地減少停機時間。
@@ -100,6 +103,7 @@ pcs cluster stop --all
 
 
 
+[[upgrade-the-beegfs-management-package]]
 == 升級 BeeGFS 管理套件
 
 在叢集中的所有檔案節點上，新增適用於您 Linux 發行版的 BeeGFS 8 軟體包倉庫。有關如何新增適用於您 Linux 發行版的官方 BeeGFS 倉庫的說明，請造訪 link:https://www.beegfs.io/c/download/["BeeGFS 下載頁面"^]。或者，請相應地配置您的本地 BeeGFS 鏡像倉庫。
@@ -118,6 +122,8 @@ dnf update beegfs-mgmtd
 
 
 
+[[upgrade-the-management-database]]
+[[upgrade-management-database]]
 == 升級管理資料庫
 
 在執行 BeeGFS 管理服務的檔案節點之一上，請依照下列步驟將管理資料庫從 BeeGFS 7 遷移到 BeeGFS 8。
@@ -185,6 +191,7 @@ mv /etc/beegfs/beegfs-mgmtd.toml /mnt/mgmt_tgt_mgmt01/mgmt_config/
 
 
 
+[[upgrade-remaining-beegfs-packages]]
 == 升級剩餘的 BeeGFS 套件
 
 完成管理資料庫遷移後，升級叢集中所有檔案節點上的剩餘 BeeGFS 軟體包。對於 RHEL，配置 BeeGFS 儲存庫後，執行以下命令：
@@ -196,6 +203,7 @@ dnf update beegfs-storage beegfs-meta libbeegfs-ib
 ----
 
 
+[[configure-licensing]]
 == 設定授權
 
 . 在所有執行 BeeGFS 管理服務的節點上安裝 BeeGFS 授權套件。這通常是叢集的前兩個檔案節點：
@@ -214,6 +222,7 @@ dnf install libbeegfs-license
 
 
 
+[[configure-tls-encryption]]
 == 設定 TLS 加密
 
 BeeGFS 8 需要 TLS 加密才能在管理服務和 BeeGFS CLI 工具之間進行安全通訊(`beegfs`）。您可以選擇以下三種設定方法之一：使用受信任的憑證授權單位簽署的憑證、建立您自己的本機 CA 來為您的 BeeGFS 叢集簽署憑證，或完全停用 TLS 以進行故障排除（不建議在生產環境中使用）。
@@ -227,6 +236,7 @@ BeeGFS 客戶端升級完成後，客戶端 TLS 設定將稍後完成。目前�
 ====
 
 
+[[update-management-service-configuration]]
 == 更新管理服務配置
 
 手動將 BeeGFS 7 設定檔中的設定轉移到 `/mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.toml`檔案中，從而準備 BeeGFS 8 管理服務設定檔。
@@ -288,6 +298,7 @@ sudo firewall-cmd --reload
 
 
 
+[[update-the-beegfs-monitor-script]]
 == 更新 BeeGFS 監控腳本
 
 Pacemaker `beegfs-monitor` Open Cluster Framework (OCF) 腳本需要更新以支援新的 TOML 設定格式和 systemd 服務管理。請在叢集中的一個節點上更新腳本，然後將更新後的腳本複製到所有其他節點。
@@ -398,6 +409,7 @@ scp /usr/lib/ocf/resource.d/eseries/beegfs-monitor user@node:/usr/lib/ocf/resour
 
 
 
+[[bring-the-cluster-back-online]]
 == 使叢集恢復上線
 
 . 完成之前的所有升級步驟後，透過在所有節點上啟動 BeeGFS 服務，使叢集重新上線。
@@ -444,6 +456,7 @@ pcs property set stonith-enabled=true
 
 
 
+[[upgrade-beegfs-clients]]
 == 升級 BeeGFS 用戶端
 
 將叢集升級至 BeeGFS 8 後，您還必須升級所有 BeeGFS 用戶端。
@@ -499,6 +512,7 @@ apt-get install beegfs-tools
 
 
 
+[[verify-the-upgrade]]
 == 驗證升級
 
 完成升級至 BeeGFS 8 後，執行以下命令以驗證升級是否成功。

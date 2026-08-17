@@ -18,6 +18,7 @@ summary: 使用主機變數（host_vars）指定個別區塊節點的組態。
 
 
 
+[[overview]]
 == 總覽
 
 本節將逐步介紹填入的內容 `host_vars/<BLOCK_NODE_HOSTNAME>.yml` 叢集中每個區塊節點的檔案。這些檔案應僅包含特定區塊節點專屬的組態。這通常包括：
@@ -30,6 +31,7 @@ summary: 使用主機變數（host_vars）指定個別區塊節點的組態。
 
 
 
+[[steps]]
 == 步驟
 
 link:architectures-plan-file-system.html["規劃檔案系統"^]針對叢集中的每個區塊節點、參考一節中定義的 IP 定址方案 `host_vars/<BLOCK_NODE_HOSTNAME>/yml`、建立檔案並填入如下內容：
@@ -136,6 +138,7 @@ eseries_controller_nvme_roce_port_speed: auto            # General interface spe
 
 
 
+[[using-hdr-200gb-infiniband-or-200gb-roce-with-netapp-ef600-block-nodes]]
 === 在NetApp EF600區塊節點上使用HDR(200Gb) InfiniBand或200GB RoCE：
 
 若要將HDR（200GB）InfiniBand搭配EF600使用、必須為每個實體連接埠設定第二個「虛擬」IP。以下是正確設定配備雙埠 InfiniBand HDR HIC 的 EF600 的範例：
