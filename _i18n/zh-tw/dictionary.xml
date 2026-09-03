@@ -798,7 +798,6 @@
   <block id="800f7da804cf784ad962d085fbc70486" category="section-title">硬體與軟體組態</block>
   <block id="90f177623f1131fc7f45e82db6189a1b" category="paragraph">高容量建置區塊的硬體和軟體組態為標準配置、但EF600控制器應更換為EF300控制器、並可選擇連接1到7個IOM擴充支架、每個儲存陣列各有60個磁碟機、每個建置區塊總計2至14個擴充托盤。</block>
   <block id="467fccc62f2ea7630303f15d47a54aa7" category="paragraph">部署高容量建置區塊設計的客戶、可能只會使用由BeeGFS管理、中繼資料及每個節點儲存服務所組成的基礎建置區塊樣式組態。為了節省成本、大容量儲存節點應在EF300控制器機箱的NVMe磁碟上配置中繼資料磁碟區、並應將儲存磁碟區配置至擴充托盤中的NL-SAS磁碟機。</block>
-  <block id="774f4231e5651061791e65cf90314897" category="paragraph"><block ref="774f4231e5651061791e65cf90314897" category="inline-image-macro-rx" type="image"></block></block>
   <block id="267aa4fef181a2097a06345c854cc106" category="paragraph">這些規模調整準則假設大容量建置區塊在基礎EF300機箱中設定一個2+2 NVMe SSD Volume群組作為中繼資料、並在每個IOM擴充匣中設定6x 8+2 NL-SAS Volume群組作為儲存設備。</block>
   <block id="963320465e8fcfa25188a669a43858c4" category="cell">磁碟機大小（容量HDD）</block>
   <block id="55fd8e839de07671a6869fad80279ab9" category="cell">每個寬板的容量（1個紙匣）</block>
@@ -2304,4 +2303,6 @@
   <block id="39e82490f86540625468057a5c9e178f" category="admonition">Volume 大小以整個儲存資源池（也稱為 Volume 群組）的百分比指定。NetApp 強烈建議您在每個資源池預留一些可用容量，以便為 SSD 過度資源配置留出空間（如需詳細資訊，請參閱<block ref="b9c1bd6e1c1f792f57ed93348fcb8733" category="inline-link-rx"></block>）。儲存資源池<block ref="7ef878b8d47cf2658a8b7e4c1b8f133d" prefix=" " category="inline-code"></block>也會為管理服務分配資源池容量的 1%。因此，對於儲存資源池<block ref="7ef878b8d47cf2658a8b7e4c1b8f133d" prefix=" " category="inline-code"></block>中的中繼資料 Volume，當使用 1.92TB 或 3.84TB 磁碟機時，請將此值設為<block ref="6950471ad34ba84d94045961d34ad16b" prefix=" " category="inline-code"></block>；對於 7.65TB 磁碟機，請將此值設為<block ref="6d61e9b2e679326dd5a7a5a155cce414" prefix=" " category="inline-code"></block>；對於 15.3TB 磁碟機，請將此值設為<block ref="c350ffebb2160c4726034bf20ba7520f" prefix=" " category="inline-code"></block>。</block>
   <block id="898b73a1917e274962eb06b63e1f1a15" category="list-text">使用 <block ref="472d38a98c7fba32714d0269e6ad819a" category="inline-link-macro-rx"></block> 連接區塊和檔案節點，使它們與下圖所示的拓撲相符。</block>
   <block id="c6c1a150fe2c0ea553b51e7aa7980236" category="list-text">使用適用於您的 InfiniBand 儲存交換器的 <block ref="6641f55c02ab74028026a655dbf4927b" category="inline-link-macro-rx"></block>，將檔案節點上的剩餘 InfiniBand 連接埠連接到儲存網路的 InfiniBand 交換器。</block>
+  <block id="bba78d7694815dc44320a2e751daa486" category="inline-image-macro">圖示為配備 EF300 NVMe 和 NL-SAS IOM 擴充托架的 BeeGFS 大容量機架</block>
+  <block id="1155b61fff96aa3c1a731c367cdcc208" category="paragraph"><block ref="1155b61fff96aa3c1a731c367cdcc208" category="inline-image-macro-rx" type="image"></block></block>
 </blocks>

@@ -25,7 +25,7 @@ summary: 高容量建置區塊的設計差異。
 
 部署高容量建置區塊設計的客戶、可能只會使用由BeeGFS管理、中繼資料及每個節點儲存服務所組成的基礎建置區塊樣式組態。為了節省成本、大容量儲存節點應在EF300控制器機箱的NVMe磁碟上配置中繼資料磁碟區、並應將儲存磁碟區配置至擴充托盤中的NL-SAS磁碟機。
 
-image:high-capacity-rack-diagram.png[""]
+image:high-capacity-rack-diagram.png["圖示為配備 EF300 NVMe 和 NL-SAS IOM 擴充托架的 BeeGFS 大容量機架"]
 
 
 
