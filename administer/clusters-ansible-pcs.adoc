@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: administer/clusters-ansible-pcs.html 
 keywords: BeeGFS on NetApp, HA, Cluster, Administration, pcs, Ansible 
-summary: 您應該何時使用Ansible與PCS命令列工具來管理HA叢集？ 
+summary: 決定何時使用 Ansible 或 pcs 命令列工具來管理 BeeGFS HA 叢集。使用 Ansible 進行部署和組態變更，並使用 pcs 進行暫時的叢集狀態變更。 
 ---
 = 使用Ansible與PCS工具的時機
 :hardbreaks:
