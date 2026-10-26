@@ -51,7 +51,7 @@ ansible_become_password: <PASSWORD>
 ----
 +
 
-WARNING: 尤其是在正式作業環境中、請勿以純文字儲存密碼。請改用Ansible Vault（請參閱） link:https://docs.ansible.com/ansible/latest/vault_guide/index.html["使用Ansible Vault加密內容"^]）或 `--ask-become-pass` 執行教戰手冊時的選項。如果是 `ansible_ssh_user` 已經是root、您可以選擇省略 `ansible_become_password`。
+WARNING: 尤其是在生產環境中，切勿以明文形式儲存密碼。請改用 Ansible Vault（請參閱 link:https://docs.ansible.com/projects/ansible/latest/vault_guide/index.html["使用Ansible Vault加密內容"^]）或在執行 playbook 時使用 `--ask-become-pass` 選項。如果 `ansible_ssh_user` 已經是根目錄，則您可以選擇省略 `ansible_become_password`。
 
 . 如果您在乙太網路或InfiniBand介面上設定靜態IP（例如叢集IP）、且多個介面位於同一個IP子網路（例如、如果ib0使用192.168.1.10/24、而ib1使用192.168.1.11/24）、必須設定其他IP路由表和規則、多重主目錄支援才能正常運作。只需啟用提供的網路介面組態掛勾、如下所示：
 +

@@ -1172,7 +1172,6 @@
   <block id="787446c6f7e5e0f4a50705b5035eba79" category="admonition">此檔案中設定的選項也可在個別檔案節點上定義、例如使用混合式硬體模型、或是每個節點的密碼不同。個別檔案節點的組態優先於此檔案中的組態。</block>
   <block id="0971602076ba9dff100f7cfc2d9e6059" category="paragraph">建立檔案<block ref="4003590e6e5408f8e5272e50f909dfac" prefix=" " category="inline-code"></block> 並填入如下內容：</block>
   <block id="84531cf8a820148a6599e174baf94979" category="list-text">指出Ansible Control節點應如何與遠端主機進行驗證：</block>
-  <block id="2d33afd54604fb6475c44a1bc47fe2b1" category="admonition">尤其是在正式作業環境中、請勿以純文字儲存密碼。請改用Ansible Vault（請參閱） <block ref="37147a1e5d41497ae56472e8a2868a2a" category="inline-link-macro-rx"></block>）或<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 執行教戰手冊時的選項。如果是<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> 已經是root、您可以選擇省略<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>。</block>
   <block id="0a94da3169c04bc12f2c561654269433" category="list-text">如果您在乙太網路或InfiniBand介面上設定靜態IP（例如叢集IP）、且多個介面位於同一個IP子網路（例如、如果ib0使用192.168.1.10/24、而ib1使用192.168.1.11/24）、必須設定其他IP路由表和規則、多重主目錄支援才能正常運作。只需啟用提供的網路介面組態掛勾、如下所示：</block>
   <block id="502d35f94d5c17779c9050bbed75f65f" category="list-text">部署叢集時、視儲存傳輸協定而定、可能需要重新啟動節點、以協助探索遠端區塊裝置（E系列磁碟區）或套用組態的其他層面。依預設、節點會在重新開機前提示、但您可以指定下列項目、讓節點自動重新啟動：</block>
   <block id="ff31dc05d095d346c18f3e8f2d758fe0" category="list-text">根據預設、重新開機後、若要確保區塊裝置和其他服務已就緒、Ansible將會等到系統完成<block ref="dbd7cb25a43d1cd2bbc3bac871dad694" prefix=" " category="inline-code"></block> 在繼續部署之前就已到達。在使用NVMe / IB的某些情況下、這可能不夠長、無法初始化、探索及連線至遠端裝置。這可能會導致自動部署提早繼續、而且失敗。若要避免這種情況、使用NVMe / IB時也必須定義下列項目：</block>
@@ -1287,7 +1286,6 @@
   <block id="e520383c76f5e72226ebb572b987380c" category="doc">Ansible Inventory Overview</block>
   <block id="7a1eabc3deb7fd02ceb1e16eafc41073" category="inline-link-macro">庫存</block>
   <block id="283c77f47e33325beac16dfcff1fbdc4" category="inline-link-macro">子目錄/檔案</block>
-  <block id="3a6e55a49a2cdf7c86076b810d565fc2" category="paragraph">建議您遵循標準的可管理實務做法來組織您的 <block ref="6c37acba8ff27fe32f3259d928e2df83" category="inline-link-macro-rx"></block>、包括的使用 <block ref="0b746a370389b97701184b02d91b44b0" category="inline-link-macro-rx"></block> 而非將整個庫存儲存在單一檔案中。</block>
   <block id="21c8e198e85188d23c3e8ec1332bc84c" category="paragraph">單一BeeGFS HA叢集的「可安全庫存」如下所示：</block>
   <block id="8c57469570cfaa1ea4910df225230163" category="admonition">由於單一BeeGFS檔案系統可橫跨多個HA叢集、因此大型安裝可能會有多個Ansible庫存。一般而言、不建議嘗試將多個HA叢集定義為單一的可Ansible庫存、以避免發生問題。</block>
   <block id="1b1ad4049313d49cd09961eea7b62a6f" category="list-text">在「Ansible」控制節點上、建立一個空白目錄、其中包含您要部署之BeeGFS叢集的「Ansible」清單。</block>
@@ -2306,4 +2304,6 @@
   <block id="bba78d7694815dc44320a2e751daa486" category="inline-image-macro">圖示為配備 EF300 NVMe 和 NL-SAS IOM 擴充托架的 BeeGFS 大容量機架</block>
   <block id="1155b61fff96aa3c1a731c367cdcc208" category="paragraph"><block ref="1155b61fff96aa3c1a731c367cdcc208" category="inline-image-macro-rx" type="image"></block></block>
   <block id="5d19eac40cba34daeadf75a699707ab3" category="summary">決定何時使用 Ansible 或 pcs 命令列工具來管理 BeeGFS HA 叢集。使用 Ansible 進行部署和組態變更，並使用 pcs 進行暫時的叢集狀態變更。</block>
+  <block id="513599b281713978d80226e0f56f9c0a" category="admonition">尤其是在生產環境中，切勿以明文形式儲存密碼。請改用 Ansible Vault（請參閱 <block ref="4b111299cca4fdd006b43308bd1ab354" category="inline-link-macro-rx"></block>）或在執行 playbook 時使用<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 選項。如果<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> 已經是根目錄，則您可以選擇省略<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>。</block>
+  <block id="85efe1210965d4287331f2ab6df5e168" category="paragraph">建議遵循標準的 Ansible 實務作法來組織您的 <block ref="54994086eb4d51da014367d96b838ce1" category="inline-link-macro-rx"></block>，包括使用 <block ref="4e9b100ee0802974cbea117806855df2" category="inline-link-macro-rx"></block>，而不是將整個清單儲存在一個檔案中。</block>
 </blocks>
