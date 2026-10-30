@@ -49,7 +49,7 @@ The defaults set by the BeeGFS HA role are based on the testing performed as par
 ....
 +
 
-NOTE: 請勿以純文字儲存密碼。請改用Ansible Vault（請參閱的「Ansible」文件） https://docs.ansible.com/ansible/latest/user_guide/vault.html["使用Ansible Vault加密內容"^]）或是在執行該教戰手冊時使用「Ask（隨叫隨到）」選項。
+NOTE: 請勿以明文形式儲存密碼。請改用 Ansible Vault（詳見 Ansible 文件 https://docs.ansible.com/projects/ansible/latest/vault_guide/index.html["使用Ansible Vault加密內容"^]），或在執行 playbook 時使用 `--ask-become-pass`選項。
 
 . 在「client_inventory.yml」檔案中、在「beegfs_clients」群組中列出所有應設定為BeeGFS用戶端的主機、然後指定建置BeeGFS用戶端核心模組所需的任何其他組態。
 +

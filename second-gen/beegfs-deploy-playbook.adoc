@@ -103,7 +103,7 @@ ansible-playbook -i inventory.yml playbook.yml --forks 20
 ....
 +
 
-NOTE: 特別是對於較大型的部署、 `forks`建議使用參數覆寫預設的叉具（ 5 ）、以增加 Ansible 平行設定的主機數量。（如需詳細資訊 https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html["控制方針執行"^]、請參閱。）最大值設定取決於 Ansible 控制節點上可用的處理能力。上述20個範例是在具有4個CPU（Intel（R）Xeon（R）Gold 6146 CPU @ 3.20GHz）的虛擬Ansible控制節點上執行。
+NOTE: 特別是對於較大規模的部署，建議使用  `forks` 參數覆寫預設的 fork 數量（5），以增加 Ansible 並行設定的主機數量。（如需詳細資訊，請參閱  https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_strategies.html["控制方針執行"^]。）最大值設定取決於 Ansible 控制節點上可用的處理能力。上述範例 20 是在配備 4 個 CPU（Intel(R) Xeon(R) 金級 6146 CPU @ 3.20GHz）的虛擬 Ansible 控制節點上執行的。
 
 +
 視部署規模和Ansible控制節點與BeeGFS檔案和區塊節點之間的網路效能而定、部署時間可能會有所不同。

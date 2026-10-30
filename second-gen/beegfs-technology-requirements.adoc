@@ -191,7 +191,7 @@ NOTE: 也可以使用 NVIDIA MQM8700 Quantum 等其他交換機，但需要不�
 [[ansible-control-node-requirements]]
 === Ansible控制節點需求
 
-NetApp上的BeeGFS解決方案是從可存取的控制節點進行部署和管理。如需詳細資訊、請參閱 https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html["Ansible文件"^]。
+BeeGFS on NetApp 解決方案透過 Ansible 控制節點進行部署和代管。如需詳細資訊，請參閱 https://docs.ansible.com/projects/ansible/latest/network/getting_started/basic_concepts.html["Ansible文件"^]。
 
 下表所列的軟體需求、是下列NetApp BeeGFS Ansible系列產品的特定版本。
 

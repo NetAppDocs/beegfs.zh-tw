@@ -42,7 +42,7 @@ summary: 若要定義檔案和區塊節點的組態、您可以建立可執行�
 +
 "套裝軟體"
 
-. 建立叢集密碼的子目錄，並使用 Ansible Vault 加密檔案以保護檔案安全（請參閱 https://docs.ansible.com/ansible/latest/user_guide/vault.html["使用Ansible Vault加密內容"^]）：
+. 建立叢集密碼的子目錄，並使用 Ansible Vault 加密以確保檔案是安全的（請參閱 https://docs.ansible.com/projects/ansible/latest/vault_guide/index.html["使用Ansible Vault加密內容"^]）：
 +
 .. 創建子目錄 `group_vars/all`。
 .. 在 `group_vars/all`目錄中，建立一個標示為的密碼檔案 `passwords.yml`。
@@ -182,7 +182,7 @@ eseries_controller_nvme_ib_port:
 您可以在與群組對應的檔案名稱中、定義「group _vars」下一組主機的通用組態。如此可避免在多個位置重複執行共用組態。
 
 .關於這項工作
-主機可以位於多個群組中、執行時、Ansible會根據其可變優先順序規則、選擇要套用到特定主機的變數。（如需這些規則的詳細資訊、請參閱的「Ansible」文件 https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html["使用變數"^]）
+主機可以屬於多個群組，在執行時，Ansible 會根據變數優先權規則選擇哪些變數套用於特定主機。（如需這些規則的詳細資訊，請參閱 Ansible 文件 https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_variables.html["使用變數"^]。）
 
 主機對群組指派是在實際的Ansible庫存檔案中定義、此檔案是在本程序結束時建立的。
 

@@ -19,7 +19,6 @@
   <block id="d95adee972ae170512bd3bdbce557054" category="cell">起搏器</block>
   <block id="13f2a3097f055e043d74b20940df2658" category="section-title">Ansible控制節點需求</block>
   <block id="c3ee5ddf91e65773d3e9d27f9e627350" category="inline-link">Ansible文件</block>
-  <block id="83d32979307efd813f41ef5070206fd3" category="paragraph">NetApp上的BeeGFS解決方案是從可存取的控制節點進行部署和管理。如需詳細資訊、請參閱<block ref="4410f583cbabaee2389115371eb2ab02" category="inline-link-rx"></block>。</block>
   <block id="158a122309f0454b31e4853755a5962a" category="paragraph">下表所列的軟體需求、是下列NetApp BeeGFS Ansible系列產品的特定版本。</block>
   <block id="d51d5ee15f404c2f4f7863bebcde1fac" category="cell">Ansible</block>
   <block id="a7f5f35426b927411fc9231b56382173" category="cell">Python</block>
@@ -226,7 +225,6 @@
   <block id="05c8acf59a637c421ef21a4a37d674de" category="list-text">在「host_vars/」下、為每個BeeGFS用戶端建立一個名為「.yml」的檔案、其中包含下列內容、並在預留位置文字中填入適合您環境的正確資訊：</block>
   <block id="ca6b4577e851d5587e19a3d017db68b1" category="list-text">建立新檔案「client_inventory.yml」、然後在頂端填入下列參數：</block>
   <block id="ec6e88f08b026e04d1ce5f5f31493b21" category="inline-link">使用Ansible Vault加密內容</block>
-  <block id="d424a4948912165baf5c9641ad4de044" category="admonition">請勿以純文字儲存密碼。請改用Ansible Vault（請參閱的「Ansible」文件）<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>）或是在執行該教戰手冊時使用「Ask（隨叫隨到）」選項。</block>
   <block id="8f27eda73b5d4e7594b05bed1b90a053" category="list-text">在「client_inventory.yml」檔案中、在「beegfs_clients」群組中列出所有應設定為BeeGFS用戶端的主機、然後指定建置BeeGFS用戶端核心模組所需的任何其他組態。</block>
   <block id="42d868a1eb5776ce2eb9b95938bcc056" category="inline-link">RDMA支援</block>
   <block id="b9d3c4e1c18127cf36ad951b208d45bb" category="list-text">在「client_inventory.yml」檔案中、列出您要掛載在任何先前定義「vars」底部的BeeGFS檔案系統。</block>
@@ -659,7 +657,6 @@
   <block id="a79b02f70003beee254343e4cae10ad4" category="section-title">步驟3：定義應套用至所有檔案和區塊節點的組態</block>
   <block id="7a7623c76e8a35ad9b47b72876017ffc" category="paragraph">您可以在與群組對應的檔案名稱中、定義「group _vars」下一組主機的通用組態。如此可避免在多個位置重複執行共用組態。</block>
   <block id="b8250a298e8217ebff19d4f7c62cf654" category="inline-link">使用變數</block>
-  <block id="45c67f165a1990ff04bfa4ffd3ad1908" category="paragraph">主機可以位於多個群組中、執行時、Ansible會根據其可變優先順序規則、選擇要套用到特定主機的變數。（如需這些規則的詳細資訊、請參閱的「Ansible」文件<block ref="e846c866a706aed07204d4b81c43f562" category="inline-link-rx"></block>）</block>
   <block id="30670ef79ffcebf619cb84794bb9f467" category="paragraph">主機對群組指派是在實際的Ansible庫存檔案中定義、此檔案是在本程序結束時建立的。</block>
   <block id="13fe78da26730165534ca728d16729df" category="paragraph">在Ansible中、您想要套用至所有主機的任何組態都可以定義為「All（全部）」群組。使用下列內容建立檔案「group_vars/all.yml」：</block>
   <block id="970c2de774d4cba551050f0b96346cc6" category="section-title">步驟4：定義應套用至所有檔案節點的組態</block>
@@ -1076,7 +1073,6 @@
   <block id="2f4c1ac28e39c823ee4c1a07b7cd93aa" category="paragraph">可存取的集合升級 <block ref="d8617fd1dfbd628e2360b843d6070e54" category="inline-link-macro-rx"></block>，執行下列命令：</block>
   <block id="c199206a11a9882502e88de065338656" category="paragraph">如需離線收藏升級、請從下載收藏 <block ref="d8617fd1dfbd628e2360b843d6070e54" category="inline-link-macro-rx"></block> 按一下所需的<block ref="5ab34c986ae1945ee0c548bc8d6ac4a8" prefix=" " category="inline-code"></block> 然後<block ref="80af28150f2ffd9a902b18cd4e9b6656" prefix=" " category="inline-code"></block>。將tar傳輸到Ansible控制節點、然後執行下列命令。</block>
   <block id="dd26fb41f43f69172e0099b87c9d0732" category="inline-link-macro">安裝集合</block>
-  <block id="6aa260cc14fabe54e7e9f6efd513b871" category="paragraph">請參閱 <block ref="78e19afa50f5104f13264e857fffab2b" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
   <block id="800371603b58ee549a4a9674cd231cfd" category="inline-link-macro">部署BeeGFS HA叢集</block>
   <block id="5c349c42761230bd8e50fff98f6e7508" category="paragraph">若要套用BeeGFS更新：</block>
   <block id="a2dd7653f3025e7feb8e282bcc0bde84" category="paragraph">BeeGFS HA角色將在幕後處理：</block>
@@ -1344,7 +1340,6 @@
   <block id="9cdd817721bc924d0da9d43995b6cf7d" category="doc">設定Ansible Control Node</block>
   <block id="31996051b4f5b99834fd90885ae099c1" category="paragraph">Ansible控制節點是用於管理叢集的實體或虛擬Linux機器。它必須符合下列要求：</block>
   <block id="b4851e92b19af0c5c82447fc0937709d" category="inline-link-macro">需求</block>
-  <block id="5f4740da5b8ab13112ebf332f879cc6e" category="list-text">與官員會面 <block ref="37e11d19f014e84f10fff4770a09b235" category="inline-link-macro-rx"></block> 包括作業系統版本。</block>
   <block id="2bce5080fcc3d6b8a54a49745dd28d52" category="list-text">可存取所有檔案和區塊節點的SSH和HTTPS。</block>
   <block id="9635e0061cd355a35e70799e909727af" category="summary">在執行Ansible之前、手動設定檔案和區塊節點所需的步驟。</block>
   <block id="f5878e619c266b2ac6254dd1e4d95bfb" category="doc">設定檔案和區塊節點</block>
@@ -1372,7 +1367,6 @@
   <block id="7dc2ac40c1549980b4ac09d940856f47" category="list-text">低於<block ref="4d729f58293c8a48f1f8d918cdd1d28f" prefix=" " category="inline-code"></block>、為每個BeeGFS用戶端建立一個名為的檔案<block ref="a0253f5b8f5dd7be8b02cda13da40729" prefix=" " category="inline-code"></block> 在下列內容中、以適合您環境的正確資訊填寫預留位置文字：</block>
   <block id="689b0940ce8c21b1ecd3dafd9cc19d56" category="list-text">如果您想要使用NetApp E系列主機集合的角色來設定InfiniBand或乙太網路介面、以便用戶端連線至BeeGFS檔案節點、也可以選擇加入下列其中一項：</block>
   <block id="825f3be2c17c36c0e4901143db982773" category="list-text">建立新檔案<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 並指定Ansible使用者應使用連線至每個用戶端、而Ansible密碼應用於權限提升（這需要<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> 為root、或具有Sudo權限）：</block>
-  <block id="c5a4ae1aa23001e8780b413f175b50b3" category="admonition">請勿以純文字儲存密碼。請改用Ansible Vault（請參閱 <block ref="f2e33a881c3eb75b68333af99119c0b8" category="inline-link-macro-rx"></block> 使用Ansible Vault加密內容）或使用<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 執行教戰手冊時的選項。</block>
   <block id="848f64fc57104cb2b416f6102d34e699" category="list-text">在中<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 檔案中、列出應在中設定為BeeGFS用戶端的所有主機<block ref="fc2e11772a55c48ed2b4ec7bc5d94664" prefix=" " category="inline-code"></block> 然後參閱內嵌註解、取消註釋在系統上建置BeeGFS用戶端核心模組所需的任何其他組態：</block>
   <block id="c378775497a55638adcb42719d8daddb" category="list-text">在中<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> 檔案中、列出您要掛載於任何先前定義下的BeeGFS檔案系統<block ref="b63119da730344b345cdc8f62a4711e9" prefix=" " category="inline-code"></block>：</block>
   <block id="508ccac845ca75d6cdda20dfa455a2bd" category="inline-link-macro">通用檔案節點組態</block>
@@ -1396,7 +1390,6 @@
   <block id="b3254ab5c14c4bb06dbb987f8ee20900" category="section-title">建立可執行的教戰手冊</block>
   <block id="dc1e1a7b77e4fce07756f071e5ec7d8b" category="paragraph">建立檔案<block ref="2f78c4e27feaf25ffb33d97e8ff7e7a6" prefix=" " category="inline-code"></block> 並填入如下內容：</block>
   <block id="a3b34c0871dc2fd51eec5559b68f709d" category="inline-link-macro">玩遊戲</block>
-  <block id="3b4e65c5ca327e9a010b0e69fb90e476" category="list-text">首先定義一組工作（通常稱為 <block ref="6d76655a02e5cb4ca885a92d78a5ab31" category="inline-link-macro-rx"></block>）、只能在NetApp E系列區塊節點上執行。我們會使用暫停工作在執行安裝之前先行提示（以避免意外執行教戰手冊）、然後匯入<block ref="504ead1cde99fc3bc223588114102919" prefix=" " category="inline-code"></block> 角色：此角色負責套用中定義的任何一般系統組態<block ref="7bc866ffde9914c7ef21768fcf6f0683" prefix=" " category="inline-code"></block> 或個人<block ref="7011fddbea4410953d6718ccf9ef966a" prefix=" " category="inline-code"></block> 檔案：</block>
   <block id="19c06a0dc65b61c783f73d77e193957e" category="list-text">定義要在所有檔案和區塊節點上執行的播放：</block>
   <block id="25296aae8975fe74b18a42af79a293d3" category="list-text">在這場活動中、我們可以選擇定義一組「預先工作」、在部署HA叢集之前應先執行。這對於驗證/安裝任何先決條件（如Python）來說都很有用。我們也可以進行任何飛行前檢查、例如驗證是否支援提供的Ansible標記：</block>
   <block id="adcd434b091e5725531891ba91d50193" category="list-text">最後、這場活動會將BeeGFS HA角色匯入您要部署的BeeGFS版本：</block>
@@ -1717,7 +1710,6 @@
   <block id="5c4a48e1bba2d7e97a5afb3329da8750" category="paragraph"><block ref="5c4a48e1bba2d7e97a5afb3329da8750" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ab0440e4421843b823481ec8c40114fa" category="inline-image-macro">大容量磁碟機插槽圖</block>
   <block id="d471943365921fcc3ec56d2cb62b204d" category="paragraph"><block ref="d471943365921fcc3ec56d2cb62b204d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ce0bc242efa1f7752857cac8fae4d239" category="admonition">特別是對於較大型的部署、<block ref="448725115a83c589b33de77889e1e2f3" prefix=" " category="inline-code"></block>建議使用參數覆寫預設的叉具（ 5 ）、以增加 Ansible 平行設定的主機數量。（如需詳細資訊<block ref="2f92d47aead0a3ef15304d32faf6a032" category="inline-link-rx"></block>、請參閱。）最大值設定取決於 Ansible 控制節點上可用的處理能力。上述20個範例是在具有4個CPU（Intel（R）Xeon（R）Gold 6146 CPU @ 3.20GHz）的虛擬Ansible控制節點上執行。</block>
   <block id="e5e317ea18fb59bd91370981078a2eb6" category="inline-image-macro">NUMA 組態</block>
   <block id="b69049bad10aec8bac8579c94488a401" category="paragraph"><block ref="b69049bad10aec8bac8579c94488a401" category="inline-image-macro-rx" type="image"></block></block>
   <block id="12316ea7d4573c51756ec0fb8fe2d354" category="inline-image-macro">網路纜線</block>
@@ -1750,7 +1742,6 @@
   <block id="362973e7a4fa534a7db69e8dfa0877a8" category="inline-image-macro">兩個 BeeGFS 中繼資料和儲存建置區塊 MDTest 結果</block>
   <block id="070cfbe37786e49518755132f73ded2c" category="paragraph"><block ref="070cfbe37786e49518755132f73ded2c" category="inline-image-macro-rx" type="image"></block></block>
   <block id="a00d274d551f6b74718d44ea2bb6e6c3" category="sidebar">更新 HA 叢集元件</block>
-  <block id="67f62a9c37bde591abc850b5a2b22b02" category="list-text">建立叢集密碼的子目錄，並使用 Ansible Vault 加密檔案以保護檔案安全（請參閱<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>）：</block>
   <block id="8e7f7bdc10cb596910cce6b79c2e2ed6" category="list-text">創建子目錄<block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>。</block>
   <block id="166355001b2692bdc29d698719b5f702" category="list-text">在<block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>目錄中，建立一個標示為的密碼檔案<block ref="97a67fc90fe6d13cef22fa951de48f8d" prefix=" " category="inline-code"></block>。</block>
   <block id="da8d8318ceb4254068ec25272c92bc85" category="list-text">使用下列項目填入<block ref="b8d32e4c2d78b6e404b69e5c1fbf3118" prefix=" " category="inline-code"></block>，根據您的組態取代所有的使用者名稱和密碼參數：</block>
@@ -2306,4 +2297,13 @@
   <block id="5d19eac40cba34daeadf75a699707ab3" category="summary">決定何時使用 Ansible 或 pcs 命令列工具來管理 BeeGFS HA 叢集。使用 Ansible 進行部署和組態變更，並使用 pcs 進行暫時的叢集狀態變更。</block>
   <block id="513599b281713978d80226e0f56f9c0a" category="admonition">尤其是在生產環境中，切勿以明文形式儲存密碼。請改用 Ansible Vault（請參閱 <block ref="4b111299cca4fdd006b43308bd1ab354" category="inline-link-macro-rx"></block>）或在執行 playbook 時使用<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 選項。如果<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> 已經是根目錄，則您可以選擇省略<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>。</block>
   <block id="85efe1210965d4287331f2ab6df5e168" category="paragraph">建議遵循標準的 Ansible 實務作法來組織您的 <block ref="54994086eb4d51da014367d96b838ce1" category="inline-link-macro-rx"></block>，包括使用 <block ref="4e9b100ee0802974cbea117806855df2" category="inline-link-macro-rx"></block>，而不是將整個清單儲存在一個檔案中。</block>
+  <block id="1b00c0fbcc4d60bbd7277cb567c38211" category="paragraph">如需詳細資訊，請參閱 <block ref="924b11a36475c19725c786c8477e299b" category="inline-link-macro-rx"></block>。</block>
+  <block id="d5049f679adf9836616b60ab4f80bae4" category="admonition">請勿以明文形式儲存密碼。請改用 Ansible Vault（請參閱<block ref="1b8edc2af96e25dedd2250ab0fa0090f" category="inline-link-macro-rx"></block>以了解如何使用 Ansible Vault 加密內容），或在執行 playbook 時使用 <block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> 選項。</block>
+  <block id="8f575bb30a5d00fe8cc4ee3594b86ba3" category="list-text">首先定義一組工作（通常稱為 <block ref="397c231d3a1481778f25f9061221a83c" category="inline-link-macro-rx"></block>），這些工作僅應在 NetApp E 系列區塊節點上執行。我們使用暫停工作在執行安裝之前發出提示（以避免意外執行 playbook），然後匯入 <block ref="504ead1cde99fc3bc223588114102919" prefix=" " category="inline-code"></block> 角色。此角色負責套用在 <block ref="7bc866ffde9914c7ef21768fcf6f0683" prefix=" " category="inline-code"></block> 或個別 <block ref="7011fddbea4410953d6718ccf9ef966a" prefix=" " category="inline-code"></block> 檔案中定義的任何一般系統組態。</block>
+  <block id="387375536e1e4239d68130ba9d73f7f6" category="list-text">符合官方<block ref="9b2905d42e7e02207acde545f003b480" category="inline-link-macro-rx"></block>，包括作業系統版本。</block>
+  <block id="9e93562436f5a02313017413b2d11ce1" category="admonition">請勿以明文形式儲存密碼。請改用 Ansible Vault（詳見 Ansible 文件<block ref="253e92ad6a52f8d4445e166c6d51e424" category="inline-link-rx"></block>），或在執行 playbook 時使用<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block>選項。</block>
+  <block id="ccb63594495dd5c0b63845b21d9de08e" category="list-text">建立叢集密碼的子目錄，並使用 Ansible Vault 加密以確保檔案是安全的（請參閱<block ref="253e92ad6a52f8d4445e166c6d51e424" category="inline-link-rx"></block>）：</block>
+  <block id="2d2984c644cf99907ef9c12557e5c3d8" category="paragraph">主機可以屬於多個群組，在執行時，Ansible 會根據變數優先權規則選擇哪些變數套用於特定主機。（如需這些規則的詳細資訊，請參閱 Ansible 文件<block ref="2689963a2e7b1a28872abc6ea1f21787" category="inline-link-rx"></block>。）</block>
+  <block id="bdb603eaf4ab7723ea729f70e1c9a54b" category="admonition">特別是對於較大規模的部署，建議使用 <block ref="448725115a83c589b33de77889e1e2f3" prefix=" " category="inline-code"></block> 參數覆寫預設的 fork 數量（5），以增加 Ansible 並行設定的主機數量。（如需詳細資訊，請參閱 <block ref="41c12765893df9e89a007e9df409a6e4" category="inline-link-rx"></block>。）最大值設定取決於 Ansible 控制節點上可用的處理能力。上述範例 20 是在配備 4 個 CPU（Intel(R) Xeon(R) 金級 6146 CPU @ 3.20GHz）的虛擬 Ansible 控制節點上執行的。</block>
+  <block id="03bb7ed204775d08d0779d6d41a8790a" category="paragraph">BeeGFS on NetApp 解決方案透過 Ansible 控制節點進行部署和代管。如需詳細資訊，請參閱<block ref="e078c558327cf2fc56228fd779b44a15" category="inline-link-rx"></block>。</block>
 </blocks>

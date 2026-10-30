@@ -35,7 +35,7 @@ summary: 使用方針來指定部署BeeGFS HA叢集時應執行哪些工作。
 
 建立檔案 `playbook.yml` 並填入如下內容：
 
-. 首先定義一組工作（通常稱為 link:https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html#playbook-syntax["玩遊戲"^]）、只能在NetApp E系列區塊節點上執行。我們會使用暫停工作在執行安裝之前先行提示（以避免意外執行教戰手冊）、然後匯入 `nar_santricity_management` 角色：此角色負責套用中定義的任何一般系統組態 `group_vars/eseries_storage_systems.yml` 或個人 `host_vars/<BLOCK NODE>.yml` 檔案：
+. 首先定義一組工作（通常稱為 link:https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_intro.html#playbook-syntax["玩遊戲"^]），這些工作僅應在 NetApp E 系列區塊節點上執行。我們使用暫停工作在執行安裝之前發出提示（以避免意外執行 playbook），然後匯入  `nar_santricity_management` 角色。此角色負責套用在  `group_vars/eseries_storage_systems.yml` 或個別  `host_vars/<BLOCK NODE>.yml` 檔案中定義的任何一般系統組態。
 +
 [source, yaml]
 ----
