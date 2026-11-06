@@ -1848,7 +1848,6 @@
   <block id="34d48088e2054cea7cef0c603ff25c57" category="paragraph">Ansible 允許 NetApp 等公司使用 Ansible Galaxy 上的可用集合來擴充內建功能（請參閱<block ref="09c3689692686597c3ced866c6122b6c" category="inline-link-rx"></block>）。集合包括執行特定功能或工作（例如建立 E 系列 Volume ）的模組，以及可呼叫多個模組和其他角色的角色。此自動化方法可縮短部署BeeGFS檔案系統和基礎HA叢集所需的時間。此外，它也簡化了叢集和 BeeGFS 檔案系統的維護與擴充。</block>
   <block id="219dedb226654f3cbb1fcae9a1dbf6f0" category="paragraph">這些設定檔說明NetApp BeeGFS建置區塊的完整建議組態設定檔。對於每個部署，中繼資料和儲存建置區塊或僅儲存服務的建置區塊數量可能會因容量和效能需求而異。</block>
   <block id="6d8fa04177add6fae81330f784f2ec28" category="paragraph">若要設定 Ansible 控制節點，您必須指定可透過網路存取的虛擬或實體機器，以存取 NetApp 解決方案上 BeeGFS 部署的所有檔案和區塊節點。</block>
-  <block id="95b6926dc09df085df3f516ff202c9b3" category="paragraph">請檢閱<block ref="1048598744d9ad3deb64b0d833d9a48d" category="inline-link-macro-rx"></block>以取得建議套件版本的清單。下列步驟已在 Ubuntu 22.04 上測試。有關首選 Linux 發行套件的特定步驟，請參閱<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>。</block>
   <block id="ac80ffa19a9be958e8c0594639394b8a" category="list-text">從 Ansible 控制節點安裝下列 Python 和 Python Virtual Environment 套件。</block>
   <block id="44bf2f842c54b0fad1167e3efd65cf55" category="list-text">啟動虛擬環境。</block>
   <block id="3f6f2236da97e94c248453e2c9ca404a" category="list-text">在啟動的虛擬環境中安裝所需的 Python 套件。</block>
@@ -2306,4 +2305,5 @@
   <block id="2d2984c644cf99907ef9c12557e5c3d8" category="paragraph">主機可以屬於多個群組，在執行時，Ansible 會根據變數優先權規則選擇哪些變數套用於特定主機。（如需這些規則的詳細資訊，請參閱 Ansible 文件<block ref="2689963a2e7b1a28872abc6ea1f21787" category="inline-link-rx"></block>。）</block>
   <block id="bdb603eaf4ab7723ea729f70e1c9a54b" category="admonition">特別是對於較大規模的部署，建議使用 <block ref="448725115a83c589b33de77889e1e2f3" prefix=" " category="inline-code"></block> 參數覆寫預設的 fork 數量（5），以增加 Ansible 並行設定的主機數量。（如需詳細資訊，請參閱 <block ref="41c12765893df9e89a007e9df409a6e4" category="inline-link-rx"></block>。）最大值設定取決於 Ansible 控制節點上可用的處理能力。上述範例 20 是在配備 4 個 CPU（Intel(R) Xeon(R) 金級 6146 CPU @ 3.20GHz）的虛擬 Ansible 控制節點上執行的。</block>
   <block id="03bb7ed204775d08d0779d6d41a8790a" category="paragraph">BeeGFS on NetApp 解決方案透過 Ansible 控制節點進行部署和代管。如需詳細資訊，請參閱<block ref="e078c558327cf2fc56228fd779b44a15" category="inline-link-rx"></block>。</block>
+  <block id="13c1d5c69a7483028f3b4d321806ef06" category="paragraph">請檢閱 <block ref="1048598744d9ad3deb64b0d833d9a48d" category="inline-link-macro-rx"></block> 以取得建議的套件版本清單。下列步驟已在 Ubuntu 22.04 上進行測試。如需您偏好的 Linux 經銷的特定步驟，請參閱 <block ref="4bb99a862a8d3a8963681cc68928f7f5" category="inline-link-rx"></block>。</block>
 </blocks>

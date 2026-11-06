@@ -16,7 +16,7 @@ summary: 若要設定可Ansible控制節點、請識別可透過網路存取所�
 [role="lead"]
 若要設定 Ansible 控制節點，您必須指定可透過網路存取的虛擬或實體機器，以存取 NetApp 解決方案上 BeeGFS 部署的所有檔案和區塊節點。
 
-請檢閱link:beegfs-technology-requirements.html#ansible-control-node-requirements["技術需求"]以取得建議套件版本的清單。下列步驟已在 Ubuntu 22.04 上測試。有關首選 Linux 發行套件的特定步驟，請參閱 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansible文件"^]。
+請檢閱 link:beegfs-technology-requirements.html#ansible-control-node-requirements["技術需求"] 以取得建議的套件版本清單。下列步驟已在 Ubuntu 22.04 上進行測試。如需您偏好的 Linux 經銷的特定步驟，請參閱  https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html["Ansible文件"^]。
 
 . 從 Ansible 控制節點安裝下列 Python 和 Python Virtual Environment 套件。
 +
